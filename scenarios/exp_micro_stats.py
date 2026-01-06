@@ -145,6 +145,7 @@ def run():
         return found_record
 
     # Prepare result storage
+    RAW_DATA = []
     RESULTS = {"DAS": [], "2PC": [], "Single": []}
 
     for i in range(MICRO_BENCHMARK_ITERATIONS):
@@ -180,6 +181,13 @@ def run():
         mint_shard0_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "mint", (user_address, 100), i)
         das_metrics.append(mint_shard0_result)
 
+        # Save raw transaction details
+        das_step_names = ["Burn (Shard0)", "Mint (Execution)", "Work (Execution)", "Burn (Execution)", "Mint (Shard0)"]
+        for idx, m in enumerate(das_metrics):
+            m["step"] = das_step_names[idx]
+            m["journey"] = "DAS"
+            RAW_DATA.append(m)
+
         # Create JourneyStats for DAS
         das_stats = JourneyStats()
         for m in das_metrics:
@@ -211,6 +219,13 @@ def run():
         tpc_metrics.append(commit_shard)
         tpc_metrics.append(commit_exec)
 
+        # Save raw transaction details
+        tpc_step_names = ["Lock (Shard0)", "Lock (Execution)", "Work (Execution)", "Commit (Shard0)", "Commit (Execution)"]
+        for idx, m in enumerate(tpc_metrics):
+            m["step"] = tpc_step_names[idx]
+            m["journey"] = "2PC"
+            RAW_DATA.append(m)
+
         # Create JourneyStats for 2PC
         tpc_stats = JourneyStats()
         for m in tpc_metrics:
@@ -233,6 +248,11 @@ def run():
         latency = single_result.get("latency", 0) or 0
         block = single_result.get("block_number", "?")
         print(f"   [Single Debug] Iter {i}: Latency {latency:.2f}s (Block {block})")
+
+        # Save raw transaction details
+        single_result["step"] = "Work (Baseline)"
+        single_result["journey"] = "Single"
+        RAW_DATA.append(single_result)
 
         single_stats = JourneyStats()
         single_stats.add_step(latency, single_result.get("gas_used", 0) or 0)
@@ -310,6 +330,18 @@ def run():
                     len(s.latencies),
                 ])
     print(f"\nJourney‑aggregated logs saved to {csv_path}")
+
+    # Write raw transaction details CSV
+    raw_csv_path = logs_dir / "micro_benchmark_raw.csv"
+    with open(raw_csv_path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "iteration", "journey", "step", "tx_hash", "shard_id",
+            "start_time", "end_time", "latency", "gas_used", "status",
+            "block_number", "error"
+        ])
+        writer.writeheader()
+        writer.writerows(RAW_DATA)
+    print(f"Raw transaction logs saved to {raw_csv_path}")
 
     # Cleanup
     print("\nStopping Ganache network...")
