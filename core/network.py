@@ -57,6 +57,9 @@ class GanacheManager:
             log_path = os.path.join("logs", f"ganache_{name}_{port}.log")
             log_file = open(log_path, "w", encoding="utf-8")
 
+            # Verification print
+            print(f"Starting {name} on port {port} with BlockTime={BLOCK_TIME}...")
+
             # Build command with equals‑sign syntax
             cmd = [
                 "ganache.cmd",
@@ -72,6 +75,9 @@ class GanacheManager:
             ]
 
             print(f"Starting {name}: {' '.join(cmd)}")
+            if name == "baseline":
+                import sys
+                sys.stderr.write(f"[DEBUG] Baseline command: {' '.join(cmd)}\n")
 
             proc = subprocess.Popen(
                 cmd,

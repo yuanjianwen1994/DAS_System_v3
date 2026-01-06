@@ -12,7 +12,7 @@ DEFAULT_GAS_PRICE: int = 20_000_000_000  # 20 Gwei in wei (20 * 10^9)
 NUM_USERS: int = 50
 DEPLOYER_ACCOUNT_INDEX: int = 99  # Use the last account for admin tasks
 TEST_USER_INDEX: int = 0          # Use the first account for experiments
-MICRO_BENCHMARK_ITERATIONS: int = 100  # Number of repetitions for micro‑benchmark
+MICRO_BENCHMARK_ITERATIONS: int = 3  # Number of repetitions for micro‑benchmark
 
 # Topology
 NUM_SETTLEMENT_SHARDS: int = 2  # changeable

@@ -49,7 +49,7 @@ class NetworkMonitor:
 
     def __init__(self, network_manager: ConnectionManager) -> None:
         self.network = network_manager
-        self._pending: t.Dict[int, t.Set[str]] = defaultdict(set)
+        self._pending: t.Dict[int, t.Dict[str, float]] = defaultdict(dict)
         self._completed: t.List[TransactionRecord] = []
         self._lock = threading.RLock()
         self._thread: t.Optional[threading.Thread] = None
@@ -65,12 +65,18 @@ class NetworkMonitor:
             return f"shard_{shard_id}"
         return str(shard_id)  # For "execution" or "baseline"
 
-    def track(self, tx_hashes: t.List[str], shard_id: int) -> None:
+    def track(self, tx_hashes: t.List[str], shard_id: int, submission_time: float = None) -> None:
         """
         Add a list of transaction hashes to be monitored for a specific shard.
+
+        submission_time: timestamp when the transaction was submitted (defaults to current time).
         """
+        if submission_time is None:
+            submission_time = time.time()
         with self._lock:
-            self._pending[shard_id].update(tx_hashes)
+            pending_dict = self._pending[shard_id]
+            for tx in tx_hashes:
+                pending_dict[tx] = submission_time
 
     def start_polling(self, interval: float = 1.0) -> None:
         """
@@ -108,7 +114,7 @@ class NetworkMonitor:
             with self._lock:
                 # Copy pending items to avoid modification during iteration
                 pending_copy = {
-                    shard_id: set(hashes)
+                    shard_id: dict(hashes)
                     for shard_id, hashes in self._pending.items()
                 }
 
@@ -120,18 +126,21 @@ class NetworkMonitor:
             for shard_id, hashes in pending_copy.items():
                 node_name = self._get_node_name(shard_id)
                 web3 = self.network.get_web3(node_name)
-                for tx_hash in list(hashes):
+                for tx_hash, start_time in list(hashes.items()):
                     status, receipt = self._check_transaction(web3, tx_hash, node_name)
                     if status in (TxStatus.MINED, TxStatus.FAILED):
                         # Transaction finalized
                         with self._lock:
-                            self._pending[shard_id].discard(tx_hash)
-                            if not self._pending[shard_id]:  # If set is empty
+                            # Pop the start time from pending dict
+                            pending_start = self._pending[shard_id].pop(tx_hash, None)
+                            if pending_start is None:
+                                pending_start = start_time  # fallback to copy
+                            if not self._pending[shard_id]:  # If dict is empty
                                 del self._pending[shard_id]  # Remove the key
                             record = TransactionRecord(
                                 tx_hash=tx_hash,
                                 shard_id=shard_id,
-                                start_time=self._start_time or time.time(),
+                                start_time=pending_start,
                                 end_time=time.time(),
                                 status=status,
                                 block_number=receipt.get("blockNumber") if receipt else None,
