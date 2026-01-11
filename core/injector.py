@@ -8,7 +8,7 @@ from eth_account import Account
 from web3 import Web3
 from web3.types import TxParams
 
-from config import GAS_LIMIT, DEFAULT_GAS_PRICE
+from config_global import GAS_LIMIT, DEFAULT_GAS_PRICE
 from .identity import UserManager
 from .network import ConnectionManager
 

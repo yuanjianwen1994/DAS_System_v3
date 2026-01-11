@@ -11,7 +11,7 @@ import os
 
 from web3 import Web3
 
-from config import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS
+from config_micro import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS
 from core.identity import UserManager
 from core.injector import TransactionInjector
 from core.monitor import NetworkMonitor
@@ -31,7 +31,7 @@ def run():
 
     # 2. Prepare managers
     network = ConnectionManager(topology)
-    from config import MNEMONIC
+    from config_micro import MNEMONIC
     identity = UserManager(MNEMONIC)
     injector = TransactionInjector(network, identity)
     monitor = NetworkMonitor(network)

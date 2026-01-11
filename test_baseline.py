@@ -4,7 +4,7 @@ Quick test to measure baseline node latency after fix.
 """
 import time
 from web3 import Web3
-from config import get_topology, BLOCK_TIME, MNEMONIC
+from config_global import get_topology, BLOCK_TIME, MNEMONIC
 from core.network import GanacheManager, ConnectionManager
 from core.identity import UserManager
 

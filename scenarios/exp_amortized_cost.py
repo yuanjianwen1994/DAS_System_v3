@@ -13,16 +13,22 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from web3 import Web3
 
-from config_amortized import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, AMORTIZED_OPS_COUNT
+from config_amortized import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, AMORTIZED_OPS_COUNT, NETWORK_LATENCY_MEAN, NETWORK_LATENCY_STD, NETWORK_LATENCY_MIN, USER_JITTER_MIN, USER_JITTER_MAX
 from core.identity import UserManager
 from core.injector import TransactionInjector
 from core.monitor import NetworkMonitor
 from core.network import GanacheManager, ConnectionManager
 from core.deployer import ContractDeployer
+from datetime import datetime
 
 
 def run():
     print("=== DAS System v3 Amortized-Cost Experiment ===")
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # Raw data collection
+    RAW_DATA = []
 
     # 1. Start Ganache network
     print("\n1. Starting Ganache network...")
@@ -52,7 +58,7 @@ def run():
     print(f"\n3. Using test user (index {TEST_USER_INDEX}): {user_address}")
 
     # Helper to send a single transaction and wait for inclusion
-    def send_and_wait(shard_id: int, contract_addr: str, abi: list, function_name: str, args: tuple = (), iteration: int = 0) -> t.Dict[str, t.Any]:
+    def send_and_wait(shard_id: int, contract_addr: str, abi: list, function_name: str, args: tuple = (), iteration: int = 0, journey: str = None, step_type: str = None) -> t.Dict[str, t.Any]:
         """Send a transaction and wait for it to be mined, return metrics."""
         node_name = f"shard_{shard_id}" if shard_id >= 0 else ("execution" if shard_id == -1 else "baseline")
         web3 = network.get_web3(node_name)
@@ -66,10 +72,15 @@ def run():
             "nonce": nonce,
         })
         signed = user_account.sign_transaction(tx)
+        # Simulate network latency before transmission
+        delay = max(NETWORK_LATENCY_MIN, random.gauss(NETWORK_LATENCY_MEAN, NETWORK_LATENCY_STD))
+        start_time = time.time()  # user click time
+        time.sleep(delay)
+        # Send transaction
         tx_hash = web3.eth.send_raw_transaction(signed.raw_transaction)
         tx_hash_hex = Web3.to_hex(tx_hash)
-        # Track with monitor
-        monitor.track([tx_hash_hex], shard_id if shard_id >= 0 else node_name)
+        # Track with monitor, using submission_time = start_time
+        monitor.track([tx_hash_hex], shard_id if shard_id >= 0 else node_name, submission_time=start_time)
         monitor.start_polling(interval=0.5)
         success = monitor.wait_until_complete(timeout=BLOCK_TIME * 2)
         if not success:
@@ -95,12 +106,24 @@ def run():
             raise TimeoutError(f"Transaction {target_hash} confirmed by monitor but not found in results lookup.")
         # Add iteration information
         found_record["iteration"] = iteration
+        # Record raw data
+        raw_entry = {
+            "journey": journey,
+            "step_type": step_type,
+            "op_index": iteration,
+            "tx_hash": found_record["tx_hash"],
+            "latency": found_record.get("latency"),
+            "gas_used": found_record.get("gas_used"),
+            "status": found_record.get("status"),
+            "block_number": found_record.get("block_number"),
+        }
+        RAW_DATA.append(raw_entry)
         return found_record
 
     # Jitter helper
     def jitter():
         """Random sleep to avoid phase locking."""
-        time.sleep(random.uniform(0.1, 0.5))
+        time.sleep(random.uniform(USER_JITTER_MIN, USER_JITTER_MAX))
 
     N = AMORTIZED_OPS_COUNT
     print(f"\n4. Running amortized-cost experiment with N = {N} consecutive operations.")
@@ -124,20 +147,20 @@ def run():
     exec_workload_addr = registry[exec_node]["Workload"]
     exec_workload_abi = registry[exec_node]["Workload_ABI"]
 
-    burn_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "burn", (user_address, 100), iteration=0)
+    burn_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "burn", (user_address, 100), iteration=0, journey="DAS", step_type="deposit_burn")
     total_gas += burn_result.get("gas_used", 0)
-    mint_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "mint", (user_address, 100), iteration=0)
+    mint_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "mint", (user_address, 100), iteration=0, journey="DAS", step_type="deposit_mint")
     total_gas += mint_result.get("gas_used", 0)
 
     # Step 2: Loop N times doWork on Execution (local)
     for i in range(N):
-        work_result = send_and_wait(-1, exec_workload_addr, exec_workload_abi, "doWork", (100,), iteration=i)
+        work_result = send_and_wait(-1, exec_workload_addr, exec_workload_abi, "doWork", (100,), iteration=i, journey="DAS", step_type="work")
         total_gas += work_result.get("gas_used", 0)
 
     # Step 3: Withdraw (Burn Exec -> Mint S0)
-    burn_exec_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "burn", (user_address, 100), iteration=0)
+    burn_exec_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "burn", (user_address, 100), iteration=0, journey="DAS", step_type="withdraw_burn")
     total_gas += burn_exec_result.get("gas_used", 0)
-    mint_shard0_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "mint", (user_address, 100), iteration=0)
+    mint_shard0_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "mint", (user_address, 100), iteration=0, journey="DAS", step_type="withdraw_mint")
     total_gas += mint_shard0_result.get("gas_used", 0)
 
     end_time = time.time()
@@ -172,17 +195,17 @@ def run():
         import random as rand
         tpc_id = rand.randbytes(32)
         # Lock on both shards (sequential for simplicity)
-        lock_shard = send_and_wait(0, shard0_2pc_addr, shard0_2pc_abi, "lock", (tpc_id,), iteration=i)
+        lock_shard = send_and_wait(0, shard0_2pc_addr, shard0_2pc_abi, "lock", (tpc_id,), iteration=i, journey="2PC", step_type="lock_shard")
         total_gas += lock_shard.get("gas_used", 0)
-        lock_exec = send_and_wait(-1, exec_2pc_addr, exec_2pc_abi, "lock", (tpc_id,), iteration=i)
+        lock_exec = send_and_wait(-1, exec_2pc_addr, exec_2pc_abi, "lock", (tpc_id,), iteration=i, journey="2PC", step_type="lock_exec")
         total_gas += lock_exec.get("gas_used", 0)
         # doWork
-        work_result = send_and_wait(-1, exec_workload_addr, exec_workload_abi, "doWork", (100,), iteration=i)
+        work_result = send_and_wait(-1, exec_workload_addr, exec_workload_abi, "doWork", (100,), iteration=i, journey="2PC", step_type="work")
         total_gas += work_result.get("gas_used", 0)
         # Commit on both shards
-        commit_shard = send_and_wait(0, shard0_2pc_addr, shard0_2pc_abi, "commit", (tpc_id,), iteration=i)
+        commit_shard = send_and_wait(0, shard0_2pc_addr, shard0_2pc_abi, "commit", (tpc_id,), iteration=i, journey="2PC", step_type="commit_shard")
         total_gas += commit_shard.get("gas_used", 0)
-        commit_exec = send_and_wait(-1, exec_2pc_addr, exec_2pc_abi, "commit", (tpc_id,), iteration=i)
+        commit_exec = send_and_wait(-1, exec_2pc_addr, exec_2pc_abi, "commit", (tpc_id,), iteration=i, journey="2PC", step_type="commit_exec")
         total_gas += commit_exec.get("gas_used", 0)
 
     end_time = time.time()
@@ -211,7 +234,7 @@ def run():
     baseline_workload_abi = registry["baseline"]["Workload_ABI"]
 
     for i in range(N):
-        single_result = send_and_wait(-2, baseline_workload_addr, baseline_workload_abi, "doWork", (100,), iteration=i)
+        single_result = send_and_wait(-2, baseline_workload_addr, baseline_workload_abi, "doWork", (100,), iteration=i, journey="Single", step_type="work")
         total_gas += single_result.get("gas_used", 0)
 
     end_time = time.time()
@@ -246,12 +269,20 @@ def run():
     # Save CSV
     logs_dir = Path(__file__).parent.parent / "logs"
     logs_dir.mkdir(exist_ok=True)
-    csv_path = logs_dir / "amortized_benchmark.csv"
+    csv_path = logs_dir / f"amortized_benchmark_{timestamp}.csv"
     with open(csv_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["type", "ops_count", "total_latency", "avg_latency_per_op", "total_gas", "avg_gas_per_op"])
         writer.writeheader()
         writer.writerows(results)
     print(f"Results saved to {csv_path}")
+
+    # Save raw CSV
+    raw_csv_path = logs_dir / f"amortized_benchmark_raw_{timestamp}.csv"
+    with open(raw_csv_path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["journey", "step_type", "op_index", "tx_hash", "latency", "gas_used", "status", "block_number"])
+        writer.writeheader()
+        writer.writerows(RAW_DATA)
+    print(f"Raw data saved to {raw_csv_path}")
 
     # Cleanup
     print("\nStopping Ganache network...")

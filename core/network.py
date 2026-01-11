@@ -10,7 +10,7 @@ import typing as t
 from web3 import Web3
 from web3.providers import HTTPProvider
 
-from config import MNEMONIC, BLOCK_TIME, GAS_LIMIT, get_topology
+from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, get_topology
 
 
 class GanacheManager:

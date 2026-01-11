@@ -13,7 +13,7 @@ from web3.contract import Contract
 
 from .identity import UserManager
 from .network import ConnectionManager
-from config import DEPLOYER_ACCOUNT_INDEX, TEST_USER_INDEX, GAS_LIMIT
+from config_global import DEPLOYER_ACCOUNT_INDEX, TEST_USER_INDEX, GAS_LIMIT
 
 
 class ContractDeployer:

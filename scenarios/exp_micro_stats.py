@@ -20,7 +20,8 @@ import random
 
 from web3 import Web3
 
-from config import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS
+from config_micro import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS
+from datetime import datetime
 from core.identity import UserManager
 from core.injector import TransactionInjector
 from core.monitor import NetworkMonitor
@@ -56,6 +57,8 @@ class JourneyStats:
 def run():
     print("=== DAS System v3 Micro-Benchmark (Statistical Fix) ===")
 
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     # 1. Start Ganache network
     print("\n1. Starting Ganache network...")
     topology = get_topology()
@@ -65,7 +68,7 @@ def run():
 
     # 2. Prepare managers
     network = ConnectionManager(topology)
-    from config import MNEMONIC
+    from config_micro import MNEMONIC
     identity = UserManager(MNEMONIC)
     injector = TransactionInjector(network, identity)
     monitor = NetworkMonitor(network)
@@ -315,7 +318,7 @@ def run():
     # Write detailed CSV with per‑journey totals
     logs_dir = Path(__file__).parent.parent / "logs"
     logs_dir.mkdir(exist_ok=True)
-    csv_path = logs_dir / "micro_benchmark_stats.csv"
+    csv_path = logs_dir / f"micro_benchmark_stats_{timestamp}.csv"
     with open(csv_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["iteration", "journey", "total_latency", "total_gas", "step_count"])
@@ -332,7 +335,7 @@ def run():
     print(f"\nJourney‑aggregated logs saved to {csv_path}")
 
     # Write raw transaction details CSV
-    raw_csv_path = logs_dir / "micro_benchmark_raw.csv"
+    raw_csv_path = logs_dir / f"micro_benchmark_raw_{timestamp}.csv"
     with open(raw_csv_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=[
             "iteration", "journey", "step", "tx_hash", "shard_id",
