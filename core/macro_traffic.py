@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from web3 import Web3
 from web3.types import TxParams
 
-from config_macro import MACRO_OPS_PER_JOURNEY, MACRO_TX_INTERVAL
+from config_macro import MACRO_OPS_PER_JOURNEY, MACRO_TX_INTERVAL, MACRO_TX_TIMEOUT
 from .macro_injector import MacroTransactionInjector
 from .identity import UserManager
 from .network import ConnectionManager
@@ -33,6 +33,7 @@ class MacroTrafficGenerator:
         self.identity = identity_manager
         self.injector = injector
         self.registry = registry
+        self.completed_journeys = []  # track completed full lifecycles
 
         # Helper: contract function builders
         self._builders = {
@@ -128,62 +129,74 @@ class MacroTrafficGenerator:
         )
 
     # ---------- Worker loops ----------
+    def _send_and_wait(self, func_type, user_idx, **kwargs):
+        """
+        Send a transaction and wait for its receipt.
+        """
+        # Map func_type to builder
+        builder_map = {
+            "das_burn": self._build_das_burn,
+            "das_mint": self._build_das_mint,
+            "das_work": self._build_das_work,
+            "tpc_lock": self._build_tpc_lock,
+            "tpc_commit": self._build_tpc_commit,
+        }
+        contract_func = builder_map[func_type]
+        
+        # Determine shard_id from kwargs or default
+        shard_id = kwargs.get("shard_id", 0 if func_type in ("das_burn", "das_mint") else -1)
+        
+        # Send batch (single user)
+        tx_hashes = self.injector.send_batch(
+            shard_id=shard_id,
+            users=[user_idx],
+            contract_func=contract_func,
+            **kwargs
+        )
+        if not tx_hashes or not tx_hashes[0]:
+            raise Exception("Send failed")
+        
+        # Wait for receipt
+        node_name = "execution" if shard_id == -1 else f"shard_{shard_id}" if shard_id >= 0 else "baseline"
+        web3 = self.network.get_web3(node_name)
+        tx_hash = tx_hashes[0]
+        receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
+        if receipt.status != 1:
+            raise Exception("Tx reverted")
+        return receipt
+
     def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
         """
-        DAS Lifecycle: Burn(S0) -> Wait Receipt -> Mint(Exec) -> Wait Receipt
-                      -> Loop N * doWork(Exec) -> Burn(Exec) -> Wait -> Mint(S0).
-
-        For simplicity, we do NOT wait for receipts; we rely on fire‑and‑forget
-        and measure block‑level throughput via the macro monitor.
+        DAS Full Lifecycle: Deposit (Burn S0 -> Mint Exec) -> Work -> Withdraw (Burn Exec -> Mint S0).
+        Each step waits for transaction receipt, ensuring true cross‑shard sequencing.
         """
         user_idx = worker_id  # each worker gets a dedicated user
         amount = 100
 
-        # 1. Burn on Shard 0
-        self.injector.send_batch(
-            shard_id=0,
-            users=[user_idx],
-            contract_func=self._build_das_burn,
-            amount=amount,
-        )
-        time.sleep(MACRO_TX_INTERVAL)
+        try:
+            # 1. Deposit: Burn on Shard 0
+            self._send_and_wait("das_burn", user_idx, shard_id=0, amount=amount)
+            # Mint on Execution
+            self._send_and_wait("das_mint", user_idx, shard_id=-1, amount=amount)
 
-        # 2. Mint on Execution
-        self.injector.send_batch(
-            shard_id=-1,
-            users=[user_idx],
-            contract_func=self._build_das_mint,
-            amount=amount,
-        )
-        time.sleep(MACRO_TX_INTERVAL)
+            # 2. Work: Loop N operations on Execution
+            for _ in range(ops_per_journey):
+                self._send_and_wait("das_work", user_idx, shard_id=-1, amount=amount)
 
-        # 3. N work operations on Execution
-        for _ in range(ops_per_journey):
-            self.injector.send_batch(
-                shard_id=-1,
-                users=[user_idx],
-                contract_func=self._build_das_work,
-                amount=amount,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
+            # 3. Withdraw: Burn on Execution
+            self._send_and_wait("das_burn", user_idx, shard_id=-1, amount=amount)
+            # Mint on Shard 0
+            self._send_and_wait("das_mint", user_idx, shard_id=0, amount=amount)
 
-        # 4. Burn on Execution
-        self.injector.send_batch(
-            shard_id=-1,
-            users=[user_idx],
-            contract_func=self._build_das_burn,
-            amount=amount,
-        )
-        time.sleep(MACRO_TX_INTERVAL)
-
-        # 5. Mint on Shard 0
-        self.injector.send_batch(
-            shard_id=0,
-            users=[user_idx],
-            contract_func=self._build_das_mint,
-            amount=amount,
-        )
-        # No further sleep – worker finishes
+            # Record successful journey
+            self.completed_journeys.append({
+                "worker_id": worker_id,
+                "timestamp": time.time(),
+                "ops": ops_per_journey,
+            })
+        except Exception as e:
+            print(f"[MacroTraffic] Worker {worker_id} failed: {e}")
+            raise
 
     def _worker_loop_2pc(self, worker_id: int, ops_per_journey: int) -> None:
         """

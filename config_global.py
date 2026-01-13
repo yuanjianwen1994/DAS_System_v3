@@ -13,6 +13,11 @@ NUM_USERS: int = 50
 DEPLOYER_ACCOUNT_INDEX: int = 99  # Use the last account for admin tasks
 TEST_USER_INDEX: int = 0          # Use the first account for experiments
 
+# Account balance configuration (in wei)
+ACCOUNT: dict = {
+    "balance_wei": 10000 * 10**18  # 10,000 ETH in wei
+}
+
 # Topology
 NUM_SETTLEMENT_SHARDS: int = 2  # changeable
 

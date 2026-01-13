@@ -8,7 +8,7 @@ from eth_account import Account
 from web3 import Web3
 from web3.types import TxParams
 
-from config_macro import GAS_LIMIT, DEFAULT_GAS_PRICE
+from config_macro import GAS_LIMIT, MACRO_TX_GAS_LIMIT, MACRO_GAS_PRICE
 from .identity import UserManager
 from .network import ConnectionManager
 
@@ -94,8 +94,8 @@ class MacroTransactionInjector:
             tx_params.pop("maxPriorityFeePerGas", None)
 
             # Fill mandatory fields
-            tx_params.setdefault("gas", GAS_LIMIT)
-            tx_params.setdefault("gasPrice", DEFAULT_GAS_PRICE)
+            tx_params.setdefault("gas", MACRO_TX_GAS_LIMIT)
+            tx_params.setdefault("gasPrice", MACRO_GAS_PRICE)
             tx_params.setdefault("nonce", nonce)
             tx_params.setdefault("chainId", 1)  # Ganache ignores, but safe
 

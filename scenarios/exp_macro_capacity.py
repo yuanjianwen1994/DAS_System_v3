@@ -34,6 +34,25 @@ from core.macro_traffic import MacroTrafficGenerator
 from core.macro_monitor import MacroMonitor
 
 
+def wait_for_port_release(port: int, timeout: int = 30) -> None:
+    """
+    Wait until a TCP port becomes available (i.e., the previous process has released it).
+    Raises TimeoutError if the port is still occupied after `timeout` seconds.
+    """
+    import socket
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(("127.0.0.1", port))
+                # Successfully bound -> port is free
+                print(f"[Port {port}] Released.")
+                return
+            except OSError:
+                pass
+        time.sleep(1)
+    raise TimeoutError(f"Port {port} still occupied after {timeout}s")
+
 def wait_for_nodes(network: ConnectionManager, topology: dict) -> None:
     """
     Wait until all nodes in the topology are reachable via web3.isConnected().
@@ -57,49 +76,6 @@ def wait_for_nodes(network: ConnectionManager, topology: dict) -> None:
     print("[Wait] All nodes ready.")
 
 
-def deposit_funds_for_all_users(
-    network: ConnectionManager,
-    identity: UserManager,
-    injector: MacroTransactionInjector,
-    registry: dict,
-) -> None:
-    """
-    Serial deposit loop for all test users (0 to NUM_USERS‑1).
-    Each user performs a DAS deposit (Burn on Shard 0 → Mint on Execution).
-    """
-    print(f"[Deposit] Funding {NUM_USERS} users...")
-    # We'll do batched deposits to speed up, but for simplicity do one by one
-    for user_idx in range(NUM_USERS):
-        # Build burn on shard 0
-        def build_burn(web3, from_addr, nonce, **kwargs):
-            shard_name = "shard_0"
-            contract_addr = registry[shard_name]["DAS"]
-            contract_abi = registry[shard_name]["DAS_ABI"]
-            contract = web3.eth.contract(address=contract_addr, abi=contract_abi)
-            return contract.functions.burn(from_addr, 100).build_transaction({
-                "from": from_addr,
-                "nonce": nonce,
-            })
-
-        def build_mint(web3, from_addr, nonce, **kwargs):
-            contract_addr = registry["execution"]["DAS"]
-            contract_abi = registry["execution"]["DAS_ABI"]
-            contract = web3.eth.contract(address=contract_addr, abi=contract_abi)
-            return contract.functions.mint(from_addr, 100).build_transaction({
-                "from": from_addr,
-                "nonce": nonce,
-            })
-
-        # Send burn
-        injector.send_batch(shard_id=0, users=[user_idx], contract_func=build_burn)
-        time.sleep(0.01)
-        # Send mint
-        injector.send_batch(shard_id=-1, users=[user_idx], contract_func=build_mint)
-        time.sleep(0.01)
-
-        if (user_idx + 1) % 20 == 0:
-            print(f"  Deposited for {user_idx + 1} users")
-    print("[Deposit] All users funded.")
 
 
 def kill_ganache() -> None:
@@ -114,7 +90,7 @@ def kill_ganache() -> None:
     time.sleep(2)
 
 
-def main():
+def run():
     print("=== DAS System v3 Macro‑Benchmark (Phase 4) ===")
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -146,9 +122,6 @@ def main():
     print("   Waiting for contracts to be fully mined (15 seconds)...")
     time.sleep(15)
 
-    # 5. Pre‑flight deposit for all users
-    print("\n3. Pre‑flight deposit for all test users...")
-    deposit_funds_for_all_users(network, identity, injector, registry)
 
     # 6. Create traffic generator and monitor
     traffic = MacroTrafficGenerator(network, identity, injector, registry)
@@ -197,7 +170,10 @@ def main():
         print("   Killing Ganache for clean state...")
         ganache.stop_network()
         kill_ganache()
-        time.sleep(3)
+        # Wait for ports to be released before restart
+        for port in [8580, 8581, 9000, 9999]:
+            wait_for_port_release(port, timeout=30)
+        time.sleep(10)  # increased from 3s to 10s
         # Restart Ganache
         print("   Restarting Ganache...")
         ganache.start_network(topology)
@@ -228,6 +204,3 @@ def main():
     kill_ganache()
     print("Experiment completed.")
 
-
-if __name__ == "__main__":
-    main()

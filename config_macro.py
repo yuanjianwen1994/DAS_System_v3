@@ -7,7 +7,9 @@ from config_global import *
 # === Macro Constraints ===
 GAS_LIMIT = 6_000_000       # Strict bottleneck
 BLOCK_TIME = 12
-MACRO_TX_TIMEOUT = 180      # High tolerance for congestion
+MACRO_TX_TIMEOUT = 120      # Full lifecycle takes time
+MACRO_TX_GAS_LIMIT = 500_000  # Per Transaction Limit - fixes insufficient funds
+MACRO_GAS_PRICE = 1_000_000_000  # 1 Gwei - cheap
 
 # === Load Parameters ===
 MACRO_DURATION = 120
