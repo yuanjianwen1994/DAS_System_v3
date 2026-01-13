@@ -143,27 +143,39 @@ class MacroTrafficGenerator:
         }
         contract_func = builder_map[func_type]
         
-        # Determine shard_id from kwargs or default
-        shard_id = kwargs.get("shard_id", 0 if func_type in ("das_burn", "das_mint") else -1)
+        # 1. Extract and REMOVE shard_id from kwargs to avoid argument collision
+        if "shard_id" not in kwargs:
+            raise ValueError(f"Missing 'shard_id' for {func_type}")
         
-        # Send batch (single user)
+        shard_id = kwargs.pop("shard_id")  # FIX: .pop() instead of .get()
+
+        # 2. Call injector (shard_id is passed positionally, kwargs contains the rest)
         tx_hashes = self.injector.send_batch(
-            shard_id=shard_id,
+            shard_id,
             users=[user_idx],
             contract_func=contract_func,
             **kwargs
         )
         if not tx_hashes or not tx_hashes[0]:
-            raise Exception("Send failed")
+            raise Exception("Send failed (no tx hash returned)")
         
-        # Wait for receipt
-        node_name = "execution" if shard_id == -1 else f"shard_{shard_id}" if shard_id >= 0 else "baseline"
-        web3 = self.network.get_web3(node_name)
+        # 3. Wait for receipt
         tx_hash = tx_hashes[0]
-        receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
-        if receipt.status != 1:
-            raise Exception("Tx reverted")
-        return receipt
+        
+        # Resolve node name for waiting
+        if shard_id == -1:
+            node_name = "execution"
+        else:
+            node_name = f"shard_{shard_id}"
+            
+        web3 = self.network.get_web3(node_name)
+        try:
+            receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
+            if receipt.status != 1:
+                raise Exception(f"Tx {tx_hash} reverted")
+            return receipt
+        except Exception as e:
+            raise Exception(f"Wait failed for {tx_hash}: {e}")
 
     def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
         """
