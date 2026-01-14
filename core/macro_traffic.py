@@ -1,6 +1,6 @@
 """
-Macro‑benchmark traffic generator for Phase 4.
-Generates concurrent "Full Lifecycle" journeys (Deposit → N*Work → Withdraw) without touching existing traffic logic.
+Macro-benchmark traffic generator for Phase 4.
+Generates concurrent "Full Lifecycle" journeys (Deposit -> N*Work -> Withdraw) without touching existing traffic logic.
 """
 import typing as t
 import threading
@@ -18,7 +18,7 @@ from .network import ConnectionManager
 
 class MacroTrafficGenerator:
     """
-    Generates high‑load traffic for DAS and 2PC full lifecycles.
+    Generates high-load traffic for DAS and 2PC full lifecycles.
     Each worker runs a dedicated user through a complete journey.
     """
 
@@ -51,7 +51,10 @@ class MacroTrafficGenerator:
         """Build a DAS burn transaction."""
         shard_id = kwargs["shard_id"]
         amount = kwargs.get("amount", 100)
-        shard_name = f"shard_{shard_id}"
+        
+        # FIX: Handle Execution Shard (-1) for Withdrawals
+        shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
+        
         contract_addr = self.registry[shard_name]["DAS"]
         contract_abi = self.registry[shard_name]["DAS_ABI"]
         contract = web3.eth.contract(address=contract_addr, abi=contract_abi)
@@ -147,7 +150,7 @@ class MacroTrafficGenerator:
         if "shard_id" not in kwargs:
             raise ValueError(f"Missing 'shard_id' for {func_type}")
         
-        shard_id = kwargs.pop("shard_id")  # FIX: .pop() instead of .get()
+        shard_id = kwargs.pop("shard_id")
 
         # 2. Call injector (shard_id is passed positionally, kwargs contains the rest)
         tx_hashes = self.injector.send_batch(
@@ -180,7 +183,7 @@ class MacroTrafficGenerator:
     def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
         """
         DAS Full Lifecycle: Deposit (Burn S0 -> Mint Exec) -> Work -> Withdraw (Burn Exec -> Mint S0).
-        Each step waits for transaction receipt, ensuring true cross‑shard sequencing.
+        Each step waits for transaction receipt, ensuring true cross-shard sequencing.
         """
         user_idx = worker_id  # each worker gets a dedicated user
         amount = 100
@@ -196,6 +199,7 @@ class MacroTrafficGenerator:
                 self._send_and_wait("das_work", user_idx, shard_id=-1, amount=amount)
 
             # 3. Withdraw: Burn on Execution
+            # This call previously failed because shard_id=-1 wasn't handled in _build_das_burn
             self._send_and_wait("das_burn", user_idx, shard_id=-1, amount=amount)
             # Mint on Shard 0
             self._send_and_wait("das_mint", user_idx, shard_id=0, amount=amount)
@@ -276,11 +280,6 @@ class MacroTrafficGenerator:
     ) -> None:
         """
         Start `concurrency` worker threads, each running a full lifecycle.
-
-        Args:
-            concurrency: Number of concurrent users/workers.
-            journey_type: "DAS" or "2PC".
-            ops_per_journey: Override default MACRO_OPS_PER_JOURNEY.
         """
         if ops_per_journey is None:
             ops_per_journey = MACRO_OPS_PER_JOURNEY
@@ -317,12 +316,6 @@ class MacroTrafficGenerator:
     ) -> None:
         """
         Start `concurrency` worker threads that repeatedly run lifecycles for the given duration.
-
-        Args:
-            concurrency: Number of concurrent users/workers.
-            duration_seconds: How long to keep generating traffic.
-            journey_type: "DAS" or "2PC".
-            ops_per_journey: Override default MACRO_OPS_PER_JOURNEY.
         """
         if ops_per_journey is None:
             ops_per_journey = MACRO_OPS_PER_JOURNEY
@@ -341,9 +334,14 @@ class MacroTrafficGenerator:
         def timed_worker(worker_id: int):
             while not stop_flag.is_set() and time.time() < stop_time:
                 # Run one lifecycle
-                worker_func(worker_id, ops_per_journey)
-                # Optionally add a small gap between lifecycles
-                time.sleep(MACRO_TX_INTERVAL * 2)
+                try:
+                    worker_func(worker_id, ops_per_journey)
+                    # Optionally add a small gap between lifecycles
+                    time.sleep(MACRO_TX_INTERVAL * 2)
+                except Exception:
+                     # Logging handled in worker_func, just break loop on fatal error if needed
+                     # or continue to retry
+                     break
 
         # Use a thread pool to launch all workers
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
@@ -359,8 +357,8 @@ class MacroTrafficGenerator:
             # Wait for workers to finish current iteration
             for future in futures:
                 try:
-                    future.result(timeout=5.0)
+                    future.result(timeout=10.0)
                 except Exception as e:
                     print(f"[MacroTraffic] Worker timed out or failed: {e}")
 
-        print(f"[MacroTraffic] Duration‑based traffic finished ({concurrency} {journey_type} workers).")
+        print(f"[MacroTraffic] Duration-based traffic finished ({concurrency} {journey_type} workers).")
