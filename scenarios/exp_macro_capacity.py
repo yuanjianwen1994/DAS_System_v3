@@ -34,60 +34,34 @@ from core.macro_traffic import MacroTrafficGenerator
 from core.macro_monitor import MacroMonitor
 
 
-def wait_for_port_release(port: int, timeout: int = 30) -> None:
-    """
-    Wait until a TCP port becomes available (i.e., the previous process has released it).
-    Raises TimeoutError if the port is still occupied after `timeout` seconds.
-    """
-    import socket
-    start_time = time.time()
-    while time.time() - start_time < timeout:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            try:
-                s.bind(("127.0.0.1", port))
-                # Successfully bound -> port is free
-                print(f"[Port {port}] Released.")
-                return
-            except OSError:
-                pass
-        time.sleep(1)
-    raise TimeoutError(f"Port {port} still occupied after {timeout}s")
+def kill_ganache():
+    """Aggressively kill all ganache/node processes."""
+    try:
+        if os.name == 'nt':
+            subprocess.call(["taskkill", "/F", "/IM", "node.exe", "/T"], stderr=subprocess.DEVNULL)
+        else:
+            subprocess.call(["pkill", "-f", "ganache"], stderr=subprocess.DEVNULL)
+    except Exception:
+        pass
 
-def wait_for_nodes(network: ConnectionManager, topology: dict) -> None:
-    """
-    Wait until all nodes in the topology are reachable via web3.isConnected().
-    """
-    nodes = list(topology.get("shards", {}).keys()) + ["execution", "baseline"]
-    print("[Wait] Checking node connectivity...")
+
+def wait_for_nodes(network: ConnectionManager, timeout=60):
+    """Block until all RPC nodes are responding."""
+    print("   [System] Waiting for RPC nodes to warm up...")
+    nodes = ["shard_0", "shard_1", "execution", "baseline"]
+    start = time.time()
     for node in nodes:
-        web3 = network.get_web3(node)
-        connected = False
-        for attempt in range(30):  # 30 attempts, 1 second each
+        while True:
+            if time.time() - start > timeout:
+                raise TimeoutError(f"Node {node} did not start within {timeout}s")
             try:
-                if web3.is_connected():
-                    connected = True
+                w3 = network.get_web3(node)
+                if w3.is_connected() and w3.eth.block_number >= 0:
                     break
             except Exception:
-                pass
+                time.sleep(1)
             time.sleep(1)
-        if not connected:
-            raise RuntimeError(f"Node {node} failed to become reachable after 30 seconds")
-        print(f"  ✓ {node}")
-    print("[Wait] All nodes ready.")
-
-
-
-
-def kill_ganache() -> None:
-    """
-    Force kill any lingering Ganache processes to avoid port conflicts.
-    """
-    # Windows
-    if sys.platform == "win32":
-        subprocess.run(["taskkill", "/F", "/IM", "ganache*.exe"], shell=True, capture_output=True)
-    else:
-        subprocess.run(["pkill", "-f", "ganache"], capture_output=True)
-    time.sleep(2)
+    print("   [System] All nodes online.")
 
 
 def run():
@@ -98,11 +72,31 @@ def run():
     print("[Preflight] Killing previous Ganache processes...")
     kill_ganache()
 
-    # 1. Start Ganache network
+    # 1. Start Ganache network with robust retry loop
     print("\n1. Starting Ganache network...")
     topology = get_topology()
     ganache = GanacheManager()
-    ganache.start_network(topology)
+    
+    # Robust startup loop
+    max_retries = 5
+    started = False
+    for attempt in range(max_retries):
+        try:
+            print(f"   [System] Attempting to start network (Attempt {attempt+1}/{max_retries})...")
+            ganache.start_network(topology)
+            started = True
+            break
+        except RuntimeError as e:
+            if "already in use" in str(e):
+                print(f"   [System] Ports in use. Killing and waiting 10s...")
+                kill_ganache()
+                time.sleep(10)
+            else:
+                raise e
+    
+    if not started:
+        raise RuntimeError("Failed to start Ganache after multiple retries due to port issues.")
+
     time.sleep(2)  # let processes stabilize
 
     # 2. Prepare managers
@@ -113,7 +107,7 @@ def run():
     injector = MacroTransactionInjector(network, identity)
 
     # 3. Wait for nodes to be fully reachable
-    wait_for_nodes(network, topology)
+    wait_for_nodes(network)
 
     # 4. Deploy contracts
     print("\n2. Deploying contracts...")
@@ -121,7 +115,6 @@ def run():
     print(f"   Registry keys: {list(registry.keys())}")
     print("   Waiting for contracts to be fully mined (15 seconds)...")
     time.sleep(15)
-
 
     # 6. Create traffic generator and monitor
     traffic = MacroTrafficGenerator(network, identity, injector, registry)
@@ -170,15 +163,27 @@ def run():
         print("   Killing Ganache for clean state...")
         ganache.stop_network()
         kill_ganache()
-        # Wait for ports to be released before restart
-        for port in [8580, 8581, 9000, 9999]:
-            wait_for_port_release(port, timeout=30)
+        # No longer wait for ports to be released; rely on retry loop
         time.sleep(10)  # increased from 3s to 10s
-        # Restart Ganache
+        # Restart Ganache with robust retry loop
         print("   Restarting Ganache...")
-        ganache.start_network(topology)
+        started = False
+        for attempt in range(max_retries):
+            try:
+                ganache.start_network(topology)
+                started = True
+                break
+            except RuntimeError as e:
+                if "already in use" in str(e):
+                    print(f"   [System] Ports in use. Killing and waiting 10s...")
+                    kill_ganache()
+                    time.sleep(10)
+                else:
+                    raise e
+        if not started:
+            raise RuntimeError("Failed to restart Ganache after multiple retries.")
         time.sleep(2)
-        wait_for_nodes(network, topology)
+        wait_for_nodes(network)
         # Redeploy contracts (optional, but we need fresh registry)
         registry = deployer.deploy_infrastructure(topology)
         time.sleep(15)
@@ -203,4 +208,3 @@ def run():
     ganache.stop_network()
     kill_ganache()
     print("Experiment completed.")
-
