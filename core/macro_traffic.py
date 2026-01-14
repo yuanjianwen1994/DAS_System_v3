@@ -339,9 +339,11 @@ class MacroTrafficGenerator:
                     # Optionally add a small gap between lifecycles
                     time.sleep(MACRO_TX_INTERVAL * 2)
                 except Exception:
-                     # Logging handled in worker_func, just break loop on fatal error if needed
-                     # or continue to retry
+                     # Logging handled in worker_func
+                     # Break loop on fatal error to release thread
                      break
+
+        print(f"[MacroTraffic] Running {concurrency} {journey_type} workers for {duration_seconds}s...")
 
         # Use a thread pool to launch all workers
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
@@ -350,15 +352,22 @@ class MacroTrafficGenerator:
                 future = executor.submit(timed_worker, worker_id)
                 futures.append(future)
 
-            # Wait for duration
+            # Wait for experiment duration
             time.sleep(duration_seconds)
+            print("[MacroTraffic] Time up. Signaling workers to stop...")
             stop_flag.set()
 
             # Wait for workers to finish current iteration
-            for future in futures:
+            # FIX: Increase timeout to allow pending transactions to confirm or timeout naturally
+            shutdown_timeout = MACRO_TX_TIMEOUT + 15
+            print(f"[MacroTraffic] Waiting up to {shutdown_timeout}s for graceful shutdown...")
+            
+            for i, future in enumerate(futures):
                 try:
-                    future.result(timeout=10.0)
+                    future.result(timeout=shutdown_timeout)
+                except TimeoutError:
+                    print(f"[MacroTraffic] Worker {i} shutdown timed out (stuck in tx?)")
                 except Exception as e:
-                    print(f"[MacroTraffic] Worker timed out or failed: {e}")
+                    print(f"[MacroTraffic] Worker {i} failed during run: {type(e).__name__}: {e}")
 
-        print(f"[MacroTraffic] Duration-based traffic finished ({concurrency} {journey_type} workers).")
+        print(f"[MacroTraffic] Duration-based traffic finished.")
