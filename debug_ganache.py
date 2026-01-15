@@ -17,7 +17,8 @@ cmd = [
     "--server.port", str(PORT),
     "--miner.blockTime", "12",
     "--wallet.mnemonic", MNEMONIC,
-    "--wallet.totalAccounts", "50",
+    "--wallet.totalAccounts", "200",
+    "--wallet.defaultBalance", "10000",
     "--miner.blockGasLimit", "30000000"
 ]
 

@@ -22,7 +22,7 @@ MACRO_TX_INTERVAL = 0.05    # Fast firing
 
 # Override NUM_USERS for macro‑scale (need at least max concurrency + margin)
 # We'll use 151 users (0‑150) to match the pre‑flight deposit loop.
-NUM_USERS = 151
+NUM_USERS = 200  # Must be greater than the maximum MACRO_CONCURRENCY_LEVELS (150)
 
 # Override topology? Keep same as global (2 shards + execution + baseline)
 # Use get_topology() from config_global

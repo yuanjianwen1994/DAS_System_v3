@@ -10,7 +10,7 @@ import typing as t
 from web3 import Web3
 from web3.providers import HTTPProvider
 
-from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, get_topology
+from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, NUM_USERS, ACCOUNT_BALANCE_ETH, get_topology
 
 
 class GanacheManager:
@@ -67,7 +67,8 @@ class GanacheManager:
                 f"--server.host=127.0.0.1",  # <--- FORCE IPv4 BINDING
                 f"--miner.blockTime={BLOCK_TIME}",
                 f"--wallet.mnemonic={MNEMONIC}",
-                "--wallet.totalAccounts=100",
+                f"--wallet.totalAccounts={NUM_USERS}",
+                f"--wallet.defaultBalance={ACCOUNT_BALANCE_ETH}",
                 f"--miner.blockGasLimit={GAS_LIMIT}",
                 "--chain.allowUnlimitedContractSize",
                 "--chain.hardfork=shanghai",
