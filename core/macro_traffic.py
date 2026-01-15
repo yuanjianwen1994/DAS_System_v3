@@ -34,6 +34,7 @@ class MacroTrafficGenerator:
         self.injector = injector
         self.registry = registry
         self.completed_journeys = []  # track completed full lifecycles
+        self.raw_logs = []            # raw transaction logs
 
         # Helper: contract function builders
         self._builders = {
@@ -173,9 +174,22 @@ class MacroTrafficGenerator:
             
         web3 = self.network.get_web3(node_name)
         try:
+            start_time = time.time()
             receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
+            end_time = time.time()
+            latency = end_time - start_time
             if receipt.status != 1:
                 raise Exception(f"Tx {tx_hash} reverted")
+            # Record raw log
+            self.raw_logs.append({
+                "timestamp": time.time(),
+                "worker_id": user_idx,
+                "tx_type": func_type,
+                "latency_s": latency,
+                "gas_used": receipt['gasUsed'],
+                "block_number": receipt['blockNumber'],
+                "status": receipt['status']
+            })
             return receipt
         except Exception as e:
             raise Exception(f"Wait failed for {tx_hash}: {e}")
@@ -371,3 +385,46 @@ class MacroTrafficGenerator:
                     print(f"[MacroTraffic] Worker {i} failed during run: {type(e).__name__}: {e}")
 
         print(f"[MacroTraffic] Duration-based traffic finished.")
+
+    def run_task_based(
+        self,
+        concurrency: int,
+        journeys_per_user: int,
+        journey_type: str = "DAS",
+        ops_per_journey: int = None,
+    ) -> None:
+        """
+        Start `concurrency` worker threads, each completing exactly `journeys_per_user` full lifecycles.
+        """
+        if ops_per_journey is None:
+            ops_per_journey = MACRO_OPS_PER_JOURNEY
+
+        if journey_type not in ("DAS", "2PC"):
+            raise ValueError(f"Unknown journey_type: {journey_type}")
+
+        worker_func = (
+            self._worker_loop_das if journey_type == "DAS" else self._worker_loop_2pc
+        )
+
+        # Use a thread pool to launch all workers
+        with ThreadPoolExecutor(max_workers=concurrency) as executor:
+            futures = []
+            for worker_id in range(concurrency):
+                future = executor.submit(self._repeating_worker, worker_id, journeys_per_user, worker_func, ops_per_journey)
+                futures.append(future)
+
+            # Wait for all workers to finish
+            for future in as_completed(futures):
+                try:
+                    future.result()
+                except Exception as e:
+                    print(f"[MacroTraffic] Worker failed: {e}")
+
+        print(f"[MacroTraffic] All {concurrency} {journey_type} workers completed {journeys_per_user} journeys each.")
+
+    def _repeating_worker(self, worker_id: int, journeys_per_user: int, worker_func, ops_per_journey: int):
+        """
+        Repeatedly call worker_func for the specified number of journeys.
+        """
+        for _ in range(journeys_per_user):
+            worker_func(worker_id, ops_per_journey)

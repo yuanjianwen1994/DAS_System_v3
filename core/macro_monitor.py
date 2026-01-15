@@ -25,6 +25,7 @@ class MacroMonitor:
         self._end_blocks: t.Dict[str, int] = {}
         self._started = False
         self._stopped = False
+        self.block_logs = []            # per‑block statistics
 
     def start(self) -> None:
         """Record current block numbers on Shard 0, 1, and Execution."""
@@ -96,6 +97,14 @@ class MacroMonitor:
                     total_txs += len(block.transactions)
                     total_gas += block.gasUsed
                     total_blocks += 1
+                    # Record per‑block stats
+                    self.block_logs.append({
+                        "block_number": block.number,
+                        "timestamp": block.timestamp,
+                        "tx_count": len(block.transactions),
+                        "gas_used": block.gasUsed,
+                        "gas_limit": block.gasLimit
+                    })
                 except Exception as e:
                     print(f"[MacroMonitor] Error fetching block {block_num} on {node}: {e}")
                     continue
