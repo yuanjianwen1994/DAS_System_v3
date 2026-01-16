@@ -9,7 +9,7 @@ MNEMONIC: str = "myth like bonus scare over problem client lizard pioneer submit
 BLOCK_TIME: int = 12  # seconds
 GAS_LIMIT: int = 30_000_000
 DEFAULT_GAS_PRICE: int = 20_000_000_000  # 20 Gwei in wei (20 * 10^9)
-NUM_USERS: int = 200  # Must be greater than the maximum MACRO_CONCURRENCY_LEVELS (150)
+NUM_USERS: int = 1000  # Must be greater than the maximum MACRO_CONCURRENCY_LEVELS (150)
 DEPLOYER_ACCOUNT_INDEX: int = 99  # Use the last account for admin tasks
 TEST_USER_INDEX: int = 0          # Use the first account for experiments
 

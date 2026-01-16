@@ -6,10 +6,10 @@ from config_global import *
 
 # === Matrix Experiment Parameters ===
 # N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [50, 100, 150]
+MATRIX_CONCURRENCY_LEVELS = [200, 400, 600, 800, 1000]
 
 # q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [1, 5, 10]
+MATRIX_AMORTIZATION_FACTORS = [1, 10, 20]
 
 # n: Journeys per User (Target for Task‑Based Mode)
 # Each user must complete this many journeys before the experiment ends.
@@ -25,6 +25,15 @@ MACRO_TX_INTERVAL = 0.05
 
 # Override NUM_USERS to be at least max concurrency + margin
 NUM_USERS = 200  # Must be greater than the maximum MATRIX_CONCURRENCY_LEVELS (150)
+
+# === NEW: Simulation Parameters ===
+# Random delay between operations (min, max) in seconds
+# Simulates "User Think Time" and Network Jitter
+SIM_THINK_TIME_RANGE = (0.5, 2.0)
+
+# HTTP Retry Settings (Fixes Connection Aborted)
+HTTP_RETRIES = 5
+HTTP_BACKOFF_FACTOR = 0.5
 
 # Use the same topology as global (2 shards + execution + baseline)
 # get_topology() is imported from config_global

@@ -1,27 +1,26 @@
 """
-Macro-benchmark traffic generator for Phase 4.
-Generates concurrent "Full Lifecycle" journeys (Deposit -> N*Work -> Withdraw) without touching existing traffic logic.
+Macro-benchmark traffic generator for Phase 4+.
+Features: Task-Based execution, Raw Logging, Shard Distribution, and Simulated Jitter.
 """
 import typing as t
-import threading
 import time
 import random
+import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from web3 import Web3
 from web3.types import TxParams
 
-from config_macro import MACRO_OPS_PER_JOURNEY, MACRO_TX_INTERVAL, MACRO_TX_TIMEOUT
+from config_matrix import (
+    MACRO_TX_TIMEOUT, 
+    SIM_THINK_TIME_RANGE, 
+    HTTP_RETRIES
+)
 from .macro_injector import MacroTransactionInjector
 from .identity import UserManager
 from .network import ConnectionManager
 
 
 class MacroTrafficGenerator:
-    """
-    Generates high-load traffic for DAS and 2PC full lifecycles.
-    Each worker runs a dedicated user through a complete journey.
-    """
-
     def __init__(
         self,
         network_manager: ConnectionManager,
@@ -33,10 +32,20 @@ class MacroTrafficGenerator:
         self.identity = identity_manager
         self.injector = injector
         self.registry = registry
-        self.completed_journeys = []  # track completed full lifecycles
-        self.raw_logs = []            # raw transaction logs
+        self.completed_journeys = []
+        self.raw_logs = []  # RAW DATA LOGGING
+        
+        # Discover available shards for distribution
+        # Assuming keys like 'shard_0', 'shard_1' exist in registry
+        self.shard_ids = [
+            int(k.split('_')[1]) for k in registry.keys() 
+            if k.startswith('shard_') and k.split('_')[1].isdigit()
+        ]
+        if not self.shard_ids:
+            self.shard_ids = [0] # Fallback
+        self.shard_ids.sort()
+        print(f"[Traffic] Load balancing across shards: {self.shard_ids}")
 
-        # Helper: contract function builders
         self._builders = {
             "das_burn": self._build_das_burn,
             "das_mint": self._build_das_mint,
@@ -52,7 +61,6 @@ class MacroTrafficGenerator:
         """Build a DAS burn transaction."""
         shard_id = kwargs["shard_id"]
         amount = kwargs.get("amount", 100)
-        
         # FIX: Handle Execution Shard (-1) for Withdrawals
         shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
         
@@ -132,299 +140,160 @@ class MacroTrafficGenerator:
             }
         )
 
-    # ---------- Worker loops ----------
+    # ---------- Robust Send with Retry ----------
     def _send_and_wait(self, func_type, user_idx, **kwargs):
-        """
-        Send a transaction and wait for its receipt.
-        """
-        # Map func_type to builder
-        builder_map = {
-            "das_burn": self._build_das_burn,
-            "das_mint": self._build_das_mint,
-            "das_work": self._build_das_work,
-            "tpc_lock": self._build_tpc_lock,
-            "tpc_commit": self._build_tpc_commit,
-        }
-        contract_func = builder_map[func_type]
-        
-        # 1. Extract and REMOVE shard_id from kwargs to avoid argument collision
-        if "shard_id" not in kwargs:
-            raise ValueError(f"Missing 'shard_id' for {func_type}")
-        
-        shard_id = kwargs.pop("shard_id")
+        # Retry Loop for Connection Stability
+        for attempt in range(HTTP_RETRIES):
+            try:
+                start_time = time.time()
+                
+                # Copy kwargs to avoid mutation issues on retry
+                call_kwargs = kwargs.copy()
+                
+                if "shard_id" not in call_kwargs:
+                     raise ValueError(f"Missing 'shard_id' for {func_type}")
+                shard_id = call_kwargs.pop("shard_id")
 
-        # 2. Call injector (shard_id is passed positionally, kwargs contains the rest)
-        tx_hashes = self.injector.send_batch(
-            shard_id,
-            users=[user_idx],
-            contract_func=contract_func,
-            **kwargs
-        )
-        if not tx_hashes or not tx_hashes[0]:
-            raise Exception("Send failed (no tx hash returned)")
-        
-        # 3. Wait for receipt
-        tx_hash = tx_hashes[0]
-        
-        # Resolve node name for waiting
-        if shard_id == -1:
-            node_name = "execution"
-        else:
-            node_name = f"shard_{shard_id}"
-            
-        web3 = self.network.get_web3(node_name)
-        try:
-            start_time = time.time()
-            receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
-            end_time = time.time()
-            latency = end_time - start_time
-            if receipt.status != 1:
-                raise Exception(f"Tx {tx_hash} reverted")
-            # Record raw log
-            self.raw_logs.append({
-                "timestamp": time.time(),
-                "worker_id": user_idx,
-                "tx_type": func_type,
-                "latency_s": latency,
-                "gas_used": receipt['gasUsed'],
-                "block_number": receipt['blockNumber'],
-                "status": receipt['status']
-            })
-            return receipt
-        except Exception as e:
-            raise Exception(f"Wait failed for {tx_hash}: {e}")
+                contract_func = self._builders[func_type]
 
-    def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
-        """
-        DAS Full Lifecycle: Deposit (Burn S0 -> Mint Exec) -> Work -> Withdraw (Burn Exec -> Mint S0).
-        Each step waits for transaction receipt, ensuring true cross-shard sequencing.
-        """
-        user_idx = worker_id  # each worker gets a dedicated user
-        amount = 100
+                # 1. Send
+                tx_hashes = self.injector.send_batch(
+                    shard_id,
+                    users=[user_idx],
+                    contract_func=contract_func,
+                    **call_kwargs
+                )
+                
+                if not tx_hashes:
+                     raise Exception("No tx hash returned")
+                
+                tx_hash = tx_hashes[0]
 
-        try:
-            # 1. Deposit: Burn on Shard 0
-            self._send_and_wait("das_burn", user_idx, shard_id=0, amount=amount)
-            # Mint on Execution
-            self._send_and_wait("das_mint", user_idx, shard_id=-1, amount=amount)
+                # 2. Wait
+                node_name = "execution" if shard_id == -1 else f"shard_{shard_id}"
+                web3 = self.network.get_web3(node_name)
+                
+                receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
+                if receipt.status != 1:
+                    raise Exception(f"Tx {tx_hash} reverted")
 
-            # 2. Work: Loop N operations on Execution
-            for _ in range(ops_per_journey):
-                self._send_and_wait("das_work", user_idx, shard_id=-1, amount=amount)
+                # 3. Log Raw Data
+                duration = time.time() - start_time
+                self.raw_logs.append({
+                    "timestamp": time.time(),
+                    "worker_id": user_idx,
+                    "tx_type": func_type,
+                    "latency_s": duration,
+                    "gas_used": receipt['gasUsed'],
+                    "block_number": receipt['blockNumber'],
+                    "status": receipt['status']
+                })
+                
+                return receipt
+                
+            except Exception as e:
+                # Catch Connection errors and retry
+                error_msg = str(e)
+                is_conn_error = "Connection aborted" in error_msg or "Connection refused" in error_msg or "Available sockets" in error_msg
+                
+                if is_conn_error and attempt < HTTP_RETRIES - 1:
+                    sleep_time = (attempt + 1) * 2
+                    # print(f"[Traffic] Worker {user_idx} connection retry {attempt+1}/{HTTP_RETRIES}...") 
+                    time.sleep(sleep_time)
+                    continue
+                else:
+                    raise e
 
-            # 3. Withdraw: Burn on Execution
-            # This call previously failed because shard_id=-1 wasn't handled in _build_das_burn
-            self._send_and_wait("das_burn", user_idx, shard_id=-1, amount=amount)
-            # Mint on Shard 0
-            self._send_and_wait("das_mint", user_idx, shard_id=0, amount=amount)
+    def _sleep_random(self):
+        """Inject simulation jitter."""
+        time.sleep(random.uniform(*SIM_THINK_TIME_RANGE))
 
-            # Record successful journey
-            self.completed_journeys.append({
-                "worker_id": worker_id,
-                "timestamp": time.time(),
-                "ops": ops_per_journey,
-            })
-        except Exception as e:
-            print(f"[MacroTraffic] Worker {worker_id} failed: {e}")
-            raise
-
-    def _worker_loop_2pc(self, worker_id: int, ops_per_journey: int) -> None:
-        """
-        2PC Lifecycle: Loop N * (Lock -> Work -> Commit).
-        Each iteration locks both shard and execution, does work, commits both.
-        """
+    # ---------- Worker Logic with Sharding ----------
+    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int):
         user_idx = worker_id
         amount = 100
+        
+        # DISTRIBUTE USERS: Round-robin assignment to shards
+        # Worker 0 -> Shard 0, Worker 1 -> Shard 1, etc.
+        source_shard = self.shard_ids[worker_id % len(self.shard_ids)]
+        
+        journeys_done = 0
+        while journeys_done < target_journeys:
+            try:
+                # 1. Deposit (Source Shard -> Execution)
+                self._send_and_wait("das_burn", user_idx, shard_id=source_shard, amount=amount)
+                self._sleep_random()
+                
+                self._send_and_wait("das_mint", user_idx, shard_id=-1, amount=amount)
+                self._sleep_random()
 
-        for i in range(ops_per_journey):
-            # Generate a unique TPC ID for this iteration
-            tpc_id = random.randbytes(32)
+                # 2. Work (Execution)
+                for _ in range(ops_per_journey):
+                    self._send_and_wait("das_work", user_idx, shard_id=-1, amount=amount)
+                    self._sleep_random()
 
-            # Lock on Shard 0
-            self.injector.send_batch(
-                shard_id=0,
-                users=[user_idx],
-                contract_func=self._build_tpc_lock,
-                tpc_id=tpc_id,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
+                # 3. Withdraw (Execution -> Source Shard)
+                self._send_and_wait("das_burn", user_idx, shard_id=-1, amount=amount)
+                self._sleep_random()
+                
+                self._send_and_wait("das_mint", user_idx, shard_id=source_shard, amount=amount)
+                self._sleep_random()
 
-            # Lock on Execution
-            self.injector.send_batch(
-                shard_id=-1,
-                users=[user_idx],
-                contract_func=self._build_tpc_lock,
-                tpc_id=tpc_id,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
+                journeys_done += 1
+                
+                # Log completion for progress tracking (optional)
+                # print(f"Worker {worker_id} finished journey {journeys_done}/{target_journeys}")
 
-            # Work on Execution
-            self.injector.send_batch(
-                shard_id=-1,
-                users=[user_idx],
-                contract_func=self._build_das_work,
-                amount=amount,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
-
-            # Commit on Shard 0
-            self.injector.send_batch(
-                shard_id=0,
-                users=[user_idx],
-                contract_func=self._build_tpc_commit,
-                tpc_id=tpc_id,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
-
-            # Commit on Execution
-            self.injector.send_batch(
-                shard_id=-1,
-                users=[user_idx],
-                contract_func=self._build_tpc_commit,
-                tpc_id=tpc_id,
-            )
-            time.sleep(MACRO_TX_INTERVAL)
-
-    # ---------- Public interface ----------
-    def start_concurrent(
-        self,
-        concurrency: int,
-        journey_type: str = "DAS",
-        ops_per_journey: int = None,
-    ) -> None:
-        """
-        Start `concurrency` worker threads, each running a full lifecycle.
-        """
-        if ops_per_journey is None:
-            ops_per_journey = MACRO_OPS_PER_JOURNEY
-
-        if journey_type not in ("DAS", "2PC"):
-            raise ValueError(f"Unknown journey_type: {journey_type}")
-
-        worker_func = (
-            self._worker_loop_das if journey_type == "DAS" else self._worker_loop_2pc
-        )
-
-        # Use a thread pool to launch all workers
-        with ThreadPoolExecutor(max_workers=concurrency) as executor:
-            futures = []
-            for worker_id in range(concurrency):
-                future = executor.submit(worker_func, worker_id, ops_per_journey)
-                futures.append(future)
-
-            # Wait for all workers to finish (they run until completion)
-            for future in as_completed(futures):
-                try:
-                    future.result()
-                except Exception as e:
-                    print(f"[MacroTraffic] Worker failed: {e}")
-
-        print(f"[MacroTraffic] All {concurrency} {journey_type} workers finished.")
-
-    def run_for_duration(
-        self,
-        concurrency: int,
-        duration_seconds: float,
-        journey_type: str = "DAS",
-        ops_per_journey: int = None,
-    ) -> None:
-        """
-        Start `concurrency` worker threads that repeatedly run lifecycles for the given duration.
-        """
-        if ops_per_journey is None:
-            ops_per_journey = MACRO_OPS_PER_JOURNEY
-
-        if journey_type not in ("DAS", "2PC"):
-            raise ValueError(f"Unknown journey_type: {journey_type}")
-
-        worker_func = (
-            self._worker_loop_das if journey_type == "DAS" else self._worker_loop_2pc
-        )
-
-        stop_time = time.time() + duration_seconds
-        import threading
-        stop_flag = threading.Event()
-
-        def timed_worker(worker_id: int):
-            while not stop_flag.is_set() and time.time() < stop_time:
-                # Run one lifecycle
-                try:
-                    worker_func(worker_id, ops_per_journey)
-                    # Optionally add a small gap between lifecycles
-                    time.sleep(MACRO_TX_INTERVAL * 2)
-                except Exception:
-                     # Logging handled in worker_func
-                     # Break loop on fatal error to release thread
-                     break
-
-        print(f"[MacroTraffic] Running {concurrency} {journey_type} workers for {duration_seconds}s...")
-
-        # Use a thread pool to launch all workers
-        with ThreadPoolExecutor(max_workers=concurrency) as executor:
-            futures = []
-            for worker_id in range(concurrency):
-                future = executor.submit(timed_worker, worker_id)
-                futures.append(future)
-
-            # Wait for experiment duration
-            time.sleep(duration_seconds)
-            print("[MacroTraffic] Time up. Signaling workers to stop...")
-            stop_flag.set()
-
-            # Wait for workers to finish current iteration
-            # FIX: Increase timeout to allow pending transactions to confirm or timeout naturally
-            shutdown_timeout = MACRO_TX_TIMEOUT + 15
-            print(f"[MacroTraffic] Waiting up to {shutdown_timeout}s for graceful shutdown...")
-            
-            for i, future in enumerate(futures):
-                try:
-                    future.result(timeout=shutdown_timeout)
-                except TimeoutError:
-                    print(f"[MacroTraffic] Worker {i} shutdown timed out (stuck in tx?)")
-                except Exception as e:
-                    print(f"[MacroTraffic] Worker {i} failed during run: {type(e).__name__}: {e}")
-
-        print(f"[MacroTraffic] Duration-based traffic finished.")
+            except Exception as e:
+                print(f"[Traffic] Worker {worker_id} failed: {e}")
+                raise
 
     def run_task_based(
         self,
         concurrency: int,
         journeys_per_user: int,
-        journey_type: str = "DAS",
-        ops_per_journey: int = None,
+        ops_per_journey: int,
+        journey_type: str = "DAS"
     ) -> None:
         """
-        Start `concurrency` worker threads, each completing exactly `journeys_per_user` full lifecycles.
+        Matrix Benchmark Entry: Runs until every user completes N journeys.
         """
-        if ops_per_journey is None:
-            ops_per_journey = MACRO_OPS_PER_JOURNEY
-
-        if journey_type not in ("DAS", "2PC"):
-            raise ValueError(f"Unknown journey_type: {journey_type}")
-
-        worker_func = (
-            self._worker_loop_das if journey_type == "DAS" else self._worker_loop_2pc
-        )
-
-        # Use a thread pool to launch all workers
+        print(f"[MacroTraffic] Starting Matrix Task: {concurrency} users, {journeys_per_user} journeys each, q={ops_per_journey}")
+        
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
             futures = []
-            for worker_id in range(concurrency):
-                future = executor.submit(self._repeating_worker, worker_id, journeys_per_user, worker_func, ops_per_journey)
-                futures.append(future)
-
-            # Wait for all workers to finish
+            for i in range(concurrency):
+                if journey_type == "DAS":
+                    futures.append(executor.submit(self._worker_loop_das_task, i, ops_per_journey, journeys_per_user))
+                # Add 2PC logic here if needed
+            
+            # Wait for all
             for future in as_completed(futures):
                 try:
                     future.result()
                 except Exception as e:
-                    print(f"[MacroTraffic] Worker failed: {e}")
+                    print(f"[Traffic] Critical worker failure: {e}")
 
-        print(f"[MacroTraffic] All {concurrency} {journey_type} workers completed {journeys_per_user} journeys each.")
+    # ---------- Legacy Methods (Placeholders) ----------
+    # Keep these to avoid breaking existing scripts, but they can be stubs.
+    def start_concurrent(self, concurrency: int, journey_type: str = "DAS", ops_per_journey: int = None) -> None:
+        """Legacy: Start concurrent workers (not journey‑limited)."""
+        raise NotImplementedError("start_concurrent is deprecated; use run_task_based.")
+
+    def run_for_duration(self, concurrency: int, duration_seconds: float, journey_type: str = "DAS", ops_per_journey: int = None) -> None:
+        """Legacy: Run workers for a fixed duration."""
+        raise NotImplementedError("run_for_duration is deprecated.")
+
+    def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
+        """Legacy worker loop (single journey)."""
+        # Redirect to task‑based loop with target_journeys=1
+        self._worker_loop_das_task(worker_id, ops_per_journey, 1)
+
+    def _worker_loop_2pc(self, worker_id: int, ops_per_journey: int) -> None:
+        """Legacy 2PC loop."""
+        raise NotImplementedError("2PC loop not implemented in this version.")
 
     def _repeating_worker(self, worker_id: int, journeys_per_user: int, worker_func, ops_per_journey: int):
-        """
-        Repeatedly call worker_func for the specified number of journeys.
-        """
+        """Legacy internal helper."""
         for _ in range(journeys_per_user):
             worker_func(worker_id, ops_per_journey)
