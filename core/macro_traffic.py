@@ -9,6 +9,7 @@ import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from web3 import Web3
 from web3.types import TxParams
+from tqdm import tqdm
 
 from config_matrix import (
     MACRO_TX_TIMEOUT, 
@@ -27,11 +28,15 @@ class MacroTrafficGenerator:
         identity_manager: UserManager,
         injector: MacroTransactionInjector,
         registry: t.Dict[str, t.Dict[str, t.Any]],
+        process_id: int = 0,
+        user_offset: int = 0,
     ) -> None:
         self.network = network_manager
         self.identity = identity_manager
         self.injector = injector
         self.registry = registry
+        self.process_id = process_id
+        self.user_offset = user_offset
         self.completed_journeys = []
         self.raw_logs = []  # RAW DATA LOGGING
         
@@ -209,43 +214,67 @@ class MacroTrafficGenerator:
         time.sleep(random.uniform(*SIM_THINK_TIME_RANGE))
 
     # ---------- Worker Logic with Sharding ----------
-    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int):
-        user_idx = worker_id
+    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+        global_worker_id = worker_id + self.user_offset
         amount = 100
         
-        # DISTRIBUTE USERS: Round-robin assignment to shards
-        # Worker 0 -> Shard 0, Worker 1 -> Shard 1, etc.
-        source_shard = self.shard_ids[worker_id % len(self.shard_ids)]
+        # DISTRIBUTE USERS: Round-robin assignment to shards based on global worker ID
+        source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
         
         journeys_done = 0
         while journeys_done < target_journeys:
             try:
                 # 1. Deposit (Source Shard -> Execution)
-                self._send_and_wait("das_burn", user_idx, shard_id=source_shard, amount=amount)
+                self._send_and_wait("das_burn", global_worker_id, shard_id=source_shard, amount=amount)
                 self._sleep_random()
                 
-                self._send_and_wait("das_mint", user_idx, shard_id=-1, amount=amount)
+                self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
                 self._sleep_random()
 
                 # 2. Work (Execution)
                 for _ in range(ops_per_journey):
-                    self._send_and_wait("das_work", user_idx, shard_id=-1, amount=amount)
+                    self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
                     self._sleep_random()
 
                 # 3. Withdraw (Execution -> Source Shard)
-                self._send_and_wait("das_burn", user_idx, shard_id=-1, amount=amount)
+                self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
                 self._sleep_random()
                 
-                self._send_and_wait("das_mint", user_idx, shard_id=source_shard, amount=amount)
+                self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
                 self._sleep_random()
 
                 journeys_done += 1
-                
+
+                # UPDATE PROGRESS BAR
+                if pbar:
+                    pbar.update(1)
+
                 # Log completion for progress tracking (optional)
-                # print(f"Worker {worker_id} finished journey {journeys_done}/{target_journeys}")
+                # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
 
             except Exception as e:
-                print(f"[Traffic] Worker {worker_id} failed: {e}")
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                raise
+
+    def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+        # Pure local work on Shard 0. No cross-shard movement.
+        global_worker_id = worker_id + self.user_offset
+        amount = 100
+        journeys_done = 0
+        while journeys_done < target_journeys:
+            # Just do N operations on Shard 0 (Workload contract must be deployed there too)
+            # If Workload is only on Execution, we map Baseline to Execution Shard (-1)
+            # Let's assume Baseline = Run entirely on Execution Shard for simplicity
+            try:
+                for _ in range(ops_per_journey):
+                     self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                     self._sleep_random()
+
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+            except Exception as e:
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise
 
     def run_task_based(
@@ -253,26 +282,49 @@ class MacroTrafficGenerator:
         concurrency: int,
         journeys_per_user: int,
         ops_per_journey: int,
-        journey_type: str = "DAS"
-    ) -> None:
+        journey_type: str = "DAS",
+        process_id: int = None,
+    ) -> t.List[t.Dict[str, t.Any]]:
         """
         Matrix Benchmark Entry: Runs until every user completes N journeys.
+        Returns raw logs for the caller to save.
         """
-        print(f"[MacroTraffic] Starting Matrix Task: {concurrency} users, {journeys_per_user} journeys each, q={ops_per_journey}")
+        if process_id is not None:
+            self.process_id = process_id  # override if provided
+        total_journeys = concurrency * journeys_per_user
+        print(f"[MacroTraffic] Starting Matrix Task: {concurrency} users, {journeys_per_user} journeys each (Total: {total_journeys}) [Process {self.process_id}]")
         
-        with ThreadPoolExecutor(max_workers=concurrency) as executor:
-            futures = []
-            for i in range(concurrency):
-                if journey_type == "DAS":
-                    futures.append(executor.submit(self._worker_loop_das_task, i, ops_per_journey, journeys_per_user))
-                # Add 2PC logic here if needed
+        # Clear previous logs
+        self.raw_logs.clear()
+        
+        # Initialize Progress Bar
+        with tqdm(total=total_journeys, unit="journey", desc=f"N={concurrency}, q={ops_per_journey}") as pbar:
             
-            # Wait for all
-            for future in as_completed(futures):
-                try:
-                    future.result()
-                except Exception as e:
-                    print(f"[Traffic] Critical worker failure: {e}")
+            with ThreadPoolExecutor(max_workers=concurrency) as executor:
+                futures = []
+                for i in range(concurrency):
+                    if journey_type == "DAS":
+                        futures.append(executor.submit(
+                            self._worker_loop_das_task, i, ops_per_journey, journeys_per_user, pbar
+                        ))
+                    elif journey_type == "BASELINE":
+                        futures.append(executor.submit(
+                            self._worker_loop_baseline, i, ops_per_journey, journeys_per_user, pbar
+                        ))
+                    elif journey_type == "2PC":
+                        raise NotImplementedError("2PC loop not implemented yet")
+                    else:
+                        raise ValueError(f"Unknown journey_type: {journey_type}")
+                
+                # Wait for all
+                for future in as_completed(futures):
+                    try:
+                        future.result()
+                    except Exception as e:
+                        print(f"[Traffic] Critical worker failure: {e}")
+        
+        # Return raw logs for the caller to save
+        return self.raw_logs
 
     # ---------- Legacy Methods (Placeholders) ----------
     # Keep these to avoid breaking existing scripts, but they can be stubs.
@@ -287,7 +339,7 @@ class MacroTrafficGenerator:
     def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
         """Legacy worker loop (single journey)."""
         # Redirect to task‑based loop with target_journeys=1
-        self._worker_loop_das_task(worker_id, ops_per_journey, 1)
+        self._worker_loop_das_task(worker_id, ops_per_journey, 1, None)
 
     def _worker_loop_2pc(self, worker_id: int, ops_per_journey: int) -> None:
         """Legacy 2PC loop."""
