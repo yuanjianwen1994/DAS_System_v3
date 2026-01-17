@@ -277,6 +277,50 @@ class MacroTrafficGenerator:
                 print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise
 
+    def _worker_loop_2pc_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+        """
+        2PC Lifecycle: Loop N * (Lock -> Work -> Commit).
+        Strict ordering: Lock S -> Lock E -> Work E -> Commit S -> Commit E.
+        """
+        global_worker_id = worker_id + self.user_offset
+        amount = 100
+        # Round-robin shard assignment based on global worker ID
+        source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
+        
+        journeys_done = 0
+        while journeys_done < target_journeys:
+            try:
+                # In 2PC, a "Journey" consists of `ops_per_journey` atomic transactions
+                for _ in range(ops_per_journey):
+                    # Generate unique TPC ID for this transaction
+                    tpc_id = random.randbytes(32)
+
+                    # 1. Lock on Source
+                    self._send_and_wait("tpc_lock", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    
+                    # 2. Lock on Execution
+                    self._send_and_wait("tpc_lock", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    
+                    # 3. Work on Execution (Simulated Business Logic)
+                    self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                    
+                    # 4. Commit on Source
+                    self._send_and_wait("tpc_commit", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    
+                    # 5. Commit on Execution
+                    self._send_and_wait("tpc_commit", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+
+                    # Simulation Jitter
+                    self._sleep_random()
+
+                journeys_done += 1
+                if pbar: pbar.update(1)
+
+            except Exception as e:
+                # Log error but let the thread die so main process knows
+                print(f"[Traffic] 2PC Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                raise e
+
     def run_task_based(
         self,
         concurrency: int,
@@ -287,42 +331,45 @@ class MacroTrafficGenerator:
     ) -> t.List[t.Dict[str, t.Any]]:
         """
         Matrix Benchmark Entry: Runs until every user completes N journeys.
-        Returns raw logs for the caller to save.
+        Returns the raw logs directly (does not save to file).
         """
         if process_id is not None:
             self.process_id = process_id  # override if provided
         total_journeys = concurrency * journeys_per_user
-        print(f"[MacroTraffic] Starting Matrix Task: {concurrency} users, {journeys_per_user} journeys each (Total: {total_journeys}) [Process {self.process_id}]")
+        print(f"[Traffic P{self.process_id}] Starting {journey_type}: {concurrency} users, {journeys_per_user} journeys each (Total: {total_journeys})")
         
         # Clear previous logs
         self.raw_logs.clear()
         
-        # Initialize Progress Bar
-        with tqdm(total=total_journeys, unit="journey", desc=f"N={concurrency}, q={ops_per_journey}") as pbar:
-            
+        # Initialize Progress Bar with position for multi‑process visibility
+        with tqdm(total=total_journeys, unit="journey", desc=f"P{self.process_id} {journey_type} N={concurrency}", position=self.process_id) as pbar:
             with ThreadPoolExecutor(max_workers=concurrency) as executor:
                 futures = []
                 for i in range(concurrency):
+                    # Determine which worker function to use
                     if journey_type == "DAS":
                         futures.append(executor.submit(
                             self._worker_loop_das_task, i, ops_per_journey, journeys_per_user, pbar
+                        ))
+                    elif journey_type == "2PC":
+                        futures.append(executor.submit(
+                            self._worker_loop_2pc_task, i, ops_per_journey, journeys_per_user, pbar
                         ))
                     elif journey_type == "BASELINE":
                         futures.append(executor.submit(
                             self._worker_loop_baseline, i, ops_per_journey, journeys_per_user, pbar
                         ))
-                    elif journey_type == "2PC":
-                        raise NotImplementedError("2PC loop not implemented yet")
                     else:
-                        raise ValueError(f"Unknown journey_type: {journey_type}")
+                        raise ValueError(f"Unknown journey type: {journey_type}")
                 
                 # Wait for all
                 for future in as_completed(futures):
                     try:
                         future.result()
                     except Exception as e:
-                        print(f"[Traffic] Critical worker failure: {e}")
-        
+                        # Print but don't crash the whole process immediately, allow others to finish
+                        print(f"[Traffic P{self.process_id}] Critical worker failure: {e}")
+
         # Return raw logs for the caller to save
         return self.raw_logs
 
