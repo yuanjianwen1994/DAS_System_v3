@@ -1,0 +1,79 @@
+﻿    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+        global_worker_id = worker_id + self.user_offset
+        amount = 100
+        
+        # DISTRIBUTE USERS: Round-robin assignment to shards based on global worker ID
+        source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
+        
+        journeys_done = 0
+        while journeys_done < target_journeys:
+            try:
+                # 1. Deposit (Source Shard -> Execution)
+                self._send_and_wait("das_burn", global_worker_id, shard_id=source_shard, amount=amount)
+                self._sleep_random()
+                
+                self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
+                self._sleep_random()
+
+                # 2. Work (Execution)
+                for _ in range(ops_per_journey):
+                    self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                    self._sleep_random()
+
+                # 3. Withdraw (Execution -> Source Shard)
+                self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
+                self._sleep_random()
+                
+                self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
+                self._sleep_random()
+
+                journeys_done += 1
+
+                # UPDATE PROGRESS BAR
+                if pbar:
+                    pbar.update(1)
+
+                # Log completion for progress tracking (optional)
+                # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
+
+            except TimeoutError as e:
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) timeout: {e}")
+                # 瓒呮椂宸茶褰曞湪 _send_and_wait 涓紝缁х画涓嬩竴涓梾绋嬶紙璺宠繃褰撳墠鏃呯▼锛?
+                # 澧炲姞 journeys_done 浠ョ户缁笅涓€涓梾绋?
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
+            except TimeoutError as e:
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) timeout: {e}")
+                # 瓒呮椂宸茶褰曞湪 _send_and_wait 涓紝缁х画涓嬩竴涓梾绋嬶紙璺宠繃褰撳墠鏃呯▼锛?
+                # 澧炲姞 journeys_done 浠ョ户缁笅涓€涓梾绋?
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
+            except Exception as e:
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                raise
+
+    def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+        # Pure local work on Shard 0. No cross-shard movement.
+        global_worker_id = worker_id + self.user_offset
+        amount = 100
+        journeys_done = 0
+        while journeys_done < target_journeys:
+            # Just do N operations on Shard 0 (Workload contract must be deployed there too)
+            # If Workload is only on Execution, we map Baseline to Execution Shard (-1)
+            # Let's assume Baseline = Run entirely on Execution Shard for simplicity
+            try:
+                for _ in range(ops_per_journey):
+                     self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                     self._sleep_random()
+
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+            except Exception as e:
+                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                raise
+

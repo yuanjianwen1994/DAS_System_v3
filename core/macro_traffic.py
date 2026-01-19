@@ -195,15 +195,52 @@ class MacroTrafficGenerator:
                 })
                 
                 return receipt
+
+            except ValueError as e:
+                # Handle "Nonce too low" / "Incorrect nonce" errors caused by HTTP Retries
+                err_str = str(e).lower()
+                if "nonce" in err_str:
+                    print(f"[Traffic] Worker {user_idx} Nonce Mismatch (Tx likely succeeded during retry). Skipping.")
+                    # We record it as a status=0 (unknown outcome) but strictly DO NOT CRASH
+                    self.raw_logs.append({
+                        "timestamp": time.time(),
+                        "worker_id": user_idx,
+                        "tx_type": func_type,
+                        "latency_s": time.time() - start_time,
+                        "gas_used": 0,
+                        "block_number": -1,
+                        "status": 0
+                    })
+                    return None
+                else:
+                    raise e  # Re-raise other ValueErrors
                 
             except Exception as e:
-                # Catch Connection errors and retry
+                # 检查超时
                 error_msg = str(e)
+                is_timeout = "timeout" in error_msg.lower() or isinstance(e, TimeoutError)
+                if is_timeout:
+                    tx_hash_str = tx_hash[:10] if 'tx_hash' in locals() else 'unknown'
+                    print(f"[Traffic] Worker {user_idx} Tx {func_type} timed out (> {MACRO_TX_TIMEOUT}s)")
+                    # 记录超时原始日志
+                    self.raw_logs.append({
+                        "timestamp": time.time(),
+                        "worker_id": user_idx,
+                        "tx_type": func_type,
+                        "latency_s": MACRO_TX_TIMEOUT,
+                        "gas_used": 0,
+                        "block_number": -1,
+                        "status": 0  # 0 表示失败/超时
+                    })
+                    # 返回 None 通知调用者跳过后续步骤
+                    return None
+                
+                # Catch Connection errors and retry
                 is_conn_error = "Connection aborted" in error_msg or "Connection refused" in error_msg or "Available sockets" in error_msg
                 
                 if is_conn_error and attempt < HTTP_RETRIES - 1:
                     sleep_time = (attempt + 1) * 2
-                    # print(f"[Traffic] Worker {user_idx} connection retry {attempt+1}/{HTTP_RETRIES}...") 
+                    # print(f"[Traffic] Worker {user_idx} connection retry {attempt+1}/{HTTP_RETRIES}...")
                     time.sleep(sleep_time)
                     continue
                 else:
@@ -223,38 +260,62 @@ class MacroTrafficGenerator:
         
         journeys_done = 0
         while journeys_done < target_journeys:
-            try:
-                # 1. Deposit (Source Shard -> Execution)
-                self._send_and_wait("das_burn", global_worker_id, shard_id=source_shard, amount=amount)
-                self._sleep_random()
-                
-                self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
-                self._sleep_random()
-
-                # 2. Work (Execution)
-                for _ in range(ops_per_journey):
-                    self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
-                    self._sleep_random()
-
-                # 3. Withdraw (Execution -> Source Shard)
-                self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
-                self._sleep_random()
-                
-                self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
-                self._sleep_random()
-
+            # 1. Deposit (Source Shard -> Execution)
+            result = self._send_and_wait("das_burn", global_worker_id, shard_id=source_shard, amount=amount)
+            if result is None:
+                # Timeout occurred, skip the rest of this journey
                 journeys_done += 1
-
-                # UPDATE PROGRESS BAR
                 if pbar:
                     pbar.update(1)
+                continue
+            self._sleep_random()
+            
+            result = self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
+            if result is None:
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
+            self._sleep_random()
 
-                # Log completion for progress tracking (optional)
-                # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
+            # 2. Work (Execution)
+            work_failed = False
+            for _ in range(ops_per_journey):
+                result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                if result is None:
+                    work_failed = True
+                    break
+                self._sleep_random()
+            if work_failed:
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
 
-            except Exception as e:
-                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
-                raise
+            # 3. Withdraw (Execution -> Source Shard)
+            result = self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
+            if result is None:
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
+            self._sleep_random()
+            
+            result = self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
+            if result is None:
+                journeys_done += 1
+                if pbar:
+                    pbar.update(1)
+                continue
+            self._sleep_random()
+
+            # Journey completed successfully
+            journeys_done += 1
+            if pbar:
+                pbar.update(1)
+
+            # Log completion for progress tracking (optional)
+            # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
 
     def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
         # Pure local work on Shard 0. No cross-shard movement.
@@ -267,12 +328,22 @@ class MacroTrafficGenerator:
             # Let's assume Baseline = Run entirely on Execution Shard for simplicity
             try:
                 for _ in range(ops_per_journey):
-                     self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                     result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                     if result is None:
+                         # Timeout occurred, skip the rest of this journey
+                         break
                      self._sleep_random()
-
+                else:
+                    # No break occurred, journey completed successfully
+                    journeys_done += 1
+                    if pbar:
+                        pbar.update(1)
+                    continue
+                # If we broke out due to timeout, still count as a completed journey (skip)
                 journeys_done += 1
                 if pbar:
                     pbar.update(1)
+                continue
             except Exception as e:
                 print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise
@@ -296,26 +367,42 @@ class MacroTrafficGenerator:
                     tpc_id = random.randbytes(32)
 
                     # 1. Lock on Source
-                    self._send_and_wait("tpc_lock", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_lock", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    if result is None:
+                        # Timeout occurred, skip the rest of this transaction and journey
+                        break
                     
                     # 2. Lock on Execution
-                    self._send_and_wait("tpc_lock", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_lock", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    if result is None:
+                        break
                     
                     # 3. Work on Execution (Simulated Business Logic)
-                    self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                    result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                    if result is None:
+                        break
                     
                     # 4. Commit on Source
-                    self._send_and_wait("tpc_commit", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_commit", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    if result is None:
+                        break
                     
                     # 5. Commit on Execution
-                    self._send_and_wait("tpc_commit", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_commit", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    if result is None:
+                        break
 
                     # Simulation Jitter
                     self._sleep_random()
-
+                else:
+                    # No break occurred, all transactions completed successfully
+                    journeys_done += 1
+                    if pbar: pbar.update(1)
+                    continue
+                # If we broke out due to timeout, still count as a completed journey (skip)
                 journeys_done += 1
                 if pbar: pbar.update(1)
-
+                continue
             except Exception as e:
                 # Log error but let the thread die so main process knows
                 print(f"[Traffic] 2PC Worker {worker_id} (global {global_worker_id}) failed: {e}")

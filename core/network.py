@@ -3,14 +3,18 @@ Network management for DAS System v3.
 Ganache Lifecycle & Web3 Connection Management.
 """
 import os
+import shutil
 import socket
 import subprocess
 import time
 import typing as t
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from web3 import Web3
 from web3.providers import HTTPProvider
 
-from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, NUM_USERS, ACCOUNT_BALANCE_ETH, get_topology
+from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, NUM_USERS, ACCOUNT_BALANCE_ETH, get_topology, GANACHE_DATA_DIR
 
 
 class GanacheManager:
@@ -57,6 +61,16 @@ class GanacheManager:
             log_path = os.path.join("logs", f"ganache_{name}_{port}.log")
             log_file = open(log_path, "w", encoding="utf-8")
 
+            # Database path on E: drive
+            node_db_path = os.path.join(GANACHE_DATA_DIR, name)
+            # Clean up previous db to prevent accumulation and ensure fresh state
+            if os.path.exists(node_db_path):
+                try:
+                    shutil.rmtree(node_db_path)
+                except Exception as e:
+                    print(f"[System] Warning: Could not clean DB for {name}: {e}")
+            os.makedirs(node_db_path, exist_ok=True)
+
             # Verification print
             print(f"Starting {name} on port {port} with BlockTime={BLOCK_TIME}...")
 
@@ -73,6 +87,7 @@ class GanacheManager:
                 "--chain.allowUnlimitedContractSize",
                 "--chain.hardfork=shanghai",
                 "--verbose",
+                f"--database.dbPath={node_db_path}",
             ]
 
             print(f"Starting {name}: {' '.join(cmd)}")
@@ -113,21 +128,44 @@ class GanacheManager:
 
 class ConnectionManager:
     """
-    Provides Web3 connections to each node.
+    Manages Web3 connections with a robust, thread‑safe HTTP Session.
     """
     def __init__(self, topology: t.Dict[str, t.Any]) -> None:
         self.topology = topology
         self._connections: t.Dict[str, Web3] = {}
+        # Create a single global session for this process
+        self._session = self._create_session()
+
+    def _create_session(self) -> requests.Session:
+        """
+        Creates a robust HTTP session with high connection pooling and aggressive retries.
+        Critical for N=1600 high‑concurrency experiments.
+        """
+        session = requests.Session()
+        # High pool size to prevent "NewConnectionError" under load
+        adapter = HTTPAdapter(
+            pool_connections=500,
+            pool_maxsize=500,
+            max_retries=Retry(
+                total=10,
+                backoff_factor=1.0, # Slow down retries to let Ganache breathe
+                status_forcelist=[500, 502, 503, 504]
+            )
+        )
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        return session
 
     def get_web3(self, node_name: str, timeout: int = 30) -> Web3:
         """
-        Returns a connected Web3 instance for the given node.
-        Waits up to `timeout` seconds for the node to become available.
+        Returns a Web3 instance with the shared session.
+        No blocking checks here to avoid log spam in hot paths.
         """
+        # Return cached instance if available
         if node_name in self._connections:
             return self._connections[node_name]
 
-        # Find port
+        # Resolve port
         port = None
         if node_name in self.topology.get("shards", {}):
             port = self.topology["shards"][node_name]["port"]
@@ -138,15 +176,20 @@ class ConnectionManager:
         else:
             raise ValueError(f"Unknown node: {node_name}")
 
-        provider = HTTPProvider(f"http://127.0.0.1:{port}")
+        url = f"http://127.0.0.1:{port}"
+        
+        # Ensure session exists
+        if not hasattr(self, '_session') or self._session is None:
+            self._session = self._create_session()
+
+        # Create Web3 instance with the robust session
+        provider = HTTPProvider(
+            url,
+            session=self._session,
+            request_kwargs={"timeout": 120}
+        )
         w3 = Web3(provider)
-
-        print(f"Waiting for {node_name} to come online...")
-        start_time = time.time()
-        while time.time() - start_time < timeout:
-            if w3.is_connected():
-                self._connections[node_name] = w3
-                return w3
-            time.sleep(1)
-
-        raise ConnectionError(f"Cannot connect to {node_name} on port {port} after {timeout}s")
+        
+        # Cache and return (Do NOT check is_connected() here, it causes DoS)
+        self._connections[node_name] = w3
+        return w3

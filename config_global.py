@@ -2,6 +2,7 @@
 Global configuration module for DAS System v3.
 Infrastructure-level constants and topology.
 """
+import os
 import typing as t
 
 # Constants
@@ -9,7 +10,7 @@ MNEMONIC: str = "myth like bonus scare over problem client lizard pioneer submit
 BLOCK_TIME: int = 12  # seconds
 GAS_LIMIT: int = 30_000_000
 DEFAULT_GAS_PRICE: int = 20_000_000_000  # 20 Gwei in wei (20 * 10^9)
-NUM_USERS: int = 1000  # Must be greater than the maximum MACRO_CONCURRENCY_LEVELS (150)
+NUM_USERS: int = 6000  # Must be greater than the maximum MACRO_CONCURRENCY_LEVELS (150)
 DEPLOYER_ACCOUNT_INDEX: int = 99  # Use the last account for admin tasks
 TEST_USER_INDEX: int = 0          # Use the first account for experiments
 
@@ -20,6 +21,10 @@ ACCOUNT_BALANCE_WEI: int = ACCOUNT_BALANCE_ETH * 10**18
 ACCOUNT: dict = {
     "balance_wei": ACCOUNT_BALANCE_WEI  # 10,000 ETH in wei
 }
+
+# Ganache Data Directory (redirect to E: drive to avoid C: drive filling)
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+GANACHE_DATA_DIR = "E:/ganache_data"
 
 # Topology
 NUM_SETTLEMENT_SHARDS: int = 2  # changeable
