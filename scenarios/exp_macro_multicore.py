@@ -36,6 +36,7 @@ from core.deployer import ContractDeployer
 from core.macro_injector import MacroTransactionInjector
 from core.macro_traffic import MacroTrafficGenerator
 from core.macro_monitor import MacroMonitor
+from tqdm import tqdm
 
 
 # ========== Helper Functions (copied from exp_macro_matrix) ==========
@@ -43,7 +44,9 @@ def kill_ganache():
     """Aggressively kill all ganache/node processes."""
     try:
         if os.name == 'nt':
+            # Windows: Force kill node.exe (Ganache)
             subprocess.call(["taskkill", "/F", "/IM", "node.exe", "/T"], stderr=subprocess.DEVNULL)
+            subprocess.call(["taskkill", "/F", "/IM", "ganache.cmd", "/T"], stderr=subprocess.DEVNULL) # Just in case
         else:
             subprocess.call(["pkill", "-f", "ganache"], stderr=subprocess.DEVNULL)
     except Exception:
@@ -93,6 +96,7 @@ def run_worker_process(
     topology: Dict[str, Any],
     registry: Dict[str, Dict[str, Any]],
     timestamp: str,
+    progress_queue: Any = None,
 ) -> None:
     """
     Single‑process traffic generation.
@@ -126,6 +130,7 @@ def run_worker_process(
         ops_per_journey=ops_per_journey,
         journey_type=journey_type,
         process_id=proc_id,
+        progress_queue=progress_queue,
     )
     
     # 5. Save logs to per‑process CSV
@@ -208,41 +213,66 @@ def main():
                 monitor = MacroMonitor(network)
                 monitor.start()
                 
-                # 4. Launch worker processes
+                # 4. Launch worker processes with centralized progress bar
                 print(f"   3. Launching {MATRIX_PROCESSES} worker processes...")
-                processes = []
-                users_per_proc = N // MATRIX_PROCESSES
-                remainder = N % MATRIX_PROCESSES
-                user_start = 0
-                for proc_id in range(MATRIX_PROCESSES):
-                    user_end = user_start + users_per_proc + (1 if proc_id < remainder else 0)
-                    if user_start >= user_end:
-                        # No users assigned to this process (should not happen with N >= MATRIX_PROCESSES)
-                        continue
-                    p = multiprocessing.Process(
-                        target=run_worker_process,
-                        args=(
-                            proc_id,
-                            user_start,
-                            user_end,
-                            N,  # total concurrency (for logging)
-                            MATRIX_JOURNEYS_PER_USER,
-                            q,
-                            journey_type,
-                            topology,
-                            registry,
-                            timestamp,
+                # Global Manager for IPC
+                with multiprocessing.Manager() as manager:
+                    progress_queue = manager.Queue()
+                    
+                    # Calculate total work
+                    total_journeys = N * MATRIX_JOURNEYS_PER_USER
+                    
+                    processes = []
+                    users_per_proc = N // MATRIX_PROCESSES
+                    remainder = N % MATRIX_PROCESSES
+                    user_start = 0
+                    for proc_id in range(MATRIX_PROCESSES):
+                        user_end = user_start + users_per_proc + (1 if proc_id < remainder else 0)
+                        if user_start >= user_end:
+                            # No users assigned to this process (should not happen with N >= MATRIX_PROCESSES)
+                            continue
+                        p = multiprocessing.Process(
+                            target=run_worker_process,
+                            args=(
+                                proc_id,
+                                user_start,
+                                user_end,
+                                N,  # total concurrency (for logging)
+                                MATRIX_JOURNEYS_PER_USER,
+                                q,
+                                journey_type,
+                                topology,
+                                registry,
+                                timestamp,
+                                progress_queue,
+                            )
                         )
-                    )
-                    processes.append(p)
-                    p.start()
-                    user_start = user_end
-                
-                # 5. Wait for all processes to finish
-                for p in processes:
-                    p.join()
-                    if p.exitcode != 0:
-                        print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
+                        processes.append(p)
+                        p.start()
+                        user_start = user_end
+                    
+                    # Global Progress Bar Loop
+                    with tqdm(total=total_journeys, unit="journey", desc=f"Total Progress (N={N}, q={q})") as pbar:
+                        completed = 0
+                        while completed < total_journeys:
+                            # Non-blocking check to allow checking if processes died
+                            while not progress_queue.empty():
+                                progress_queue.get()
+                                pbar.update(1)
+                                completed += 1
+                            
+                            # Check if processes are still alive (panic exit if all died)
+                            if not any(p.is_alive() for p in processes) and completed < total_journeys:
+                                print("All processes died prematurely!")
+                                break
+                            
+                            time.sleep(0.1)
+                    
+                    # Wait for processes to finish (they should already be done)
+                    for p in processes:
+                        p.join()
+                        if p.exitcode != 0:
+                            print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
                 
                 # 6. Stop monitor
                 monitor.stop()
@@ -280,10 +310,18 @@ def main():
                 })
                 
                 # 10. Clean up before next iteration
-                print("   5. Cleaning up Ganache...")
-                ganache.stop_network()
+                print("   [System] Cleaning up Ganache...")
+                try:
+                    ganache.stop_network()
+                except Exception as e:
+                    print(f"   [System] Warning during stop: {e}")
+                
                 kill_ganache()
-                time.sleep(5)
+                
+                print("   [System] Cooling down for 40s to release TCP ports...")
+                # CRITICAL: Wait for Windows to release TIME_WAIT sockets from previous 5000-user run
+                # If this is too short, the next run will fail with WinError 10061 immediately.
+                time.sleep(40)
     
     # 11. Save summary CSV
     print("\n=== Saving experiment summary ===")

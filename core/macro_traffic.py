@@ -251,7 +251,10 @@ class MacroTrafficGenerator:
         time.sleep(random.uniform(*SIM_THINK_TIME_RANGE))
 
     # ---------- Worker Logic with Sharding ----------
-    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+    def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
+        # 1. Staggered Start: Avoid "Thundering Herd"
+        # Wait random time up to 1.5 block times to desynchronize workers
+        time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
         
@@ -265,16 +268,16 @@ class MacroTrafficGenerator:
             if result is None:
                 # Timeout occurred, skip the rest of this journey
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
             self._sleep_random()
             
             result = self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
             if result is None:
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
             self._sleep_random()
 
@@ -288,37 +291,39 @@ class MacroTrafficGenerator:
                 self._sleep_random()
             if work_failed:
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
 
             # 3. Withdraw (Execution -> Source Shard)
             result = self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
             if result is None:
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
             self._sleep_random()
             
             result = self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
             if result is None:
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
             self._sleep_random()
 
             # Journey completed successfully
             journeys_done += 1
-            if pbar:
-                pbar.update(1)
+            if progress_queue:
+                progress_queue.put(1)
 
             # Log completion for progress tracking (optional)
             # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
 
-    def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+    def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
         # Pure local work on Shard 0. No cross-shard movement.
+        # 1. Staggered Start: Avoid "Thundering Herd"
+        time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
         journeys_done = 0
@@ -336,23 +341,25 @@ class MacroTrafficGenerator:
                 else:
                     # No break occurred, journey completed successfully
                     journeys_done += 1
-                    if pbar:
-                        pbar.update(1)
+                    if progress_queue:
+                        progress_queue.put(1)
                     continue
                 # If we broke out due to timeout, still count as a completed journey (skip)
                 journeys_done += 1
-                if pbar:
-                    pbar.update(1)
+                if progress_queue:
+                    progress_queue.put(1)
                 continue
             except Exception as e:
                 print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise
 
-    def _worker_loop_2pc_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, pbar: t.Any):
+    def _worker_loop_2pc_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
         """
         2PC Lifecycle: Loop N * (Lock -> Work -> Commit).
         Strict ordering: Lock S -> Lock E -> Work E -> Commit S -> Commit E.
         """
+        # 1. Staggered Start: Avoid "Thundering Herd"
+        time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
         # Round-robin shard assignment based on global worker ID
@@ -397,11 +404,11 @@ class MacroTrafficGenerator:
                 else:
                     # No break occurred, all transactions completed successfully
                     journeys_done += 1
-                    if pbar: pbar.update(1)
+                    if progress_queue: progress_queue.put(1)
                     continue
                 # If we broke out due to timeout, still count as a completed journey (skip)
                 journeys_done += 1
-                if pbar: pbar.update(1)
+                if progress_queue: progress_queue.put(1)
                 continue
             except Exception as e:
                 # Log error but let the thread die so main process knows
@@ -415,6 +422,7 @@ class MacroTrafficGenerator:
         ops_per_journey: int,
         journey_type: str = "DAS",
         process_id: int = None,
+        progress_queue: t.Any = None,
     ) -> t.List[t.Dict[str, t.Any]]:
         """
         Matrix Benchmark Entry: Runs until every user completes N journeys.
@@ -428,34 +436,33 @@ class MacroTrafficGenerator:
         # Clear previous logs
         self.raw_logs.clear()
         
-        # Initialize Progress Bar with position for multi‑process visibility
-        with tqdm(total=total_journeys, unit="journey", desc=f"P{self.process_id} {journey_type} N={concurrency}", position=self.process_id) as pbar:
-            with ThreadPoolExecutor(max_workers=concurrency) as executor:
-                futures = []
-                for i in range(concurrency):
-                    # Determine which worker function to use
-                    if journey_type == "DAS":
-                        futures.append(executor.submit(
-                            self._worker_loop_das_task, i, ops_per_journey, journeys_per_user, pbar
-                        ))
-                    elif journey_type == "2PC":
-                        futures.append(executor.submit(
-                            self._worker_loop_2pc_task, i, ops_per_journey, journeys_per_user, pbar
-                        ))
-                    elif journey_type == "BASELINE":
-                        futures.append(executor.submit(
-                            self._worker_loop_baseline, i, ops_per_journey, journeys_per_user, pbar
-                        ))
-                    else:
-                        raise ValueError(f"Unknown journey type: {journey_type}")
-                
-                # Wait for all
-                for future in as_completed(futures):
-                    try:
-                        future.result()
-                    except Exception as e:
-                        # Print but don't crash the whole process immediately, allow others to finish
-                        print(f"[Traffic P{self.process_id}] Critical worker failure: {e}")
+        # Use ThreadPoolExecutor to run workers
+        with ThreadPoolExecutor(max_workers=concurrency) as executor:
+            futures = []
+            for i in range(concurrency):
+                # Determine which worker function to use
+                if journey_type == "DAS":
+                    futures.append(executor.submit(
+                        self._worker_loop_das_task, i, ops_per_journey, journeys_per_user, progress_queue
+                    ))
+                elif journey_type == "2PC":
+                    futures.append(executor.submit(
+                        self._worker_loop_2pc_task, i, ops_per_journey, journeys_per_user, progress_queue
+                    ))
+                elif journey_type == "BASELINE":
+                    futures.append(executor.submit(
+                        self._worker_loop_baseline, i, ops_per_journey, journeys_per_user, progress_queue
+                    ))
+                else:
+                    raise ValueError(f"Unknown journey type: {journey_type}")
+            
+            # Wait for all
+            for future in as_completed(futures):
+                try:
+                    future.result()
+                except Exception as e:
+                    # Print but don't crash the whole process immediately, allow others to finish
+                    print(f"[Traffic P{self.process_id}] Critical worker failure: {e}")
 
         # Return raw logs for the caller to save
         return self.raw_logs

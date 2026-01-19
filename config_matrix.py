@@ -6,7 +6,7 @@ from config_global import *
 
 # === Matrix Experiment Parameters ===
 # N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [1000, 2000, 3000, 4000, 5000]
+MATRIX_CONCURRENCY_LEVELS = [200, 400, 600, 800, 1000]
 
 # q: Amortization Factors (Ops per Journey)
 MATRIX_AMORTIZATION_FACTORS = [1, 20, 40]
@@ -22,7 +22,7 @@ MATRIX_PROCESSES = 16
 
 # === Experiment Scenarios ===
 # Matrix now iterates over these Journey Types too
-MATRIX_SCENARIOS = ["BASELINE", "DAS", "2PC"]
+MATRIX_SCENARIOS = ["DAS", "2PC", "2PC"]
 
 # === Gas & Network Limits (Same as Macro) ===
 GAS_LIMIT = 6_000_000
@@ -33,7 +33,7 @@ MACRO_WARMUP = 10
 MACRO_TX_INTERVAL = 0.05
 
 # Override NUM_USERS to be at least max concurrency + margin
-NUM_USERS = 6000  # Must be greater than the maximum MATRIX_CONCURRENCY_LEVELS (1600)
+NUM_USERS = 1200  # Must be greater than the maximum MATRIX_CONCURRENCY_LEVELS (1600)
 
 # === NEW: Simulation Parameters ===
 # Random delay between operations (min, max) in seconds
