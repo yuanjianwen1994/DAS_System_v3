@@ -286,7 +286,7 @@ def main():
                     dump_csv(
                         monitor.block_logs,
                         f"matrix_blocks_{journey_type}_N{N}_q{q}_{timestamp}.csv",
-                        fieldnames=["block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
+                        fieldnames=["node", "block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
                     )
                 else:
                     print("      WARNING: No block logs captured.")

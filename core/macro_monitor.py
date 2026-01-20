@@ -99,6 +99,7 @@ class MacroMonitor:
                     total_blocks += 1
                     # Record per‑block stats
                     self.block_logs.append({
+                        "node": node,
                         "block_number": block.number,
                         "timestamp": block.timestamp,
                         "tx_count": len(block.transactions),

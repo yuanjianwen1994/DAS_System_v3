@@ -6,10 +6,10 @@ from config_global import *
 
 # === Matrix Experiment Parameters ===
 # N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [200, 400, 600, 800, 1000]
+MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400, 500]
 
 # q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [1, 20, 40]
+MATRIX_AMORTIZATION_FACTORS = [1, 5, 10]
 
 # n: Journeys per User (Target for Task‑Based Mode)
 # Each user must complete this many journeys before the experiment ends.
