@@ -9,7 +9,7 @@ from config_global import *
 MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400, 500]
 
 # q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [1, 5, 10]
+MATRIX_AMORTIZATION_FACTORS = [5]
 
 # n: Journeys per User (Target for Task‑Based Mode)
 # Each user must complete this many journeys before the experiment ends.
@@ -22,7 +22,7 @@ MATRIX_PROCESSES = 16
 
 # === Experiment Scenarios ===
 # Matrix now iterates over these Journey Types too
-MATRIX_SCENARIOS = ["DAS", "2PC", "2PC"]
+MATRIX_SCENARIOS = ["2PC","BASELINE"]
 
 # === Gas & Network Limits (Same as Macro) ===
 GAS_LIMIT = 6_000_000

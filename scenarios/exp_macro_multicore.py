@@ -9,6 +9,8 @@ import os
 import time
 import subprocess
 import csv
+import glob
+import pandas as pd
 import multiprocessing
 from pathlib import Path
 from datetime import datetime
@@ -82,6 +84,54 @@ def dump_csv(data: List[Dict[str, Any]], filename: str, fieldnames: List[str]) -
         writer.writeheader()
         writer.writerows(data)
     print(f"      [Data] {filename} saved ({len(data)} rows).")
+
+
+def consolidate_logs(journey_type: str, n: int, q: int, timestamp: str):
+    """
+    Finds all partial process logs for a specific run, merges them into one,
+    and deletes the partial files.
+    """
+    logs_dir = Path(__file__).parent.parent / "logs"
+    # 1. Pattern match: raw_txs_p*_{journey_type}_N{n}_q{q}_{timestamp}.csv
+    pattern = f"raw_txs_p*_{journey_type}_N{n}_q{q}_{timestamp}.csv"
+    files = glob.glob(str(logs_dir / pattern))
+    
+    if not files:
+        print(f"[System] No log files found to merge for pattern: {pattern}")
+        return
+
+    print(f"[System] Merging {len(files)} log files for N={n}, q={q}...")
+    
+    try:
+        # 2. Read and Concat
+        df_list = []
+        for f in files:
+            try:
+                df = pd.read_csv(f)
+                df_list.append(df)
+            except pd.errors.EmptyDataError:
+                pass # Ignore empty files
+        
+        if df_list:
+            combined_df = pd.concat(df_list, ignore_index=True)
+            
+            # 3. Save Combined File
+            combined_filename = f"combined_raw_txs_{journey_type}_N{n}_q{q}_{timestamp}.csv"
+            combined_path = logs_dir / combined_filename
+            combined_df.to_csv(combined_path, index=False)
+            print(f"[System] Saved combined log: {combined_filename} ({len(combined_df)} records)")
+            
+            # 4. Delete Partial Files (Only if merge succeeded)
+            for f in files:
+                try:
+                    os.remove(f)
+                except OSError as e:
+                    print(f"Warning: Could not delete {f}: {e}")
+        else:
+            print("[System] Warning: All log files were empty.")
+            
+    except Exception as e:
+        print(f"[System] Error during log consolidation: {e}")
 
 
 # ========== Worker Process Function ==========
@@ -273,6 +323,10 @@ def main():
                         p.join()
                         if p.exitcode != 0:
                             print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
+                    
+                    # === NEW: Auto-Merge Logs ===
+                    consolidate_logs(journey_type, N, q, timestamp)
+                    # ============================
                 
                 # 6. Stop monitor
                 monitor.stop()
