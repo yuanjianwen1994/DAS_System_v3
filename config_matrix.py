@@ -6,10 +6,10 @@ from config_global import *
 
 # === Matrix Experiment Parameters ===
 # N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400, 500]
+MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400]
 
 # q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [5]
+MATRIX_AMORTIZATION_FACTORS = [1]
 
 # n: Journeys per User (Target for Task‑Based Mode)
 # Each user must complete this many journeys before the experiment ends.
@@ -21,8 +21,8 @@ MATRIX_JOURNEYS_PER_USER = 5
 MATRIX_PROCESSES = 16
 
 # === Experiment Scenarios ===
-# Matrix now iterates over these Journey Types too
-MATRIX_SCENARIOS = ["2PC","BASELINE"]
+# Matrix now iterates over these Journey Types too ["DAS","2PC","BASELINE"]
+MATRIX_SCENARIOS = ["DAS","DAS","DAS","DAS"]
 
 # === Gas & Network Limits (Same as Macro) ===
 GAS_LIMIT = 6_000_000
