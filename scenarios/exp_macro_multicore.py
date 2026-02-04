@@ -188,7 +188,7 @@ def run_worker_process(
         dump_csv(
             raw_logs,
             f"raw_txs_p{proc_id}_{journey_type}_N{concurrency}_q{ops_per_journey}_{timestamp}.csv",
-            fieldnames=["timestamp", "worker_id", "tx_type", "latency_s", "gas_used", "block_number", "status"]
+            fieldnames=["timestamp", "journey_id", "worker_id", "tx_type", "latency_s", "gas_used", "block_number", "status"]
         )
     else:
         print(f"[Worker {proc_id}] WARNING: No raw logs captured.")

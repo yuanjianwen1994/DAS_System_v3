@@ -146,7 +146,7 @@ class MacroTrafficGenerator:
         )
 
     # ---------- Robust Send with Retry ----------
-    def _send_and_wait(self, func_type, user_idx, **kwargs):
+    def _send_and_wait(self, func_type, user_idx, journey_id=None, **kwargs):
         # Retry Loop for Connection Stability
         for attempt in range(HTTP_RETRIES):
             try:
@@ -186,6 +186,7 @@ class MacroTrafficGenerator:
                 duration = time.time() - start_time
                 self.raw_logs.append({
                     "timestamp": time.time(),
+                    "journey_id": journey_id if journey_id else "N/A",
                     "worker_id": user_idx,
                     "tx_type": func_type,
                     "latency_s": duration,
@@ -204,6 +205,7 @@ class MacroTrafficGenerator:
                     # We record it as a status=0 (unknown outcome) but strictly DO NOT CRASH
                     self.raw_logs.append({
                         "timestamp": time.time(),
+                        "journey_id": journey_id if journey_id else "N/A",
                         "worker_id": user_idx,
                         "tx_type": func_type,
                         "latency_s": time.time() - start_time,
@@ -225,6 +227,7 @@ class MacroTrafficGenerator:
                     # 记录超时原始日志
                     self.raw_logs.append({
                         "timestamp": time.time(),
+                        "journey_id": journey_id if journey_id else "N/A",
                         "worker_id": user_idx,
                         "tx_type": func_type,
                         "latency_s": MACRO_TX_TIMEOUT,
@@ -262,9 +265,13 @@ class MacroTrafficGenerator:
         source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
         
         journeys_done = 0
+        successful_journeys = 0
         while journeys_done < target_journeys:
+            # Generate a unique journey ID for this attempt
+            journey_id = f"{global_worker_id}_{journeys_done}"
+            
             # 1. Deposit (Source Shard -> Execution)
-            result = self._send_and_wait("das_burn", global_worker_id, shard_id=source_shard, amount=amount)
+            result = self._send_and_wait("das_burn", global_worker_id, journey_id=journey_id, shard_id=source_shard, amount=amount)
             if result is None:
                 # Timeout occurred, skip the rest of this journey
                 journeys_done += 1
@@ -273,7 +280,7 @@ class MacroTrafficGenerator:
                 continue
             self._sleep_random()
             
-            result = self._send_and_wait("das_mint", global_worker_id, shard_id=-1, amount=amount)
+            result = self._send_and_wait("das_mint", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
             if result is None:
                 journeys_done += 1
                 if progress_queue:
@@ -284,7 +291,7 @@ class MacroTrafficGenerator:
             # 2. Work (Execution)
             work_failed = False
             for _ in range(ops_per_journey):
-                result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                 if result is None:
                     work_failed = True
                     break
@@ -296,7 +303,7 @@ class MacroTrafficGenerator:
                 continue
 
             # 3. Withdraw (Execution -> Source Shard)
-            result = self._send_and_wait("das_burn", global_worker_id, shard_id=-1, amount=amount)
+            result = self._send_and_wait("das_burn", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
             if result is None:
                 journeys_done += 1
                 if progress_queue:
@@ -304,7 +311,7 @@ class MacroTrafficGenerator:
                 continue
             self._sleep_random()
             
-            result = self._send_and_wait("das_mint", global_worker_id, shard_id=source_shard, amount=amount)
+            result = self._send_and_wait("das_mint", global_worker_id, journey_id=journey_id, shard_id=source_shard, amount=amount)
             if result is None:
                 journeys_done += 1
                 if progress_queue:
@@ -314,11 +321,14 @@ class MacroTrafficGenerator:
 
             # Journey completed successfully
             journeys_done += 1
+            successful_journeys += 1
             if progress_queue:
                 progress_queue.put(1)
 
             # Log completion for progress tracking (optional)
             # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
+        # Summary log at end of worker
+        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
 
     def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
         # Pure local work on Shard 0. No cross-shard movement.
@@ -327,13 +337,16 @@ class MacroTrafficGenerator:
         global_worker_id = worker_id + self.user_offset
         amount = 100
         journeys_done = 0
+        successful_journeys = 0
         while journeys_done < target_journeys:
+            # Generate a unique journey ID for this attempt
+            journey_id = f"{global_worker_id}_{journeys_done}"
             # Just do N operations on Shard 0 (Workload contract must be deployed there too)
             # If Workload is only on Execution, we map Baseline to Execution Shard (-1)
             # Let's assume Baseline = Run entirely on Execution Shard for simplicity
             try:
                 for _ in range(ops_per_journey):
-                     result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                     result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                      if result is None:
                          # Timeout occurred, skip the rest of this journey
                          break
@@ -341,6 +354,7 @@ class MacroTrafficGenerator:
                 else:
                     # No break occurred, journey completed successfully
                     journeys_done += 1
+                    successful_journeys += 1
                     if progress_queue:
                         progress_queue.put(1)
                     continue
@@ -352,6 +366,8 @@ class MacroTrafficGenerator:
             except Exception as e:
                 print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise
+        # Summary log at end of worker
+        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
 
     def _worker_loop_2pc_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
         """
@@ -366,36 +382,39 @@ class MacroTrafficGenerator:
         source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
         
         journeys_done = 0
+        successful_journeys = 0
         while journeys_done < target_journeys:
             try:
+                # Generate a unique journey ID for this attempt
+                journey_id = f"{global_worker_id}_{journeys_done}"
                 # In 2PC, a "Journey" consists of `ops_per_journey` atomic transactions
                 for _ in range(ops_per_journey):
                     # Generate unique TPC ID for this transaction
                     tpc_id = random.randbytes(32)
 
                     # 1. Lock on Source
-                    result = self._send_and_wait("tpc_lock", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_lock", global_worker_id, journey_id=journey_id, shard_id=source_shard, tpc_id=tpc_id)
                     if result is None:
                         # Timeout occurred, skip the rest of this transaction and journey
                         break
                     
                     # 2. Lock on Execution
-                    result = self._send_and_wait("tpc_lock", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_lock", global_worker_id, journey_id=journey_id, shard_id=-1, tpc_id=tpc_id)
                     if result is None:
                         break
                     
                     # 3. Work on Execution (Simulated Business Logic)
-                    result = self._send_and_wait("das_work", global_worker_id, shard_id=-1, amount=amount)
+                    result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                     if result is None:
                         break
                     
                     # 4. Commit on Source
-                    result = self._send_and_wait("tpc_commit", global_worker_id, shard_id=source_shard, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_commit", global_worker_id, journey_id=journey_id, shard_id=source_shard, tpc_id=tpc_id)
                     if result is None:
                         break
                     
                     # 5. Commit on Execution
-                    result = self._send_and_wait("tpc_commit", global_worker_id, shard_id=-1, tpc_id=tpc_id)
+                    result = self._send_and_wait("tpc_commit", global_worker_id, journey_id=journey_id, shard_id=-1, tpc_id=tpc_id)
                     if result is None:
                         break
 
@@ -404,6 +423,7 @@ class MacroTrafficGenerator:
                 else:
                     # No break occurred, all transactions completed successfully
                     journeys_done += 1
+                    successful_journeys += 1
                     if progress_queue: progress_queue.put(1)
                     continue
                 # If we broke out due to timeout, still count as a completed journey (skip)
@@ -414,6 +434,8 @@ class MacroTrafficGenerator:
                 # Log error but let the thread die so main process knows
                 print(f"[Traffic] 2PC Worker {worker_id} (global {global_worker_id}) failed: {e}")
                 raise e
+        # Summary log at end of worker
+        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
 
     def run_task_based(
         self,

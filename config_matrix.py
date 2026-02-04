@@ -6,10 +6,10 @@ from config_global import *
 
 # === Matrix Experiment Parameters ===
 # N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400]
+MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400, 500]
 
 # q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [1]
+MATRIX_AMORTIZATION_FACTORS = [1,5,10]
 
 # n: Journeys per User (Target for Task‑Based Mode)
 # Each user must complete this many journeys before the experiment ends.
@@ -18,11 +18,11 @@ MATRIX_JOURNEYS_PER_USER = 5
 # === Multiprocessing Config ===
 # Number of CPU cores to use for traffic generation
 # User has 20 cores, using 16 for traffic, leaving 4 for System/Ganache
-MATRIX_PROCESSES = 16
+MATRIX_PROCESSES = 50
 
 # === Experiment Scenarios ===
 # Matrix now iterates over these Journey Types too ["DAS","2PC","BASELINE"]
-MATRIX_SCENARIOS = ["DAS","DAS","DAS","DAS"]
+MATRIX_SCENARIOS = ["DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE"]
 
 # === Gas & Network Limits (Same as Macro) ===
 GAS_LIMIT = 6_000_000
