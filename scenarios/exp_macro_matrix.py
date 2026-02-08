@@ -35,6 +35,7 @@ from config_matrix import (
     MATRIX_AMORTIZATION_FACTORS,
     MATRIX_JOURNEYS_PER_USER,
     MATRIX_PROCESSES,
+    MATRIX_SCENARIOS,
 )
 from core.identity import UserManager
 from core.network import GanacheManager, ConnectionManager
@@ -49,6 +50,7 @@ CONCURRENCY_LEVELS = MATRIX_CONCURRENCY_LEVELS
 AMORTIZATION_FACTORS = MATRIX_AMORTIZATION_FACTORS
 JOURNEYS_PER_USER = MATRIX_JOURNEYS_PER_USER
 NUM_PROCESSES = MATRIX_PROCESSES  # number of worker processes
+SCENARIOS = MATRIX_SCENARIOS
 
 
 # ========== Helper Functions ==========
@@ -224,149 +226,153 @@ def main():
         # Inner loop: concurrency N
         for N in CONCURRENCY_LEVELS:
             print(f"\n   --- Concurrency N = {N} ---")
-            iteration_start = time.time()
+            # Innermost loop: journey type scenarios
+            for journey_type in SCENARIOS:
+                print(f"\n>>> Starting Iteration: N={N}, q={q}, Type={journey_type} <<<")
+                iteration_start = time.time()
 
-            # 1. Start Ganache network with robust retry loop
-            print("   1. Starting Ganache network...")
-            topology = get_topology()
-            ganache = GanacheManager()
-            max_retries = 5
-            started = False
-            for attempt in range(max_retries):
-                try:
-                    print(f"      [System] Attempt {attempt+1}/{max_retries}...")
-                    ganache.start_network(topology)
-                    started = True
-                    break
-                except RuntimeError as e:
-                    if "already in use" in str(e):
-                        print(f"      [System] Ports in use. Killing and waiting 10s...")
-                        kill_ganache()
-                        time.sleep(10)
-                    else:
-                        raise e
-            if not started:
-                raise RuntimeError("Failed to start Ganache after multiple retries.")
+                # 1. Start Ganache network with robust retry loop
+                print("   1. Starting Ganache network...")
+                topology = get_topology()
+                ganache = GanacheManager()
+                max_retries = 5
+                started = False
+                for attempt in range(max_retries):
+                    try:
+                        print(f"      [System] Attempt {attempt+1}/{max_retries}...")
+                        ganache.start_network(topology)
+                        started = True
+                        break
+                    except RuntimeError as e:
+                        if "already in use" in str(e):
+                            print(f"      [System] Ports in use. Killing and waiting 10s...")
+                            kill_ganache()
+                            time.sleep(10)
+                        else:
+                            raise e
+                if not started:
+                    raise RuntimeError("Failed to start Ganache after multiple retries.")
 
-            time.sleep(2)  # let processes stabilize
+                time.sleep(2)  # let processes stabilize
 
-            # 2. Prepare managers and deploy contracts (once for this iteration)
-            network = ConnectionManager(topology)
-            from config_matrix import MNEMONIC
-            identity = UserManager(MNEMONIC)
-            deployer = ContractDeployer(network, identity)
-            injector = MacroTransactionInjector(network, identity)
+                # 2. Prepare managers and deploy contracts (once for this iteration)
+                network = ConnectionManager(topology)
+                from config_matrix import MNEMONIC
+                identity = UserManager(MNEMONIC)
+                deployer = ContractDeployer(network, identity)
+                injector = MacroTransactionInjector(network, identity)
 
-            # 3. Wait for nodes to be fully reachable
-            wait_for_nodes(network)
+                # 3. Wait for nodes to be fully reachable
+                wait_for_nodes(network)
 
-            # 4. Deploy contracts
-            print("   2. Deploying contracts...")
-            registry = deployer.deploy_infrastructure(topology)
-            print(f"      Registry keys: {list(registry.keys())}")
-            print("      Waiting for contracts to be fully mined (15 seconds)...")
-            time.sleep(15)
+                # 4. Deploy contracts
+                print("   2. Deploying contracts...")
+                registry = deployer.deploy_infrastructure(topology)
+                print(f"      Registry keys: {list(registry.keys())}")
+                print("      Waiting for contracts to be fully mined (15 seconds)...")
+                time.sleep(15)
 
-            # 5. Start monitor (optional, may interfere with multi‑process)
-            monitor = MacroMonitor(network)
-            monitor.start()
+                # 5. Start monitor (optional, may interfere with multi‑process)
+                monitor = MacroMonitor(network)
+                monitor.start()
 
-            # 6. Launch worker processes
-            print(f"   3. Spawning {NUM_PROCESSES} worker processes for N={N}...")
-            procs = []
-            total_users_assigned = 0
-            # Calculate distribution
-            base_users = N // NUM_PROCESSES
-            remainder = N % NUM_PROCESSES
-            current_offset = 0
-            
-            for i in range(NUM_PROCESSES):
-                # Distribute remainder to first few processes
-                count = base_users + (1 if i < remainder else 0)
-                if count == 0:
-                    continue  # Skip if N < NUM_PROCESSES
+                # 6. Launch worker processes
+                print(f"   3. Spawning {NUM_PROCESSES} worker processes for N={N}...")
+                procs = []
+                total_users_assigned = 0
+                # Calculate distribution
+                base_users = N // NUM_PROCESSES
+                remainder = N % NUM_PROCESSES
+                current_offset = 0
                 
-                p = multiprocessing.Process(
-                    target=run_worker_process,
-                    args=(
-                        i,              # process_id
-                        current_offset, # user_offset
-                        count,          # num_users
-                        N,              # total_N (total concurrency for logging)
-                        q,              # amortization_factor
-                        "DAS",          # journey_type (fixed for matrix, could be dynamic)
-                        JOURNEYS_PER_USER,
-                        timestamp,
-                        topology,
-                        registry,
+                for i in range(NUM_PROCESSES):
+                    # Distribute remainder to first few processes
+                    count = base_users + (1 if i < remainder else 0)
+                    if count == 0:
+                        continue  # Skip if N < NUM_PROCESSES
+                    
+                    p = multiprocessing.Process(
+                        target=run_worker_process,
+                        args=(
+                            i,              # process_id
+                            current_offset, # user_offset
+                            count,          # num_users
+                            N,              # total_N (total concurrency for logging)
+                            q,              # amortization_factor
+                            journey_type,   # dynamic journey_type
+                            JOURNEYS_PER_USER,
+                            timestamp,
+                            topology,
+                            registry,
+                        )
                     )
-                )
-                p.start()
-                procs.append(p)
-                current_offset += count
+                    p.start()
+                    procs.append(p)
+                    current_offset += count
+                    
+                    # === NEW: Desynchronize Processes ===
+                    # Wait 2 seconds between launching each process group.
+                    # This spreads the 16 groups over ~32 seconds, breaking the resonance.
+                    print(f"   [System] Process {i} started. Staggering next launch in 2s...")
+                    time.sleep(2.0)
+                    
+                    total_users_assigned += count
                 
-                # === NEW: Desynchronize Processes ===
-                # Wait 2 seconds between launching each process group.
-                # This spreads the 16 groups over ~32 seconds, breaking the resonance.
-                print(f"   [System] Process {i} started. Staggering next launch in 2s...")
-                time.sleep(2.0)
-                
-                total_users_assigned += count
-            
-            if total_users_assigned != N:
-                print(f"   [Warning] User distribution mismatch: assigned {total_users_assigned}, expected {N}")
+                if total_users_assigned != N:
+                    print(f"   [Warning] User distribution mismatch: assigned {total_users_assigned}, expected {N}")
 
-            # 7. Wait for all processes to finish
-            print("   4. Waiting for worker processes to finish...")
-            for p in procs:
-                p.join()
-                if p.exitcode != 0:
-                    print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
+                # 7. Wait for all processes to finish
+                print("   4. Waiting for worker processes to finish...")
+                for p in procs:
+                    p.join()
+                    if p.exitcode != 0:
+                        print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
 
-            # 8. Stop monitor
-            monitor.stop()
+                # 8. Stop monitor
+                monitor.stop()
 
-            # 9. Calculate aggregate metrics
-            metrics = monitor.calculate()
-            print(f"   5. Results: TPS = {metrics['tps']:.2f}, Gas/sec = {metrics['gas_per_sec']:.0f}")
+                # 9. Calculate aggregate metrics
+                metrics = monitor.calculate()
+                print(f"   5. Results: TPS = {metrics['tps']:.2f}, Gas/sec = {metrics['gas_per_sec']:.0f}")
 
-            # 10. Dump block‑level logs
-            print("   6. Dumping block logs...")
-            if monitor.block_logs:
-                dump_csv(
-                    monitor.block_logs,
-                    f"matrix_blocks_N{N}_q{q}_{timestamp}.csv",
-                    fieldnames=["node", "block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
-                )
-            else:
-                print("      WARNING: No block logs captured.")
+                # 10. Dump block‑level logs
+                print("   6. Dumping block logs...")
+                if monitor.block_logs:
+                    dump_csv(
+                        monitor.block_logs,
+                        f"matrix_blocks_{journey_type}_N{N}_q{q}_{timestamp}.csv",
+                        fieldnames=["node", "block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
+                    )
+                else:
+                    print("      WARNING: No block logs captured.")
 
-            # 11. Auto‑merge per‑process raw logs
-            print("   7. Merging per‑process raw logs...")
-            consolidate_logs("DAS", N, q, timestamp)
+                # 11. Auto‑merge per‑process raw logs
+                print("   7. Merging per‑process raw logs...")
+                consolidate_logs(journey_type, N, q, timestamp)
 
-            # 12. Record summary row
-            iteration_end = time.time()
-            makespan = iteration_end - iteration_start
-            summary_rows.append({
-                "concurrency": N,
-                "amortization_factor": q,
-                "journeys_per_user": JOURNEYS_PER_USER,
-                "total_txs": metrics["total_txs"],
-                "total_gas": metrics["total_gas"],
-                "total_blocks": metrics["total_blocks"],
-                "total_time": metrics["total_time"],
-                "tps": metrics["tps"],
-                "gas_per_sec": metrics["gas_per_sec"],
-                "makespan_seconds": makespan,
-                "processes": NUM_PROCESSES,
-            })
+                # 12. Record summary row
+                iteration_end = time.time()
+                makespan = iteration_end - iteration_start
+                summary_rows.append({
+                    "journey_type": journey_type,
+                    "concurrency": N,
+                    "amortization_factor": q,
+                    "journeys_per_user": JOURNEYS_PER_USER,
+                    "total_txs": metrics["total_txs"],
+                    "total_gas": metrics["total_gas"],
+                    "total_blocks": metrics["total_blocks"],
+                    "total_time": metrics["total_time"],
+                    "tps": metrics["tps"],
+                    "gas_per_sec": metrics["gas_per_sec"],
+                    "makespan_seconds": makespan,
+                    "processes": NUM_PROCESSES,
+                })
 
-            # 13. Clean up before next iteration
-            print("   8. Cleaning up Ganache...")
-            ganache.stop_network()
-            kill_ganache()
-            time.sleep(5)
+                # 13. Clean up before next iteration
+                print("   8. Cleaning up Ganache...")
+                ganache.stop_network()
+                kill_ganache()
+                time.sleep(5)
 
     # 14. Save summary CSV
     print("\n=== Saving experiment summary ===")
@@ -374,6 +380,7 @@ def main():
         summary_rows,
         f"matrix_summary_{timestamp}.csv",
         fieldnames=[
+            "journey_type",
             "concurrency",
             "amortization_factor",
             "journeys_per_user",

@@ -38,8 +38,9 @@ class GanacheManager:
     def start_network(self, topology: t.Dict[str, t.Any]) -> None:
         """
         Launches ganache subprocesses for each node in the topology.
+        OUTPUT: Discarded to DEVNULL to save disk space.
         """
-        # Create logs directory
+        # Create logs directory (kept for other logs if any)
         os.makedirs("logs", exist_ok=True)
 
         # Build flat node list
@@ -56,10 +57,6 @@ class GanacheManager:
             port = cfg["port"]
             if not self._is_port_available(port):
                 raise RuntimeError(f"Port {port} for {name} is already in use.")
-
-            # Log file path
-            log_path = os.path.join("logs", f"ganache_{name}_{port}.log")
-            log_file = open(log_path, "w", encoding="utf-8")
 
             # Database path on E: drive
             node_db_path = os.path.join(GANACHE_DATA_DIR, name)
@@ -97,8 +94,8 @@ class GanacheManager:
 
             proc = subprocess.Popen(
                 cmd,
-                stdout=log_file,
-                stderr=subprocess.STDOUT,
+                stdout=subprocess.DEVNULL,  # Discard output
+                stderr=subprocess.DEVNULL,  # Discard errors
                 text=True,
             )
             self.processes[name] = proc
@@ -106,11 +103,8 @@ class GanacheManager:
             # Wait for process to start and check if it crashed
             time.sleep(2)
             if proc.poll() is not None:
-                # Process died, read log file
-                log_file.close()
-                with open(log_path, "r") as f:
-                    error_log = f.read()
-                raise RuntimeError(f"{name} failed to start! Logs:\n{error_log}")
+                # Process died, but we have no logs
+                raise RuntimeError(f"{name} failed to start! (exit code: {proc.returncode})")
 
             print(f"Started {name} on port {port} (PID: {proc.pid})")
 

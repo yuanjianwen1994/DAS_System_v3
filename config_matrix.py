@@ -22,7 +22,7 @@ MATRIX_PROCESSES = 50
 
 # === Experiment Scenarios ===
 # Matrix now iterates over these Journey Types too ["DAS","2PC","BASELINE"]
-MATRIX_SCENARIOS = ["DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE","DAS","2PC","BASELINE"]
+MATRIX_SCENARIOS = ["DAS","DAS","DAS","DAS","DAS","2PC","2PC","2PC","2PC","2PC","BASELINE","BASELINE","BASELINE","BASELINE","BASELINE"]
 
 # === Gas & Network Limits (Same as Macro) ===
 GAS_LIMIT = 6_000_000
