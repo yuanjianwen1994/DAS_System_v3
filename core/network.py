@@ -1,11 +1,12 @@
 """
 Network management for DAS System v3.
-Ganache Lifecycle & Web3 Connection Management.
+Anvil Lifecycle & Web3 Connection Management.
 """
 import os
 import shutil
 import socket
 import subprocess
+import sys
 import time
 import typing as t
 import requests
@@ -17,9 +18,9 @@ from web3.providers import HTTPProvider
 from config_global import MNEMONIC, BLOCK_TIME, GAS_LIMIT, NUM_USERS, ACCOUNT_BALANCE_ETH, get_topology, GANACHE_DATA_DIR
 
 
-class GanacheManager:
+class AnvilManager:
     """
-    Manages Ganache processes for each node in the topology.
+    Manages Anvil processes for each node in the topology.
     """
     def __init__(self) -> None:
         self.processes: t.Dict[str, subprocess.Popen] = {}
@@ -37,7 +38,7 @@ class GanacheManager:
 
     def start_network(self, topology: t.Dict[str, t.Any]) -> None:
         """
-        Launches ganache subprocesses for each node in the topology.
+        Launches anvil subprocesses for each node in the topology.
         OUTPUT: Discarded to DEVNULL to save disk space.
         """
         # Create logs directory (kept for other logs if any)
@@ -73,30 +74,32 @@ class GanacheManager:
 
             # Build command with equals‑sign syntax
             cmd = [
-                "ganache.cmd",
-                f"--server.port={port}",
-                f"--server.host=127.0.0.1",  # <--- FORCE IPv4 BINDING
-                f"--miner.blockTime={BLOCK_TIME}",
-                f"--wallet.mnemonic={MNEMONIC}",
-                f"--wallet.totalAccounts={NUM_USERS}",
-                f"--wallet.defaultBalance={ACCOUNT_BALANCE_ETH}",
-                f"--miner.blockGasLimit={GAS_LIMIT}",
-                "--chain.allowUnlimitedContractSize",
-                "--chain.hardfork=shanghai",
-                "--verbose",
-                f"--database.dbPath={node_db_path}",
+                "anvil",
+                f"--port={port}",
+                f"--host=127.0.0.1",  # <--- FORCE IPv4 BINDING
+                f"--block-time={BLOCK_TIME}",
+                f"--mnemonic={MNEMONIC}",
+                f"--accounts={NUM_USERS}",
+                f"--balance={ACCOUNT_BALANCE_ETH}",
+                f"--gas-limit={GAS_LIMIT}",
+                "--disable-code-size-limit",  # Disable EIP-170 contract size limit
+                "--hardfork=shanghai",
+                "--order=fifo",
+                "--prune-history",
+                "--chain-id=31337",
+                # Anvil does not persist state; omit database.dbPath
             ]
 
             print(f"Starting {name}: {' '.join(cmd)}")
             if name == "baseline":
-                import sys
                 sys.stderr.write(f"[DEBUG] Baseline command: {' '.join(cmd)}\n")
 
+            log_file = open(f"logs/{name}.log", "w")
             proc = subprocess.Popen(
                 cmd,
-                stdout=subprocess.DEVNULL,  # Discard output
-                stderr=subprocess.DEVNULL,  # Discard errors
-                text=True,
+                stdout=log_file,
+                stderr=subprocess.STDOUT,
+                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == "win32" else 0
             )
             self.processes[name] = proc
 
@@ -110,7 +113,7 @@ class GanacheManager:
 
     def stop_network(self) -> None:
         """
-        Terminates all ganache subprocesses gracefully.
+        Terminates all anvil subprocesses gracefully.
         """
         for name, proc in self.processes.items():
             if proc.poll() is None:

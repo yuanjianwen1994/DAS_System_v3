@@ -5,6 +5,7 @@ Compiles Solidity contracts and deploys them across the topology.
 import json
 import os
 import typing as t
+import time
 from pathlib import Path
 
 import solcx
@@ -21,7 +22,7 @@ class ContractDeployer:
     Manages compilation and deployment of the experiment contracts.
     """
 
-    SOLC_VERSION = "0.8.21"
+    SOLC_VERSION = "0.8.24"
 
     def __init__(
         self,
@@ -89,24 +90,82 @@ class ContractDeployer:
 
         # Helper to deploy a single contract
         def deploy_contract(
-            web3: Web3, account, contract_name: str
+            web3: Web3, account, contract_name: str, args=None
         ) -> t.Tuple[Contract, str]:
             data = self._compiled[contract_name]
             contract = web3.eth.contract(
                 abi=data["abi"], bytecode=data["bytecode"]
             )
-            # Build transaction
-            nonce = web3.eth.get_transaction_count(account.address)
-            tx = contract.constructor().build_transaction({
+            # === THE ONLY FIX NEEDED ===
+            # Fetch fresh nonce from chain (handling restart/reset state)
+            # "pending" ensures we count txs currently in mempool
+            nonce = web3.eth.get_transaction_count(account.address, "pending")
+
+            # === RESTORED ROBUST LOGIC ===
+            # Use auto-detected gas price (works perfectly with Anvil)
+            # Let Web3 handle ChainID implicitly
+            gas_price = web3.eth.gas_price
+            chain_id = web3.eth.chain_id  # keep for logging
+            print(f"[DEPLOY] Deploying {contract_name} on chain {chain_id}, nonce {nonce}, gas price {gas_price}")
+            print(f"[DEPLOY] Account: {account.address}, balance: {web3.eth.get_balance(account.address)}")
+            # Estimate gas for deployment
+            try:
+                estimated = contract.constructor(*(args or ())).estimate_gas({'from': account.address})
+                print(f"[DEPLOY] Estimated gas: {estimated}")
+                gas = min(estimated + 100000, GAS_LIMIT)  # Add a buffer but cap at global limit
+            except Exception as e:
+                print(f"[DEPLOY] Gas estimation failed, using default {GAS_LIMIT}: {e}")
+                gas = GAS_LIMIT
+            # Ensure gas does not exceed block gas limit (anvil's limit)
+            block_gas_limit = web3.eth.get_block('latest').gasLimit
+            if gas > block_gas_limit:
+                print(f"[DEPLOY] Gas {gas} exceeds block gas limit {block_gas_limit}, adjusting")
+                gas = block_gas_limit - 100000
+            print(f"[DEPLOY] Using gas: {gas}, block gas limit: {block_gas_limit}")
+            tx = contract.constructor(*(args or ())).build_transaction({
                 "from": account.address,
-                "gas": GAS_LIMIT,
-                "gasPrice": web3.to_wei(20, "gwei"),
+                "gas": gas,
+                "gasPrice": gas_price,
                 "nonce": nonce,
+                # "chainId": ... (Removed, let Web3 auto-detect)
+                # "type": ...    (Removed)
             })
             signed = account.sign_transaction(tx)
             tx_hash = web3.eth.send_raw_transaction(signed.raw_transaction)
-            # Wait for receipt
-            receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+            print(f"[DEPLOY] Sent tx {tx_hash.hex()}, waiting for receipt...")
+            # Immediately try to fetch the transaction to verify it's in pool
+            try:
+                pending = web3.eth.get_transaction(tx_hash)
+                print(f"[DEPLOY] Transaction in pool: nonce {pending.nonce}, gas {pending.gas}, gasPrice {pending.gasPrice}")
+            except Exception as e:
+                print(f"[DEPLOY] Could not get transaction from pool: {e}")
+            # Wait for receipt with longer timeout (300 seconds) for 12s block time
+            # First, poll for block progression
+            start_block = web3.eth.block_number
+            print(f"[DEPLOY] Current block: {start_block}")
+            for i in range(30):
+                time.sleep(1)
+                current = web3.eth.block_number
+                if current > start_block:
+                    print(f"[DEPLOY] Block advanced to {current}")
+                    start_block = current
+                # Check if transaction is already mined
+                try:
+                    receipt = web3.eth.get_transaction_receipt(tx_hash)
+                    if receipt is not None:
+                        print(f"[DEPLOY] Receipt found via polling: block {receipt.blockNumber}")
+                        break
+                except:
+                    pass
+            else:
+                # If not mined after 30 seconds, try to force a block
+                print("[DEPLOY] Transaction not mined after 30s, forcing a block via evm_mine...")
+                try:
+                    web3.provider.make_request('evm_mine', [])
+                except Exception as e:
+                    print(f"[DEPLOY] evm_mine failed: {e}")
+            receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
+            print(f"[DEPLOY] Receipt received: block {receipt.blockNumber}, contract {receipt.contractAddress}")
             deployed = web3.eth.contract(
                 address=receipt.contractAddress, abi=data["abi"]
             )

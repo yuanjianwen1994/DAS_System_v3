@@ -38,7 +38,7 @@ from config_matrix import (
     MATRIX_SCENARIOS,
 )
 from core.identity import UserManager
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 from core.macro_injector import MacroTransactionInjector
 from core.macro_traffic import MacroTrafficGenerator
@@ -54,15 +54,33 @@ SCENARIOS = MATRIX_SCENARIOS
 
 
 # ========== Helper Functions ==========
-def kill_ganache():
-    """Aggressively kill all ganache/node processes."""
+def kill_nodes():
+    """Aggressively kill all anvil processes."""
     try:
         if os.name == 'nt':
-            subprocess.call(["taskkill", "/F", "/IM", "node.exe", "/T"], stderr=subprocess.DEVNULL)
+            subprocess.call(["taskkill", "/F", "/IM", "anvil.exe", "/T"], stderr=subprocess.DEVNULL)
         else:
-            subprocess.call(["pkill", "-f", "ganache"], stderr=subprocess.DEVNULL)
+            subprocess.call(["pkill", "-f", "anvil"], stderr=subprocess.DEVNULL)
     except Exception:
         pass
+
+
+def wait_for_ports_released(ports=[8580, 8581, 9000, 9999], timeout=30):
+    """Wait until all specified TCP ports become available."""
+    import socket
+    start = time.time()
+    for port in ports:
+        while True:
+            if time.time() - start > timeout:
+                raise TimeoutError(f"Port {port} still in use after {timeout}s")
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                try:
+                    s.bind(("127.0.0.1", port))
+                    s.close()
+                    break  # port is free
+                except OSError:
+                    time.sleep(0.5)
+    print(f"   [System] Ports {ports} are now free.")
 
 
 def wait_for_nodes(network: ConnectionManager, timeout=60):
@@ -213,9 +231,10 @@ def main():
     print("*** MULTIPROCESSING MODE with {} worker processes ***".format(NUM_PROCESSES))
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # Kill previous Ganache instances
-    print("[Preflight] Killing previous Ganache processes...")
-    kill_ganache()
+    # Kill previous Anvil instances
+    print("[Preflight] Killing previous Anvil processes...")
+    kill_nodes()
+    wait_for_ports_released()
 
     # Prepare summary results
     summary_rows = []
@@ -231,10 +250,10 @@ def main():
                 print(f"\n>>> Starting Iteration: N={N}, q={q}, Type={journey_type} <<<")
                 iteration_start = time.time()
 
-                # 1. Start Ganache network with robust retry loop
-                print("   1. Starting Ganache network...")
+                # 1. Start Anvil network with robust retry loop
+                print("   1. Starting Anvil network...")
                 topology = get_topology()
-                ganache = GanacheManager()
+                ganache = AnvilManager()
                 max_retries = 5
                 started = False
                 for attempt in range(max_retries):
@@ -246,12 +265,12 @@ def main():
                     except RuntimeError as e:
                         if "already in use" in str(e):
                             print(f"      [System] Ports in use. Killing and waiting 10s...")
-                            kill_ganache()
+                            kill_nodes()
                             time.sleep(10)
                         else:
                             raise e
                 if not started:
-                    raise RuntimeError("Failed to start Ganache after multiple retries.")
+                    raise RuntimeError("Failed to start Anvil after multiple retries.")
 
                 time.sleep(2)  # let processes stabilize
 
@@ -259,6 +278,8 @@ def main():
                 network = ConnectionManager(topology)
                 from config_matrix import MNEMONIC
                 identity = UserManager(MNEMONIC)
+                # Force reset nonce cache to match fresh Anvil state
+                identity.nonce_manager.reset()
                 deployer = ContractDeployer(network, identity)
                 injector = MacroTransactionInjector(network, identity)
 
@@ -369,9 +390,9 @@ def main():
                 })
 
                 # 13. Clean up before next iteration
-                print("   8. Cleaning up Ganache...")
+                print("   8. Cleaning up Anvil...")
                 ganache.stop_network()
-                kill_ganache()
+                kill_nodes()
                 time.sleep(5)
 
     # 14. Save summary CSV

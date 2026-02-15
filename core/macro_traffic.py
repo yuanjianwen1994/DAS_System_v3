@@ -291,6 +291,8 @@ class MacroTrafficGenerator:
             # 2. Work (Execution)
             work_failed = False
             for _ in range(ops_per_journey):
+                # Random hesitation to break 12s block synchronization
+                time.sleep(random.uniform(1.0, 10.0))
                 result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                 if result is None:
                     work_failed = True
@@ -346,6 +348,8 @@ class MacroTrafficGenerator:
             # Let's assume Baseline = Run entirely on Execution Shard for simplicity
             try:
                 for _ in range(ops_per_journey):
+                     # Random hesitation to break 12s block synchronization
+                     time.sleep(random.uniform(1.0, 10.0))
                      result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                      if result is None:
                          # Timeout occurred, skip the rest of this journey
@@ -404,6 +408,8 @@ class MacroTrafficGenerator:
                         break
                     
                     # 3. Work on Execution (Simulated Business Logic)
+                    # Random hesitation to break 12s block synchronization
+                    time.sleep(random.uniform(1.0, 10.0))
                     result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                     if result is None:
                         break

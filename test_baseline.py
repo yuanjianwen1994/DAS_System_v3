@@ -5,7 +5,7 @@ Quick test to measure baseline node latency after fix.
 import time
 from web3 import Web3
 from config_global import get_topology, BLOCK_TIME, MNEMONIC
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.identity import UserManager
 
 def main():
@@ -17,7 +17,7 @@ def main():
     print(f"Topology: {topology}")
     
     # Start network
-    ganache = GanacheManager()
+    ganache = AnvilManager()
     print("Starting network...")
     ganache.start_network(topology)
     time.sleep(2)

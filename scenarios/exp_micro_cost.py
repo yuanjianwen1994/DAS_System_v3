@@ -15,17 +15,17 @@ from config_micro import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, M
 from core.identity import UserManager
 from core.injector import TransactionInjector
 from core.monitor import NetworkMonitor
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 
 
 def run():
     print("=== DAS System v3 Micro-Benchmark (Cost Analysis) ===")
 
-    # 1. Start Ganache network
-    print("\n1. Starting Ganache network...")
+    # 1. Start Anvil network
+    print("\n1. Starting Anvil network...")
     topology = get_topology()
-    ganache = GanacheManager()
+    ganache = AnvilManager()
     ganache.start_network(topology)
     time.sleep(2)  # let processes stabilize
 
@@ -224,6 +224,6 @@ def run():
     print(f"\nDetailed logs saved to {csv_path}")
 
     # Cleanup
-    print("\nStopping Ganache network...")
+    print("\nStopping Anvil network...")
     ganache.stop_network()
     print("Benchmark completed.")

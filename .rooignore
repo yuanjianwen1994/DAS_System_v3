@@ -1,0 +1,11 @@
+# 屏蔽大文件和无关目录
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+node_modules/
+dist/
+build/
+.git/
+**/*.log
+**/*.svg  # 如果不处理svg图，屏蔽掉避免读取大量xml
+**/*.csv

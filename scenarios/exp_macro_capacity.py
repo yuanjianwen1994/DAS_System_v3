@@ -27,7 +27,7 @@ from config_macro import (
     NUM_USERS,
 )
 from core.identity import UserManager
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 from core.macro_injector import MacroTransactionInjector
 from core.macro_traffic import MacroTrafficGenerator
@@ -72,10 +72,10 @@ def run():
     print("[Preflight] Killing previous Ganache processes...")
     kill_ganache()
 
-    # 1. Start Ganache network with robust retry loop
-    print("\n1. Starting Ganache network...")
+    # 1. Start Anvil network with robust retry loop
+    print("\n1. Starting Anvil network...")
     topology = get_topology()
-    ganache = GanacheManager()
+    ganache = AnvilManager()
     
     # Robust startup loop
     max_retries = 5

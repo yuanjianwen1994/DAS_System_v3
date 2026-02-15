@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Quick test for the updated GanacheManager.start_network.
+Quick test for the updated AnvilManager.start_network.
 """
 import sys
 sys.path.insert(0, '.')
 
-from core.network import GanacheManager
+from core.network import AnvilManager
 
 def test_start():
-    manager = GanacheManager()
+    manager = AnvilManager()
     # Use a topology with a single shard on a high port to avoid conflicts
     topology = {
         "shards": {

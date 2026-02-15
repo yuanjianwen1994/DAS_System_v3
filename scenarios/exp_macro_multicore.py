@@ -33,7 +33,7 @@ from config_matrix import (
     MATRIX_SCENARIOS,
 )
 from core.identity import UserManager
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 from core.macro_injector import MacroTransactionInjector
 from core.macro_traffic import MacroTrafficGenerator
@@ -221,10 +221,10 @@ def main():
                 print(f"\n   --- Concurrency N = {N} ---")
                 iteration_start = time.time()
                 
-                # 1. Start Ganache network (single network for all processes)
-                print("   1. Starting Ganache network...")
+                # 1. Start Anvil network (single network for all processes)
+                print("   1. Starting Anvil network...")
                 topology = get_topology()
-                ganache = GanacheManager()
+                ganache = AnvilManager()
                 max_retries = 5
                 started = False
                 for attempt in range(max_retries):

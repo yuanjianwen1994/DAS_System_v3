@@ -17,7 +17,7 @@ from config_amortized import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMI
 from core.identity import UserManager
 from core.injector import TransactionInjector
 from core.monitor import NetworkMonitor
-from core.network import GanacheManager, ConnectionManager
+from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 from datetime import datetime
 
@@ -30,10 +30,10 @@ def run():
     # Raw data collection
     RAW_DATA = []
 
-    # 1. Start Ganache network
-    print("\n1. Starting Ganache network...")
+    # 1. Start Anvil network
+    print("\n1. Starting Anvil network...")
     topology = get_topology()
-    ganache = GanacheManager()
+    ganache = AnvilManager()
     ganache.start_network(topology)
     time.sleep(2)  # let processes stabilize
 
@@ -285,7 +285,7 @@ def run():
     print(f"Raw data saved to {raw_csv_path}")
 
     # Cleanup
-    print("\nStopping Ganache network...")
+    print("\nStopping Anvil network...")
     ganache.stop_network()
     print("Experiment completed.")
 
