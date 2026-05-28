@@ -1,48 +1,48 @@
 """
-Matrix‑benchmark configuration for Phase 4 (Top‑Tier Paper quality).
-Strictly for Task‑Based experiments with varying concurrency (N) and amortization factor (q).
+Phase 4 矩阵基准测试配置（顶级论文质量）。
+专门用于任务型实验，变量包括并发数(N)和分摊因子(q)。
 """
 from config_global import *
 
-# === Matrix Experiment Parameters ===
-# N: Concurrency Levels (Users)
-MATRIX_CONCURRENCY_LEVELS = [100, 200, 300, 400, 500]
+# === 矩阵实验参数 ===
+# N: 并发级别（用户数量）
+MATRIX_CONCURRENCY_LEVELS = [600, 700, 800, 900, 1000]
 
-# q: Amortization Factors (Ops per Journey)
-MATRIX_AMORTIZATION_FACTORS = [1,5,10]
+# q: 分摊因子（每次旅程的操作数）
+MATRIX_AMORTIZATION_FACTORS = [1, 5, 10, 15, 20]
 
-# n: Journeys per User (Target for Task‑Based Mode)
-# Each user must complete this many journeys before the experiment ends.
+# n: 每个用户的旅程数（任务型模式的目标）
+# 每个用户必须在此实验结束前完成这么多旅程
 MATRIX_JOURNEYS_PER_USER = 5
 
-# === Multiprocessing Config ===
-# Number of CPU cores to use for traffic generation
-# User has 20 cores, using 16 for traffic, leaving 4 for System/Ganache
-MATRIX_PROCESSES = 50
+# === 多进程配置 ===
+# 用于流量生成的CPU核心数
+# 用户有20核，使用16核进行流量生成，留4核给系统/Ganache
+MATRIX_PROCESSES = 20
 
-# === Experiment Scenarios ===
-# Matrix now iterates over these Journey Types too ["DAS","2PC","BASELINE"]
-MATRIX_SCENARIOS = ["DAS","DAS","DAS","DAS","DAS","2PC","2PC","2PC","2PC","2PC","BASELINE","BASELINE","BASELINE","BASELINE","BASELINE"]
+# === 实验场景 ===
+# 矩阵现在也迭代这些旅程类型 ["DAS", "2PC", "BASELINE"]
+MATRIX_SCENARIOS = ["DAS", "2PC", "BASELINE"]
 
-# === Gas & Network Limits (Same as Macro) ===
+# === Gas与网络限制（与宏基准测试相同）===
 GAS_LIMIT = 6_000_000
 MACRO_TX_GAS_LIMIT = 500_000
-MACRO_GAS_PRICE = 1_000_000_000  # 1 Gwei
+MACRO_GAS_PRICE = 50_000_000_000  # 50 Gwei
 MACRO_TX_TIMEOUT = 600
 MACRO_WARMUP = 10
 MACRO_TX_INTERVAL = 0.05
 
-# Override NUM_USERS to be at least max concurrency + margin
-NUM_USERS = 1200  # Must be greater than the maximum MATRIX_CONCURRENCY_LEVELS (1600)
+# === 覆盖NUM_USERS至少为最大并发+余量 ===
+NUM_USERS = 1200  # 必须大于最大MATRIX_CONCURRENCY_LEVELS (1600)
 
-# === NEW: Simulation Parameters ===
-# Random delay between operations (min, max) in seconds
-# Simulates "User Think Time" and Network Jitter
+# === 新增：模拟参数 ===
+# 操作间的随机延迟（最小，最大）单位：秒
+# 用于模拟"用户思考时间"和网络抖动
 SIM_THINK_TIME_RANGE = (0.5, 2.0)
 
-# HTTP Retry Settings (Fixes Connection Aborted)
-HTTP_RETRIES = 5
-HTTP_BACKOFF_FACTOR = 0.5
+# === HTTP重试设置（修复连接中止问题）===
+HTTP_RETRIES = 5  # 最大重试次数
+HTTP_BACKOFF_FACTOR = 0.5  # 退避因子
 
-# Use the same topology as global (2 shards + execution + baseline)
-# get_topology() is imported from config_global
+# === 使用与全局相同的拓扑（2个分片 + 执行节点 + 基准节点）===
+# get_topology()从config_global导入

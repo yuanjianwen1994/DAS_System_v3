@@ -1,6 +1,6 @@
 """
-Contract deployment for DAS System v3.
-Compiles Solidity contracts and deploys them across the topology.
+DAS System v3 合约部署模块。
+编译Solidity合约并部署到拓扑中。
 """
 import json
 import os
@@ -19,7 +19,7 @@ from config_global import DEPLOYER_ACCOUNT_INDEX, TEST_USER_INDEX, GAS_LIMIT
 
 class ContractDeployer:
     """
-    Manages compilation and deployment of the experiment contracts.
+    管理实验合约的编译和部署。
     """
 
     SOLC_VERSION = "0.8.24"
@@ -35,10 +35,10 @@ class ContractDeployer:
 
     def compile_all(self) -> t.Dict[str, t.Any]:
         """
-        Compile all Solidity contracts in the contracts/ directory.
+        编译contracts/目录中的所有Solidity合约。
 
-        Returns:
-            Dictionary with contract names as keys and ABI/bytecode as values.
+        返回:
+            以合约名为键、ABI/字节码为值的字典。
         """
         contract_dir = Path(__file__).parent.parent / "contracts"
         source_files = [
@@ -46,21 +46,21 @@ class ContractDeployer:
             contract_dir / "TwoPhaseCommit.sol",
             contract_dir / "Workload.sol",
         ]
-        # Ensure solc is installed
+        # 确保solc已安装
         installed = solcx.get_installed_solc_versions()
         if self.SOLC_VERSION not in installed:
             solcx.install_solc(self.SOLC_VERSION)
         solcx.set_solc_version(self.SOLC_VERSION)
-        # Compile
+        # 编译
         compiled = solcx.compile_files(
             [str(f) for f in source_files],
             output_values=["abi", "bin"],
             solc_version=self.SOLC_VERSION,
         )
-        # Simplify the structure
+        # 简化结构
         result = {}
         for contract_name, data in compiled.items():
-            # contract_name format: "path/to/file.sol:ContractName"
+            # contract_name格式："path/to/file.sol:ContractName"
             simple_name = contract_name.split(":")[-1]
             result[simple_name] = {
                 "abi": data["abi"],
@@ -73,14 +73,14 @@ class ContractDeployer:
         self, topology: t.Dict[str, t.Any]
     ) -> t.Dict[str, t.Dict[str, t.Any]]:
         """
-        Deploy contracts to all nodes in the topology.
+        将合约部署到拓扑中的所有节点。
 
-        Returns:
-            Registry dict:
+        返回:
+            注册表字典：
             {
-                "shard_0": {"DAS": address, "2PC": address, "ABI": ...},
-                "execution": {"DAS": address, "Workload": address, ...},
-                "baseline": {"Workload": address, ...},
+                "shard_0": {"DAS": 地址, "2PC": 地址, "ABI": ...},
+                "execution": {"DAS": 地址, "Workload": 地址, ...},
+                "baseline": {"Workload": 地址, ...},
             }
         """
         if self._compiled is None:
@@ -88,7 +88,7 @@ class ContractDeployer:
 
         registry: t.Dict[str, t.Dict[str, t.Any]] = {}
 
-        # Helper to deploy a single contract
+        # 部署单个合约的辅助函数
         def deploy_contract(
             web3: Web3, account, contract_name: str, args=None
         ) -> t.Tuple[Contract, str]:
@@ -96,89 +96,89 @@ class ContractDeployer:
             contract = web3.eth.contract(
                 abi=data["abi"], bytecode=data["bytecode"]
             )
-            # === THE ONLY FIX NEEDED ===
-            # Fetch fresh nonce from chain (handling restart/reset state)
-            # "pending" ensures we count txs currently in mempool
+            # === 唯一需要的修复 ===
+            # 从链上获取最新nonce（处理重启/重置状态）
+            # "pending"确保我们计算当前在mempool中的txs
             nonce = web3.eth.get_transaction_count(account.address, "pending")
 
-            # === RESTORED ROBUST LOGIC ===
-            # Use auto-detected gas price (works perfectly with Anvil)
-            # Let Web3 handle ChainID implicitly
+            # === 恢复的健壮逻辑 ===
+            # 使用自动检测的gas价格（与Anvil完美配合）
+            # 让Web3隐式处理ChainID
             gas_price = web3.eth.gas_price
-            chain_id = web3.eth.chain_id  # keep for logging
-            print(f"[DEPLOY] Deploying {contract_name} on chain {chain_id}, nonce {nonce}, gas price {gas_price}")
-            print(f"[DEPLOY] Account: {account.address}, balance: {web3.eth.get_balance(account.address)}")
-            # Estimate gas for deployment
+            chain_id = web3.eth.chain_id  # 保留用于日志
+            print(f"[部署] 在链{chain_id}上部署{contract_name}，nonce {nonce}，gas价格 {gas_price}")
+            print(f"[部署] 账户：{account.address}，余额：{web3.eth.get_balance(account.address)}")
+            # 估算部署gas
             try:
                 estimated = contract.constructor(*(args or ())).estimate_gas({'from': account.address})
-                print(f"[DEPLOY] Estimated gas: {estimated}")
-                gas = min(estimated + 100000, GAS_LIMIT)  # Add a buffer but cap at global limit
+                print(f"[部署] 估算的gas：{estimated}")
+                gas = min(estimated + 100000, GAS_LIMIT)  # 添加缓冲但上限为全局限制
             except Exception as e:
-                print(f"[DEPLOY] Gas estimation failed, using default {GAS_LIMIT}: {e}")
+                print(f"[部署] gas估算失败，使用默认{GAS_LIMIT}：{e}")
                 gas = GAS_LIMIT
-            # Ensure gas does not exceed block gas limit (anvil's limit)
+            # 确保gas不超过区块gas限制（anvil的限制）
             block_gas_limit = web3.eth.get_block('latest').gasLimit
             if gas > block_gas_limit:
-                print(f"[DEPLOY] Gas {gas} exceeds block gas limit {block_gas_limit}, adjusting")
+                print(f"[部署] gas {gas}超过区块gas限制{block_gas_limit}，调整中")
                 gas = block_gas_limit - 100000
-            print(f"[DEPLOY] Using gas: {gas}, block gas limit: {block_gas_limit}")
+            print(f"[部署] 使用gas：{gas}，区块gas限制：{block_gas_limit}")
             tx = contract.constructor(*(args or ())).build_transaction({
                 "from": account.address,
                 "gas": gas,
                 "gasPrice": gas_price,
                 "nonce": nonce,
-                # "chainId": ... (Removed, let Web3 auto-detect)
-                # "type": ...    (Removed)
+                # "chainId": ... （已移除，让Web3自动检测）
+                # "type": ...    （已移除）
             })
             signed = account.sign_transaction(tx)
             tx_hash = web3.eth.send_raw_transaction(signed.raw_transaction)
-            print(f"[DEPLOY] Sent tx {tx_hash.hex()}, waiting for receipt...")
-            # Immediately try to fetch the transaction to verify it's in pool
+            print(f"[部署] 发送tx {tx_hash.hex()}，等待收据...")
+            # 立即尝试获取交易以验证它在池中
             try:
                 pending = web3.eth.get_transaction(tx_hash)
-                print(f"[DEPLOY] Transaction in pool: nonce {pending.nonce}, gas {pending.gas}, gasPrice {pending.gasPrice}")
+                print(f"[部署] 交易在池中：nonce {pending.nonce}，gas {pending.gas}，gasPrice {pending.gasPrice}")
             except Exception as e:
-                print(f"[DEPLOY] Could not get transaction from pool: {e}")
-            # Wait for receipt with longer timeout (300 seconds) for 12s block time
-            # First, poll for block progression
+                print(f"[部署] 无法从池中获取交易：{e}")
+            # 使用更长的超时等待收据（300秒）用于12秒区块时间
+            # 首先，轮询区块进度
             start_block = web3.eth.block_number
-            print(f"[DEPLOY] Current block: {start_block}")
+            print(f"[部署] 当前区块：{start_block}")
             for i in range(30):
                 time.sleep(1)
                 current = web3.eth.block_number
                 if current > start_block:
-                    print(f"[DEPLOY] Block advanced to {current}")
+                    print(f"[部署] 区块进展到{current}")
                     start_block = current
-                # Check if transaction is already mined
+                # 检查交易是否已挖出
                 try:
                     receipt = web3.eth.get_transaction_receipt(tx_hash)
                     if receipt is not None:
-                        print(f"[DEPLOY] Receipt found via polling: block {receipt.blockNumber}")
+                        print(f"[部署] 通过轮询找到收据：区块{receipt.blockNumber}")
                         break
                 except:
                     pass
             else:
-                # If not mined after 30 seconds, try to force a block
-                print("[DEPLOY] Transaction not mined after 30s, forcing a block via evm_mine...")
+                # 如果30秒后仍未挖出，尝试强制出一个区块
+                print("[部署] 交易30秒后未挖出，通过evm_mine强制出块...")
                 try:
                     web3.provider.make_request('evm_mine', [])
                 except Exception as e:
-                    print(f"[DEPLOY] evm_mine failed: {e}")
+                    print(f"[部署] evm_mine失败：{e}")
             receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
-            print(f"[DEPLOY] Receipt received: block {receipt.blockNumber}, contract {receipt.contractAddress}")
+            print(f"[部署] 收到收据：区块{receipt.blockNumber}，合约{receipt.contractAddress}")
             deployed = web3.eth.contract(
                 address=receipt.contractAddress, abi=data["abi"]
             )
             return deployed, receipt.contractAddress
 
-        # Use dedicated deployer account
+        # 使用专用部署者账户
         deployer_account = self.identity.get_user(DEPLOYER_ACCOUNT_INDEX)
 
-        # Deploy to each shard
+        # 部署到每个分片
         shards = topology.get("shards", {})
         for shard_name, shard_cfg in shards.items():
             web3 = self.network.get_web3(shard_name)
-            # Deploy DASEndpoint and TwoPhaseCommit
+            # 部署DASEndpoint和TwoPhaseCommit
             das_contract, das_addr = deploy_contract(
                 web3, deployer_account, "DASEndpoint"
             )
@@ -192,7 +192,7 @@ class ContractDeployer:
                 "2PC_ABI": tpc_contract.abi,
             }
 
-        # Deploy to execution node
+        # 部署到执行节点
         if "execution" in topology:
             web3 = self.network.get_web3("execution")
             das_contract, das_addr = deploy_contract(
@@ -213,7 +213,7 @@ class ContractDeployer:
                 "2PC_ABI": tpc_contract.abi,
             }
 
-        # Deploy to baseline node
+        # 部署到基准节点
         if "baseline" in topology:
             web3 = self.network.get_web3("baseline")
             workload_contract, workload_addr = deploy_contract(

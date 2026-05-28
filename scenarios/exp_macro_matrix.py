@@ -55,32 +55,62 @@ SCENARIOS = MATRIX_SCENARIOS
 
 # ========== Helper Functions ==========
 def kill_nodes():
-    """Aggressively kill all anvil processes."""
+    """Aggressively kill Anvil processes with DEBUG logging, ignoring <defunct> zombies."""
+    print("      [System] Cleaning up Anvil processes...")
     try:
+        # 1. Inspect before killing (filter out defunct zombies)
+        print("      [Debug] Running Anvil processes BEFORE kill (excluding <defunct>):")
+        subprocess.call("ps -ef | grep anvil | grep -v grep | grep -v '<defunct>'", shell=True)
+
+        # 2. Kill
         if os.name == 'nt':
             subprocess.call(["taskkill", "/F", "/IM", "anvil.exe", "/T"], stderr=subprocess.DEVNULL)
         else:
-            subprocess.call(["pkill", "-f", "anvil"], stderr=subprocess.DEVNULL)
-    except Exception:
-        pass
+            print("      [Debug] Executing: pkill -9 -f anvil")
+            subprocess.call(["pkill", "-9", "-f", "anvil"])
+        
+        time.sleep(1) # Give OS a moment
+
+        # 3. Inspect after killing (filter out defunct zombies)
+        print("      [Debug] Running Anvil processes AFTER kill (excluding <defunct>):")
+        subprocess.call("ps -ef | grep anvil | grep -v grep | grep -v '<defunct>'", shell=True)
+
+    except Exception as e:
+        print(f"      [System] Error during cleanup: {e}")
 
 
-def wait_for_ports_released(ports=[8580, 8581, 9000, 9999], timeout=30):
-    """Wait until all specified TCP ports become available."""
+def wait_for_ports_released(ports=[8580, 8581, 9000, 9999], timeout=10):
+    """
+    Wait for ports to release, but DO NOT CRASH if they don't.
+    In Docker/VSCode, zombies (<defunct>) or port-forwarders can cause false positives.
+    """
     import socket
+    print(f"      [System] Waiting for ports {ports} to release (soft check, timeout={timeout}s)...")
     start = time.time()
-    for port in ports:
-        while True:
-            if time.time() - start > timeout:
-                raise TimeoutError(f"Port {port} still in use after {timeout}s")
+    
+    while time.time() - start < timeout:
+        all_free = True
+        status_msg = []
+        for port in ports:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(0.5)
                 try:
                     s.bind(("127.0.0.1", port))
-                    s.close()
-                    break  # port is free
+                    status_msg.append(f"{port}:FREE")
                 except OSError:
-                    time.sleep(0.5)
-    print(f"   [System] Ports {ports} are now free.")
+                    all_free = False
+                    status_msg.append(f"{port}:BUSY")
+        
+        # print(f"      [Debug] Port Status: {', '.join(status_msg)}") # Optional: reduce spam
+        
+        if all_free:
+            print(f"      [System] All ports verified free.")
+            return
+
+        time.sleep(1)
+
+    # If we get here, ports are still "busy", but we proceed anyway.
+    print(f"      [System] WARNING: Ports {ports} still appear busy (likely Zombies/VSCode). PROCEEDING ANYWAY.")
 
 
 def wait_for_nodes(network: ConnectionManager, timeout=60):
@@ -103,15 +133,40 @@ def wait_for_nodes(network: ConnectionManager, timeout=60):
 
 
 def dump_csv(data, filename, fieldnames):
-    """Write a list of dicts to CSV."""
+    """Write a list of dicts to CSV with Retry Logic for File Locks."""
     logs_dir = Path(__file__).parent.parent / "logs"
     logs_dir.mkdir(exist_ok=True)
     path = logs_dir / filename
-    with open(path, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(data)
-    print(f"      [Data] {filename} saved ({len(data)} rows).")
+    
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            with open(path, "w", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(data)
+            print(f"      [Data] {filename} saved ({len(data)} rows).")
+            return  # Success!
+        except (PermissionError, OSError) as e:
+            delay = 10 * (attempt + 1)
+            print(f"      [System] Warning: File lock detected on {filename} (Attempt {attempt+1}/{max_retries}). Retrying in {delay}s...")
+            time.sleep(delay)
+        except Exception as e:
+            print(f"      [Data] Critical Error saving {filename}: {e}")
+            break  # Non-lock error, stop trying
+
+    # Fallback if retries failed
+    try:
+        fallback_name = f"fallback_{int(time.time())}_{filename}"
+        fallback_path = logs_dir / fallback_name
+        print(f"      [System] Retries failed. Attempting fallback save to {fallback_name}...")
+        with open(fallback_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(data)
+        print(f"      [Data] Saved to fallback: {fallback_name}")
+    except Exception as e:
+        print(f"      [Data] FATAL: Could not save data even to fallback: {e}")
 
 
 def consolidate_logs(journey_type: str, n: int, q: int, timestamp: str):
@@ -249,6 +304,7 @@ def main():
             for journey_type in SCENARIOS:
                 print(f"\n>>> Starting Iteration: N={N}, q={q}, Type={journey_type} <<<")
                 iteration_start = time.time()
+                iter_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
                 # 1. Start Anvil network with robust retry loop
                 print("   1. Starting Anvil network...")
@@ -322,7 +378,7 @@ def main():
                             q,              # amortization_factor
                             journey_type,   # dynamic journey_type
                             JOURNEYS_PER_USER,
-                            timestamp,
+                            iter_timestamp,
                             topology,
                             registry,
                         )
@@ -361,7 +417,7 @@ def main():
                 if monitor.block_logs:
                     dump_csv(
                         monitor.block_logs,
-                        f"matrix_blocks_{journey_type}_N{N}_q{q}_{timestamp}.csv",
+                        f"matrix_blocks_{journey_type}_N{N}_q{q}_{iter_timestamp}.csv",
                         fieldnames=["node", "block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
                     )
                 else:
@@ -369,7 +425,7 @@ def main():
 
                 # 11. Auto‑merge per‑process raw logs
                 print("   7. Merging per‑process raw logs...")
-                consolidate_logs(journey_type, N, q, timestamp)
+                consolidate_logs(journey_type, N, q, iter_timestamp)
 
                 # 12. Record summary row
                 iteration_end = time.time()
@@ -393,7 +449,11 @@ def main():
                 print("   8. Cleaning up Anvil...")
                 ganache.stop_network()
                 kill_nodes()
-                time.sleep(5)
+                
+                # FORCE WAIT for ports to clear TIME_WAIT before next iteration
+                wait_for_ports_released()
+                
+                time.sleep(2)
 
     # 14. Save summary CSV
     print("\n=== Saving experiment summary ===")

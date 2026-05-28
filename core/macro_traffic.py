@@ -1,6 +1,6 @@
 """
-Macro-benchmark traffic generator for Phase 4+.
-Features: Task-Based execution, Raw Logging, Shard Distribution, and Simulated Jitter.
+Phase 4+ 宏基准测试流量生成器。
+特性：基于任务的执行、原始日志、分片分布和模拟抖动。
 """
 import typing as t
 import time
@@ -12,10 +12,11 @@ from web3.types import TxParams
 from tqdm import tqdm
 
 from config_matrix import (
-    MACRO_TX_TIMEOUT, 
-    SIM_THINK_TIME_RANGE, 
+    MACRO_TX_TIMEOUT,
+    SIM_THINK_TIME_RANGE,
     HTTP_RETRIES
 )
+from config_macro import MACRO_GAS_PRICE
 from .macro_injector import MacroTransactionInjector
 from .identity import UserManager
 from .network import ConnectionManager
@@ -38,18 +39,18 @@ class MacroTrafficGenerator:
         self.process_id = process_id
         self.user_offset = user_offset
         self.completed_journeys = []
-        self.raw_logs = []  # RAW DATA LOGGING
+        self.raw_logs = []  # 原始数据日志记录
         
-        # Discover available shards for distribution
-        # Assuming keys like 'shard_0', 'shard_1' exist in registry
+        # 发现可用的分片用于分布
+        # 假设注册表中存在类似'shard_0'、'shard_1'的键
         self.shard_ids = [
             int(k.split('_')[1]) for k in registry.keys() 
             if k.startswith('shard_') and k.split('_')[1].isdigit()
         ]
         if not self.shard_ids:
-            self.shard_ids = [0] # Fallback
+            self.shard_ids = [0] # 后备
         self.shard_ids.sort()
-        print(f"[Traffic] Load balancing across shards: {self.shard_ids}")
+        print(f"[流量] 在分片间进行负载均衡：{self.shard_ids}")
 
         self._builders = {
             "das_burn": self._build_das_burn,
@@ -59,14 +60,14 @@ class MacroTrafficGenerator:
             "tpc_commit": self._build_tpc_commit,
         }
 
-    # ---------- Contract function builders ----------
+    # ---------- 合约函数构建器 ----------
     def _build_das_burn(
         self, web3: Web3, from_address: str, nonce: int, **kwargs
     ) -> TxParams:
-        """Build a DAS burn transaction."""
+        """构建DAS burn交易。"""
         shard_id = kwargs["shard_id"]
         amount = kwargs.get("amount", 100)
-        # FIX: Handle Execution Shard (-1) for Withdrawals
+        # 修复：处理提款的执行分片(-1)
         shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
         
         contract_addr = self.registry[shard_name]["DAS"]
@@ -82,7 +83,7 @@ class MacroTrafficGenerator:
     def _build_das_mint(
         self, web3: Web3, from_address: str, nonce: int, **kwargs
     ) -> TxParams:
-        """Build a DAS mint transaction."""
+        """构建DAS mint交易。"""
         shard_id = kwargs["shard_id"]
         amount = kwargs.get("amount", 100)
         shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
@@ -99,7 +100,7 @@ class MacroTrafficGenerator:
     def _build_das_work(
         self, web3: Web3, from_address: str, nonce: int, **kwargs
     ) -> TxParams:
-        """Build a Workload.doWork transaction."""
+        """构建Workload.doWork交易。"""
         amount = kwargs.get("amount", 100)
         contract_addr = self.registry["execution"]["Workload"]
         contract_abi = self.registry["execution"]["Workload_ABI"]
@@ -114,7 +115,7 @@ class MacroTrafficGenerator:
     def _build_tpc_lock(
         self, web3: Web3, from_address: str, nonce: int, **kwargs
     ) -> TxParams:
-        """Build a 2PC lock transaction."""
+        """构建2PC lock交易。"""
         shard_id = kwargs["shard_id"]
         tpc_id = kwargs["tpc_id"]
         shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
@@ -131,7 +132,7 @@ class MacroTrafficGenerator:
     def _build_tpc_commit(
         self, web3: Web3, from_address: str, nonce: int, **kwargs
     ) -> TxParams:
-        """Build a 2PC commit transaction."""
+        """构建2PC commit交易。"""
         shard_id = kwargs["shard_id"]
         tpc_id = kwargs["tpc_id"]
         shard_name = f"shard_{shard_id}" if shard_id >= 0 else "execution"
@@ -145,23 +146,28 @@ class MacroTrafficGenerator:
             }
         )
 
-    # ---------- Robust Send with Retry ----------
+    # ---------- 带重试的健壮发送 ----------
     def _send_and_wait(self, func_type, user_idx, journey_id=None, **kwargs):
-        # Retry Loop for Connection Stability
+        # 连接稳定性的重试循环
+        journey_start_time = time.time()
+        # Gas重试配置
+        gas_retry_count = 0
+        max_gas_retries = 5
+        current_gas_price = MACRO_GAS_PRICE
         for attempt in range(HTTP_RETRIES):
             try:
-                start_time = time.time()
                 
-                # Copy kwargs to avoid mutation issues on retry
+                # 复制kwargs以避免重试时的变异问题
                 call_kwargs = kwargs.copy()
+                call_kwargs['gas_price'] = current_gas_price
                 
                 if "shard_id" not in call_kwargs:
-                     raise ValueError(f"Missing 'shard_id' for {func_type}")
+                     raise ValueError(f"缺少{func_type}的'shard_id'")
                 shard_id = call_kwargs.pop("shard_id")
 
                 contract_func = self._builders[func_type]
 
-                # 1. Send
+                # 1. 发送
                 tx_hashes = self.injector.send_batch(
                     shard_id,
                     users=[user_idx],
@@ -170,20 +176,20 @@ class MacroTrafficGenerator:
                 )
                 
                 if not tx_hashes:
-                     raise Exception("No tx hash returned")
+                     raise Exception("没有返回tx哈希")
                 
                 tx_hash = tx_hashes[0]
 
-                # 2. Wait
+                # 2. 等待
                 node_name = "execution" if shard_id == -1 else f"shard_{shard_id}"
                 web3 = self.network.get_web3(node_name)
                 
                 receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=MACRO_TX_TIMEOUT)
                 if receipt.status != 1:
-                    raise Exception(f"Tx {tx_hash} reverted")
+                    raise Exception(f"Tx {tx_hash}回滚")
 
-                # 3. Log Raw Data
-                duration = time.time() - start_time
+                # 3. 记录原始数据
+                duration = time.time() - journey_start_time
                 self.raw_logs.append({
                     "timestamp": time.time(),
                     "journey_id": journey_id if journey_id else "N/A",
@@ -198,24 +204,24 @@ class MacroTrafficGenerator:
                 return receipt
 
             except ValueError as e:
-                # Handle "Nonce too low" / "Incorrect nonce" errors caused by HTTP Retries
+                # 处理由HTTP重试引起的"Nonce太低"/"Nonce不正确"错误
                 err_str = str(e).lower()
                 if "nonce" in err_str:
-                    print(f"[Traffic] Worker {user_idx} Nonce Mismatch (Tx likely succeeded during retry). Skipping.")
-                    # We record it as a status=0 (unknown outcome) but strictly DO NOT CRASH
+                    print(f"[流量] Worker {user_idx} Nonce不匹配（Tx可能在重试期间成功）。跳过。")
+                    # 我们将其记录为status=0（未知结果）但严格不崩溃
                     self.raw_logs.append({
                         "timestamp": time.time(),
                         "journey_id": journey_id if journey_id else "N/A",
                         "worker_id": user_idx,
                         "tx_type": func_type,
-                        "latency_s": time.time() - start_time,
+                        "latency_s": time.time() - journey_start_time,
                         "gas_used": 0,
                         "block_number": -1,
                         "status": 0
                     })
                     return None
                 else:
-                    raise e  # Re-raise other ValueErrors
+                    raise e  # 重新抛出其他ValueError
                 
             except Exception as e:
                 # 检查超时
@@ -223,57 +229,103 @@ class MacroTrafficGenerator:
                 is_timeout = "timeout" in error_msg.lower() or isinstance(e, TimeoutError)
                 if is_timeout:
                     tx_hash_str = tx_hash[:10] if 'tx_hash' in locals() else 'unknown'
-                    print(f"[Traffic] Worker {user_idx} Tx {func_type} timed out (> {MACRO_TX_TIMEOUT}s)")
+                    print(f"[流量] Worker {user_idx} Tx {func_type}超时（> {MACRO_TX_TIMEOUT}秒）")
                     # 记录超时原始日志
                     self.raw_logs.append({
                         "timestamp": time.time(),
                         "journey_id": journey_id if journey_id else "N/A",
                         "worker_id": user_idx,
                         "tx_type": func_type,
-                        "latency_s": MACRO_TX_TIMEOUT,
+                        "latency_s": time.time() - journey_start_time,
                         "gas_used": 0,
                         "block_number": -1,
-                        "status": 0  # 0 表示失败/超时
+                        "status": 0  # 0表示失败/超时
                     })
-                    # 返回 None 通知调用者跳过后续步骤
+                    # 返回None通知调用者跳过后续步骤
                     return None
                 
-                # Catch Connection errors and retry
+                # 检查Gas不足错误(-32003)
+                is_gas_error = "-32003" in error_msg or "max fee per gas less than block base fee" in error_msg
+                if is_gas_error and gas_retry_count < max_gas_retries:
+                    gas_retry_count += 1
+                    current_gas_price = int(current_gas_price * 1.5)  # 增加50%
+                    print(f"[流量] Worker {user_idx} gas价格太低（尝试{gas_retry_count}/{max_gas_retries}）。"
+                          f"增加到{current_gas_price/1e9:.2f} Gwei并等待下一个区块...")
+                    # 等待下一个区块
+                    node_name = "execution" if shard_id == -1 else f"shard_{shard_id}"
+                    try:
+                        self._wait_for_next_block(node_name, timeout=120)
+                    except TimeoutError:
+                        print(f"[流量] Worker {user_idx}区块等待超时，继续执行")
+                    continue  # 重试当前attempt
+                
+                # 捕获连接错误并重试
                 is_conn_error = "Connection aborted" in error_msg or "Connection refused" in error_msg or "Available sockets" in error_msg
                 
                 if is_conn_error and attempt < HTTP_RETRIES - 1:
                     sleep_time = (attempt + 1) * 2
-                    # print(f"[Traffic] Worker {user_idx} connection retry {attempt+1}/{HTTP_RETRIES}...")
                     time.sleep(sleep_time)
                     continue
                 else:
-                    raise e
+                    # 重试耗尽或其他错误
+                    total_latency = time.time() - journey_start_time
+                    print(f"[流量] Worker {user_idx}尝试{attempt+1}失败：{e}")
+                    self.raw_logs.append({
+                        "timestamp": time.time(),
+                        "journey_id": journey_id if journey_id else "N/A",
+                        "worker_id": user_idx,
+                        "tx_type": func_type,
+                        "latency_s": total_latency,
+                        "gas_used": 0,
+                        "block_number": -1,
+                        "status": 0
+                    })
+                    return None
 
     def _sleep_random(self):
-        """Inject simulation jitter."""
+        """
+        注入模拟抖动。
+        
+        关键网络延迟模拟代码位置：第286-288行
+        使用random.uniform()在SIM_THINK_TIME_RANGE范围内均匀分布延迟
+        模拟用户思考时间和网络抖动的随机性
+        """
+        # 从配置的范围(0.5, 2.0)秒中均匀随机选择延迟
         time.sleep(random.uniform(*SIM_THINK_TIME_RANGE))
 
-    # ---------- Worker Logic with Sharding ----------
+    def _wait_for_next_block(self, node_name, timeout=120):
+        """等待在给定节点上挖出下一个区块。"""
+        web3 = self.network.get_web3(node_name)
+        start_block = web3.eth.block_number
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            current_block = web3.eth.block_number
+            if current_block > start_block:
+                return True
+            time.sleep(1)  # 每秒检查一次
+        raise TimeoutError(f"在{node_name}上{timeout}秒内未看到新区块")
+
+    # ---------- 带分片的Worker逻辑 ----------
     def _worker_loop_das_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
-        # 1. Staggered Start: Avoid "Thundering Herd"
-        # Wait random time up to 1.5 block times to desynchronize workers
+        # 1. 交错启动：避免"雷鸣群"效应
+        # 等待最多1.5个区块时间的随机时间以使worker去同步
         time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
         
-        # DISTRIBUTE USERS: Round-robin assignment to shards based on global worker ID
+        # 分布用户：基于全局worker ID以轮询方式分配到分片
         source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
         
         journeys_done = 0
         successful_journeys = 0
         while journeys_done < target_journeys:
-            # Generate a unique journey ID for this attempt
+            # 为此尝试生成唯一旅程ID
             journey_id = f"{global_worker_id}_{journeys_done}"
             
-            # 1. Deposit (Source Shard -> Execution)
+            # 1. 存款（源分片 -> 执行节点）
             result = self._send_and_wait("das_burn", global_worker_id, journey_id=journey_id, shard_id=source_shard, amount=amount)
             if result is None:
-                # Timeout occurred, skip the rest of this journey
+                # 发生超时，跳过此旅程的其余部分
                 journeys_done += 1
                 if progress_queue:
                     progress_queue.put(1)
@@ -288,10 +340,10 @@ class MacroTrafficGenerator:
                 continue
             self._sleep_random()
 
-            # 2. Work (Execution)
+            # 2. 工作（执行节点）
             work_failed = False
             for _ in range(ops_per_journey):
-                # Random hesitation to break 12s block synchronization
+                # 随机犹豫以打破12秒区块同步
                 time.sleep(random.uniform(1.0, 10.0))
                 result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                 if result is None:
@@ -304,7 +356,7 @@ class MacroTrafficGenerator:
                     progress_queue.put(1)
                 continue
 
-            # 3. Withdraw (Execution -> Source Shard)
+            # 3. 提款（执行节点 -> 源分片）
             result = self._send_and_wait("das_burn", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
             if result is None:
                 journeys_done += 1
@@ -321,127 +373,126 @@ class MacroTrafficGenerator:
                 continue
             self._sleep_random()
 
-            # Journey completed successfully
+            # 旅程成功完成
             journeys_done += 1
             successful_journeys += 1
             if progress_queue:
                 progress_queue.put(1)
 
-            # Log completion for progress tracking (optional)
-            # print(f"Worker {worker_id} (global {global_worker_id}) finished journey {journeys_done}/{target_journeys}")
-        # Summary log at end of worker
-        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
+            # 记录完成以跟踪进度（可选）
+        # Worker结束时总结日志
+        print(f"[Worker {worker_id}] 完成。计划：{target_journeys}，完成：{successful_journeys}")
 
     def _worker_loop_baseline(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
-        # Pure local work on Shard 0. No cross-shard movement.
-        # 1. Staggered Start: Avoid "Thundering Herd"
+        # 纯本地工作在分片0上。无跨分片移动。
+        # 1. 交错启动：避免"雷鸣群"效应
         time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
         journeys_done = 0
         successful_journeys = 0
         while journeys_done < target_journeys:
-            # Generate a unique journey ID for this attempt
+            # 为此尝试生成唯一旅程ID
             journey_id = f"{global_worker_id}_{journeys_done}"
-            # Just do N operations on Shard 0 (Workload contract must be deployed there too)
-            # If Workload is only on Execution, we map Baseline to Execution Shard (-1)
-            # Let's assume Baseline = Run entirely on Execution Shard for simplicity
+            # 只需在分片0上执行N次操作（Workload合约也必须部署在那里）
+            # 如果Workload仅在执行节点上，我们将基准映射到执行节点(-1)
+            # 为简单起见，假设基准=完全在执行节点上运行
             try:
                 for _ in range(ops_per_journey):
-                     # Random hesitation to break 12s block synchronization
+                     # 随机犹豫以打破12秒区块同步
                      time.sleep(random.uniform(1.0, 10.0))
                      result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                      if result is None:
-                         # Timeout occurred, skip the rest of this journey
+                         # 发生超时，跳过此旅程的其余部分
                          break
                      self._sleep_random()
                 else:
-                    # No break occurred, journey completed successfully
+                    # 没有发生中断，旅程成功完成
                     journeys_done += 1
                     successful_journeys += 1
                     if progress_queue:
                         progress_queue.put(1)
                     continue
-                # If we broke out due to timeout, still count as a completed journey (skip)
+                # 如果由于超时而中断，仍然计为已完成的旅程（跳过）
                 journeys_done += 1
                 if progress_queue:
                     progress_queue.put(1)
                 continue
             except Exception as e:
-                print(f"[Traffic] Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                print(f"[流量] Worker {worker_id}（全局{global_worker_id}）失败：{e}")
                 raise
-        # Summary log at end of worker
-        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
+        # Worker结束时总结日志
+        print(f"[Worker {worker_id}] 完成。计划：{target_journeys}，完成：{successful_journeys}")
 
     def _worker_loop_2pc_task(self, worker_id: int, ops_per_journey: int, target_journeys: int, progress_queue: t.Any):
         """
-        2PC Lifecycle: Loop N * (Lock -> Work -> Commit).
-        Strict ordering: Lock S -> Lock E -> Work E -> Commit S -> Commit E.
+        2PC生命周期：循环N * (Lock -> Work -> Commit)。
+        严格顺序：Lock S -> Lock E -> Work E -> Commit S -> Commit E。
         """
-        # 1. Staggered Start: Avoid "Thundering Herd"
+        # 1. 交错启动：避免"雷鸣群"效应
         time.sleep(random.uniform(0, 15))
         global_worker_id = worker_id + self.user_offset
         amount = 100
-        # Round-robin shard assignment based on global worker ID
+        # 基于全局worker ID的轮询分片分配
         source_shard = self.shard_ids[global_worker_id % len(self.shard_ids)]
         
         journeys_done = 0
         successful_journeys = 0
         while journeys_done < target_journeys:
             try:
-                # Generate a unique journey ID for this attempt
+                # 为此尝试生成唯一旅程ID
                 journey_id = f"{global_worker_id}_{journeys_done}"
-                # In 2PC, a "Journey" consists of `ops_per_journey` atomic transactions
+                # 在2PC中，"旅程"由`ops_per_journey`个原子交易组成
                 for _ in range(ops_per_journey):
-                    # Generate unique TPC ID for this transaction
+                    # 为此交易生成唯一TPC ID
                     tpc_id = random.randbytes(32)
 
-                    # 1. Lock on Source
+                    # 1. 在源分片上锁定
                     result = self._send_and_wait("tpc_lock", global_worker_id, journey_id=journey_id, shard_id=source_shard, tpc_id=tpc_id)
                     if result is None:
-                        # Timeout occurred, skip the rest of this transaction and journey
+                        # 发生超时，跳过此交易和旅程的其余部分
                         break
                     
-                    # 2. Lock on Execution
+                    # 2. 在执行节点上锁定
                     result = self._send_and_wait("tpc_lock", global_worker_id, journey_id=journey_id, shard_id=-1, tpc_id=tpc_id)
                     if result is None:
                         break
                     
-                    # 3. Work on Execution (Simulated Business Logic)
-                    # Random hesitation to break 12s block synchronization
+                    # 3. 在执行节点上工作（模拟业务逻辑）
+                    # 随机犹豫以打破12秒区块同步
                     time.sleep(random.uniform(1.0, 10.0))
                     result = self._send_and_wait("das_work", global_worker_id, journey_id=journey_id, shard_id=-1, amount=amount)
                     if result is None:
                         break
                     
-                    # 4. Commit on Source
+                    # 4. 在源分片上提交
                     result = self._send_and_wait("tpc_commit", global_worker_id, journey_id=journey_id, shard_id=source_shard, tpc_id=tpc_id)
                     if result is None:
                         break
                     
-                    # 5. Commit on Execution
+                    # 5. 在执行节点上提交
                     result = self._send_and_wait("tpc_commit", global_worker_id, journey_id=journey_id, shard_id=-1, tpc_id=tpc_id)
                     if result is None:
                         break
 
-                    # Simulation Jitter
+                    # 模拟抖动
                     self._sleep_random()
                 else:
-                    # No break occurred, all transactions completed successfully
+                    # 没有发生中断，所有交易成功完成
                     journeys_done += 1
                     successful_journeys += 1
                     if progress_queue: progress_queue.put(1)
                     continue
-                # If we broke out due to timeout, still count as a completed journey (skip)
+                # 如果由于超时而中断，仍然计为已完成的旅程（跳过）
                 journeys_done += 1
                 if progress_queue: progress_queue.put(1)
                 continue
             except Exception as e:
-                # Log error but let the thread die so main process knows
-                print(f"[Traffic] 2PC Worker {worker_id} (global {global_worker_id}) failed: {e}")
+                # 记录错误但让线程死亡，以便主进程知道
+                print(f"[流量] 2PC Worker {worker_id}（全局{global_worker_id}）失败：{e}")
                 raise e
-        # Summary log at end of worker
-        print(f"[Worker {worker_id}] Finished. Planned: {target_journeys}, Completed: {successful_journeys}")
+        # Worker结束时总结日志
+        print(f"[Worker {worker_id}] 完成。计划：{target_journeys}，完成：{successful_journeys}")
 
     def run_task_based(
         self,
@@ -453,22 +504,22 @@ class MacroTrafficGenerator:
         progress_queue: t.Any = None,
     ) -> t.List[t.Dict[str, t.Any]]:
         """
-        Matrix Benchmark Entry: Runs until every user completes N journeys.
-        Returns the raw logs directly (does not save to file).
+        矩阵基准测试入口：运行直到每个用户完成N个旅程。
+        直接返回原始日志（不保存到文件）。
         """
         if process_id is not None:
-            self.process_id = process_id  # override if provided
+            self.process_id = process_id  # 如果提供则覆盖
         total_journeys = concurrency * journeys_per_user
-        print(f"[Traffic P{self.process_id}] Starting {journey_type}: {concurrency} users, {journeys_per_user} journeys each (Total: {total_journeys})")
+        print(f"[流量 P{self.process_id}] 开始{journey_type}：{concurrency}个用户，每个{Journeys_per_user}个旅程（总计：{total_journeys}）")
         
-        # Clear previous logs
+        # 清除先前的日志
         self.raw_logs.clear()
         
-        # Use ThreadPoolExecutor to run workers
+        # 使用ThreadPoolExecutor运行workers
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
             futures = []
             for i in range(concurrency):
-                # Determine which worker function to use
+                # 确定要使用的worker函数
                 if journey_type == "DAS":
                     futures.append(executor.submit(
                         self._worker_loop_das_task, i, ops_per_journey, journeys_per_user, progress_queue
@@ -482,39 +533,39 @@ class MacroTrafficGenerator:
                         self._worker_loop_baseline, i, ops_per_journey, journeys_per_user, progress_queue
                     ))
                 else:
-                    raise ValueError(f"Unknown journey type: {journey_type}")
+                    raise ValueError(f"未知旅程类型：{journey_type}")
             
-            # Wait for all
+            # 等待所有
             for future in as_completed(futures):
                 try:
                     future.result()
                 except Exception as e:
-                    # Print but don't crash the whole process immediately, allow others to finish
-                    print(f"[Traffic P{self.process_id}] Critical worker failure: {e}")
+                    # 打印但不立即崩溃整个进程，允许其他完成
+                    print(f"[流量 P{self.process_id}] 关键worker失败：{e}")
 
-        # Return raw logs for the caller to save
+        # 返回原始日志供调用者保存
         return self.raw_logs
 
-    # ---------- Legacy Methods (Placeholders) ----------
-    # Keep these to avoid breaking existing scripts, but they can be stubs.
+    # ---------- 遗留方法（占位符）----------
+    # 保留这些以避免破坏现有脚本，但它们可以是存根。
     def start_concurrent(self, concurrency: int, journey_type: str = "DAS", ops_per_journey: int = None) -> None:
-        """Legacy: Start concurrent workers (not journey‑limited)."""
-        raise NotImplementedError("start_concurrent is deprecated; use run_task_based.")
+        """遗留：启动并发workers（非旅程限制）。"""
+        raise NotImplementedError("start_concurrent已弃用；使用run_task_based。")
 
     def run_for_duration(self, concurrency: int, duration_seconds: float, journey_type: str = "DAS", ops_per_journey: int = None) -> None:
-        """Legacy: Run workers for a fixed duration."""
-        raise NotImplementedError("run_for_duration is deprecated.")
+        """遗留：运行workers一段固定时间。"""
+        raise NotImplementedError("run_for_duration已弃用。")
 
     def _worker_loop_das(self, worker_id: int, ops_per_journey: int) -> None:
-        """Legacy worker loop (single journey)."""
-        # Redirect to task‑based loop with target_journeys=1
+        """遗留worker循环（单旅程）。"""
+        # 重定向到目标旅程=1的基于任务的循环
         self._worker_loop_das_task(worker_id, ops_per_journey, 1, None)
 
     def _worker_loop_2pc(self, worker_id: int, ops_per_journey: int) -> None:
-        """Legacy 2PC loop."""
-        raise NotImplementedError("2PC loop not implemented in this version.")
+        """遗留2PC循环。"""
+        raise NotImplementedError("此版本中未实现2PC循环。")
 
     def _repeating_worker(self, worker_id: int, journeys_per_user: int, worker_func, ops_per_journey: int):
-        """Legacy internal helper."""
+        """遗留内部辅助函数。"""
         for _ in range(journeys_per_user):
             worker_func(worker_id, ops_per_journey)

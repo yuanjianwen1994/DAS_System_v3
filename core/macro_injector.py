@@ -1,6 +1,6 @@
 """
-Macro-Benchmark Injector.
-Handles high-throughput Legacy transactions with explicit node mapping.
+宏基准测试注入器。
+处理具有显式节点映射的高吞吐量Legacy交易。
 """
 import typing as t
 from web3 import Web3
@@ -14,7 +14,7 @@ class MacroTransactionInjector:
     def __init__(self, network_manager, identity_manager):
         self.network = network_manager
         self.identity = identity_manager
-        # Use a thread pool for non-blocking broadcasting
+        # 使用线程池进行非阻塞广播
         self.executor = ThreadPoolExecutor(max_workers=20)
 
     def send_batch(
@@ -25,9 +25,9 @@ class MacroTransactionInjector:
         **kwargs,
     ) -> t.List[str]:
         """
-        Builds, signs, and sends transactions for the given users.
+        为给定用户构建、签名和发送交易。
         """
-        # 1. Node Mapping
+        # 1. 节点映射
         if shard_id == -1:
             node_name = "execution"
         else:
@@ -35,41 +35,42 @@ class MacroTransactionInjector:
 
         try:
             web3 = self.network.get_web3(node_name)
-            # FIX: Dynamically fetch Chain ID to prevent "Invalid signature v value" error
+            # 修复：动态获取Chain ID以防止"无效签名v值"错误
             chain_id = web3.eth.chain_id
         except Exception as e:
-            raise ValueError(f"Failed to connect to node for shard_id={shard_id} ({node_name}): {e}")
+            raise ValueError(f"无法连接到shard_id={shard_id}的节点（{node_name}）：{e}")
 
+        gas_price = kwargs.pop('gas_price', MACRO_GAS_PRICE)
         tx_hashes = []
 
         for user_idx in users:
             account: LocalAccount = self.identity.get_user(user_idx)
-            # Optimization: Getting nonce for every tx in a batch might be slow, 
-            # but it ensures correctness.
+            # 优化：每次在批处理中获取nonce可能很慢，
+            # 但它确保了正确性。
             nonce = web3.eth.get_transaction_count(account.address, "pending")
 
-            # 2. Re-inject shard_id into kwargs for the builder function
+            # 2. 将shard_id重新注入kwargs用于构建函数
             builder_args = kwargs.copy()
             builder_args["shard_id"] = shard_id
 
-            # Build params
+            # 构建参数
             tx_params = contract_func(web3, account.address, nonce, **builder_args)
 
-            # 3. Sanitize EIP-1559 fields (Force Legacy)
+            # 3. 清理EIP-1559字段（强制Legacy）
             if "maxFeePerGas" in tx_params:
                 del tx_params["maxFeePerGas"]
             if "maxPriorityFeePerGas" in tx_params:
                 del tx_params["maxPriorityFeePerGas"]
 
-            # 4. Apply Macro Gas Limits & Dynamic Chain ID
-            tx_params["gas"] = MACRO_TX_GAS_LIMIT 
-            tx_params["gasPrice"] = MACRO_GAS_PRICE
-            tx_params["chainId"] = chain_id  # <--- FIX HERE
+            # 4. 应用宏Gas限制和动态Chain ID
+            tx_params["gas"] = MACRO_TX_GAS_LIMIT
+            tx_params["gasPrice"] = gas_price
+            tx_params["chainId"] = chain_id  # 修复在这里
 
-            # Sign
+            # 签名
             signed_tx = account.sign_transaction(tx_params)
             
-            # Send
+            # 发送
             tx_hash = web3.eth.send_raw_transaction(signed_tx.raw_transaction)
             tx_hashes.append(web3.to_hex(tx_hash))
 

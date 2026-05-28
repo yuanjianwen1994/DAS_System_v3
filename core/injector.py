@@ -1,6 +1,6 @@
 """
-Transaction injection engine for DAS System v3.
-High‑concurrency fire‑and‑forget transaction submission.
+DAS System v3 交易注入引擎。
+高并发 fire-and-forget 交易提交。
 """
 import typing as t
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -15,9 +15,9 @@ from .network import ConnectionManager
 
 class TransactionInjector:
     """
-    Handles raw transaction submission with local nonce management.
+    处理原始交易提交，具有本地nonce管理。
 
-    Zero‑RPC principle: No RPC calls other than `send_raw_transaction`.
+    零RPC原则：除了`send_raw_transaction`外没有其他RPC调用。
     """
 
     def __init__(
@@ -26,9 +26,9 @@ class TransactionInjector:
         identity_manager: UserManager,
     ) -> None:
         """
-        Args:
-            network_manager: Provides Web3 connections to each shard.
-            identity_manager: Provides deterministic accounts and nonces.
+        参数:
+            network_manager: 提供到每个分片的Web3连接。
+            identity_manager: 提供确定性账户和nonce。
         """
         self.network = network_manager
         self.identity = identity_manager
@@ -41,27 +41,26 @@ class TransactionInjector:
         **kwargs,
     ) -> t.List[str]:
         """
-        Submit a batch of transactions to the given shard.
+        提交一批交易到指定分片。
 
-        Args:
-            shard_id: Settlement shard index (0‑based).
-            users: List of user indices (as used by identity_manager).
-            contract_func: Callable that returns the transaction parameters
-                (to, data, value, …) given a Web3 instance, from address, and nonce.
-            **kwargs: Additional keyword arguments passed to contract_func.
+        参数:
+            shard_id: 结算分片索引（从0开始）。
+            users: 用户索引列表（由identity_manager使用）。
+            contract_func: 给定Web3实例、from地址和nonce返回交易参数的可调用对象。
+            **kwargs: 传递给contract_func的其他关键字参数。
 
-        Returns:
-            List of transaction hashes (hex strings) in the same order as `users`.
+        返回:
+            交易哈希列表（十六进制字符串），顺序与`users`相同。
 
-        Performance:
-            - Nonce assignment is sequential per user.
-            - Transaction signing is done locally.
-            - Raw transmission is parallelized with a thread pool.
+        性能:
+            - Nonce分配按用户顺序进行。
+            - 交易签名在本地完成。
+            - 原始传输使用线程池并行化。
         """
         shard_name = f"shard_{shard_id}"
         web3 = self.network.get_web3(shard_name)
 
-        # Determine scope for nonce tracking (matching send_and_wait mapping)
+        # 确定nonce跟踪的范围（匹配send_and_wait映射）
         if shard_id >= 0:
             scope = f"shard_{shard_id}"
         elif shard_id == -1:
@@ -69,47 +68,47 @@ class TransactionInjector:
         else:
             scope = "baseline"
 
-        # 1. Build all transactions sequentially (nonce safety)
+        # 1. 按顺序构建所有交易（nonce安全）
         raw_txs: t.List[bytes] = []
         for user_idx in users:
-            # Get account and nonce
+            # 获取账户和nonce
             account = self.identity.get_user(user_idx)
             address = account.address
             nonce = self.identity.nonce_manager.get_and_increment(address, scope)
 
-            # Obtain transaction parameters from the contract function
+            # 从合约函数获取交易参数
             tx_params = contract_func(web3, address, nonce, **kwargs)
 
-            # Fill mandatory fields
+            # 填充必填字段
             tx_params.setdefault("gas", GAS_LIMIT)
             tx_params.setdefault("gasPrice", DEFAULT_GAS_PRICE)
             tx_params.setdefault("nonce", nonce)
-            tx_params.setdefault("chainId", 1)  # Ganache ignores, but safe
+            tx_params.setdefault("chainId", 1)  # Ganache忽略，但安全
 
-            # Remove any extra fields that Web3 might reject
+            # 移除Web3可能拒绝的额外字段
             filtered = {k: v for k, v in tx_params.items() if v is not None}
 
-            # Sign locally
+            # 本地签名
             signed = account.sign_transaction(filtered)
             raw_txs.append(signed.raw_transaction)
 
-        # 2. Send raw transactions in parallel, preserving order
+        # 2. 并行发送原始交易，保持顺序
         tx_hashes: t.List[str] = []
         with ThreadPoolExecutor(max_workers=min(len(raw_txs), 10)) as executor:
-            # Submit all tasks, keep futures in a list in the same order
+            # 提交所有任务，在同一列表中保持futures顺序
             futures = []
             for raw in raw_txs:
                 future = executor.submit(web3.eth.send_raw_transaction, raw)
                 futures.append(future)
 
-            # Collect results in order of submission
+            # 按提交顺序收集结果
             for future in futures:
                 try:
                     tx_hash = future.result()
                     tx_hashes.append(Web3.to_hex(tx_hash))
                 except Exception as e:
-                    # Log but keep going – fire‑and‑forget
-                    print(f"Failed to send transaction: {e}")
-                    tx_hashes.append("")  # placeholder for ordering
+                    # 记录但继续 - fire-and-forget
+                    print(f"发送交易失败：{e}")
+                    tx_hashes.append("")  # 占位符用于排序
 
         return tx_hashes
