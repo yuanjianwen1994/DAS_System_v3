@@ -510,7 +510,7 @@ class MacroTrafficGenerator:
         if process_id is not None:
             self.process_id = process_id  # 如果提供则覆盖
         total_journeys = concurrency * journeys_per_user
-        print(f"[流量 P{self.process_id}] 开始{journey_type}：{concurrency}个用户，每个{Journeys_per_user}个旅程（总计：{total_journeys}）")
+        print(f"[流量 P{self.process_id}] 开始{journey_type}：{concurrency}个用户，每个{journeys_per_user}个旅程（总计：{total_journeys}）")
         
         # 清除先前的日志
         self.raw_logs.clear()
