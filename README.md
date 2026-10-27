@@ -39,11 +39,16 @@ With Foundry on `PATH`, run the 1-second functional/adversarial checks and the s
 python tests/migration_state_machine_smoke.py
 python tests/formal_state_machine_sample.py
 python tests/applicability_boundary_smoke.py
+CROSS_CHAIN_SMOKE_ONLY=1 python tests/cross_chain_load_experiment.py
+python tests/cross_chain_receipt_binding_audit.py
+python tests/cross_chain_load_experiment.py
 ```
 
 The smoke output and 12-second sample data are written under `experiments/revision_20261027/`. The latter starts three fresh Anvil processes and records three independent seeded repetitions. It measures same-EVM contract state transitions only; it is not a cross-chain throughput result.
 
 The applicability script reports gas for three small transfer/business-call ratios. It is a contract-level cost check, not a queueing, shard-contention, or throughput experiment.
+
+The cross-chain scripts start independent local Anvil processes with distinct chain IDs. The binding audit mutates every receipt field and checks wrong destination contexts and replay. The load runner performs 12-second-block trials at one and three concurrent journeys per model, with three fresh-node repeats per load. It takes several minutes and is a bounded concurrency comparison, not a capacity or production-bridge benchmark. `CROSS_CHAIN_SMOKE_ONLY=1` runs the faster one-second workflow/adversarial check.
 
 ## Results and reproducibility
 

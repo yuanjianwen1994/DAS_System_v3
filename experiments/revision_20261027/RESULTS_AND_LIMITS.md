@@ -1,5 +1,7 @@
 # Revision experiment: results and limits
 
+> **Current audit correction:** the two-chain measurements below are a preserved pre-audit snapshot. They included a harness-only source acknowledgement transaction, which is not in the manuscript DAS path and is not required by the comparator transfer paths described here. Do not cite those latency, throughput, or gas values as the corrected comparison. The raw files are preserved in `with_source_ack/`. The corrected harness removes that transaction and retains cross-chain accounting through off-chain receipt-ID reconciliation. Its rerun is pending because this checkout currently lacks `eth_account` and Anvil; no replacement performance values are claimed.
+
 Run date: 2026-10-27. Base source revision: `c6972971039e0d5ce19eda6b453d0a0988b36a8b`.
 
 ## What was run
@@ -63,3 +65,41 @@ Raw outputs and run metadata are in this directory. The scripts compile the cont
 - Avalanche atomic transactions and shared-memory UTXOs: <https://build.avax.network/docs/primary-network/coreth-architecture>
 - Polkadot XCM teleport overview: <https://wiki.polkadot.com/learn/learn-xcm-pallet/>
 - Polkadot XCM use cases: <https://wiki.polkadot.com/learn/learn-xcm-usecases/>
+
+## Superseded two-chain bound-load comparison (archived)
+
+Run date: 2026-10-27. Source and destination are separate local Anvil processes (chain IDs 31337 and 31338). This archived version included source export/debit, destination receipt verification/import, a harness-only source acknowledgement, a 0.5-second business think interval, and a destination business spend. The attestor signed the full source-event envelope and the import acknowledgement. The harness read the source event and relayed it locally; this did not model network transport or finality proofs.
+
+Three fresh two-node trials were run for each of two small load settings: one and three concurrent journeys per model. All 36 journeys completed, with zero failed or incomplete journeys in that archived version. Wrong source-chain binding, altered payload, duplicate import, and pre-import business spending were rejected in the separate one-second adversarial smoke. A three-node binding audit also rejected 14 tampered cases covering every receipt field, the destination chain and endpoint contexts, and replay, while a valid positive-control import succeeded. Each archived load trial passed source-local, destination-local, and cross-chain pending accounting. In the ACK-containing version, source pending was zero and acknowledged exports equaled destination imports.
+
+| Model / load | Completed journeys | Journey / wall second | Transfer protocol tx / wall second | Business calls / wall second | Journey latency P50 / P95 / P99 (s) | Mean gas: export / import / ack / business / total |
+|---|---:|---:|---:|---:|---:|---:|
+| DAS, 1 concurrent | 3 | 0.020814 | 0.062442 | 0.020814 | 48.043 / 48.057 / 48.057 | 304,677 / 126,048 / 91,381 / 59,973 / 582,079 |
+| Teleport abstraction, 1 concurrent | 3 | 0.020814 | 0.062442 | 0.020814 | 48.035 / 48.051 / 48.051 | 304,681 / 128,385 / 91,386 / 59,977 / 584,430 |
+| Atomic UTXO abstraction, 1 concurrent | 3 | 0.020814 | 0.062442 | 0.020814 | 48.034 / 48.049 / 48.049 | 304,673 / 126,040 / 91,372 / 59,969 / 582,055 |
+| DAS, 3 concurrent | 9 | 0.062416 | 0.187248 | 0.062416 | 48.025 / 48.093 / 48.093 | 296,469 / 103,247 / 82,258 / 48,569 / 530,543 |
+| Teleport abstraction, 3 concurrent | 9 | 0.062416 | 0.187248 | 0.062416 | 48.023 / 48.084 / 48.084 | 296,473 / 105,586 / 82,258 / 48,569 / 532,886 |
+| Atomic UTXO abstraction, 3 concurrent | 9 | 0.062416 | 0.187248 | 0.062416 | 48.015 / 48.078 / 48.078 | 296,466 / 103,236 / 82,270 / 48,577 / 530,550 |
+
+Rates pool three repeats by dividing the successful journeys or transactions for one model by the sum of the three trial wall-clock windows at that load. The old transfer transaction count includes export, import, and acknowledgement; the business transaction is separate. Journey latency includes the 0.5-second think interval; the raw file records it separately. Each path is paced by four 12-second block phases, so the roughly 48-second latency is block-interval dominated. At load three, the harness submits three times as many journeys into the same four phases; the resulting threefold throughput is expected from that setup and is not evidence of saturation capacity or better scaling.
+
+P95 and P99 are descriptive nearest-rank values from only 3 observations at load one and 9 at load three; in both cases they equal the largest observed latency. They are not stable tail estimates, and no confidence interval or equivalence claim is made.
+
+Across the models, mean gas totals differ by about 0.4% in these specific contracts; the latency differences are milliseconds against a 48-second block schedule. The teleport abstraction pays for an extra trusted-source check. DAS and the atomic UTXO abstraction are nearly identical here because both retain comparable envelope and one-time-consumption work. These are descriptive contract measurements, not statistical equivalence, a security ranking, or a measured production advantage. Gas per journey also falls in the three-concurrent case because zero-to-nonzero storage and aggregate counters are shared across transfers in a batch; per-transaction state costs therefore differ by load.
+
+Deployment, funding, and teleport trust-configuration gas are setup costs, excluded from per-journey values above and retained in each raw trial. Mean setup gas per fresh trial was:
+
+| Load | Model | Source deploy | Destination deploy | Source funding | Teleport trust setup |
+|---|---|---:|---:|---:|---:|
+| 1 concurrent | DAS | 880,349 | 682,913 | 96,538 | 0 |
+| 1 concurrent | Teleport abstraction | 880,349 | 682,929 | 96,538 | 45,147 |
+| 1 concurrent | Atomic UTXO abstraction | 880,349 | 682,925 | 96,534 | 0 |
+| 3 concurrent | DAS | 880,349 | 682,917 | 221,190 | 0 |
+| 3 concurrent | Teleport abstraction | 880,349 | 682,921 | 221,214 | 45,147 |
+| 3 concurrent | Atomic UTXO abstraction | 880,349 | 682,929 | 221,202 | 0 |
+
+The models are deliberately bounded. DAS uses a test attestor in place of source-chain consensus/finality verification. The teleport model combines a trusted-source allowlist with the authenticated envelope; it is not an XCM executor. The atomic model locks a source export and consumes a signed receipt once on destination; the signature stands in for shared-memory UTXO proof and does not run AvalancheGo. Both chains are local Anvil nodes without independent validator sets, real inter-node transport, or production fees. This comparison is suitable for checking cross-chain field binding, pending accounting, and a tiny load contrast only.
+
+The pre-audit raw trial, journey, smoke, and binding-audit files are in `with_source_ack/`. Reproduce the corrected short functional workflow with `CROSS_CHAIN_SMOKE_ONLY=1 python tests/cross_chain_load_experiment.py`, the field audit with `python tests/cross_chain_receipt_binding_audit.py`, or the corrected bounded comparison with `python tests/cross_chain_load_experiment.py` after installing the documented dependencies and Anvil. The corrected load output must be treated as pending until that run succeeds.
+
+See [`MECHANISM_AUDIT_AND_HYPOTHESES.md`](MECHANISM_AUDIT_AND_HYPOTHESES.md) for protocol/harness boundaries and falsifiable hypotheses.
