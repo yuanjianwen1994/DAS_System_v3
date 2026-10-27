@@ -2,8 +2,8 @@
 pragma solidity 0.8.24;
 
 /// @notice Two-chain accounting harness used with two independent Anvil processes.
-/// @dev The signer is a test attestor. It does not provide consensus, finality,
-///      light-client verification, transport security, or production bridge safety.
+/// @dev Source-side exports remain pending locally; destination import is audited
+///      separately by matching receipt IDs, with no synthetic source acknowledgement.
 contract CrossChainSourceHarness {
     bytes32 private constant RECEIPT_TYPEHASH = keccak256(
         "CrossChainReceipt(uint256 sourceChainId,address sourceEndpoint,uint256 destinationChainId,address destinationEndpoint,bytes32 sourceDomain,bytes32 destinationDomain,bytes32 asset,uint256 amount,address sender,address recipient,bytes32 payloadHash,uint64 nonce)"

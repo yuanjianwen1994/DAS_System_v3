@@ -148,7 +148,6 @@ def source_accounting(w3, source, asset):
         "funded": source.functions.fundedByAsset(asset).call(),
         "balance": source.functions.totalBalanceByAsset(asset).call(),
         "pending": source.functions.pendingByAsset(asset).call(),
-        "export_records_pending": source.functions.pendingByAsset(asset).call(),
         "spent": source.functions.spentByAsset(asset).call(),
     }
 
@@ -171,7 +170,7 @@ def global_accounting(w3s, w3d, source, destination, asset, receipt_ids):
         "source_funded": src["funded"],
         "source_spendable": src["balance"],
         "source_pending": src["pending"],
-        "source_export_records_pending": src["export_records_pending"],
+        "source_export_records_pending": src["pending"],
         "destination_imported": destination.functions.importedByAsset(asset).call(),
         "destination_spendable": dest_balance,
         "destination_business_spent": dest_spent,
