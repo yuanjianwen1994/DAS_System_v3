@@ -276,8 +276,13 @@ def run_repeat(seed, artifacts, mnemonic):
             "completed_journeys": sum(1 for item in measurements.values() if item["completed"]),
             "failed_journeys": 0,
             "incomplete_journeys": 0,
-            "completed_journeys_per_second": round(3 / (trial_finished - trial_started), 6),
-            "protocol_transactions_per_second": round(9 / (trial_finished - trial_started), 6),
+            # All three models share this one trial wall-clock window. Keep
+            # these rates explicitly aggregate; model-level rates are computed
+            # below across the independent repeats.
+            "aggregate_completed_journeys_per_second": round(3 / (trial_finished - trial_started), 6),
+            "aggregate_transfer_protocol_transactions_per_second": round(6 / (trial_finished - trial_started), 6),
+            "aggregate_business_transactions_per_second": round(3 / (trial_finished - trial_started), 6),
+            "aggregate_all_transactions_per_second": round(9 / (trial_finished - trial_started), 6),
             "setup_gas": {"migration_deploy": migration_deploy_gas, "comparator_deploy": comparator_deploy_gas, "funding": setup_rows, "teleport_trust": trust_receipt.gasUsed},
             "measurements": list(measurements.values()),
             "final_block_number": w3.eth.block_number,
@@ -300,14 +305,23 @@ def main():
     runs = [run_repeat(seed, artifacts, config_global.MNEMONIC) for seed in REPEATS]
     summaries = {}
     for variant in ["DAS", "TELEPORT_ABSTRACT", "ATOMIC_UTXO_ABSTRACT"]:
-        values = sorted(
-            measurement["journey_seconds"]
+        measurements = [
+            measurement
             for run in runs
             for measurement in run["measurements"]
             if measurement["variant"] == variant and measurement["completed"]
-        )
+        ]
+        values = sorted(measurement["journey_seconds"] for measurement in measurements)
+        observed_seconds = sum(values)
         summaries[variant] = {
             "n_completed": len(values),
+            "observed_journey_seconds_sum": round(observed_seconds, 4),
+            "completed_journeys_per_second": round(len(values) / observed_seconds, 6) if observed_seconds else 0,
+            "transfer_protocol_transactions_completed": 2 * len(values),
+            "transfer_protocol_transactions_per_second": round(2 * len(values) / observed_seconds, 6) if observed_seconds else 0,
+            "business_transactions_completed": len(values),
+            "business_transactions_per_second": round(len(values) / observed_seconds, 6) if observed_seconds else 0,
+            "all_transactions_per_second": round(3 * len(values) / observed_seconds, 6) if observed_seconds else 0,
             "p50_seconds": values[(len(values) - 1) // 2] if values else None,
             "p95_seconds_nearest_rank": values[max(0, int((0.95 * len(values) + 0.999999)) - 1)] if values else None,
             "p99_seconds_nearest_rank": values[max(0, int((0.99 * len(values) + 0.999999)) - 1)] if values else None,

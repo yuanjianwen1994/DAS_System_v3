@@ -14,15 +14,17 @@ All are deployed to one local EVM. They do not implement Polkadot relay/parachai
 
 ## 12-second sample
 
-Three independent fresh Anvil runs per model, with 12-second block intervals and one seeded transfer/business journey per run. All 9 journeys completed; each ended with zero pending balance and a true accounting invariant. There were no failures or incomplete journeys. Every run included one begin/export, one settle/import, and one business transaction.
+Three independent fresh Anvil runs, each containing one seeded transfer/business journey per model, with 12-second block intervals. All 9 journeys completed; each ended with zero pending balance and a true accounting invariant. There were no failures or incomplete journeys. Every journey included one begin/export, one settle/import, and one business transaction.
 
-| Model | Successful journeys / wall-clock second | Protocol transactions / second | Journey latency P50 / P95 / P99 (s) | Gas per journey (range) |
-|---|---:|---:|---:|---:|
-| DAS | 0.0831 | 0.249 | 36.060 / 36.083 / 36.083 | 501,937–501,951 |
-| Teleport abstraction | 0.0831 | 0.249 | 36.086 / 36.100 / 36.100 | 503,244–503,253 |
-| Atomic UTXO abstraction | 0.0831 | 0.249 | 36.085 / 36.101 / 36.101 | 440,107 |
+| Model | Successful journeys / observed model seconds | Transfer-protocol tx / observed model seconds | Business calls / observed model seconds | Journey latency P50 / P95 / P99 (s) | Gas per journey (range) |
+|---|---:|---:|---:|---:|---:|---:|
+| DAS | 0.027720 | 0.055441 | 0.027720 | 36.092 / 36.099 / 36.099 | 501,937–501,951 |
+| Teleport abstraction | 0.027738 | 0.055476 | 0.027738 | 36.032 / 36.091 / 36.091 | 503,244–503,253 |
+| Atomic UTXO abstraction | 0.027738 | 0.055475 | 0.027738 | 36.033 / 36.092 / 36.092 | 440,107 |
 
-The latency is three 12-second block intervals plus local process and RPC overhead. With only three repetitions, the reported upper percentiles are simply the maximum observed sample and are not stable tail estimates. The same-EVM setup does not support cross-chain throughput claims. No statistical equivalence or performance advantage is inferred from these values.
+Rates above pool three sequential independent repetitions for one model: 3 completed journeys divided by about 108 observed model-seconds. In each trial, all three models run concurrently, so the aggregate trial rate is about 0.083 successful journeys/s, 0.166 transfer-protocol tx/s, 0.083 business calls/s, and 0.249 total tx/s. These aggregate values must not be reported as per-model rates. Transfer protocol tx count begin/export and settle/import; business transactions are separate.
+
+The latency is three 12-second block intervals plus local process and RPC overhead. With only three repetitions, the reported upper percentiles are simply the maximum observed sample and are not stable tail estimates. A single journey per model per run is a completion-time check, not a saturated throughput experiment. The same-EVM setup does not support cross-chain throughput claims. No statistical equivalence or performance advantage is inferred from these values.
 
 ## Applicability gas sample
 
@@ -34,7 +36,7 @@ The fast-mining gas check varies business calls per transfer (1 transfer with 1 
 | Teleport abstraction | 498,466 | 676,428 | 2,044,442 |
 | Atomic UTXO abstraction | 469,683 | 647,755 | 1,905,743 |
 
-These measurements show the gas behavior of these specific contracts only. They do not establish that fixed migration costs are amortized in deployed systems or that DAS outperforms either protocol.
+The 12-second sample uses transfer amount 10, a fresh deployment per repetition, and a nonzero destination balance after its business action. This gas-only boundary check uses amount 1 in its 1-transfer/1-call case, reuses each deployment across profiles, and spends the destination balance to zero. These differences affect storage transitions, calldata, and gas refunds; therefore absolute gas totals across the two scripts are not directly comparable. Within either script, totals are comparable only as local contract measurements under that script's stated setup. They do not establish that fixed migration costs are amortized in deployed systems or that DAS outperforms either protocol.
 
 ## Ablations and failure checks
 

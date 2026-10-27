@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "created_utc": "2026-10-27T02:35:19.510729+00:00",
+    "created_utc": "2026-10-27T02:47:33.220625+00:00",
     "experiment_kind": "12-second-block same-EVM state-machine microbenchmark",
-    "base_git_commit": "c6972971039e0d5ce19eda6b453d0a0988b36a8b",
+    "base_git_commit": "e6cad2961484252870562ddf32d4eb1240fb3dd1",
     "source_sha256": {
       "contracts/MigrationHarness.sol": "2b8b83664fb01da05c9cba5e3b33beb63fe3d6d59d19b988b261ebbf9f68b3c4",
       "contracts/ComparatorHarness.sol": "6b3b8e133fc2f6dffffd3c80fa4b23f6c3fc9231fd2409a176f00eae59dff290",
       "contracts/AdmissionAblationHarness.sol": "44100706b4326b20699c303f735815ea4ec3500c74738bda7fd57d5a9a0cc0e3",
-      "tests/migration_state_machine_smoke.py": "c49760fa06d8b067997f5a84611fe8f1213526ffc9e491d64a4ecaefa18c9417",
-      "tests/formal_state_machine_sample.py": "b42498d6ebd5a0e2c36a6cc9883835fdc157d09ad3c4605cf0e4dc16518b33bc"
+      "tests/migration_state_machine_smoke.py": "df881e301f3b6b3f9647fc91a135eddadd1e65821e731d146e4dec5d5a302584",
+      "tests/formal_state_machine_sample.py": "abae4ca5b08eb7a6d93d8395002538b086be5c983d0254cb61f54a11b6ac465a"
     },
     "python": "3.9.6",
     "packages": {
@@ -29,23 +29,44 @@
     "latency_summary": {
       "DAS": {
         "n_completed": 3,
-        "p50_seconds": 36.0604,
-        "p95_seconds_nearest_rank": 36.0832,
-        "p99_seconds_nearest_rank": 36.0832,
+        "observed_journey_seconds_sum": 108.2234,
+        "completed_journeys_per_second": 0.02772,
+        "transfer_protocol_transactions_completed": 6,
+        "transfer_protocol_transactions_per_second": 0.055441,
+        "business_transactions_completed": 3,
+        "business_transactions_per_second": 0.02772,
+        "all_transactions_per_second": 0.083161,
+        "p50_seconds": 36.0915,
+        "p95_seconds_nearest_rank": 36.0986,
+        "p99_seconds_nearest_rank": 36.0986,
         "p95_p99_caution": "n=3 only; nearest-rank percentiles are descriptive, not stable tail estimates"
       },
       "TELEPORT_ABSTRACT": {
         "n_completed": 3,
-        "p50_seconds": 36.0859,
-        "p95_seconds_nearest_rank": 36.0996,
-        "p99_seconds_nearest_rank": 36.0996,
+        "observed_journey_seconds_sum": 108.154,
+        "completed_journeys_per_second": 0.027738,
+        "transfer_protocol_transactions_completed": 6,
+        "transfer_protocol_transactions_per_second": 0.055476,
+        "business_transactions_completed": 3,
+        "business_transactions_per_second": 0.027738,
+        "all_transactions_per_second": 0.083215,
+        "p50_seconds": 36.0317,
+        "p95_seconds_nearest_rank": 36.091,
+        "p99_seconds_nearest_rank": 36.091,
         "p95_p99_caution": "n=3 only; nearest-rank percentiles are descriptive, not stable tail estimates"
       },
       "ATOMIC_UTXO_ABSTRACT": {
         "n_completed": 3,
-        "p50_seconds": 36.085,
-        "p95_seconds_nearest_rank": 36.1005,
-        "p99_seconds_nearest_rank": 36.1005,
+        "observed_journey_seconds_sum": 108.1564,
+        "completed_journeys_per_second": 0.027738,
+        "transfer_protocol_transactions_completed": 6,
+        "transfer_protocol_transactions_per_second": 0.055475,
+        "business_transactions_completed": 3,
+        "business_transactions_per_second": 0.027738,
+        "all_transactions_per_second": 0.083213,
+        "p50_seconds": 36.0332,
+        "p95_seconds_nearest_rank": 36.0919,
+        "p99_seconds_nearest_rank": 36.0919,
         "p95_p99_caution": "n=3 only; nearest-rank percentiles are descriptive, not stable tail estimates"
       }
     },
@@ -62,12 +83,14 @@
       "seed": 2026102701,
       "block_time_seconds": 12,
       "chain_id": 31337,
-      "trial_wall_seconds": 36.0604,
+      "trial_wall_seconds": 36.0986,
       "completed_journeys": 3,
       "failed_journeys": 0,
       "incomplete_journeys": 0,
-      "completed_journeys_per_second": 0.083194,
-      "protocol_transactions_per_second": 0.249581,
+      "aggregate_completed_journeys_per_second": 0.083106,
+      "aggregate_transfer_protocol_transactions_per_second": 0.166211,
+      "aggregate_business_transactions_per_second": 0.083106,
+      "aggregate_all_transactions_per_second": 0.249317,
       "setup_gas": {
         "migration_deploy": 2232408,
         "comparator_deploy": 3110209,
@@ -96,23 +119,23 @@
               "phase": "begin",
               "gas_used": 319154,
               "block_number": 7,
-              "seconds_to_receipt": 12.0374
+              "seconds_to_receipt": 12.0084
             },
             {
               "phase": "settle",
               "gas_used": 117312,
               "block_number": 8,
-              "seconds_to_receipt": 12.0007
+              "seconds_to_receipt": 12.046
             },
             {
               "phase": "business",
               "gas_used": 65485,
               "block_number": 9,
-              "seconds_to_receipt": 11.9906
+              "seconds_to_receipt": 12.0218
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0604,
+          "journey_seconds": 36.0986,
           "protocol_gas_total": 501951,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -126,23 +149,23 @@
               "phase": "begin",
               "gas_used": 319240,
               "block_number": 7,
-              "seconds_to_receipt": 12.0384
+              "seconds_to_receipt": 12.0077
             },
             {
               "phase": "settle",
               "gas_used": 118440,
               "block_number": 8,
-              "seconds_to_receipt": 11.9956
+              "seconds_to_receipt": 12.0404
             },
             {
               "phase": "business",
               "gas_used": 65573,
               "block_number": 9,
-              "seconds_to_receipt": 11.985
+              "seconds_to_receipt": 11.9503
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0592,
+          "journey_seconds": 36.0317,
           "protocol_gas_total": 503253,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -156,23 +179,23 @@
               "phase": "begin",
               "gas_used": 300572,
               "block_number": 7,
-              "seconds_to_receipt": 12.0212
+              "seconds_to_receipt": 12.009
             },
             {
               "phase": "settle",
               "gas_used": 91062,
               "block_number": 8,
-              "seconds_to_receipt": 11.9925
+              "seconds_to_receipt": 12.0373
             },
             {
               "phase": "business",
               "gas_used": 48473,
               "block_number": 9,
-              "seconds_to_receipt": 11.9794
+              "seconds_to_receipt": 11.9457
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0578,
+          "journey_seconds": 36.0313,
           "protocol_gas_total": 440107,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -185,12 +208,14 @@
       "seed": 2026102702,
       "block_time_seconds": 12,
       "chain_id": 31337,
-      "trial_wall_seconds": 36.1005,
+      "trial_wall_seconds": 36.0333,
       "completed_journeys": 3,
       "failed_journeys": 0,
       "incomplete_journeys": 0,
-      "completed_journeys_per_second": 0.083101,
-      "protocol_transactions_per_second": 0.249304,
+      "aggregate_completed_journeys_per_second": 0.083256,
+      "aggregate_transfer_protocol_transactions_per_second": 0.166512,
+      "aggregate_business_transactions_per_second": 0.083256,
+      "aggregate_all_transactions_per_second": 0.249769,
       "setup_gas": {
         "migration_deploy": 2232408,
         "comparator_deploy": 3110209,
@@ -219,23 +244,23 @@
               "phase": "begin",
               "gas_used": 319154,
               "block_number": 7,
-              "seconds_to_receipt": 12.0965
+              "seconds_to_receipt": 12.0532
             },
             {
               "phase": "settle",
               "gas_used": 117306,
               "block_number": 8,
-              "seconds_to_receipt": 11.9139
+              "seconds_to_receipt": 12.0433
             },
             {
               "phase": "business",
               "gas_used": 65485,
               "block_number": 9,
-              "seconds_to_receipt": 12.0167
+              "seconds_to_receipt": 11.9137
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0529,
+          "journey_seconds": 36.0333,
           "protocol_gas_total": 501945,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -249,23 +274,23 @@
               "phase": "begin",
               "gas_used": 319240,
               "block_number": 7,
-              "seconds_to_receipt": 12.0941
+              "seconds_to_receipt": 12.0537
             },
             {
               "phase": "settle",
               "gas_used": 118440,
               "block_number": 8,
-              "seconds_to_receipt": 11.9132
+              "seconds_to_receipt": 12.0403
             },
             {
               "phase": "business",
               "gas_used": 65573,
               "block_number": 9,
-              "seconds_to_receipt": 12.0591
+              "seconds_to_receipt": 11.9073
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0996,
+          "journey_seconds": 36.0313,
           "protocol_gas_total": 503253,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -279,23 +304,23 @@
               "phase": "begin",
               "gas_used": 300572,
               "block_number": 7,
-              "seconds_to_receipt": 12.0939
+              "seconds_to_receipt": 12.0524
             },
             {
               "phase": "settle",
               "gas_used": 91062,
               "block_number": 8,
-              "seconds_to_receipt": 11.9096
+              "seconds_to_receipt": 12.0333
             },
             {
               "phase": "business",
               "gas_used": 48473,
               "block_number": 9,
-              "seconds_to_receipt": 12.0561
+              "seconds_to_receipt": 11.905
             }
           ],
           "completed": true,
-          "journey_seconds": 36.1005,
+          "journey_seconds": 36.0332,
           "protocol_gas_total": 440107,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -308,12 +333,14 @@
       "seed": 2026102703,
       "block_time_seconds": 12,
       "chain_id": 31337,
-      "trial_wall_seconds": 36.0859,
+      "trial_wall_seconds": 36.0919,
       "completed_journeys": 3,
       "failed_journeys": 0,
       "incomplete_journeys": 0,
-      "completed_journeys_per_second": 0.083135,
-      "protocol_transactions_per_second": 0.249405,
+      "aggregate_completed_journeys_per_second": 0.083121,
+      "aggregate_transfer_protocol_transactions_per_second": 0.166242,
+      "aggregate_business_transactions_per_second": 0.083121,
+      "aggregate_all_transactions_per_second": 0.249364,
       "setup_gas": {
         "migration_deploy": 2232408,
         "comparator_deploy": 3110209,
@@ -342,23 +369,23 @@
               "phase": "begin",
               "gas_used": 319142,
               "block_number": 7,
-              "seconds_to_receipt": 12.0205
+              "seconds_to_receipt": 12.011
             },
             {
               "phase": "settle",
               "gas_used": 117322,
               "block_number": 8,
-              "seconds_to_receipt": 12.0002
+              "seconds_to_receipt": 12.0206
             },
             {
               "phase": "business",
               "gas_used": 65473,
               "block_number": 9,
-              "seconds_to_receipt": 12.0359
+              "seconds_to_receipt": 12.0323
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0832,
+          "journey_seconds": 36.0915,
           "protocol_gas_total": 501937,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -372,23 +399,23 @@
               "phase": "begin",
               "gas_used": 319240,
               "block_number": 7,
-              "seconds_to_receipt": 12.0154
+              "seconds_to_receipt": 12.009
             },
             {
               "phase": "settle",
               "gas_used": 118431,
               "block_number": 8,
-              "seconds_to_receipt": 11.995
+              "seconds_to_receipt": 12.0173
             },
             {
               "phase": "business",
               "gas_used": 65573,
               "block_number": 9,
-              "seconds_to_receipt": 12.0322
+              "seconds_to_receipt": 12.0272
             }
           ],
           "completed": true,
-          "journey_seconds": 36.0859,
+          "journey_seconds": 36.091,
           "protocol_gas_total": 503244,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
@@ -402,23 +429,23 @@
               "phase": "begin",
               "gas_used": 300572,
               "block_number": 7,
-              "seconds_to_receipt": 12.0204
+              "seconds_to_receipt": 12.0101
             },
             {
               "phase": "settle",
               "gas_used": 91062,
               "block_number": 8,
-              "seconds_to_receipt": 11.9911
+              "seconds_to_receipt": 12.0054
             },
             {
               "phase": "business",
               "gas_used": 48473,
               "block_number": 9,
-              "seconds_to_receipt": 12.0267
+              "seconds_to_receipt": 12.0241
             }
           ],
           "completed": true,
-          "journey_seconds": 36.085,
+          "journey_seconds": 36.0919,
           "protocol_gas_total": 440107,
           "destination_balance_after_business": 9,
           "pending_after_business": 0,
