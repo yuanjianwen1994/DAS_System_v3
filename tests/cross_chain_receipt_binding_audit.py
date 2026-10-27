@@ -42,7 +42,7 @@ def main():
         destination_domain = Web3.keccak(text="binding-audit-destination")
         asset = Web3.keccak(text="binding-audit-asset")
         payload_hash = Web3.keccak(text="binding-audit-payload")
-        source, _ = deploy(w3s, src_artifact, admin, (attestor.address,))
+        source, _ = deploy(w3s, src_artifact, admin)
         destination, _ = deploy(w3d, dst_artifact, w3d.eth.accounts[0], (attestor.address, 0, destination_domain))
         decoy, _ = deploy(w3d, dst_artifact, w3d.eth.accounts[0], (attestor.address, 0, destination_domain))
         wrong_chain, _ = deploy(w3wrong, dst_artifact, w3wrong.eth.accounts[0], (attestor.address, 0, destination_domain))
