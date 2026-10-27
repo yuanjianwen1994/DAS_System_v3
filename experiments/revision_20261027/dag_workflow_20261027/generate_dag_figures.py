@@ -341,6 +341,7 @@ def independent_stage_gas(evm, distributed):
     setup_axis = axes[0].twinx()
     setup_vals = [v[0] for v in setup]
     setup_axis.plot(x, setup_vals, color=COLORS["accent"], marker="D", linestyle="--", label="Deployment + registration per profile")
+    setup_axis.set_ylim(0, max(setup_vals) * 1.2)
     axes[0].set_xticks(x, [label for _, label in selected], rotation=15, ha="right")
     axes[0].set_ylabel("EVM gas per session (entry + execution + exit)")
     axes[0].set_title("Session gas; setup shown separately", loc="left", fontweight="bold")
