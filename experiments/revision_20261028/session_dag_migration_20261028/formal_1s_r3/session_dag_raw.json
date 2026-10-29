@@ -1,0 +1,2117 @@
+{
+  "experiment": "same-EVM actual external-CALL d8 DAG plus controlled MigrationHarness session",
+  "model_boundary": "same_evm_two_logical_domains_trusted_attestor_no_native_bridge",
+  "repeat": 3,
+  "block_time_seconds": 1,
+  "theta_values": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "operations_per_node": 16,
+  "per_node_balance_cost": 1,
+  "d8_parents": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      4
+    ],
+    [
+      5
+    ],
+    [
+      6
+    ]
+  ],
+  "workflow_pre_submission": "theta independent workflow IDs and seeds are submitted in one transaction; no inter-workflow result dependency is claimed",
+  "source_hashes": {
+    "contracts/MigrationHarness.sol": "2b8b83664fb01da05c9cba5e3b33beb63fe3d6d59d19b988b261ebbf9f68b3c4",
+    "experiments/revision_20261027/stateful_dag_20261027/dag_workflow_20261027/contracts/DASDistributedCompositionHarness.sol": "3a3fcf895a75d5ab424948d36e7a6d997d1544d6d4e55d680fd1435f5ba7e17a",
+    "experiments/revision_20261028/session_dag_migration_20261028/contracts/IntegratedDAGSessionRouter.sol": "137007e8b69250a16adb8eec10d883e0468e9c3134f6753bf61e3e04948b6a5c"
+  },
+  "runtime": {
+    "anvil": "anvil Version: 1.8.6\nCommit SHA: 6bad0a66de7c83f7b33695044138f0f5fa4c5990\nBuild Timestamp: 2026-10-21T17:56:11.890310850Z (1792605371)\nBuild Profile: dist",
+    "solc": "0.8.24",
+    "web3": "7.16.0",
+    "py_solc_x": "2.0.5",
+    "python": "3.10.12"
+  },
+  "runs": [
+    {
+      "repeat": 3,
+      "theta": 1,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "same_domain_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.0357703838963062,
+      "journey_seconds": 3.9841630989685655,
+      "entry_seconds": 0,
+      "exit_seconds": 0,
+      "internal_tx_gas": 1117020,
+      "node_count_executed": 8,
+      "receipt_bindings_passed": 0,
+      "receipt_bindings_expected": 0,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 1,
+      "destination_router_balance": 0,
+      "source_owner_balance": 0,
+      "pending_balance": 0,
+      "funded": 9,
+      "spent": 8,
+      "conservation_invariant": true,
+      "execution_tx": "d611bb26938155a0b143e2c93476fe5e3521c79396935280391794a2f1c56744",
+      "close_tx": "bdf98897de06e378956645ee6f1a3b0359a606903518aea91d4fba0ecba3ce0e",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 1,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "migrated_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [
+        {
+          "leg": "in",
+          "seconds": 1.9957949339877814,
+          "receipt_id": "3224524c830eb4a6cf1cf078273ff29399e7c222108edf64fdce6d2093ccfe8e",
+          "amount": 9,
+          "nonce": 0,
+          "sender": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+          "recipient": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+          "payload_hash": "2860939fb226ec25ed7c909c7dbcdab9b102fae2fe7aeef2773cba0205aa324d",
+          "binding_verified": true,
+          "begin_gas": 335057,
+          "settle_gas": 123476
+        },
+        {
+          "leg": "out",
+          "seconds": 1.989768129074946,
+          "receipt_id": "4844e37a4f930bd934eadcbadc52a982bb3d077101c1fcad97852eae4fc4b64e",
+          "amount": 1,
+          "nonce": 0,
+          "sender": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+          "recipient": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "payload_hash": "fca5d5fe67de446789b826d80b9f6f1eaaa099de00b6b8477a80de62e711f4d6",
+          "binding_verified": true,
+          "begin_gas": 316304,
+          "settle_gas": 123496
+        }
+      ],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.0380540709011257,
+      "journey_seconds": 7.020140887005255,
+      "entry_seconds": 1.9957949339877814,
+      "exit_seconds": 1.989768129074946,
+      "internal_tx_gas": 1117008,
+      "node_count_executed": 8,
+      "receipt_bindings_passed": 2,
+      "receipt_bindings_expected": 2,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 0,
+      "destination_router_balance": 0,
+      "source_owner_balance": 1,
+      "pending_balance": 0,
+      "funded": 9,
+      "spent": 8,
+      "conservation_invariant": true,
+      "execution_tx": "f56d3c9176aba8f951751edffddaf8932efb35dd635b54375c6743610d71181c",
+      "close_tx": "1a1c10726778a031fa102191ca37bdbc0ebf4780bf9e4c53d5144f412d6b8d74",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 2,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "same_domain_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.0393206519074738,
+      "journey_seconds": 4.071673684054986,
+      "entry_seconds": 0,
+      "exit_seconds": 0,
+      "internal_tx_gas": 2063055,
+      "node_count_executed": 16,
+      "receipt_bindings_passed": 0,
+      "receipt_bindings_expected": 0,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 1,
+      "destination_router_balance": 0,
+      "source_owner_balance": 0,
+      "pending_balance": 0,
+      "funded": 17,
+      "spent": 16,
+      "conservation_invariant": true,
+      "execution_tx": "de1befc0290f1c6ac57cd0d32c4afba08eb0707c36328102c9d66b261774bbb8",
+      "close_tx": "80210fc1d9350da774d6b81243d6dbd0f12933ca97aa56073926642192c10287",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 2,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "migrated_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [
+        {
+          "leg": "in",
+          "seconds": 1.988884458085522,
+          "receipt_id": "7a5973c8ec0a895e842626173b22774bcc29f85a5f9203cfd8c68127b8aea451",
+          "amount": 17,
+          "nonce": 0,
+          "sender": "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+          "recipient": "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+          "payload_hash": "61bd640c0abc45b11ef854b51de25a613bf4074c5dfa1ed27f6b9bc3246e1357",
+          "binding_verified": true,
+          "begin_gas": 335045,
+          "settle_gas": 123496
+        },
+        {
+          "leg": "out",
+          "seconds": 2.094219437101856,
+          "receipt_id": "864ee6a1efa27a614f0c96e98985398631ba0183c44b7933b856e0842cf1585a",
+          "amount": 1,
+          "nonce": 0,
+          "sender": "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+          "recipient": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "payload_hash": "c8dcb8afd7eb3bfb29d4c13204d3a6fa3dba441f12f64863c1caff14d67f58dc",
+          "binding_verified": true,
+          "begin_gas": 316292,
+          "settle_gas": 123486
+        }
+      ],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.0382102869916707,
+      "journey_seconds": 7.117118724854663,
+      "entry_seconds": 1.988884458085522,
+      "exit_seconds": 2.094219437101856,
+      "internal_tx_gas": 2063031,
+      "node_count_executed": 16,
+      "receipt_bindings_passed": 2,
+      "receipt_bindings_expected": 2,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 0,
+      "destination_router_balance": 0,
+      "source_owner_balance": 1,
+      "pending_balance": 0,
+      "funded": 17,
+      "spent": 16,
+      "conservation_invariant": true,
+      "execution_tx": "95ab1f6ed0478f087d74deb56543c53a0562cd58d869cd1ad521523e972236b4",
+      "close_tx": "806f3a93d1f3daa12da5a809b0c7c262cb51c74c232a8821b959b8d366fcfeb6",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 4,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "same_domain_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 0,
+          "checksum": 16979642055642554777,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 1,
+          "checksum": 2132550923287260990,
+          "predecessor_value": 16979642055642554777,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 2,
+          "checksum": 12806767895093042631,
+          "predecessor_value": 2132550923287260990,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 3,
+          "checksum": 3339403261717586007,
+          "predecessor_value": 12806767895093042631,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 4,
+          "checksum": 11490083626458047191,
+          "predecessor_value": 3339403261717586007,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 5,
+          "checksum": 4204047853865569921,
+          "predecessor_value": 11490083626458047191,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 6,
+          "checksum": 245885753938720365,
+          "predecessor_value": 4204047853865569921,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 7,
+          "checksum": 11391097921930539715,
+          "predecessor_value": 245885753938720365,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 0,
+          "checksum": 15449542888632549945,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 1,
+          "checksum": 11638852481891021034,
+          "predecessor_value": 15449542888632549945,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 2,
+          "checksum": 6178137720581880559,
+          "predecessor_value": 11638852481891021034,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 3,
+          "checksum": 4448302273427172654,
+          "predecessor_value": 6178137720581880559,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 4,
+          "checksum": 18170388679912558987,
+          "predecessor_value": 4448302273427172654,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 5,
+          "checksum": 13512877204670167120,
+          "predecessor_value": 18170388679912558987,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 6,
+          "checksum": 7257946997815960577,
+          "predecessor_value": 13512877204670167120,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 7,
+          "checksum": 10756455098421472493,
+          "predecessor_value": 7257946997815960577,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.043084311997518,
+      "journey_seconds": 4.06238868413493,
+      "entry_seconds": 0,
+      "exit_seconds": 0,
+      "internal_tx_gas": 3955228,
+      "node_count_executed": 32,
+      "receipt_bindings_passed": 0,
+      "receipt_bindings_expected": 0,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 1,
+      "destination_router_balance": 0,
+      "source_owner_balance": 0,
+      "pending_balance": 0,
+      "funded": 33,
+      "spent": 32,
+      "conservation_invariant": true,
+      "execution_tx": "18136f6a67eb86ba9651b01e1bd011bd1996d31613383b01366a0806068d1127",
+      "close_tx": "103882d07cee4e6d5d61e3dbc5d3abe2821e79aa0d109296df50b78569207601",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 4,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "migrated_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [
+        {
+          "leg": "in",
+          "seconds": 1.9862493509426713,
+          "receipt_id": "4dcba4588e1078ea98b20d3c29f53987eaa2bd9ec4b9f47d99be700f465567de",
+          "amount": 33,
+          "nonce": 0,
+          "sender": "0xD84379CEae14AA33C123Af12424A37803F885889",
+          "recipient": "0xD84379CEae14AA33C123Af12424A37803F885889",
+          "payload_hash": "d62586c92e4ec3de8c0e1ab05259bfb308c0d5d1c384f38f430d757730c2f4c7",
+          "binding_verified": true,
+          "begin_gas": 335057,
+          "settle_gas": 123476
+        },
+        {
+          "leg": "out",
+          "seconds": 1.989373971009627,
+          "receipt_id": "10328a5c3664675b635c5db781bb3d89ca9cdfe0c3d08a692a62e5a84c2bde8e",
+          "amount": 1,
+          "nonce": 0,
+          "sender": "0xD84379CEae14AA33C123Af12424A37803F885889",
+          "recipient": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "payload_hash": "a6486df18c25a17daba4317bb2e4e409776bd688c3f2d678ae209e74fd511abd",
+          "binding_verified": true,
+          "begin_gas": 316304,
+          "settle_gas": 123476
+        }
+      ],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 0,
+          "checksum": 16979642055642554777,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 1,
+          "checksum": 2132550923287260990,
+          "predecessor_value": 16979642055642554777,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 2,
+          "checksum": 12806767895093042631,
+          "predecessor_value": 2132550923287260990,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 3,
+          "checksum": 3339403261717586007,
+          "predecessor_value": 12806767895093042631,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 4,
+          "checksum": 11490083626458047191,
+          "predecessor_value": 3339403261717586007,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 5,
+          "checksum": 4204047853865569921,
+          "predecessor_value": 11490083626458047191,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 6,
+          "checksum": 245885753938720365,
+          "predecessor_value": 4204047853865569921,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 7,
+          "checksum": 11391097921930539715,
+          "predecessor_value": 245885753938720365,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 0,
+          "checksum": 15449542888632549945,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 1,
+          "checksum": 11638852481891021034,
+          "predecessor_value": 15449542888632549945,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 2,
+          "checksum": 6178137720581880559,
+          "predecessor_value": 11638852481891021034,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 3,
+          "checksum": 4448302273427172654,
+          "predecessor_value": 6178137720581880559,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 4,
+          "checksum": 18170388679912558987,
+          "predecessor_value": 4448302273427172654,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 5,
+          "checksum": 13512877204670167120,
+          "predecessor_value": 18170388679912558987,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 6,
+          "checksum": 7257946997815960577,
+          "predecessor_value": 13512877204670167120,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 7,
+          "checksum": 10756455098421472493,
+          "predecessor_value": 7257946997815960577,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 0.9427641381043941,
+      "journey_seconds": 7.0088914800435305,
+      "entry_seconds": 1.9862493509426713,
+      "exit_seconds": 1.989373971009627,
+      "internal_tx_gas": 3955180,
+      "node_count_executed": 32,
+      "receipt_bindings_passed": 2,
+      "receipt_bindings_expected": 2,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 0,
+      "destination_router_balance": 0,
+      "source_owner_balance": 1,
+      "pending_balance": 0,
+      "funded": 33,
+      "spent": 32,
+      "conservation_invariant": true,
+      "execution_tx": "b9225200d633641f30b7ea1d5b06978c7b65a16237fc23e324e6f2661a79b01b",
+      "close_tx": "e13152d3019ae0358162c2960e63f2d1aac80f408581f93a72665526753fad6d",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 8,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "same_domain_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 0,
+          "checksum": 16979642055642554777,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 1,
+          "checksum": 2132550923287260990,
+          "predecessor_value": 16979642055642554777,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 2,
+          "checksum": 12806767895093042631,
+          "predecessor_value": 2132550923287260990,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 3,
+          "checksum": 3339403261717586007,
+          "predecessor_value": 12806767895093042631,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 4,
+          "checksum": 11490083626458047191,
+          "predecessor_value": 3339403261717586007,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 5,
+          "checksum": 4204047853865569921,
+          "predecessor_value": 11490083626458047191,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 6,
+          "checksum": 245885753938720365,
+          "predecessor_value": 4204047853865569921,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 7,
+          "checksum": 11391097921930539715,
+          "predecessor_value": 245885753938720365,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 0,
+          "checksum": 15449542888632549945,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 1,
+          "checksum": 11638852481891021034,
+          "predecessor_value": 15449542888632549945,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 2,
+          "checksum": 6178137720581880559,
+          "predecessor_value": 11638852481891021034,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 3,
+          "checksum": 4448302273427172654,
+          "predecessor_value": 6178137720581880559,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 4,
+          "checksum": 18170388679912558987,
+          "predecessor_value": 4448302273427172654,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 5,
+          "checksum": 13512877204670167120,
+          "predecessor_value": 18170388679912558987,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 6,
+          "checksum": 7257946997815960577,
+          "predecessor_value": 13512877204670167120,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 7,
+          "checksum": 10756455098421472493,
+          "predecessor_value": 7257946997815960577,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 0,
+          "checksum": 16447667283650880516,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 1,
+          "checksum": 2273208244287359076,
+          "predecessor_value": 16447667283650880516,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 2,
+          "checksum": 6035965348145049045,
+          "predecessor_value": 2273208244287359076,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 3,
+          "checksum": 17104923065821134595,
+          "predecessor_value": 6035965348145049045,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 4,
+          "checksum": 8518299655480042540,
+          "predecessor_value": 17104923065821134595,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 5,
+          "checksum": 1327243736625484438,
+          "predecessor_value": 8518299655480042540,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 6,
+          "checksum": 17170832493352541237,
+          "predecessor_value": 1327243736625484438,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 7,
+          "checksum": 8167588332438006476,
+          "predecessor_value": 17170832493352541237,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 0,
+          "checksum": 8957765816880834756,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 1,
+          "checksum": 14695893432446012120,
+          "predecessor_value": 8957765816880834756,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 2,
+          "checksum": 6625086456894085979,
+          "predecessor_value": 14695893432446012120,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 3,
+          "checksum": 1260761691493152580,
+          "predecessor_value": 6625086456894085979,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 4,
+          "checksum": 12993973103472932886,
+          "predecessor_value": 1260761691493152580,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 5,
+          "checksum": 17793791315449074438,
+          "predecessor_value": 12993973103472932886,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 6,
+          "checksum": 4626086135350939451,
+          "predecessor_value": 17793791315449074438,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 7,
+          "checksum": 9267996991814805538,
+          "predecessor_value": 4626086135350939451,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 0,
+          "checksum": 8320944169898768457,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 1,
+          "checksum": 16970225599850778112,
+          "predecessor_value": 8320944169898768457,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 2,
+          "checksum": 13187082352352066272,
+          "predecessor_value": 16970225599850778112,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 3,
+          "checksum": 16232507965700106838,
+          "predecessor_value": 13187082352352066272,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 4,
+          "checksum": 7577054480653964030,
+          "predecessor_value": 16232507965700106838,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 5,
+          "checksum": 11402417637844804014,
+          "predecessor_value": 7577054480653964030,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 6,
+          "checksum": 2390134446030177997,
+          "predecessor_value": 11402417637844804014,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 7,
+          "checksum": 11961507176883338812,
+          "predecessor_value": 2390134446030177997,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 0,
+          "checksum": 3265487885108107222,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 1,
+          "checksum": 12827104342972543404,
+          "predecessor_value": 3265487885108107222,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 2,
+          "checksum": 4723808485857114927,
+          "predecessor_value": 12827104342972543404,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 3,
+          "checksum": 8548148091178931569,
+          "predecessor_value": 4723808485857114927,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 4,
+          "checksum": 7350447717773358939,
+          "predecessor_value": 8548148091178931569,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 5,
+          "checksum": 10951609905062023222,
+          "predecessor_value": 7350447717773358939,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 6,
+          "checksum": 17968598421940348032,
+          "predecessor_value": 10951609905062023222,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 7,
+          "checksum": 6317032511025857765,
+          "predecessor_value": 17968598421940348032,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 1.058400782989338,
+      "journey_seconds": 3.966589530929923,
+      "entry_seconds": 0,
+      "exit_seconds": 0,
+      "internal_tx_gas": 7739914,
+      "node_count_executed": 64,
+      "receipt_bindings_passed": 0,
+      "receipt_bindings_expected": 0,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 1,
+      "destination_router_balance": 0,
+      "source_owner_balance": 0,
+      "pending_balance": 0,
+      "funded": 65,
+      "spent": 64,
+      "conservation_invariant": true,
+      "execution_tx": "a82cdf726903601e173d6bf441ecd98aaa8b1a9314b9acd0bec65a264eaa9e4d",
+      "close_tx": "7db37010f8d5a80f1ee94098816fb01aa63ae4c20c493dd11fe16a99d01d6dbb",
+      "anvil_block_time_seconds": 1
+    },
+    {
+      "repeat": 3,
+      "theta": 8,
+      "depth": 8,
+      "operations_per_node": 16,
+      "per_node_balance_cost": 1,
+      "arm": "migrated_dag",
+      "status": "completed",
+      "incomplete": false,
+      "failed": false,
+      "failure": null,
+      "receipt_bindings": [
+        {
+          "leg": "in",
+          "seconds": 1.9877332681789994,
+          "receipt_id": "50a43a0dce73b42962989a747a3fcdbc83709e6b20e3d68e6818b7a3ba827cce",
+          "amount": 65,
+          "nonce": 0,
+          "sender": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+          "recipient": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+          "payload_hash": "0838432da828cda427c8fa6c51ebb935e18f249ed2b793fa86be8d0bcd6612cb",
+          "binding_verified": true,
+          "begin_gas": 335057,
+          "settle_gas": 123476
+        },
+        {
+          "leg": "out",
+          "seconds": 1.989758457057178,
+          "receipt_id": "0cebe7e5898b9a977fc7f243ac716baa8e92216a2475f1ce9e130be94bf0ac94",
+          "amount": 1,
+          "nonce": 0,
+          "sender": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+          "recipient": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "payload_hash": "a07daa5553e26c45ada6ecf3d1f79153be350e7f70904503a758f45e7d2ddaec",
+          "binding_verified": true,
+          "begin_gas": 316304,
+          "settle_gas": 123486
+        }
+      ],
+      "node_audits": [
+        {
+          "workflow_id": 0,
+          "node_id": 0,
+          "checksum": 13930907841670912722,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 1,
+          "checksum": 11813590582832374001,
+          "predecessor_value": 13930907841670912722,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 2,
+          "checksum": 13329499382775529929,
+          "predecessor_value": 11813590582832374001,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 3,
+          "checksum": 9759804714970674962,
+          "predecessor_value": 13329499382775529929,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 4,
+          "checksum": 9816198635415056219,
+          "predecessor_value": 9759804714970674962,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 5,
+          "checksum": 10635787332607707215,
+          "predecessor_value": 9816198635415056219,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 6,
+          "checksum": 6435226593485206931,
+          "predecessor_value": 10635787332607707215,
+          "bound": true
+        },
+        {
+          "workflow_id": 0,
+          "node_id": 7,
+          "checksum": 7711737446958829741,
+          "predecessor_value": 6435226593485206931,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 0,
+          "checksum": 10892234157849083025,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 1,
+          "checksum": 2128639080221090208,
+          "predecessor_value": 10892234157849083025,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 2,
+          "checksum": 9793380363856971949,
+          "predecessor_value": 2128639080221090208,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 3,
+          "checksum": 15661988128914436540,
+          "predecessor_value": 9793380363856971949,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 4,
+          "checksum": 17150863197320895410,
+          "predecessor_value": 15661988128914436540,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 5,
+          "checksum": 1759733856716548739,
+          "predecessor_value": 17150863197320895410,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 6,
+          "checksum": 13763830789225812247,
+          "predecessor_value": 1759733856716548739,
+          "bound": true
+        },
+        {
+          "workflow_id": 1,
+          "node_id": 7,
+          "checksum": 8727544644236765022,
+          "predecessor_value": 13763830789225812247,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 0,
+          "checksum": 16979642055642554777,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 1,
+          "checksum": 2132550923287260990,
+          "predecessor_value": 16979642055642554777,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 2,
+          "checksum": 12806767895093042631,
+          "predecessor_value": 2132550923287260990,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 3,
+          "checksum": 3339403261717586007,
+          "predecessor_value": 12806767895093042631,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 4,
+          "checksum": 11490083626458047191,
+          "predecessor_value": 3339403261717586007,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 5,
+          "checksum": 4204047853865569921,
+          "predecessor_value": 11490083626458047191,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 6,
+          "checksum": 245885753938720365,
+          "predecessor_value": 4204047853865569921,
+          "bound": true
+        },
+        {
+          "workflow_id": 2,
+          "node_id": 7,
+          "checksum": 11391097921930539715,
+          "predecessor_value": 245885753938720365,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 0,
+          "checksum": 15449542888632549945,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 1,
+          "checksum": 11638852481891021034,
+          "predecessor_value": 15449542888632549945,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 2,
+          "checksum": 6178137720581880559,
+          "predecessor_value": 11638852481891021034,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 3,
+          "checksum": 4448302273427172654,
+          "predecessor_value": 6178137720581880559,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 4,
+          "checksum": 18170388679912558987,
+          "predecessor_value": 4448302273427172654,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 5,
+          "checksum": 13512877204670167120,
+          "predecessor_value": 18170388679912558987,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 6,
+          "checksum": 7257946997815960577,
+          "predecessor_value": 13512877204670167120,
+          "bound": true
+        },
+        {
+          "workflow_id": 3,
+          "node_id": 7,
+          "checksum": 10756455098421472493,
+          "predecessor_value": 7257946997815960577,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 0,
+          "checksum": 16447667283650880516,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 1,
+          "checksum": 2273208244287359076,
+          "predecessor_value": 16447667283650880516,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 2,
+          "checksum": 6035965348145049045,
+          "predecessor_value": 2273208244287359076,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 3,
+          "checksum": 17104923065821134595,
+          "predecessor_value": 6035965348145049045,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 4,
+          "checksum": 8518299655480042540,
+          "predecessor_value": 17104923065821134595,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 5,
+          "checksum": 1327243736625484438,
+          "predecessor_value": 8518299655480042540,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 6,
+          "checksum": 17170832493352541237,
+          "predecessor_value": 1327243736625484438,
+          "bound": true
+        },
+        {
+          "workflow_id": 4,
+          "node_id": 7,
+          "checksum": 8167588332438006476,
+          "predecessor_value": 17170832493352541237,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 0,
+          "checksum": 8957765816880834756,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 1,
+          "checksum": 14695893432446012120,
+          "predecessor_value": 8957765816880834756,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 2,
+          "checksum": 6625086456894085979,
+          "predecessor_value": 14695893432446012120,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 3,
+          "checksum": 1260761691493152580,
+          "predecessor_value": 6625086456894085979,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 4,
+          "checksum": 12993973103472932886,
+          "predecessor_value": 1260761691493152580,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 5,
+          "checksum": 17793791315449074438,
+          "predecessor_value": 12993973103472932886,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 6,
+          "checksum": 4626086135350939451,
+          "predecessor_value": 17793791315449074438,
+          "bound": true
+        },
+        {
+          "workflow_id": 5,
+          "node_id": 7,
+          "checksum": 9267996991814805538,
+          "predecessor_value": 4626086135350939451,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 0,
+          "checksum": 8320944169898768457,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 1,
+          "checksum": 16970225599850778112,
+          "predecessor_value": 8320944169898768457,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 2,
+          "checksum": 13187082352352066272,
+          "predecessor_value": 16970225599850778112,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 3,
+          "checksum": 16232507965700106838,
+          "predecessor_value": 13187082352352066272,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 4,
+          "checksum": 7577054480653964030,
+          "predecessor_value": 16232507965700106838,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 5,
+          "checksum": 11402417637844804014,
+          "predecessor_value": 7577054480653964030,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 6,
+          "checksum": 2390134446030177997,
+          "predecessor_value": 11402417637844804014,
+          "bound": true
+        },
+        {
+          "workflow_id": 6,
+          "node_id": 7,
+          "checksum": 11961507176883338812,
+          "predecessor_value": 2390134446030177997,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 0,
+          "checksum": 3265487885108107222,
+          "predecessor_value": null,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 1,
+          "checksum": 12827104342972543404,
+          "predecessor_value": 3265487885108107222,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 2,
+          "checksum": 4723808485857114927,
+          "predecessor_value": 12827104342972543404,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 3,
+          "checksum": 8548148091178931569,
+          "predecessor_value": 4723808485857114927,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 4,
+          "checksum": 7350447717773358939,
+          "predecessor_value": 8548148091178931569,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 5,
+          "checksum": 10951609905062023222,
+          "predecessor_value": 7350447717773358939,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 6,
+          "checksum": 17968598421940348032,
+          "predecessor_value": 10951609905062023222,
+          "bound": true
+        },
+        {
+          "workflow_id": 7,
+          "node_id": 7,
+          "checksum": 6317032511025857765,
+          "predecessor_value": 17968598421940348032,
+          "bound": true
+        }
+      ],
+      "internal_business_seconds": 0.9551824748050421,
+      "journey_seconds": 7.010613410966471,
+      "entry_seconds": 1.9877332681789994,
+      "exit_seconds": 1.989758457057178,
+      "internal_tx_gas": 7739818,
+      "node_count_executed": 64,
+      "receipt_bindings_passed": 2,
+      "receipt_bindings_expected": 2,
+      "terminal_accounting_valid": true,
+      "source_router_balance": 0,
+      "destination_router_balance": 0,
+      "source_owner_balance": 1,
+      "pending_balance": 0,
+      "funded": 65,
+      "spent": 64,
+      "conservation_invariant": true,
+      "execution_tx": "0291489b6711f23db073f399b3268bab54f26d23c5870a1a40c4538e0cc7e62a",
+      "close_tx": "37ad2038cad3013a69bca191da452ada96670189810d521b0921a23416785b10",
+      "anvil_block_time_seconds": 1
+    }
+  ],
+  "completed": 8,
+  "failed": 0,
+  "incomplete": 0,
+  "created_utc": "2026-10-27T23:12:11.160202+00:00"
+}
