@@ -1,0 +1,74 @@
+{
+  "experiment": "paired-open-loop-independent-stage-dag",
+  "collected": "2026-10-27",
+  "remote_workspace": "/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027",
+  "profile_id": "dag-04-chain-d4-w1-theta1-nu1",
+  "workflow_definition": {
+    "cascade_nodes": 4,
+    "operations_per_node": 16,
+    "operations_per_workflow": 64,
+    "block_period_seconds": 1
+  },
+  "schedule_scenarios": {
+    "paired_matched_low_r1": [
+      "matched_low"
+    ],
+    "paired_high_r2": [
+      "high_pilot",
+      "high_steady"
+    ]
+  },
+  "repeats": {
+    "paired_matched_low_r1": 1,
+    "paired_high_r2": 2
+  },
+  "sender_accounts_per_platform": 256,
+  "runtime": {
+    "near_sandbox": "2.14.0",
+    "near_sandbox_npm": "0.3.4",
+    "near_workspaces": "5.0.0",
+    "node": "24.22.1",
+    "anvil": "1.8.6",
+    "web3_py": "7.16.0",
+    "solidity": "0.8.24"
+  },
+  "audit_summary": {
+    "paired_matched_low_r1": {
+      "paired_phases": 8,
+      "paired_rows_including_warmups": 93,
+      "unique_workflow_ids_near": 93,
+      "unique_workflow_ids_evm": 93,
+      "all_pre_submit_sinks_empty": true,
+      "all_successful_node_state_event_audits_pass": true,
+      "all_transaction_identity_audits_pass": true,
+      "all_successful_near_receipt_trees_have_7_receipts": true,
+      "all_phases_drained": true
+    },
+    "paired_high_r2": {
+      "paired_phases": 10,
+      "paired_rows_including_warmups": 1176,
+      "unique_workflow_ids_near": 1176,
+      "unique_workflow_ids_evm": 1176,
+      "all_pre_submit_sinks_empty": true,
+      "all_successful_node_state_event_audits_pass": true,
+      "all_transaction_identity_audits_pass": true,
+      "all_successful_near_receipt_trees_have_7_receipts": true,
+      "all_phases_drained": true
+    }
+  },
+  "sha256": {
+    "schedule": "7e76b41fa781210b441fffc974a6520e71db31b00ebc840c28d40a3980885b34",
+    "near_runner": "c2b46062527e7b3fcb6d2cf8e81dbc636e5dfd403ebb71d4589abfcdff6b8e25",
+    "evm_runner": "b6f68700c151509f1a9e4f7f9ba895532ea28b54048ada1c9be38ac7ae128871",
+    "audit_script": "21053219b76c23b91163a11cc430956a5c9869a2b788d2f8a1183817247fb1be",
+    "plot_script": "bd210fe24a04eeb5c9913ff7f56a8c90bb03e4b5fdfe283c9a3f5abeeabc3646",
+    "paired_matched_low_r1_near_raw": "83f79b761661cf97e9092bd68045fde8f1cf641c17941bf8fc9362910bdc67a7",
+    "paired_matched_low_r1_near_summary": "7e3a25b0b01f876318272186432d0b704b1273f208f1c996a3160e037e37a924",
+    "paired_matched_low_r1_evm_raw": "6ea9d1db1bd30807d0d350353332192349adc7e099ab001d48c30ef35b724a71",
+    "paired_matched_low_r1_evm_summary": "4b5685fc1e86955489c5726ef5e1ea637cc63ed0abda7cbf448dd6834e3c4d82",
+    "paired_high_r2_near_raw": "310a238f891c0f07faeb69e3db16a1b573318aec12544ac22d70453532ff9d7d",
+    "paired_high_r2_near_summary": "f82a5dbb100205b61bb03b5177e7a786ea55f88637c9b6add82319771ebae4f1",
+    "paired_high_r2_evm_raw": "fa914d79cbe5a989cc8d01fdea9cc7129d758ffbb88de76daf93898d1678f9fd",
+    "paired_high_r2_evm_summary": "e41d2d1fd5137edc4410e714871bc5bfc8e6570d207fc608bed6fa5b5e8ef979"
+  }
+}
