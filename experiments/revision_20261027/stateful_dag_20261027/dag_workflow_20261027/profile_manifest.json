@@ -1,0 +1,850 @@
+{
+  "experiment": "parameterized stateful multi-contract DAG workflows",
+  "schema_version": 1,
+  "runtime_scope": "nearcore Sandbox; single shard; cross-contract edges are not cross-execution-domain edges",
+  "repeat_unit": "each replicate starts a fresh nearcore Sandbox process and chain",
+  "timing_unit": "receipt dependency and finalized block-height spans; wall time is diagnostic only",
+  "business_domain_terms": [],
+  "profiles": [
+    {
+      "profile_id": "dag-01-chain-d2-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 2,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 2,
+      "edge_count": 1,
+      "parents": [
+        [],
+        [
+          0
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-02-chain-d2-w1-theta4-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 2,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 2,
+      "edge_count": 1,
+      "parents": [
+        [],
+        [
+          0
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-03-chain-d2-w1-theta8-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 2,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 8,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 2,
+      "edge_count": 1,
+      "parents": [
+        [],
+        [
+          0
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-04-chain-d4-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 4,
+      "edge_count": 3,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-05-chain-d4-w1-theta4-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 4,
+      "edge_count": 3,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-06-chain-d4-w1-theta8-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 8,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 4,
+      "edge_count": 3,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 8,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 7,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-08-chain-d8-w1-theta4-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 8,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 7,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-09-chain-d8-w1-theta8-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 8,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 8,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 7,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-10-fork_join-d4-w2-theta4-nu1",
+      "shape": "fork_join",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 2,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 6,
+      "edge_count": 8,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "successors": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5
+        ],
+        [
+          5
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-11-fork_join-d4-w4-theta4-nu1",
+      "shape": "fork_join",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 4,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 10,
+      "edge_count": 24,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "successors": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-12-mixed-d4-w2-theta4-nu1",
+      "shape": "mixed",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 2,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 6,
+      "edge_count": 8,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "successors": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5
+        ],
+        [
+          5
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-13-mixed-d4-w4-theta4-nu1",
+      "shape": "mixed",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 4,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 10,
+      "edge_count": 16,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "successors": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        [
+          9
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-14-chain-d4-w1-theta4-nu4",
+      "shape": "chain",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 4,
+      "workflows_per_session_theta": 4,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 4,
+      "edge_count": 3,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

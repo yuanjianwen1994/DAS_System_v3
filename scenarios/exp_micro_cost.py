@@ -18,6 +18,22 @@ from core.monitor import NetworkMonitor
 from core.network import AnvilManager, ConnectionManager
 from core.deployer import ContractDeployer
 
+# --- DAS 迁移序列号与目的绑定（配合 DASEndpoint 的位图消耗集做重放拒绝）---
+_seq_base = os.getpid() % 100000
+_seq_counter = 0
+
+
+def _next_seq() -> int:
+    """进程内单调、跨进程用 PID 隔离的 receipt 序列号。"""
+    global _seq_counter
+    _seq_counter += 1
+    return _seq_base * 1_000_000 + _seq_counter
+
+
+def _dst_binding(node_name: str) -> bytes:
+    """目的端点的域分隔符（bytes32，部署时注入；模拟环境各节点地址相同，不能用地址）。"""
+    return Web3.keccak(text=node_name)
+
 
 def run():
     print("=== DAS System v3 Micro-Benchmark (Cost Analysis) ===")
@@ -109,13 +125,13 @@ def run():
         # Step 1: Deposit (burn on shard 0)
         shard0_das_addr = registry[shard0]["DAS"]
         shard0_das_abi = registry[shard0]["DAS_ABI"]
-        burn_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "burn", (user_address, 100), iteration)
+        burn_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "burn", (user_address, 100, _next_seq()), iteration)
         das_metrics.append(("Burn (Shard0)", burn_result))
         time.sleep(0.1)
         # mint on execution
         exec_das_addr = registry[exec_node]["DAS"]
         exec_das_abi = registry[exec_node]["DAS_ABI"]
-        mint_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "mint", (user_address, 100), iteration)
+        mint_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "mint", (user_address, 100, _next_seq(), _dst_binding(exec_node)), iteration)
         das_metrics.append(("Mint (Execution)", mint_result))
         # Step 2: Action (doWork on execution)
         exec_workload_addr = registry[exec_node]["Workload"]
@@ -123,10 +139,10 @@ def run():
         work_result = send_and_wait(-1, exec_workload_addr, exec_workload_abi, "doWork", (100,), iteration)
         das_metrics.append(("Work (Execution)", work_result))
         # Step 3: Withdraw (burn on execution, mint on shard 0)
-        burn_exec_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "burn", (user_address, 100), iteration)
+        burn_exec_result = send_and_wait(-1, exec_das_addr, exec_das_abi, "burn", (user_address, 100, _next_seq()), iteration)
         das_metrics.append(("Burn (Execution)", burn_exec_result))
         time.sleep(0.1)
-        mint_shard0_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "mint", (user_address, 100), iteration)
+        mint_shard0_result = send_and_wait(0, shard0_das_addr, shard0_das_abi, "mint", (user_address, 100, _next_seq(), _dst_binding(shard0)), iteration)
         das_metrics.append(("Mint (Shard0)", mint_shard0_result))
 
         # 2PC Journey

@@ -1,0 +1,250 @@
+{
+  "kind": "functional_smoke_only",
+  "metadata": {
+    "created_utc": "2026-10-27T02:40:45.589279+00:00",
+    "base_git_commit": "c6972971039e0d5ce19eda6b453d0a0988b36a8b",
+    "source_sha256": {
+      "contracts/MigrationHarness.sol": "2b8b83664fb01da05c9cba5e3b33beb63fe3d6d59d19b988b261ebbf9f68b3c4",
+      "contracts/ComparatorHarness.sol": "6b3b8e133fc2f6dffffd3c80fa4b23f6c3fc9231fd2409a176f00eae59dff290",
+      "contracts/AdmissionAblationHarness.sol": "44100706b4326b20699c303f735815ea4ec3500c74738bda7fd57d5a9a0cc0e3",
+      "tests/migration_state_machine_smoke.py": "df881e301f3b6b3f9647fc91a135eddadd1e65821e731d146e4dec5d5a302584"
+    },
+    "python": "3.9.6",
+    "packages": {
+      "web3": "7.16.0",
+      "py-solc-x": "2.0.5",
+      "urllib3": "2.6.3"
+    },
+    "anvil": "anvil Version: 1.8.6",
+    "chain_id": 31337,
+    "block_time_seconds": 1,
+    "solc_version": "0.8.24"
+  },
+  "migration_state": {
+    "funded": 100,
+    "source_balance": 50,
+    "destination_balance": 35,
+    "pending": 0,
+    "spent": 15
+  },
+  "comparator_state": {
+    "funded": 200,
+    "pending": 0,
+    "spent": 15,
+    "invariant": true
+  },
+  "ablation_findings": {
+    "source_authorization_removed": {
+      "victim_balance_after_unauthorized_debit": 5,
+      "receipt_created": "94faa70a5f0c133f097e0a0b1899d853eb7e9933b7c18ee2ada1f00fd62f1a09",
+      "accounting_conserved": true,
+      "combined_invariant": false
+    },
+    "destination_payload_binding_removed": {
+      "redirected_credit": 5,
+      "attacker_spendable_after_business_action": 3,
+      "accounting_conserved": true,
+      "combined_invariant": false
+    },
+    "replay_consumption_removed": {
+      "credited_total": 10,
+      "accounting_conserved": false,
+      "combined_invariant": false
+    },
+    "source_debit_removed": {
+      "unbacked_credit_spendable": 5,
+      "remaining_after_business_action": 4,
+      "accounting_conserved": false,
+      "combined_invariant": false
+    }
+  },
+  "gas_samples": [
+    {
+      "label": "migration.deploy",
+      "gas_used": 2232408
+    },
+    {
+      "label": "migration.fund",
+      "gas_used": 98464,
+      "block_number": 2,
+      "receipt_wait_seconds": 1.0499
+    },
+    {
+      "label": "migration.begin-A",
+      "gas_used": 274376,
+      "block_number": 3,
+      "receipt_wait_seconds": 0.9444
+    },
+    {
+      "label": "migration.begin-B",
+      "gas_used": 240176,
+      "block_number": 4,
+      "receipt_wait_seconds": 1.0455
+    },
+    {
+      "label": "migration.settle-B-before-A",
+      "gas_used": 109123,
+      "block_number": 5,
+      "receipt_wait_seconds": 0.9479
+    },
+    {
+      "label": "migration.settle-A",
+      "gas_used": 95443,
+      "block_number": 6,
+      "receipt_wait_seconds": 0.9352
+    },
+    {
+      "label": "migration.business-spend",
+      "gas_used": 65305,
+      "block_number": 7,
+      "receipt_wait_seconds": 0.9506
+    },
+    {
+      "label": "comparator.deploy",
+      "gas_used": 3110209
+    },
+    {
+      "label": "comparator.fund",
+      "gas_used": 98519,
+      "block_number": 9,
+      "receipt_wait_seconds": 0.9602
+    },
+    {
+      "label": "teleport.configure-trust",
+      "gas_used": 47410,
+      "block_number": 10,
+      "receipt_wait_seconds": 0.9779
+    },
+    {
+      "label": "teleport.begin-A",
+      "gas_used": 296622,
+      "block_number": 11,
+      "receipt_wait_seconds": 1.0848
+    },
+    {
+      "label": "teleport.begin-B",
+      "gas_used": 262422,
+      "block_number": 12,
+      "receipt_wait_seconds": 0.9907
+    },
+    {
+      "label": "teleport.settle-B-before-A",
+      "gas_used": 114062,
+      "block_number": 13,
+      "receipt_wait_seconds": 0.9842
+    },
+    {
+      "label": "teleport.settle-A",
+      "gas_used": 100392,
+      "block_number": 14,
+      "receipt_wait_seconds": 0.9782
+    },
+    {
+      "label": "teleport.business-spend",
+      "gas_used": 65489,
+      "block_number": 15,
+      "receipt_wait_seconds": 0.9761
+    },
+    {
+      "label": "atomic.fund",
+      "gas_used": 64343,
+      "block_number": 16,
+      "receipt_wait_seconds": 0.9783
+    },
+    {
+      "label": "atomic.export",
+      "gas_used": 272726,
+      "block_number": 17,
+      "receipt_wait_seconds": 0.9911
+    },
+    {
+      "label": "atomic.import",
+      "gas_used": 86036,
+      "block_number": 18,
+      "receipt_wait_seconds": 0.9807
+    },
+    {
+      "label": "atomic.business-spend",
+      "gas_used": 48365,
+      "block_number": 19,
+      "receipt_wait_seconds": 0.9748
+    },
+    {
+      "label": "ablation.auth.fund",
+      "gas_used": 93372,
+      "block_number": 21,
+      "receipt_wait_seconds": 0.9826
+    },
+    {
+      "label": "ablation.auth.unauthorized-source-debit",
+      "gas_used": 293628,
+      "block_number": 22,
+      "receipt_wait_seconds": 0.9877
+    },
+    {
+      "label": "ablation.binding.fund",
+      "gas_used": 93372,
+      "block_number": 24,
+      "receipt_wait_seconds": 0.9611
+    },
+    {
+      "label": "ablation.binding.begin",
+      "gas_used": 268522,
+      "block_number": 25,
+      "receipt_wait_seconds": 1.0613
+    },
+    {
+      "label": "ablation.binding.redirect-and-tamper",
+      "gas_used": 97946,
+      "block_number": 26,
+      "receipt_wait_seconds": 0.9277
+    },
+    {
+      "label": "ablation.binding.spend-redirected-credit",
+      "gas_used": 60297,
+      "block_number": 27,
+      "receipt_wait_seconds": 1.0395
+    },
+    {
+      "label": "ablation.replay.fund",
+      "gas_used": 93372,
+      "block_number": 29,
+      "receipt_wait_seconds": 1.0427
+    },
+    {
+      "label": "ablation.replay.begin",
+      "gas_used": 268522,
+      "block_number": 30,
+      "receipt_wait_seconds": 0.9477
+    },
+    {
+      "label": "ablation.replay.first",
+      "gas_used": 77503,
+      "block_number": 31,
+      "receipt_wait_seconds": 1.0496
+    },
+    {
+      "label": "ablation.replay.duplicate",
+      "gas_used": 81990,
+      "block_number": 32,
+      "receipt_wait_seconds": 0.9607
+    },
+    {
+      "label": "ablation.source-debit.unbacked-mint",
+      "gas_used": 97337,
+      "block_number": 34,
+      "receipt_wait_seconds": 1.0539
+    },
+    {
+      "label": "ablation.source-debit.business-spend-unbacked",
+      "gas_used": 60297,
+      "block_number": 35,
+      "receipt_wait_seconds": 0.9418
+    }
+  ],
+  "limitations": [
+    "same-EVM domains are labels, not separate clients",
+    "trusted ECDSA attestor models authentication, not production finality",
+    "short block time validates behavior only and is not a performance result"
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "created_utc": "2026-10-27T02:42:48.500733+00:00",
+  "kind": "1-second-auto-mining-gas-only-boundary-smoke",
+  "profiles": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "rows": [
+    {
+      "variant": "DAS",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 1,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 274376,
+      "settle_gas_total": 109123,
+      "business_gas_total": 60661,
+      "protocol_gas_total": 444160,
+      "protocol_gas_per_business_call": 444160.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "DAS",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 5,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 274364,
+      "settle_gas_total": 109123,
+      "business_gas_total": 236945,
+      "protocol_gas_total": 620432,
+      "protocol_gas_per_business_call": 124086.4,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "DAS",
+      "transfers_per_workflow": 5,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 1235080,
+      "settle_gas_total": 490805,
+      "business_gas_total": 48361,
+      "protocol_gas_total": 1774246,
+      "protocol_gas_per_business_call": 1774246.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 4,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "TELEPORT_ABSTRACT",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 1,
+      "setup_trust_gas_excluded": 47422,
+      "begin_gas_total": 319096,
+      "settle_gas_total": 118325,
+      "business_gas_total": 61045,
+      "protocol_gas_total": 498466,
+      "protocol_gas_per_business_call": 498466.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "TELEPORT_ABSTRACT",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 5,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 47434,
+      "begin_gas_total": 319108,
+      "settle_gas_total": 118335,
+      "business_gas_total": 238985,
+      "protocol_gas_total": 676428,
+      "protocol_gas_per_business_call": 135285.6,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "TELEPORT_ABSTRACT",
+      "transfers_per_workflow": 5,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 47434,
+      "begin_gas_total": 1458740,
+      "settle_gas_total": 536945,
+      "business_gas_total": 48757,
+      "protocol_gas_total": 2044442,
+      "protocol_gas_per_business_call": 2044442.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 4,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "ATOMIC_UTXO_ABSTRACT",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 1,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 317600,
+      "settle_gas_total": 90990,
+      "business_gas_total": 61093,
+      "protocol_gas_total": 469683,
+      "protocol_gas_per_business_call": 469683.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "ATOMIC_UTXO_ABSTRACT",
+      "transfers_per_workflow": 1,
+      "business_calls_per_workflow": 5,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 317600,
+      "settle_gas_total": 90990,
+      "business_gas_total": 239165,
+      "protocol_gas_total": 647755,
+      "protocol_gas_per_business_call": 129551.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 0,
+      "accounting_invariant": true
+    },
+    {
+      "variant": "ATOMIC_UTXO_ABSTRACT",
+      "transfers_per_workflow": 5,
+      "business_calls_per_workflow": 1,
+      "total_transferred": 5,
+      "setup_trust_gas_excluded": 0,
+      "begin_gas_total": 1451200,
+      "settle_gas_total": 405750,
+      "business_gas_total": 48793,
+      "protocol_gas_total": 1905743,
+      "protocol_gas_per_business_call": 1905743.0,
+      "pending_after_workflow": 0,
+      "destination_balance_after_business": 4,
+      "accounting_invariant": true
+    }
+  ],
+  "limitations": [
+    "one Anvil EVM with domain labels; no separate execution/settlement nodes",
+    "no background settlement saturation or hotspot queue is modeled",
+    "gas-per-business-call reflects only these small contract workflows"
+  ]
+}
