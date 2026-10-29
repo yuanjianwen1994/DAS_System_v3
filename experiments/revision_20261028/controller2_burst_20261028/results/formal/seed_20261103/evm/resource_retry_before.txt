@@ -1,0 +1,9 @@
+2026-10-28T02:47:55+00:00
+cpu_allowed=0-19
+selected_cpus=16-19
+cpu_quota=max 100000
+memory_current=7397806080
+memory_available_kb=27740120
+fb03a29a517452b9f12bcf459ef37d0a543765bb3bbc911e70a87d6a37c30d5f  /home/starshell/.solcx/solc-v0.8.24
+4d73bf9fef57aebf42b237a4805c944a4f41484073c5c1657f0a5d9164dca87f  /home/starshell/das_controller2_burst_20261028/input/seed_20261103/burst_d8_seed20261103.json
+2475503       00:00  0.0  0.0 Ss   bash -c set -e; TASK=/home/starshell/das_controller2_burst_20261028; PY=/home/starshell/das_independent_stage_evm_20261027/.venv/bin/python; taskset -c 16-19 true; SOLCX_BINARY_PATH=/home/starshell/.solcx "$PY" -c "from solcx.install import get_solcx_install_folder; print(get_solcx_install_folder()); from solcx import get_installed_solc_versions; print(get_installed_solc_versions())"; /home/starshell/.solcx/solc-v0.8.24 --version | tail -1; pgrep -af "run_formal_remote|run_burst_evm.py|run_burst_near" | grep -v "pgrep -af" && exit 24 || true; cd "$TASK"; nohup bash ./run_seed3_evm_retry_remote.sh > ./results/formal/seed_20261103/evm/retry_launcher.log 2>&1 < /dev/null & pid=$!; echo "$pid" > "$TASK/results/formal/seed_20261103/evm/retry_launcher.pid"; printf "retry_pid=%s\\n" "$pid"; sleep 2; ps -p "$pid" -o pid,etime,%cpu,%mem,stat,cmd=; tail -20 "$TASK/results/formal/seed_20261103/evm/runner.log" 2>/dev/null || true
