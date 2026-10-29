@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "experiment": "paired-exponential-d8-audit-state-machine-smoke-same-seed-prefix",
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "node_count": 8,
+  "operations_per_node": 16,
+  "seed": 20261032,
+  "block_period_sec": 1.0,
+  "arrival_rule": "first offer after a uniform random phase in [0,1) s; subsequent interarrival gaps are exponential with mean 1/lambda; exact offsets shared across both platforms",
+  "phase_random_offset_sec": 0.8318420505783274,
+  "rates_per_sec": [
+    0.5,
+    1.0
+  ],
+  "warmup_sec": 0.0,
+  "measurement_sec": 20.0,
+  "scenarios": {
+    "poisson_d8": {
+      "scenario_index": 0,
+      "rates_per_sec": [
+        0.5,
+        1.0
+      ],
+      "warmup_sec": 0.0,
+      "measurement_sec": 20.0,
+      "phase_random_offset_sec": 0.8318420505783274,
+      "arrival_offsets_sec_by_rate": {
+        "0.5": [
+          0.831842051,
+          3.118840576,
+          3.290917456,
+          4.961749549,
+          5.286823369,
+          7.374417907,
+          9.348479297,
+          10.381485203
+        ],
+        "1.0": [
+          0.831842051,
+          1.975341313,
+          2.061379753,
+          2.8967958,
+          3.05933271,
+          4.103129979,
+          5.090160674,
+          5.606663627
+        ]
+      },
+      "arrival_seed": 20261032,
+      "arrival_rule": "paired_exponential"
+    }
+  },
+  "resource_policy": {
+    "sender_accounts_per_platform": 64,
+    "per_sender_submission_serialization": true,
+    "stop_when": "continuous fixed-workload generation ends; drain all offered workflows; preserve failures, pending rows, long tails and block-level spans"
+  },
+  "schedule_content_sha256": "a10608d4b5f0e9bec8f622c90e951b959ab12fe5a69021da1db4372ea73ae4ab"
+}

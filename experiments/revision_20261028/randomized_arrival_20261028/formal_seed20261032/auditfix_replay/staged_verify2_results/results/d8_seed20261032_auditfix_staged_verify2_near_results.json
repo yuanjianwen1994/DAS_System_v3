@@ -1,0 +1,918 @@
+{
+  "experiment": "paired-open-loop-continuous-pipeline",
+  "started_at": "2026-10-28T09:17:43.057Z",
+  "error": null,
+  "finished_at": "2026-10-28T09:22:37.417Z",
+  "cleanup_status": "complete",
+  "phases": [
+    {
+      "phase": 0,
+      "rate_index": 0,
+      "warmup": false,
+      "pipeline": true,
+      "preheat_sec": 0.8318420505783274,
+      "warmup_duration_sec": 0,
+      "phase_random_offset_sec": 0.8318420505783274,
+      "arrival_rule": "paired_exponential",
+      "arrival_seed": 20261032,
+      "planned_arrival_offsets_sec": [
+        0.831842051,
+        3.118840576,
+        3.290917456,
+        4.961749549,
+        5.286823369,
+        7.374417907,
+        9.348479297,
+        10.381485203
+      ],
+      "arrival_trace_sha256": "e739d1b79f9e5dac611aa82263599dd337f9ac32f65702d04504725f893303d2",
+      "trace_validation": {
+        "expected_count": 8,
+        "recorded_count": 8,
+        "exact_offsets_passed_to_scheduler": true,
+        "row_schedule_timestamps_match_offsets": true,
+        "max_row_offset_deviation_sec": 0.001417906999999552,
+        "expected_offsets_sec": [
+          0.831842051,
+          3.118840576,
+          3.290917456,
+          4.961749549,
+          5.286823369,
+          7.374417907,
+          9.348479297,
+          10.381485203
+        ],
+        "consumed_planned_offsets_sec": [
+          0.831,
+          3.118,
+          3.29,
+          4.961,
+          5.286,
+          7.373,
+          9.348,
+          10.381
+        ],
+        "passed": true
+      },
+      "planned_interarrival_mean_sec": 1.3642347360000002,
+      "planned_interarrival_cv": 0.5845372570469288,
+      "observation_start_at": "2026-10-28T09:22:03.002Z",
+      "observation_duration_sec": 20,
+      "time_bins_10s": [
+        {
+          "bin_start_sec": 0,
+          "bin_end_sec": 10,
+          "offered": 8,
+          "accepted": 8,
+          "completed": 1,
+          "queue_at_bin_end": 7
+        },
+        {
+          "bin_start_sec": 10,
+          "bin_end_sec": 20,
+          "offered": 0,
+          "accepted": 0,
+          "completed": 7,
+          "queue_at_bin_end": 0
+        }
+      ],
+      "session_id": "550050000000",
+      "offered_rate_per_sec": 0.5,
+      "offered": 8,
+      "phase_started_at": "2026-10-28T09:22:02.171Z",
+      "measurement_window_end_at": "2026-10-28T09:22:23.002Z",
+      "generation_ended_at": "2026-10-28T09:22:12.553Z",
+      "drained": true,
+      "completed": 8,
+      "successful_sink_completions": 8,
+      "fully_audited_successes": 8,
+      "submission_attempts_in_measurement_window": 8,
+      "offered_call_rate_in_measurement_window": 0.4,
+      "successful_completions_in_measurement_window": 8,
+      "measured_window_goodput_per_sec": 0.4,
+      "failures": 0,
+      "audit_pending_count": 0,
+      "unfinished_at_120s": 0,
+      "in_flight_at_measurement_window_end": 0,
+      "drain_time_after_window_ms": 0,
+      "offered_generator_rate_per_sec": 0.6460853900073713,
+      "mean_generator_schedule_lag_ms": 0.09082362499975716,
+      "drained_successes_per_measurement_second": 0.4,
+      "client_queue_depth_high_water": 1,
+      "client_inflight_high_water": 7,
+      "mean_client_queue_delay_ms": 2.9690599999994447,
+      "rpc_load_path_by_method": {
+        "block": {
+          "calls": 8,
+          "errors": 0,
+          "total_ms": 7.785145999951055,
+          "mean_ms": 0.9731432499938819,
+          "p95_ms": 1.1094060000032187
+        },
+        "query": {
+          "calls": 831,
+          "errors": 0,
+          "total_ms": 1427.4134699999413,
+          "mean_ms": 1.7177057400721316,
+          "p95_ms": 3.348913000023458
+        },
+        "send_tx": {
+          "calls": 8,
+          "errors": 0,
+          "total_ms": 76964.13244700007,
+          "mean_ms": 9620.516555875009,
+          "p95_ms": 9937.497916999971
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "block": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "query": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "send_tx": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_send_tx_request_ledger": [
+        {
+          "proxy_request_sequence": 269,
+          "rpc_request_id": 391,
+          "payload_fingerprint_sha256": "3c62778a752cb7a344c2406624a75c926c2697b9d78ea935cd7d54ed81d423ab",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:12.221Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9201.493816000002,
+          "response_rpc_id": 391,
+          "transaction_hash": "ouAkNJ1hqe614TovYpUcPTLuryz13dxazEaFKnZKeua",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 296,
+          "rpc_request_id": 418,
+          "payload_fingerprint_sha256": "27a84a79bb332e58616d1e6a2f14bbe6f305a91b4083b7d276054d730494f396",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:15.243Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9937.759588999965,
+          "response_rpc_id": 418,
+          "transaction_hash": "DGLuEGnYzrTj1P85ack1uwUjWqjqiMLF46Jkk6Rxmbtq",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 303,
+          "rpc_request_id": 425,
+          "payload_fingerprint_sha256": "1dea905f514a2010692c3ed1ae6bc15b1ee1a201de2d667f1781bb6d0b342df5",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:15.246Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9771.921302000002,
+          "response_rpc_id": 425,
+          "transaction_hash": "EJSVhdHWFks6RrEBFL8cYMvi5Sw2zXD9yPS6URbzhhvi",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 356,
+          "rpc_request_id": 478,
+          "payload_fingerprint_sha256": "bb6b282babe7b77f4e48748af8149d4a57e54bc6aad9b8ffb4d556802711040f",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:16.251Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9108.390900999948,
+          "response_rpc_id": 478,
+          "transaction_hash": "23uf2j7trvdVZSTF76Kx9Kuta7UKvvoG4u8p8vVFXyJu",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 373,
+          "rpc_request_id": 495,
+          "payload_fingerprint_sha256": "f8eab9b303d510a08f6dfe0b4345b0dac293bd658a10c645cae2fac67c6bfc5e",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:17.254Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9783.143017000053,
+          "response_rpc_id": 495,
+          "transaction_hash": "7i6QDBy21pR9PUHYNV1UKMpZgnSUius4pZcHVdaVTcWc",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 478,
+          "rpc_request_id": 600,
+          "payload_fingerprint_sha256": "dfc748a8b53dbf79541f3d5b6b163bdd2bdbcc39e7458d3deb841ccb9963b8d9",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:19.267Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9709.522738000029,
+          "response_rpc_id": 600,
+          "transaction_hash": "7cxZXwf7a5NCQAYM5kK6wHg5NUaPkZxAd4MPkVJQqkBd",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 597,
+          "rpc_request_id": 719,
+          "payload_fingerprint_sha256": "e4940710e85c8bde8e77168dfaf103915ea5328460b5db231223c49bde7ea823",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:21.272Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9741.956489000004,
+          "response_rpc_id": 719,
+          "transaction_hash": "25zMaaoNuL3EHV6wYtNHegf31zwWeoWBhwP81rzK9UYL",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 678,
+          "rpc_request_id": 800,
+          "payload_fingerprint_sha256": "74c6f9859107d72a18d1d27c10cfae214af86e231eda20053cb1d7eeae0209a0",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:22.274Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9711.752117999946,
+          "response_rpc_id": 800,
+          "transaction_hash": "f2CJanq8wYayPdXV8phnLMz3DarC72RoPVME2kMCvkN",
+          "rpc_error": null
+        }
+      ],
+      "rpc_http_error_ledger": [],
+      "receipt_tree_waiting_method_counts": {
+        "query": {
+          "calls": 831,
+          "errors": 0,
+          "total_ms": 1427.4134699999413,
+          "mean_ms": 1.7177057400721316,
+          "p95_ms": 3.348913000023458
+        }
+      },
+      "sink_poll_interval_ms": 100,
+      "block_usage_samples": [
+        {
+          "block_hash": "DQmaPTqyo4oEFtjbHuG2dqGmticeXyeNYi2uQeNcSnk",
+          "height": 258,
+          "gas_used": "223182562500",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.0002231825625,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179323179119084",
+          "sampled_at": "2026-10-28T09:22:12.272Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "ACSMGLTtsWBJZhBasvbTndGFcVVbS3w26Z1JP16Exvop",
+          "height": 259,
+          "gas_used": "312446401780",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00031244640178,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179324181095232",
+          "sampled_at": "2026-10-28T09:22:12.274Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "AzjkCVpz1VEVTf8wXZtaZ5dFFZmMBcM3omxJcRsnjG4N",
+          "height": 260,
+          "gas_used": "2102404062498",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.002102404062498,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179325184745036",
+          "sampled_at": "2026-10-28T09:22:12.272Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "GYXX5ojQGzE5ajUF7rJXPDCf2j8gRFHmowT4mWHZro6u",
+          "height": 261,
+          "gas_used": "2864641683349",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.002864641683349,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179326192268355",
+          "sampled_at": "2026-10-28T09:22:12.273Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "3HRjySCeySipHHM4LEakoDfekjJWm8tSVmW7yKyxLbUh",
+          "height": 262,
+          "gas_used": "3489566890704",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.003489566890704,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179327198917858",
+          "sampled_at": "2026-10-28T09:22:12.274Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "35ELnegQxookaiUCYh2s1pgUmYDCQHw7XANb5WjiUnKR",
+          "height": 263,
+          "gas_used": "7408665847423",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.007408665847423,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179328207700437",
+          "sampled_at": "2026-10-28T09:22:12.274Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "CxsJiSKF53XCprbnF15uP4rZZXbfsuYn1mW6jJAcG3E1",
+          "height": 264,
+          "gas_used": "11094764466122",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011094764466122,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179329214750759",
+          "sampled_at": "2026-10-28T09:22:12.274Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "H7eDTBrj1QzY2scjMaGG8PPHBELvRjQuPkhdcuuZm57R",
+          "height": 265,
+          "gas_used": "13697394827792",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.013697394827792,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179330215171278",
+          "sampled_at": "2026-10-28T09:22:12.275Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "GaEH6zswwpRH4LuLHZYXK1UcPW1JruCmnTkX8eq7rVKt",
+          "height": 266,
+          "gas_used": "14762499332529",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014762499332529,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179331218859437",
+          "sampled_at": "2026-10-28T09:22:12.275Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "ovuPBXvhKs3q3etkwGqGfRqWxsDvTPtV8G1JaSujvth",
+          "height": 267,
+          "gas_used": "16221060127699",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.016221060127699,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179332223801279",
+          "sampled_at": "2026-10-28T09:22:15.278Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "7mLQuvwMCnwEX8yvzoMUvL6rgcZNGQ5676sstJFxafVb",
+          "height": 268,
+          "gas_used": "15064751557577",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.015064751557577,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179333228467314",
+          "sampled_at": "2026-10-28T09:22:15.277Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "9HSzHLpcQmwSZ2CMapj7YHXWabF4ij1eSyjdxvfXH7QG",
+          "height": 269,
+          "gas_used": "16921891036103",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.016921891036103,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179334238798447",
+          "sampled_at": "2026-10-28T09:22:15.278Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "FVD3h96WTAvBPkAYNN42u24SNHyfH6iysKfmsBtodXjs",
+          "height": 270,
+          "gas_used": "18766219703269",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.018766219703269,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179335246243694",
+          "sampled_at": "2026-10-28T09:22:16.331Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "CeQxgaNLG77dKoxxpZ1KVmGXdnAohsnRDa7xCXTreDZe",
+          "height": 271,
+          "gas_used": "14599505112619",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014599505112619,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179336254434074",
+          "sampled_at": "2026-10-28T09:22:17.287Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "65ALyL8EvokCXHPrUTGwmEZ5mevZG3DmPXMugwXPqxzq",
+          "height": 272,
+          "gas_used": "11491510208234",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011491510208234,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179337259285331",
+          "sampled_at": "2026-10-28T09:22:19.363Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "DBuRGEnhfaR8y62YSFAaYokwm9UUcSwDiKBantdtLYGT",
+          "height": 273,
+          "gas_used": "8939424838348",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.008939424838348,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179338267014425",
+          "sampled_at": "2026-10-28T09:22:19.363Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "GF5WDXj4JnxVszw1tXcqYSVHXqCxh79Dm1aUAq2Xxzvs",
+          "height": 274,
+          "gas_used": "8351190603130",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00835119060313,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179339272516019",
+          "sampled_at": "2026-10-28T09:22:21.335Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "AxCzeX21LmJSXpN7anJuUjop7ScELms3PagJgkiMUdBz",
+          "height": 275,
+          "gas_used": "6023478238137",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.006023478238137,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179340276086861",
+          "sampled_at": "2026-10-28T09:22:21.335Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "8FuNMEhQsaMM6SfFd5N8B1kCtQAJDdxGE7aHSZ7tVjNG",
+          "height": 276,
+          "gas_used": "5408008616041",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.005408008616041,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179341277509189",
+          "sampled_at": "2026-10-28T09:22:22.364Z",
+          "sample_method": "on_workflow_receipt_completion"
+        }
+      ],
+      "audit_pending": false,
+      "audit_status": "complete",
+      "audit_checkpoint": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/seed20261032_near_auditfix_verify2/results/d8_seed20261032_auditfix_staged_verify2_near_audit_checkpoint.json"
+    },
+    {
+      "phase": 1,
+      "rate_index": 1,
+      "warmup": false,
+      "pipeline": true,
+      "preheat_sec": 0.8318420505783274,
+      "warmup_duration_sec": 0,
+      "phase_random_offset_sec": 0.8318420505783274,
+      "arrival_rule": "paired_exponential",
+      "arrival_seed": 20261032,
+      "planned_arrival_offsets_sec": [
+        0.831842051,
+        1.975341313,
+        2.061379753,
+        2.8967958,
+        3.05933271,
+        4.103129979,
+        5.090160674,
+        5.606663627
+      ],
+      "arrival_trace_sha256": "c2ae973e2e2215de206ac5df3ffa353cfbdfe9a35465673165d99256d3fde06f",
+      "trace_validation": {
+        "expected_count": 8,
+        "recorded_count": 8,
+        "exact_offsets_passed_to_scheduler": true,
+        "row_schedule_timestamps_match_offsets": true,
+        "max_row_offset_deviation_sec": 0.0011606739999994176,
+        "expected_offsets_sec": [
+          0.831842051,
+          1.975341313,
+          2.061379753,
+          2.8967958,
+          3.05933271,
+          4.103129979,
+          5.090160674,
+          5.606663627
+        ],
+        "consumed_planned_offsets_sec": [
+          0.831,
+          1.975,
+          2.061,
+          2.896,
+          3.059,
+          4.102,
+          5.089,
+          5.606
+        ],
+        "passed": true
+      },
+      "planned_interarrival_mean_sec": 0.6821173679999999,
+      "planned_interarrival_cv": 0.5845372569660172,
+      "observation_start_at": "2026-10-28T09:22:23.207Z",
+      "observation_duration_sec": 20,
+      "time_bins_10s": [
+        {
+          "bin_start_sec": 0,
+          "bin_end_sec": 10,
+          "offered": 8,
+          "accepted": 8,
+          "completed": 1,
+          "queue_at_bin_end": 7
+        },
+        {
+          "bin_start_sec": 10,
+          "bin_end_sec": 20,
+          "offered": 0,
+          "accepted": 0,
+          "completed": 7,
+          "queue_at_bin_end": 0
+        }
+      ],
+      "session_id": "550150000000",
+      "offered_rate_per_sec": 1,
+      "offered": 8,
+      "phase_started_at": "2026-10-28T09:22:22.376Z",
+      "measurement_window_end_at": "2026-10-28T09:22:43.207Z",
+      "generation_ended_at": "2026-10-28T09:22:27.983Z",
+      "drained": true,
+      "completed": 8,
+      "successful_sink_completions": 8,
+      "fully_audited_successes": 8,
+      "submission_attempts_in_measurement_window": 8,
+      "offered_call_rate_in_measurement_window": 0.4,
+      "successful_completions_in_measurement_window": 8,
+      "measured_window_goodput_per_sec": 0.4,
+      "failures": 0,
+      "audit_pending_count": 0,
+      "unfinished_at_120s": 0,
+      "in_flight_at_measurement_window_end": 0,
+      "drain_time_after_window_ms": 0,
+      "offered_generator_rate_per_sec": 1.2108194262164507,
+      "mean_generator_schedule_lag_ms": 0.26286075002280995,
+      "drained_successes_per_measurement_second": 0.4,
+      "client_queue_depth_high_water": 1,
+      "client_inflight_high_water": 8,
+      "mean_client_queue_delay_ms": 2.4857218749966705,
+      "rpc_load_path_by_method": {
+        "block": {
+          "calls": 8,
+          "errors": 0,
+          "total_ms": 7.067469999950845,
+          "mean_ms": 0.8834337499938556,
+          "p95_ms": 1.1848370000370778
+        },
+        "query": {
+          "calls": 833,
+          "errors": 0,
+          "total_ms": 1410.8344100000686,
+          "mean_ms": 1.6936787635054844,
+          "p95_ms": 3.9717769999988377
+        },
+        "send_tx": {
+          "calls": 8,
+          "errors": 0,
+          "total_ms": 77070.16441899998,
+          "mean_ms": 9633.770552374997,
+          "p95_ms": 9985.87886700005
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "block": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "query": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "send_tx": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_send_tx_request_ledger": [
+        {
+          "proxy_request_sequence": 1116,
+          "rpc_request_id": 1238,
+          "payload_fingerprint_sha256": "a599f3c74f0bdfda9f98ce03350c8ba2c8420ae11efaae5324ebfad4aa57abb9",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:32.333Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9116.431945000018,
+          "response_rpc_id": 1238,
+          "transaction_hash": "4UteNXZb8j4EkQeuoCfmoDtfNjhTzgVY8L69H6aPUTkm",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1137,
+          "rpc_request_id": 1259,
+          "payload_fingerprint_sha256": "ece6f217de431f58c9fe0706535311451d20e3582e425a39ee6fe2463e02cfe7",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:34.345Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9897.036808999954,
+          "response_rpc_id": 1259,
+          "transaction_hash": "GuxNLw886L5mbKGdA4j7P3HpmbXn7DFznZjRCKJyQ4BG",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1168,
+          "rpc_request_id": 1290,
+          "payload_fingerprint_sha256": "e87f1c1b9835c2e7452cb69519a1a598579a7913dc2614d932d2bee342dadf72",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:34.346Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9063.005629000021,
+          "response_rpc_id": 1290,
+          "transaction_hash": "444kUvLWrf1CfbsguK99bfBABV7e2anNTYVmUaxqhTCm",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1132,
+          "rpc_request_id": 1254,
+          "payload_fingerprint_sha256": "99c09b7b38e8c330c6a669f7dce1038b7f662a811f3e05825d1ff95b70c3d4c2",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:34.346Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9986.04320700001,
+          "response_rpc_id": 1254,
+          "transaction_hash": "CzZ9fPeMztXHwaJMqc7zLUicwKa1HeSz39drRb9TzCTZ",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1177,
+          "rpc_request_id": 1299,
+          "payload_fingerprint_sha256": "153591a3fcab0c3f69c43abb32162472ea7c0aab3bbc820b4c16289002baad69",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:35.345Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9899.926795999985,
+          "response_rpc_id": 1299,
+          "transaction_hash": "Frj5kzvzV2nRNnCgYng7NfeBVg1WLyGSVeDDfTVTWxZr",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1232,
+          "rpc_request_id": 1354,
+          "payload_fingerprint_sha256": "9d7b1f949b4865237c844fa2081cda9894a6a336f62a6f4caa74286defdc8c50",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:36.351Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9864.055743000004,
+          "response_rpc_id": 1354,
+          "transaction_hash": "96wpys6uPVABbsuWMa7fYptDgYBkEcGbdcDAUSMieoEP",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1330,
+          "rpc_request_id": 1452,
+          "payload_fingerprint_sha256": "c8e66de107f7025965f4b43177747cdb18f08cc42f2967745fbbf366525df656",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:37.358Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9366.524873999995,
+          "response_rpc_id": 1452,
+          "transaction_hash": "E5RcWuo7Y1FPru47PpjW65LHHJ7eyD93dLJmXwgUxrGJ",
+          "rpc_error": null
+        },
+        {
+          "proxy_request_sequence": 1295,
+          "rpc_request_id": 1417,
+          "payload_fingerprint_sha256": "92bf375de0b8111c7fcc74140d0ebf96c58cfa1f835b823d65e55d3358a4a838",
+          "same_payload_attempt": 1,
+          "same_payload_retry_count": 0,
+          "observed_at": "2026-10-28T09:22:37.359Z",
+          "http_status": 200,
+          "http_ok": true,
+          "duration_ms": 9878.995813000016,
+          "response_rpc_id": 1417,
+          "transaction_hash": "4sLd97ZhupgDSEiTFB2bZhGTpg6pf9bzJV8SsR9q72kv",
+          "rpc_error": null
+        }
+      ],
+      "rpc_http_error_ledger": [],
+      "receipt_tree_waiting_method_counts": {
+        "query": {
+          "calls": 833,
+          "errors": 0,
+          "total_ms": 1410.8344100000686,
+          "mean_ms": 1.6936787635054844,
+          "p95_ms": 3.9717769999988377
+        }
+      },
+      "sink_poll_interval_ms": 100,
+      "block_usage_samples": [
+        {
+          "block_hash": "A7sxs5wCsvhWnUvG3y241NediDFKJjHKg9DULZoSXX72",
+          "height": 278,
+          "gas_used": "223182562500",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.0002231825625,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179343286445778",
+          "sampled_at": "2026-10-28T09:22:32.357Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "AAn4ycBnbJ7Xe5J3b4DujdpyK8jQNktaPXcegDH3Ngod",
+          "height": 279,
+          "gas_used": "312446401780",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00031244640178,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179344291668798",
+          "sampled_at": "2026-10-28T09:22:32.358Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "9JvZUZ4XRqpnDuTgJyJB7VjFW4jctHTErhT8DGrm7uka",
+          "height": 280,
+          "gas_used": "2141164062498",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.002141164062498,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179345295912281",
+          "sampled_at": "2026-10-28T09:22:32.359Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "6Fv6HizvxsMpncc4dVfci7iL4G78A3dEX23Nuho9o7zG",
+          "height": 281,
+          "gas_used": "3863636256119",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.003863636256119,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179346306520696",
+          "sampled_at": "2026-10-28T09:22:32.357Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "78HmBPTbH212beNA2aGysTAS24LxRhiqhiP7gBDKnKWP",
+          "height": 282,
+          "gas_used": "9615373850382",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.009615373850382,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179347311016315",
+          "sampled_at": "2026-10-28T09:22:32.359Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "8KNGKAHSSSvYYis8WEaAALR1ttvGZTne7bLH9Y3jRLCn",
+          "height": 283,
+          "gas_used": "14113428411858",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014113428411858,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179348318113220",
+          "sampled_at": "2026-10-28T09:22:32.359Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "8k8j7Sa3gQyX6mY3sV2j5EG4DwuK1W5hYWyaTugCfx9x",
+          "height": 284,
+          "gas_used": "17352236347387",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017352236347387,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179349320567918",
+          "sampled_at": "2026-10-28T09:22:32.358Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "CY3ek4Lj7k1ZYukMexqQyaVrFfCsdYc1rtmy4GmENuiA",
+          "height": 285,
+          "gas_used": "21770916120088",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.021770916120088,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179350324191871",
+          "sampled_at": "2026-10-28T09:22:32.359Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "GXcj1XnJ1oFqimdDJq4tudtvZFTvmHX4W1hA6kh4D8pL",
+          "height": 286,
+          "gas_used": "23312459389267",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.023312459389267,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179351330809636",
+          "sampled_at": "2026-10-28T09:22:32.359Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "G8YSms1FdXV5ML1CxW6RQvfryuKWdhP5v7YirT5E1fos",
+          "height": 287,
+          "gas_used": "22947453676881",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.022947453676881,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179352334423481",
+          "sampled_at": "2026-10-28T09:22:34.404Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "4NKVCpAvAY4VJh5GZQBPLy5ayhdUbDuq2Jp22WJDwdUK",
+          "height": 288,
+          "gas_used": "20561233980916",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.020561233980916,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179353341001385",
+          "sampled_at": "2026-10-28T09:22:34.404Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "6hH9MAfhmDCLUGyLiz3TdpcyJiNK5VhXQtFpVAovbZGa",
+          "height": 289,
+          "gas_used": "19217281455688",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.019217281455688,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179354343524585",
+          "sampled_at": "2026-10-28T09:22:35.429Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "4uN9RYW64sAkjUngCV4VLYK7GrpnNjraQRyWjavubFU1",
+          "height": 290,
+          "gas_used": "11930383084238",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011930383084238,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179355348919739",
+          "sampled_at": "2026-10-28T09:22:36.362Z",
+          "sample_method": "on_workflow_receipt_completion"
+        },
+        {
+          "block_hash": "A9YKRYH6RpNw6MDL5koDu6TqhoZq5Js4ms1MJq2HCtvs",
+          "height": 291,
+          "gas_used": "8532684933204",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.008532684933204,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793179356355911188",
+          "sampled_at": "2026-10-28T09:22:37.405Z",
+          "sample_method": "on_workflow_receipt_completion"
+        }
+      ],
+      "audit_pending": false,
+      "audit_status": "complete",
+      "audit_checkpoint": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/seed20261032_near_auditfix_verify2/results/d8_seed20261032_auditfix_staged_verify2_near_audit_checkpoint.json"
+    }
+  ]
+}
