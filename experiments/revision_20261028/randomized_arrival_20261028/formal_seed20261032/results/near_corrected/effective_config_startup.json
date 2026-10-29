@@ -1,0 +1,154 @@
+{
+  "captured_at_utc": "2026-10-28T05:38:26Z",
+  "seed": 20261032,
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "scenario": "poisson_d8",
+  "pipeline_mode": "1",
+  "preheat_sec": "30",
+  "observation_sec": "780",
+  "schedule_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/poisson_d8_seed20261032.json",
+  "schedule_sha256": "9684e531a7523cd2672ef91abd2a951224472550304a8c49833cac0cde823166",
+  "runner_sha256": "05666ba84718ef479e311f45211456b3c896c10f0575dc7eec796260dc303aa0",
+  "sandbox_wrapper_sha256": "cb67db763766e8b0caec2fca0a36f77f7608e418d8ebfa0c7a021632bd4eb90b",
+  "sandbox_process_commandline": "node /home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/randomized_arrival_20261028/run_randomized_near.mjs",
+  "binary_version_output": "neard (release 2.13.4) (build 2.13.4) (commit 44f7ae6cd7ef08bab604e20a473bf77e35d4c993) (rustc 1.93.0) (min_protocol 83) (protocol 86) (db 49)\nfeatures: [default, dump_test_contract, json_rpc, near_dump_test_contract, rosetta_rpc, sandbox]",
+  "rpc_status_version": {
+    "chain_id": "test-chain-GMgXh",
+    "genesis_hash": "4yCmGC3jGpUFs7n8swRgtQfMcokJR27vrVTquogjsD3T",
+    "latest_protocol_version": 86,
+    "node_key": "ed25519:4Cng6P3HwM2hZpSnczYM3RynM3qJKayKuhBBneyCmAjS",
+    "node_public_key": "ed25519:4x3aY1Q7W1rApqbx5MoCETod3pVJiZPiuTPvuRWC11KS",
+    "protocol_version": 86,
+    "rpc_addr": "0.0.0.0:3030",
+    "sync_info": {
+      "earliest_block_hash": "4yCmGC3jGpUFs7n8swRgtQfMcokJR27vrVTquogjsD3T",
+      "earliest_block_height": 0,
+      "earliest_block_time": "2026-10-28T05:36:25.861502717Z",
+      "epoch_id": "11111111111111111111111111111111",
+      "epoch_start_height": 0,
+      "latest_block_hash": "4yCmGC3jGpUFs7n8swRgtQfMcokJR27vrVTquogjsD3T",
+      "latest_block_height": 0,
+      "latest_block_time": "2026-10-28T05:36:25.861502717Z",
+      "latest_state_root": "Dhz3i1KAgjEHufdFaoiC6qRMCzyS9WVhHf8sjSzmyTsv",
+      "syncing": false
+    },
+    "uptime_sec": 0,
+    "validator_account_id": "test.near",
+    "validator_public_key": "ed25519:4Cng6P3HwM2hZpSnczYM3RynM3qJKayKuhBBneyCmAjS",
+    "validators": [
+      {
+        "account_id": "test.near"
+      }
+    ],
+    "version": {
+      "build": "2.13.4",
+      "commit": "44f7ae6cd7ef08bab604e20a473bf77e35d4c993",
+      "rustc_version": "1.93.0",
+      "version": "2.13.4"
+    }
+  },
+  "schedule_arrival_rule": "paired_exponential",
+  "phase_random_offset_sec": 0.8318420505783274,
+  "per_rate_expected_trace": {
+    "0.5": {
+      "expected_total": 385,
+      "expected_preheat": 16,
+      "expected_measurement": 369,
+      "offsets_sha256": "6040ac3fba2bceb065127b4ea0b54041fd147822e7328c20020baf6432c45203"
+    },
+    "1.0": {
+      "expected_total": 817,
+      "expected_preheat": 40,
+      "expected_measurement": 777,
+      "offsets_sha256": "bc68c38a700536fe41dcc124335ad73fcc13acab4e47191a371755fd595dad88"
+    }
+  },
+  "sampling_method": "on_workflow_receipt_completion; immediate block sampling and full state/receipt audit",
+  "effective_environment_subset": {
+    "STRESS_PIPELINE_MODE": "1",
+    "STRESS_PIPELINE_PREHEAT_SEC": "30",
+    "STRESS_PIPELINE_OBSERVATION_SEC": "780",
+    "STRESS_PROFILE_ID": "dag-07-chain-d8-w1-theta1-nu1",
+    "STRESS_SCHEDULE_SCENARIO": "poisson_d8",
+    "STRESS_SCHEDULE_PATH": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/poisson_d8_seed20261032.json",
+    "STRESS_REPEAT": "5",
+    "STRESS_TAG": "d8_poisson_seed20261032_near",
+    "STRESS_WORKERS": "64",
+    "NEAR_SANDBOX_BIN_PATH": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/near-sandbox-compatible.remote.sh"
+  },
+  "startup_assertions": {
+    "pipeline_mode_is_1": true,
+    "rate_override_absent": true,
+    "warmup_override_absent": true,
+    "measurement_override_absent": true,
+    "preheat_is_30": true,
+    "observation_is_780": true,
+    "schedule_path_is_seed32": true,
+    "schedule_sha_matches_expected": true,
+    "runtime_version_is_2_13_4": true,
+    "protocol_is_86": true,
+    "rpc_latest_protocol_is_86": true
+  },
+  "startup_assertions_passed": true,
+  "actual_consumed_offsets_sha256_by_rate": {
+    "0.5": "6040ac3fba2bceb065127b4ea0b54041fd147822e7328c20020baf6432c45203",
+    "1.0": "bc68c38a700536fe41dcc124335ad73fcc13acab4e47191a371755fd595dad88"
+  },
+  "actual_trace_verification": "both NEAR phase checkpoints compared with paired_exponential schedules",
+  "actual_trace_checks_by_rate": {
+    "0.5": {
+      "paired_exponential": true,
+      "offsets_equal_schedule": true,
+      "trace_digest_matches_startup": true,
+      "schedule_sha_matches": true,
+      "rows_match_offsets": true,
+      "measurement_window_780": true,
+      "seed_matches": true,
+      "phase_offset_matches": true
+    },
+    "1.0": {
+      "paired_exponential": true,
+      "offsets_equal_schedule": true,
+      "trace_digest_matches_startup": true,
+      "schedule_sha_matches": true,
+      "rows_match_offsets": true,
+      "measurement_window_780": true,
+      "seed_matches": true,
+      "phase_offset_matches": true
+    }
+  },
+  "actual_trace_verification_passed_for_completed_rates": true,
+  "workflow_audit_by_rate": {
+    "0.5": {
+      "offers": 385,
+      "succeeded": 353,
+      "failures_by_reason": {
+        "receipt_audit_pending_timeout": 10
+      },
+      "audit_pending_rows": 22,
+      "block_usage_pending_samples": 0,
+      "block_usage_error_samples": 0,
+      "phase_audit_status": "audit_pending",
+      "phase_audit_pending_count": 22,
+      "successful_completions_in_measurement_window": 339,
+      "p50_candidate_count": 353
+    },
+    "1.0": {
+      "offers": 817,
+      "succeeded": 767,
+      "failures_by_reason": {
+        "receipt_audit_pending_timeout": 16
+      },
+      "audit_pending_rows": 34,
+      "block_usage_pending_samples": 0,
+      "block_usage_error_samples": 0,
+      "phase_audit_status": "audit_pending",
+      "phase_audit_pending_count": 34,
+      "successful_completions_in_measurement_window": 741,
+      "p50_candidate_count": 767
+    }
+  },
+  "full_state_receipt_audit_passed_for_completed_rates": false,
+  "audit_note": "Schedule consumption checks pass for 0.5; full workflow receipt audit is incomplete: 10 receipt_audit_pending_timeout failures and 22 audit-pending rows. Do not count this phase as fully audited success.",
+  "full_state_receipt_audit_passed_for_all_rates": false
+}
