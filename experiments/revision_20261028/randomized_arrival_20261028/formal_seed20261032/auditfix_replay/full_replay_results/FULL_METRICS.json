@@ -1,0 +1,293 @@
+{
+  "seed": 20261032,
+  "schedule_sha256": "9684e531a7523cd2672ef91abd2a951224472550304a8c49833cac0cde823166",
+  "scope": "same seed/schedule, existing complete EVM baseline and repaired complete NEAR replay",
+  "latency_percentile_scope": "all fully audited successful workflow rows in the full phase, including warmup rows and completions observed during drain",
+  "goodput_scope": "successful sink completions observed within the 780-second measurement window, divided by 780 seconds",
+  "evm": {
+    "phases": [
+      {
+        "rate": 0.5,
+        "offered": 385,
+        "completed": 385,
+        "successful_workflows": 385,
+        "failures": 0,
+        "audit_pending": 0,
+        "measured_goodput_workflows_per_sec": 0.4717948717948718,
+        "measured_successful_workflows": 368,
+        "offered_to_sink_ms": {
+          "n": 385,
+          "mean": 626.1057859068954,
+          "p50": 571.9269050750881,
+          "p95": 1106.2666978687048,
+          "max": 1646.0597629193217
+        },
+        "submit_to_sink_ms": {
+          "n": 385,
+          "mean": 618.5976012918325,
+          "p50": 565.1846220716834,
+          "p95": 1097.9480110108852,
+          "max": 1639.814421068877
+        },
+        "call_to_receipt_tree_ms": null,
+        "stage_state_receipt_agreement": {
+          "successes": 385,
+          "successful_rows": 385
+        },
+        "workflow_receipt_metrics": {
+          "transaction_receipt_status_present": 385,
+          "transaction_receipts": 385
+        },
+        "evm_transaction_gas_used": {
+          "n": 385,
+          "mean": 1124770.9324675326,
+          "p50": 1124775.0,
+          "p95": 1124775.0,
+          "max": 1124775.0
+        },
+        "near_block_gas_samples": null
+      },
+      {
+        "rate": 1.0,
+        "offered": 817,
+        "completed": 817,
+        "successful_workflows": 817,
+        "failures": 0,
+        "audit_pending": 0,
+        "measured_goodput_workflows_per_sec": 1.0012820512820513,
+        "measured_successful_workflows": 781,
+        "offered_to_sink_ms": {
+          "n": 817,
+          "mean": 737.2366260703553,
+          "p50": 687.033399939537,
+          "p95": 1625.8053448982537,
+          "max": 2966.7796320281923
+        },
+        "submit_to_sink_ms": {
+          "n": 817,
+          "mean": 729.0840161764239,
+          "p50": 679.7847140114754,
+          "p95": 1619.2528698593378,
+          "max": 2922.6826888043433
+        },
+        "call_to_receipt_tree_ms": null,
+        "stage_state_receipt_agreement": {
+          "successes": 817,
+          "successful_rows": 817
+        },
+        "workflow_receipt_metrics": {
+          "transaction_receipt_status_present": 817,
+          "transaction_receipts": 817
+        },
+        "evm_transaction_gas_used": {
+          "n": 817,
+          "mean": 1124771.1664626682,
+          "p50": 1124775.0,
+          "p95": 1124775.0,
+          "max": 1124775.0
+        },
+        "near_block_gas_samples": null
+      }
+    ],
+    "process_cpu_memory": {
+      "samples": 816,
+      "combined_cpu_pct": {
+        "n": 816,
+        "mean": 7.569852941176441,
+        "p50": 7.0,
+        "p95": 9.899999999999999,
+        "max": 58.5
+      },
+      "combined_rss_kb": {
+        "n": 816,
+        "mean": 282099.24019607843,
+        "p50": 249216.0,
+        "p95": 510012.0,
+        "max": 598256.0
+      }
+    },
+    "host_vmstat": {
+      "samples": 816,
+      "host_cpu_busy_pct": {
+        "n": 816,
+        "mean": 1.4240196078431373,
+        "p50": 1.0,
+        "p95": 3.0,
+        "max": 6.0
+      },
+      "host_cpu_iowait_pct": {
+        "n": 816,
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  "near": {
+    "phases": [
+      {
+        "rate": 0.5,
+        "offered": 385,
+        "completed": 385,
+        "successful_workflows": 385,
+        "failures": 0,
+        "audit_pending": 0,
+        "measured_goodput_workflows_per_sec": 0.47307692307692306,
+        "measured_successful_workflows": 369,
+        "offered_to_sink_ms": {
+          "n": 385,
+          "mean": 9608.57883144416,
+          "p50": 9614.246960999968,
+          "p95": 10074.965357000008,
+          "max": 10175.935217000078
+        },
+        "submit_to_sink_ms": null,
+        "call_to_receipt_tree_ms": {
+          "n": 385,
+          "mean": 9577.630162280522,
+          "p50": 9552.712246000068,
+          "p95": 10012.008302000002,
+          "max": 10536.536742999917
+        },
+        "stage_state_receipt_agreement": {
+          "successes": 385,
+          "successful_rows": 385
+        },
+        "workflow_receipt_metrics": {
+          "workflow_receipt_count": {
+            "n": 385,
+            "mean": 15.0,
+            "p50": 15.0,
+            "p95": 15.0,
+            "max": 15.0
+          },
+          "receipt_status_entries": 5775
+        },
+        "evm_transaction_gas_used": null,
+        "near_block_gas_samples": {
+          "sample_count": 802,
+          "gas_used": {
+            "n": 802,
+            "mean": 10875035747957.916,
+            "p50": 10501359828368.0,
+            "p95": 20312720172452.0,
+            "max": 31582662035856.0
+          },
+          "gas_limit": {
+            "n": 802,
+            "mean": 1000000000000000.0,
+            "p50": 1000000000000000.0,
+            "p95": 1000000000000000.0,
+            "max": 1000000000000000.0
+          },
+          "utilization_pct": {
+            "n": 802,
+            "mean": 1.087503574795792,
+            "p50": 1.0501359828368,
+            "p95": 2.0312720172452,
+            "max": 3.1582662035856
+          }
+        }
+      },
+      {
+        "rate": 1,
+        "offered": 817,
+        "completed": 817,
+        "successful_workflows": 817,
+        "failures": 0,
+        "audit_pending": 0,
+        "measured_goodput_workflows_per_sec": 1.0115384615384615,
+        "measured_successful_workflows": 789,
+        "offered_to_sink_ms": {
+          "n": 817,
+          "mean": 9650.06923244308,
+          "p50": 9655.137402999913,
+          "p95": 10089.463804000057,
+          "max": 10175.65396200004
+        },
+        "submit_to_sink_ms": null,
+        "call_to_receipt_tree_ms": {
+          "n": 817,
+          "mean": 9609.62366810036,
+          "p50": 9598.108154000016,
+          "p95": 10017.726376000093,
+          "max": 10551.131453000009
+        },
+        "stage_state_receipt_agreement": {
+          "successes": 817,
+          "successful_rows": 817
+        },
+        "workflow_receipt_metrics": {
+          "workflow_receipt_count": {
+            "n": 817,
+            "mean": 15.0,
+            "p50": 15.0,
+            "p95": 15.0,
+            "max": 15.0
+          },
+          "receipt_status_entries": 12255
+        },
+        "evm_transaction_gas_used": null,
+        "near_block_gas_samples": {
+          "sample_count": 812,
+          "gas_used": {
+            "n": 812,
+            "mean": 22920548747388.258,
+            "p50": 22642165024478.0,
+            "p95": 37225349350548.0,
+            "max": 52587951531878.0
+          },
+          "gas_limit": {
+            "n": 812,
+            "mean": 1000000000000000.0,
+            "p50": 1000000000000000.0,
+            "p95": 1000000000000000.0,
+            "max": 1000000000000000.0
+          },
+          "utilization_pct": {
+            "n": 812,
+            "mean": 2.292054874738825,
+            "p50": 2.2642165024478,
+            "p95": 3.7225349350548,
+            "max": 5.2587951531878
+          }
+        }
+      }
+    ],
+    "process_resources": {
+      "samples": 2491,
+      "combined_cpu_pct": {
+        "n": 2491,
+        "mean": 20.731513448414283,
+        "p50": 21.9,
+        "p95": 29.9,
+        "max": 61.0
+      },
+      "combined_rss_kb": {
+        "n": 2491,
+        "mean": 661059.7157767965,
+        "p50": 757504.0,
+        "p95": 878396.0,
+        "max": 988844.0
+      }
+    },
+    "host_vmstat": {
+      "samples": 2525,
+      "host_cpu_busy_pct": {
+        "n": 2525,
+        "mean": 2.6134653465346536,
+        "p50": 2.0,
+        "p95": 7.0,
+        "max": 18.0
+      },
+      "host_cpu_iowait_pct": {
+        "n": 2525,
+        "mean": 0.22178217821782178,
+        "p50": 0.0,
+        "p95": 3.0,
+        "max": 4.0
+      }
+    }
+  }
+}
