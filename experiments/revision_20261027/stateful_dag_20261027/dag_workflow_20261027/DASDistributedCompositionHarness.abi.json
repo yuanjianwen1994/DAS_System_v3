@@ -1,0 +1,495 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint32[][]",
+        "name": "parents_",
+        "type": "uint32[][]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "expectedWorkflows",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "entryCommitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "SessionEntered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "executedWorkflows",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "aggregate",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "exitCommitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "SessionExited",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "stageAddresses",
+        "type": "address[]"
+      }
+    ],
+    "name": "StagesConfigured",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "workflowId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "checksum",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "nodeCount",
+        "type": "uint32"
+      }
+    ],
+    "name": "WorkflowCompleted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      }
+    ],
+    "name": "abortSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint32",
+        "name": "expectedWorkflows",
+        "type": "uint32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "entryCommitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "enterSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64[]",
+        "name": "workflowIds",
+        "type": "uint64[]"
+      },
+      {
+        "internalType": "uint64[]",
+        "name": "seeds",
+        "type": "uint64[]"
+      },
+      {
+        "internalType": "uint32",
+        "name": "operationsPerNode",
+        "type": "uint32"
+      }
+    ],
+    "name": "executeWorkflows",
+    "outputs": [
+      {
+        "internalType": "uint64[]",
+        "name": "checksums",
+        "type": "uint64[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "exitCommitment",
+        "type": "bytes32"
+      }
+    ],
+    "name": "exitSession",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "aggregate",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "name": "nodeChecksums",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nodeCount",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "workflowId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint32",
+        "name": "nodeId",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "parentId",
+        "type": "uint32"
+      }
+    ],
+    "name": "nodeInput",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "present",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint64",
+        "name": "value",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "workflowId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint32",
+        "name": "nodeId",
+        "type": "uint32"
+      }
+    ],
+    "name": "nodeResult",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint64",
+            "name": "sessionId",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "checksum",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint32",
+            "name": "inputCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "operationCount",
+            "type": "uint32"
+          }
+        ],
+        "internalType": "struct DAGStage.NodeResult",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sessionId",
+        "type": "uint64"
+      }
+    ],
+    "name": "sessionState",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "expectedWorkflows",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint32",
+            "name": "executedWorkflows",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "aggregate",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "entryCommitment",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "exitCommitment",
+            "type": "bytes32"
+          }
+        ],
+        "internalType": "struct DASDistributedCompositionHarness.Session",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "stageAddresses",
+        "type": "address[]"
+      }
+    ],
+    "name": "setStages",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stageAddresses",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stagesConfigured",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "name": "workflowChecksums",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "name": "workflowOperationCounts",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

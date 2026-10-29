@@ -1,0 +1,2248 @@
+{
+  "experiment": "paired-open-loop-continuous-pipeline",
+  "started_at": "2026-10-27T19:57:49.172Z",
+  "error": null,
+  "finished_at": "2026-10-27T20:07:27.651Z",
+  "phases": [
+    {
+      "phase": 0,
+      "rate_index": 0,
+      "warmup": false,
+      "pipeline": true,
+      "preheat_sec": 30,
+      "observation_start_at": "2026-10-27T20:04:13.579Z",
+      "observation_duration_sec": 60,
+      "time_bins_10s": [
+        {
+          "bin_start_sec": 0,
+          "bin_end_sec": 10,
+          "offered": 5,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 10
+        },
+        {
+          "bin_start_sec": 10,
+          "bin_end_sec": 20,
+          "offered": 5,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 10
+        },
+        {
+          "bin_start_sec": 20,
+          "bin_end_sec": 30,
+          "offered": 5,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 10
+        },
+        {
+          "bin_start_sec": 30,
+          "bin_end_sec": 40,
+          "offered": 5,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 10
+        },
+        {
+          "bin_start_sec": 40,
+          "bin_end_sec": 50,
+          "offered": 5,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 11
+        },
+        {
+          "bin_start_sec": 50,
+          "bin_end_sec": 60,
+          "offered": 4,
+          "accepted": 5,
+          "completed": 5,
+          "queue_at_bin_end": 10
+        }
+      ],
+      "session_id": "530050000000",
+      "offered_rate_per_sec": 0.5,
+      "offered": 45,
+      "phase_started_at": "2026-10-27T20:03:43.579Z",
+      "measurement_window_end_at": "2026-10-27T20:05:13.579Z",
+      "generation_ended_at": "2026-10-27T20:05:11.575Z",
+      "drained": true,
+      "completed": 45,
+      "successful_sink_completions": 45,
+      "submission_attempts_in_measurement_window": 30,
+      "offered_call_rate_in_measurement_window": 0.5,
+      "successful_completions_in_measurement_window": 30,
+      "measured_window_goodput_per_sec": 0.5,
+      "failures": 0,
+      "unfinished_at_120s": 0,
+      "in_flight_at_measurement_window_end": 10,
+      "drain_time_after_window_ms": 19494,
+      "offered_generator_rate_per_sec": 0.49999818433992654,
+      "mean_generator_schedule_lag_ms": -0.29823486666169224,
+      "drained_successes_per_measurement_second": 0.75,
+      "client_queue_depth_high_water": 1,
+      "client_inflight_high_water": 12,
+      "mean_client_queue_delay_ms": 4.040335555554419,
+      "rpc_load_path_by_method": {
+        "block": {
+          "calls": 45,
+          "errors": 0,
+          "total_ms": 46.89538500015624,
+          "mean_ms": 1.0421196666701387,
+          "p95_ms": 1.2271870000404306
+        },
+        "query": {
+          "calls": 135,
+          "errors": 0,
+          "total_ms": 194.43914999999106,
+          "mean_ms": 1.4402899999999337,
+          "p95_ms": 1.9791120000299998
+        },
+        "send_tx": {
+          "calls": 135,
+          "errors": 90,
+          "total_ms": 906026.9759819999,
+          "mean_ms": 6711.310933199999,
+          "p95_ms": 10006.40318600001
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "block": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "query": {
+          "calls": 900,
+          "errors": 0,
+          "total_ms": 4577.052950001729,
+          "mean_ms": 5.08561438889081,
+          "p95_ms": 15.65286400000332
+        },
+        "send_tx": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "receipt_tree_waiting_method_counts": {
+        "query": {
+          "calls": 135,
+          "errors": 0,
+          "total_ms": 194.43914999999106,
+          "mean_ms": 1.4402899999999337,
+          "p95_ms": 1.9791120000299998
+        }
+      },
+      "block_usage_samples": [
+        {
+          "block_hash": "FGLJ6kEUzCCPWUv9CwJ6mx5EsVrkn6jSc99coF5NvsXL",
+          "height": 355,
+          "gas_used": "223182562500",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.0002231825625,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131424591055948"
+        },
+        {
+          "block_hash": "6Bh3LWMQTWnFThcVHkAo1P9aAj3kUSH4mk1rfhmxeEfF",
+          "height": 356,
+          "gas_used": "312446401780",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00031244640178,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131425593054942"
+        },
+        {
+          "block_hash": "8Zw6R5PkGCyqS7cvPzkheTpYN5KJedrPzrXoUiHZ8cgW",
+          "height": 357,
+          "gas_used": "2101978999123",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.002101978999123,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131426600497349"
+        },
+        {
+          "block_hash": "6qLwWk2c1duQpwkvnDeKqqBVbKhrDBujzg2YuG8y34EZ",
+          "height": 358,
+          "gas_used": "3176630463958",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.003176630463958,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131427600964328"
+        },
+        {
+          "block_hash": "JEBwRKbE2VbfaQJeuwBoryCdSoL5WTtyn6BL9ehiPcr8",
+          "height": 359,
+          "gas_used": "4990827048242",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.004990827048242,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131428605226970"
+        },
+        {
+          "block_hash": "7yLKEUNGDvgU2tY3hnZdTsj5SDMKXvLSuBLfu5CPcom3",
+          "height": 360,
+          "gas_used": "6079170158798",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.006079170158798,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131429608462164"
+        },
+        {
+          "block_hash": "8r4R9JvT27dRLru8cbEQBGStMVC8KXoHi85vsEdsFcwj",
+          "height": 361,
+          "gas_used": "8215066542664",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.008215066542664,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131430614410616"
+        },
+        {
+          "block_hash": "BKMkCQoX9sgGhAwt8Bp5Y1tgXF1xNiKkcSDuhakhABkg",
+          "height": 362,
+          "gas_used": "10788320498993",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.010788320498993,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131431616310534"
+        },
+        {
+          "block_hash": "2drUbBerhjQa9A3XQcyAoF1AEaTzK7bq94LTenD1aHV9",
+          "height": 363,
+          "gas_used": "11923612429210",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.01192361242921,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131432622637073"
+        },
+        {
+          "block_hash": "4SWWkjQsarQ22F6H7LZ1iN6bc6kyoAiK4ujh7513RhdD",
+          "height": 364,
+          "gas_used": "13729876539720",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.01372987653972,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131433628447557"
+        },
+        {
+          "block_hash": "yMe7hRrX2Ywu7UrNAv3Fg3y9EPNRFyT171nGeFGLnjy",
+          "height": 365,
+          "gas_used": "14837741167215",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014837741167215,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131434634567919"
+        },
+        {
+          "block_hash": "AMnabCMLmKvuHGbyddECbgP96FunLhDfEDFwkCeKdoph",
+          "height": 366,
+          "gas_used": "16645364062422",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.016645364062422,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131435637975669"
+        },
+        {
+          "block_hash": "5TtPc3pmKars5KWaS5GzxRNt9EucSRYwCPg4YcJfyfEu",
+          "height": 367,
+          "gas_used": "17737613108662",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017737613108662,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131436638878045"
+        },
+        {
+          "block_hash": "63SUQjVHPT3GPBUyK57rjLnYCQzdq1usZgYoCnwzWSar",
+          "height": 368,
+          "gas_used": "19601810947849",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.019601810947849,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131437640693411"
+        },
+        {
+          "block_hash": "Ce2x9MMaJg5aDGjQVn2m7MRL4zkTDd5oKYUtFdYy6NAf",
+          "height": 369,
+          "gas_used": "20668468311030",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02066846831103,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131438650538683"
+        },
+        {
+          "block_hash": "ienEC3iFCnDhUSLWXeg6L3brTxgXtcXDtfWJRKuGUqp",
+          "height": 370,
+          "gas_used": "22493265324653",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.022493265324653,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131439655380358"
+        },
+        {
+          "block_hash": "H5xgHCvugfgDhEPeBSVbFYrLuAswP4M1LnxGzQBcFiKw",
+          "height": 371,
+          "gas_used": "23585479978411",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.023585479978411,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131440656221350"
+        },
+        {
+          "block_hash": "8vddVwkdr3ry8nDWmTeRSC8tD9rV5ASJPhEM9HjBpKHs",
+          "height": 372,
+          "gas_used": "25422745626515",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.025422745626515,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131441660381267"
+        },
+        {
+          "block_hash": "FCcv7H7jf4VjxYYFUdKPF6H8uAmhateyz4i9HX8RTKvv",
+          "height": 373,
+          "gas_used": "26512901294187",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.026512901294187,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131442669852605"
+        },
+        {
+          "block_hash": "5HJcJMvjQ8xFkmjxyRiHio7aXPMMcsGJecBpTLYs8yRK",
+          "height": 374,
+          "gas_used": "28336969252088",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028336969252088,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131443671336056"
+        },
+        {
+          "block_hash": "3ZSmpnrd48uYPEqCQEjEJuD27yxcc2BmRUzc1hwhM39Q",
+          "height": 375,
+          "gas_used": "29430003860992",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029430003860992,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131444681893651"
+        },
+        {
+          "block_hash": "GMmKPPweQcx1PB7T9DQFDx3rCJoHG2iPt87wYXrgPHTJ",
+          "height": 376,
+          "gas_used": "30888131521310",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.03088813152131,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131445683623545"
+        },
+        {
+          "block_hash": "C5XZxE4YzuPS1tbD9neAuWF96orJJYn8dCMdFUPPc5DW",
+          "height": 377,
+          "gas_used": "29704000374764",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029704000374764,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131446686929703"
+        },
+        {
+          "block_hash": "3QNQvZYrvdDxLiD2dHXD4sqFxkwXJmDVFfuEoZrge75S",
+          "height": 378,
+          "gas_used": "30966627647596",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.030966627647596,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131447688572977"
+        },
+        {
+          "block_hash": "7LgApuTpWxFiCfUFFU99YB1DReWQW9igzL7PXM9y4Zcq",
+          "height": 379,
+          "gas_used": "29688083121943",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029688083121943,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131448693668089"
+        },
+        {
+          "block_hash": "AHn54KMifyoZfrxJNkTMhuGDRgeuVtFybEPaRjKvdKD7",
+          "height": 380,
+          "gas_used": "30977527439474",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.030977527439474,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131449699323090"
+        },
+        {
+          "block_hash": "3KLj3DChHz6Yew5nYu6H2LBqsWH4ajGxN2t33EdA3eTQ",
+          "height": 381,
+          "gas_used": "29321614209815",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029321614209815,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131450708320708"
+        },
+        {
+          "block_hash": "Azoe2kKWiAvjghg4ciZ1WjpJoowczu9s6F7Lxh5Pfi9u",
+          "height": 382,
+          "gas_used": "28648675269858",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028648675269858,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131451712751399"
+        },
+        {
+          "block_hash": "DiWmB5TVs7qmGSTfbFVVig419diHtPMXcutcKjKisZTG",
+          "height": 383,
+          "gas_used": "29096668746491",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029096668746491,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131452717002186"
+        },
+        {
+          "block_hash": "42qL7X8a9bUfpMBT7Th8FtA8buzx3bKupeYCM4FQsFQ1",
+          "height": 384,
+          "gas_used": "28648333582654",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028648333582654,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131453719232323"
+        },
+        {
+          "block_hash": "4EQUnvkiFvnmjHLVWPiWN1xqNSADnjM6oTUR4kNWCnyh",
+          "height": 385,
+          "gas_used": "29097169388792",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029097169388792,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131454723878405"
+        },
+        {
+          "block_hash": "GLb5CES3CQaFRdbSaQe4s29mcoy55wuGHCSSPn5cideC",
+          "height": 386,
+          "gas_used": "28641832256649",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028641832256649,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131455730151728"
+        },
+        {
+          "block_hash": "HW33v4N6XerDhGpFu7dYd1M1S4cPogiL3UJBb6Uwwaqf",
+          "height": 387,
+          "gas_used": "29085897814918",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029085897814918,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131456733574267"
+        },
+        {
+          "block_hash": "AotPFjERCv18cTkY25JeCGWGis7BPJBr3DjDg4Ape8dk",
+          "height": 388,
+          "gas_used": "28638287052467",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028638287052467,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131457736054726"
+        },
+        {
+          "block_hash": "6Kkyb58i1tGgftW5MXiQqEyKoAFto3gJyR7JeBHBq8hP",
+          "height": 389,
+          "gas_used": "29086674287750",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02908667428775,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131458742498554"
+        },
+        {
+          "block_hash": "6ZLea6nQi9Q6czaTiFoVWfbqDANQLGbn1vCCRKTxTXyo",
+          "height": 390,
+          "gas_used": "28638610446542",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028638610446542,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131459745548975"
+        },
+        {
+          "block_hash": "BZVVhcZcwYrwi5x4P3EVbxXrr2c2MiFxvEp9ZnVBMPz1",
+          "height": 391,
+          "gas_used": "29087802749492",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087802749492,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131460753726026"
+        },
+        {
+          "block_hash": "4gKsdRxuyQ4NPTC7K6GsfqGHpnYK9fo9JcJ4ocdtsZcb",
+          "height": 392,
+          "gas_used": "28638096247704",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028638096247704,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131461753133425"
+        },
+        {
+          "block_hash": "3EEGujwX3QuWWgc39ucLrCGBW86PVb5kiJn5XmRG1KHD",
+          "height": 393,
+          "gas_used": "29087459182822",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087459182822,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131462755410117"
+        },
+        {
+          "block_hash": "xfttVVWdE6w7JdBHGwHn63GWvo5a6ot7BSXzMwHGiKv",
+          "height": 394,
+          "gas_used": "28639597939193",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028639597939193,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131463756020893"
+        },
+        {
+          "block_hash": "qc3GwTwPw7Yt4CjhjnbxGYCH4Fg7Cpsoy7MNRzi4XeN",
+          "height": 395,
+          "gas_used": "29088845174298",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029088845174298,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131464758677560"
+        },
+        {
+          "block_hash": "GaAxGEDDj2MWTBBagWCwVmSgdwdAnB9ZT8rDna7DzUNn",
+          "height": 396,
+          "gas_used": "28639146195182",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028639146195182,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131465758890492"
+        },
+        {
+          "block_hash": "6R8HYexpyaSxsaauYg1tVZjP2ktEaLTLnEWyjcqbKqSc",
+          "height": 397,
+          "gas_used": "29086496887305",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029086496887305,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131466768498270"
+        },
+        {
+          "block_hash": "GGUDj5VAdtAHkeeLcnwA7itJFj8xYwWZrPgv7SqQsvjZ",
+          "height": 398,
+          "gas_used": "28638722659451",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028638722659451,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131467775169785"
+        },
+        {
+          "block_hash": "7ewygXwbrdrnZmHRbtjg3s48ZvoRC1tja9GeS5MgCtAh",
+          "height": 399,
+          "gas_used": "29085887871302",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029085887871302,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131468781620089"
+        },
+        {
+          "block_hash": "3hsJSwVDGegmjVyYhQnT78jWB8vmhiaRLia9nVrtHFjS",
+          "height": 400,
+          "gas_used": "28636594211499",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028636594211499,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131469784199245"
+        },
+        {
+          "block_hash": "A4AFxTGsmvGm4RDjXViKYV5ZKg2dQQxwBXL5x1AQeu81",
+          "height": 401,
+          "gas_used": "29087124586474",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087124586474,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131470787774181"
+        },
+        {
+          "block_hash": "28pDpMuj54ivvaqR8oBgL8vtJzEMrPLL15ZegWwZvdbm",
+          "height": 402,
+          "gas_used": "28640020534300",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.0286400205343,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131471792230116"
+        },
+        {
+          "block_hash": "oA9Xe8j2k8LC73SyHQ8R5ZaJFY8QBfmtVFikhhxLPyg",
+          "height": 403,
+          "gas_used": "29089533328878",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029089533328878,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131472796219771"
+        },
+        {
+          "block_hash": "9Fmuc979VjqznMgdXQxB3RTeXTyoH2MR8g6vcfVK77YT",
+          "height": 404,
+          "gas_used": "28640592988867",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028640592988867,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131473800338989"
+        },
+        {
+          "block_hash": "BcMrfwaKdjQt2pMiLjbFZ2S319XmTQpVBjxRCxKkLTYw",
+          "height": 405,
+          "gas_used": "29088067450076",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029088067450076,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131474804564429"
+        },
+        {
+          "block_hash": "wwPEztmMrDYpAiFAEuGScQ64PNuERXjfs6XJ6vwvjJG",
+          "height": 406,
+          "gas_used": "28650130887011",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028650130887011,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131475807930014"
+        },
+        {
+          "block_hash": "CU1oCUaqYNWXCTMCtR1woMUcrPumaJNPiC8GUfQ26uWP",
+          "height": 407,
+          "gas_used": "29098317010280",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02909831701028,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131476816066008"
+        },
+        {
+          "block_hash": "As9KfmZetJCwuTKx1wCf8iudyzM42wSpaVtn9zSAxMMZ",
+          "height": 408,
+          "gas_used": "28651007694397",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028651007694397,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131477824062231"
+        },
+        {
+          "block_hash": "6o1DayV8vqikbdpQiycMz6c9o8LQ1FGZu51DAGkpRxy2",
+          "height": 409,
+          "gas_used": "29100762540346",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029100762540346,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131478825632555"
+        },
+        {
+          "block_hash": "Ei8ZRFcQYxCbRJbcz4ibht7hFv5J59WhZdXg7fBCdfrD",
+          "height": 410,
+          "gas_used": "28650760389557",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028650760389557,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131479838575281"
+        },
+        {
+          "block_hash": "7hb9v1jshxu7rM98fGjaCmY8XbpcRgHX95WtRikvTWNT",
+          "height": 411,
+          "gas_used": "29098720093197",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029098720093197,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131480845913564"
+        },
+        {
+          "block_hash": "6BWbpHG26Aqo7AQAEjxhir1wLHYr46tH5fvGY2sucvsm",
+          "height": 412,
+          "gas_used": "28650215085938",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028650215085938,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131481847716825"
+        },
+        {
+          "block_hash": "Hw9ajfwpCdqt1WgHeitoiJtKsXZVeKNVvjVBHCknFkRk",
+          "height": 413,
+          "gas_used": "29099353123125",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029099353123125,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131482860223580"
+        },
+        {
+          "block_hash": "4JTU3SmjGP4cE1bvrVpJGdHoGT8af9Km7oqrhkHmTC2L",
+          "height": 414,
+          "gas_used": "28650297831850",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02865029783185,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131483862779079"
+        },
+        {
+          "block_hash": "2fW5YsRzpcWDUkRb4aBAnWLdM7pf2q6rWAkTK7Biegtm",
+          "height": 415,
+          "gas_used": "29097996045977",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029097996045977,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131484865414836"
+        },
+        {
+          "block_hash": "HZjtMiwJm6YjQXi4pv1XjknBmbYxCMeFPmuBbs4pf3BE",
+          "height": 416,
+          "gas_used": "28646697899805",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028646697899805,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131485871539240"
+        },
+        {
+          "block_hash": "Cp2cFKhnTXz3oeo1gSZBJXa1XsHuSrQnirGnH1gWRvQr",
+          "height": 417,
+          "gas_used": "29092521700404",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029092521700404,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131486874174129"
+        },
+        {
+          "block_hash": "J5zVBpKx8Cr3seZvZsdAQx72ojQKhyFqpVEKUwAbdBbS",
+          "height": 418,
+          "gas_used": "28640638753944",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028640638753944,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131487883780817"
+        },
+        {
+          "block_hash": "Ax2VAWQgXZHEWnNePjJZtwDASEx8NLbWtRDRUeRgYYJy",
+          "height": 419,
+          "gas_used": "29087580872217",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087580872217,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131488886775511"
+        },
+        {
+          "block_hash": "HUJ3mi6q5Yd8745j6ftK2XBDeDMho3msnMsEMxk3kCQ",
+          "height": 420,
+          "gas_used": "28640006699667",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028640006699667,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131489886428391"
+        },
+        {
+          "block_hash": "GkucLBBH9H1u1JUDSSRXmAwxpWBKJyFN5Hm8CRidUzea",
+          "height": 421,
+          "gas_used": "29088148824427",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029088148824427,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131490894455932"
+        },
+        {
+          "block_hash": "Bzb1YUqehyTSALce8EhPnTuQaoYJ3WogWfTnd2EJtyGh",
+          "height": 422,
+          "gas_used": "28638643004338",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028638643004338,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131491898766652"
+        },
+        {
+          "block_hash": "39Fo2Kn9uRwshS7PCTk26AeTUqwp368UN93wVx5TirL4",
+          "height": 423,
+          "gas_used": "29087297444606",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087297444606,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131492902595290"
+        },
+        {
+          "block_hash": "2S3FuHcrfHp6325aEZWFezZGcRNjFTbnqZei2eNjufS3",
+          "height": 424,
+          "gas_used": "28639137179217",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028639137179217,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131493907511670"
+        },
+        {
+          "block_hash": "BYBeQ1MasaX1y8qg34ZnwSRXWxFEGpCrz2zmSKdz1drx",
+          "height": 425,
+          "gas_used": "29087541846377",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087541846377,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131494916539245"
+        },
+        {
+          "block_hash": "5zDEKTQwy4pgNZGeWRqt4CbJRnD1zsbKK8jvZgizgaX2",
+          "height": 426,
+          "gas_used": "28637070555833",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028637070555833,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131495918879935"
+        },
+        {
+          "block_hash": "5WXHBnZyM8vUbfPWCheuXJh61ByACLET3gveBxrBA91w",
+          "height": 427,
+          "gas_used": "29085248415409",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029085248415409,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131496922198218"
+        },
+        {
+          "block_hash": "9VUFzQ68o1j6uW87rGzPwHSHc7sT8HoRFqVN1Ng9Dvru",
+          "height": 428,
+          "gas_used": "28636867762174",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028636867762174,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131497926405307"
+        },
+        {
+          "block_hash": "36pzM26TvLqCeyUXke2wNaDFuaisLAcsAnUuy6YXh5n1",
+          "height": 429,
+          "gas_used": "29087550782689",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029087550782689,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131498926052083"
+        },
+        {
+          "block_hash": "AxjjzMEq1H53YEFuUa2p9JFfsyKboFYfMG4nwUYtbvsP",
+          "height": 430,
+          "gas_used": "28639614194088",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028639614194088,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131499927878211"
+        },
+        {
+          "block_hash": "CStSGwfZqh95g8o95XWkTe4KkGgqW69Qy3imw66yVvzZ",
+          "height": 431,
+          "gas_used": "29086696149718",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029086696149718,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131500929772234"
+        },
+        {
+          "block_hash": "41x7xtg113P5GpV4iNewQGXUmenRG9j6MmknxuDZCoNm",
+          "height": 432,
+          "gas_used": "28637305989645",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028637305989645,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131501934246992"
+        },
+        {
+          "block_hash": "DBYKL8uCLGzjJHtUe2yK9S691cb6jAw9GRnwEgXhiLXu",
+          "height": 433,
+          "gas_used": "29085600798441",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029085600798441,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131502939293521"
+        },
+        {
+          "block_hash": "6DJKknJiffEVqtj7KinKPzaPGHEDnHj5crufLuo8JryN",
+          "height": 434,
+          "gas_used": "28637569397161",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028637569397161,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131503944469410"
+        },
+        {
+          "block_hash": "EpzpBK4ohni1Ja8s6GvaTGsbWy5sSAVssDm2PpUExKKu",
+          "height": 435,
+          "gas_used": "29089240184278",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029089240184278,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131504947209871"
+        },
+        {
+          "block_hash": "CGKtg9qj8RaYe4JrwkzUXQGTVR7CzoZD1hm7s5qmk1Gr",
+          "height": 436,
+          "gas_used": "28641368244821",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028641368244821,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131505949895869"
+        },
+        {
+          "block_hash": "3CuPEpyt9vaLsFAPmBGfBXTZNpfroqVZD7jRmfXpTnRV",
+          "height": 437,
+          "gas_used": "29086863609011",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029086863609011,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131506956769258"
+        },
+        {
+          "block_hash": "8SeM1p7CAhx6N6Co8LakCwo5YUvh8kobGGs2Cyxt5Hsr",
+          "height": 438,
+          "gas_used": "28646965069339",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028646965069339,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131507963114270"
+        },
+        {
+          "block_hash": "42bx7DzWNeM9V1HbBiPtX7fT2mxuPrCQ4EhszGYmZfs7",
+          "height": 439,
+          "gas_used": "29098252835312",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029098252835312,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131508967071847"
+        },
+        {
+          "block_hash": "E7c4tBXFJRH4JfPzSujY81uZDHyDKKHjyk1VZFu3vuJn",
+          "height": 440,
+          "gas_used": "28650517633298",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028650517633298,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131509976564116"
+        },
+        {
+          "block_hash": "DYUMoQECBoKDf7jzU2oqFFKjYthvwYMvjXuvHYAWLJDs",
+          "height": 441,
+          "gas_used": "29098148847881",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029098148847881,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131510978001366"
+        },
+        {
+          "block_hash": "9KKDtDbii16yASJrgBEQmyLxBJjtQLV4TcGeWmcf5HXP",
+          "height": 442,
+          "gas_used": "28649031029232",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028649031029232,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131511981068745"
+        },
+        {
+          "block_hash": "7jhF9DyB3GNUJFqXe3TNvbFc2x4ifU2cv6Smtck4YUB7",
+          "height": 443,
+          "gas_used": "29098357559278",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029098357559278,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131512983824296"
+        },
+        {
+          "block_hash": "5wz5xkm8Kvni4kxFSaRCFtsivjdCUwWjic1f4QMwQdAS",
+          "height": 444,
+          "gas_used": "28649870182339",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028649870182339,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131513993332788"
+        },
+        {
+          "block_hash": "AHGuMCG4ustcruA6ZEn3bGETX3YViH9jDLrJSLTNqW9f",
+          "height": 445,
+          "gas_used": "28787875324959",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028787875324959,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131514996639407"
+        },
+        {
+          "block_hash": "B8RVvYtSYusHZ6f2AGcn9fmBsU49LC1t8bccPXPkqis3",
+          "height": 446,
+          "gas_used": "26516576665891",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.026516576665891,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131516000547747"
+        },
+        {
+          "block_hash": "E8NYKthp1Rc67ydnLMzEZYSUE66dXQbfWZpsjwSViiuX",
+          "height": 447,
+          "gas_used": "25871273242590",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02587127324259,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131517001632934"
+        },
+        {
+          "block_hash": "GftaLxBBoHaQYFXg57K9VZPNaUShuZyDBsenDGaQRnkh",
+          "height": 448,
+          "gas_used": "23601426713290",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02360142671329,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131518006077050"
+        },
+        {
+          "block_hash": "4KSBDaAhkCAQ6NBorFS4NVc3VUase2p81ctjqL7vDUuA",
+          "height": 449,
+          "gas_used": "22957490583384",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.022957490583384,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131519007234814"
+        },
+        {
+          "block_hash": "5vCqQqg3GP5J6qiHbaB2Zc3g63QX8npwXNFVdawmDAPc",
+          "height": 450,
+          "gas_used": "20686246863658",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.020686246863658,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131520020423396"
+        },
+        {
+          "block_hash": "DC87mBAVUV8j8FX971BwRumG1rt9wzp9JWo8n4cCQhp5",
+          "height": 451,
+          "gas_used": "20071213111446",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.020071213111446,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131521023287363"
+        },
+        {
+          "block_hash": "4BTiQLmmCNsmxCJ2rrWByXbQJEV5ZysKxbYWn513iyD3",
+          "height": 452,
+          "gas_used": "17758333988085",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017758333988085,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131522030195747"
+        },
+        {
+          "block_hash": "GvvUANWmgnqwxC2VZQgqsy9ZXNJWaaEDF6kwcV8w6hmC",
+          "height": 453,
+          "gas_used": "17128760046877",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017128760046877,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131523037792412"
+        },
+        {
+          "block_hash": "64WUuPcuCvLTJLdq6XFfSSDvYiBZ5EJn4iaySf8RaqDX",
+          "height": 454,
+          "gas_used": "14843205897452",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014843205897452,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131524039361877"
+        },
+        {
+          "block_hash": "5K9KdStQi6Ytoe2kLPpzi53YqtYoMoSNfZGko6kfMaKq",
+          "height": 455,
+          "gas_used": "14213845994536",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014213845994536,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131525043762168"
+        },
+        {
+          "block_hash": "BPyha3tPAwHmi43NdCVnddLMopzpfijcEbKJxHjvtMs5",
+          "height": 456,
+          "gas_used": "11912768036384",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011912768036384,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131526045662623"
+        },
+        {
+          "block_hash": "3oNS69r3WHKHUuMvTtC2y43MYbKqyjSATyacwPj2xfDq",
+          "height": 457,
+          "gas_used": "11297766887370",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.01129776688737,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131527046390103"
+        },
+        {
+          "block_hash": "4MAm8DJc49XuKm2UKbA25fowtXHCtuogMNdjAWg4bhcB",
+          "height": 458,
+          "gas_used": "8999207806300",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.0089992078063,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131528052529587"
+        },
+        {
+          "block_hash": "3bGeFwtYwsdQ4NF3HHgLykrtSkiny77vo3DaLA9Wkkcs",
+          "height": 459,
+          "gas_used": "8381470408809",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.008381470408809,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131529059355905"
+        },
+        {
+          "block_hash": "6orvCbCZLbf8gBLXV5hLwYHR1vyqrbr8T2W9PL3ctS4K",
+          "height": 460,
+          "gas_used": "6081504965806",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.006081504965806,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131530060013906"
+        },
+        {
+          "block_hash": "FFPuhsFzhdxr6wZNr5vG66obcEvNunT2hz7yV16NpxsP",
+          "height": 461,
+          "gas_used": "5466429608805",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.005466429608805,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131531063422947"
+        },
+        {
+          "block_hash": "5H1pV3UhdekdWtYrEXPLxqXk5TqM7AGH5tG2ahGtqgGd",
+          "height": 462,
+          "gas_used": "3138938984343",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.003138938984343,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131532070796863"
+        }
+      ]
+    },
+    {
+      "phase": 1,
+      "rate_index": 1,
+      "warmup": false,
+      "pipeline": true,
+      "preheat_sec": 30,
+      "observation_start_at": "2026-10-27T20:06:04.533Z",
+      "observation_duration_sec": 60,
+      "time_bins_10s": [
+        {
+          "bin_start_sec": 0,
+          "bin_end_sec": 10,
+          "offered": 10,
+          "accepted": 11,
+          "completed": 10,
+          "queue_at_bin_end": 22
+        },
+        {
+          "bin_start_sec": 10,
+          "bin_end_sec": 20,
+          "offered": 10,
+          "accepted": 9,
+          "completed": 10,
+          "queue_at_bin_end": 22
+        },
+        {
+          "bin_start_sec": 20,
+          "bin_end_sec": 30,
+          "offered": 10,
+          "accepted": 10,
+          "completed": 10,
+          "queue_at_bin_end": 22
+        },
+        {
+          "bin_start_sec": 30,
+          "bin_end_sec": 40,
+          "offered": 10,
+          "accepted": 11,
+          "completed": 10,
+          "queue_at_bin_end": 22
+        },
+        {
+          "bin_start_sec": 40,
+          "bin_end_sec": 50,
+          "offered": 10,
+          "accepted": 10,
+          "completed": 10,
+          "queue_at_bin_end": 22
+        },
+        {
+          "bin_start_sec": 50,
+          "bin_end_sec": 60,
+          "offered": 9,
+          "accepted": 9,
+          "completed": 10,
+          "queue_at_bin_end": 21
+        }
+      ],
+      "session_id": "530150000000",
+      "offered_rate_per_sec": 1,
+      "offered": 90,
+      "phase_started_at": "2026-10-27T20:05:34.533Z",
+      "measurement_window_end_at": "2026-10-27T20:07:04.533Z",
+      "generation_ended_at": "2026-10-27T20:07:03.529Z",
+      "drained": true,
+      "completed": 90,
+      "successful_sink_completions": 90,
+      "submission_attempts_in_measurement_window": 60,
+      "offered_call_rate_in_measurement_window": 1,
+      "successful_completions_in_measurement_window": 60,
+      "measured_window_goodput_per_sec": 1,
+      "failures": 0,
+      "unfinished_at_120s": 0,
+      "in_flight_at_measurement_window_end": 21,
+      "drain_time_after_window_ms": 21060,
+      "offered_generator_rate_per_sec": 0.9999962923581912,
+      "mean_generator_schedule_lag_ms": -0.2018770666734781,
+      "drained_successes_per_measurement_second": 1.5,
+      "client_queue_depth_high_water": 1,
+      "client_inflight_high_water": 22,
+      "mean_client_queue_delay_ms": 3.0152486111140915,
+      "rpc_load_path_by_method": {
+        "block": {
+          "calls": 90,
+          "errors": 0,
+          "total_ms": 77.56475499924272,
+          "mean_ms": 0.8618306111026969,
+          "p95_ms": 1.0030799999367446
+        },
+        "query": {
+          "calls": 270,
+          "errors": 0,
+          "total_ms": 366.44162200030405,
+          "mean_ms": 1.3571911925937188,
+          "p95_ms": 1.778625999984797
+        },
+        "send_tx": {
+          "calls": 270,
+          "errors": 180,
+          "total_ms": 1853573.395157999,
+          "mean_ms": 6865.08664873333,
+          "p95_ms": 10005.569762
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "block": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "query": {
+          "calls": 1800,
+          "errors": 0,
+          "total_ms": 20001.519436000846,
+          "mean_ms": 11.111955242222692,
+          "p95_ms": 22.530336000025272
+        },
+        "send_tx": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "receipt_tree_waiting_method_counts": {
+        "query": {
+          "calls": 270,
+          "errors": 0,
+          "total_ms": 366.44162200030405,
+          "mean_ms": 1.3571911925937188,
+          "p95_ms": 1.778625999984797
+        }
+      },
+      "block_usage_samples": [
+        {
+          "block_hash": "DHb4eCtuwitujVpsu8C5gtZztJN1MyyfGwQx5z9r5Vpp",
+          "height": 465,
+          "gas_used": "0",
+          "gas_limit": "1000000000000000",
+          "utilization": 0,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131535078103884"
+        },
+        {
+          "block_hash": "Dbq7fHt33GGM9k1qR21Uh9gszFyWdxYmLQVKwLU1TuzE",
+          "height": 466,
+          "gas_used": "312446401780",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00031244640178,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131536085156214"
+        },
+        {
+          "block_hash": "2B6zj2YTgDJwedeR7jEKjkigqjLNsVqc1suvSjhScPJf",
+          "height": 467,
+          "gas_used": "2453658147993",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.002453658147993,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131537090131532"
+        },
+        {
+          "block_hash": "5mHg7QHDQHQ9cbAkk1j4N6nCUdAPLUT5qho8EhdHW7WC",
+          "height": 468,
+          "gas_used": "5380110545074",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.005380110545074,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131538090108854"
+        },
+        {
+          "block_hash": "8uLx56xXeis9gcRC8GXeZutZZV5hTTEY7qjG1Ef3M1SQ",
+          "height": 469,
+          "gas_used": "8305627637358",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.008305627637358,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131539092640601"
+        },
+        {
+          "block_hash": "E694vbpWpZXA1yLM77gZpqYf4icFbnSuPKQ33ZPLpbtT",
+          "height": 470,
+          "gas_used": "11229658409077",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011229658409077,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131540099741018"
+        },
+        {
+          "block_hash": "4MUixw6hkoyzL7o2ULARFvgug4wWKDzfoY7x2wM8NYDr",
+          "height": 471,
+          "gas_used": "14156850131557",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014156850131557,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131541103117563"
+        },
+        {
+          "block_hash": "E1YnhJ7w39G3Lt8jWVwtm2DBT1MvYzGWtAitsn1p6aXU",
+          "height": 472,
+          "gas_used": "17053619681518",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017053619681518,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131542106129482"
+        },
+        {
+          "block_hash": "EaJ6kQT3wB75PKpWeanVjc5T9kJNKu6aCWv6tM9LRbjp",
+          "height": 473,
+          "gas_used": "19990699103854",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.019990699103854,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131543109433389"
+        },
+        {
+          "block_hash": "7cmzmM9VAJs6kCnKweL3Yte2tGjgfTHfAmxwkMu6j9tQ",
+          "height": 474,
+          "gas_used": "22947968308887",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.022947968308887,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131544110889583"
+        },
+        {
+          "block_hash": "CRN8zbpU2KE33EApCXeDGWhtF5uBJG7t6pWkj8HdpGRM",
+          "height": 475,
+          "gas_used": "25874646030350",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.02587464603035,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131545122422157"
+        },
+        {
+          "block_hash": "4wajtWo1R2XRBk5sQ4iS47JoqrVqCBBKY2qG3ADfUYnA",
+          "height": 476,
+          "gas_used": "28800209667282",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.028800209667282,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131546127065137"
+        },
+        {
+          "block_hash": "CYpQF31bMMEvs5JJKQSYESbY76AyoyFpPC1oLsYcAuTr",
+          "height": 477,
+          "gas_used": "31741580738995",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.031741580738995,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131547133145443"
+        },
+        {
+          "block_hash": "FBj97Vqq5w7UMKtEtGjuvN3DDgPszGncsBDLkj6ZP2NC",
+          "height": 478,
+          "gas_used": "34670332998333",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.034670332998333,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131548141156535"
+        },
+        {
+          "block_hash": "7PQ7GNnD9GfituXLgZ4p8Ds297FAucM9XMW8nHFC5zMd",
+          "height": 479,
+          "gas_used": "37595726203041",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.037595726203041,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131549150926114"
+        },
+        {
+          "block_hash": "BgQHhYn4U2pDFXpKLL6FAm9gV7ma8KMTwu1Eoa1vCSpL",
+          "height": 480,
+          "gas_used": "40520878376955",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.040520878376955,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131550161346688"
+        },
+        {
+          "block_hash": "FyH6Gmc479LvZG5NuPvjhZRN2pvafZr1KcNFrMWUkmeh",
+          "height": 481,
+          "gas_used": "43450061737397",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.043450061737397,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131551169092126"
+        },
+        {
+          "block_hash": "7S7wBMQRpJgLxGdJMcUQct2wFz9DC8ifHRSJukPiTuXW",
+          "height": 482,
+          "gas_used": "46377344430645",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.046377344430645,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131552176148483"
+        },
+        {
+          "block_hash": "ExrQgRcD5w8k3B9mWu7Syo5gCQQSuzakp8AL2Q4R7JCk",
+          "height": 483,
+          "gas_used": "49329704629275",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.049329704629275,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131553186595510"
+        },
+        {
+          "block_hash": "8moWCGqH6vBHStUik5tv9XyV4UBUA8ivH9fRESuohY3Y",
+          "height": 484,
+          "gas_used": "52261083042409",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.052261083042409,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131554195817664"
+        },
+        {
+          "block_hash": "5ykNYkTWPqTAypcQ9ZPkDiUkqWybfYTDsC4UNoypC4FK",
+          "height": 485,
+          "gas_used": "55191222188245",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.055191222188245,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131555206210585"
+        },
+        {
+          "block_hash": "CWYHzqzt9dGycodEWAoGHZBy3a1B1XiBPfAYTB5sRGCR",
+          "height": 486,
+          "gas_used": "57746622330294",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057746622330294,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131556208523258"
+        },
+        {
+          "block_hash": "DGishLr4xDT7PEs7CRkJuoCmTD5vSMQKZGPxGv6ZSscz",
+          "height": 487,
+          "gas_used": "57968702331633",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057968702331633,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131557211261267"
+        },
+        {
+          "block_hash": "EKFbdEHnarvraCL4FPBT92SG9ufRQfZ5UvPTUiEAVtBL",
+          "height": 488,
+          "gas_used": "57970157788217",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057970157788217,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131558211973281"
+        },
+        {
+          "block_hash": "J3822m8u5LFkfS6tkGYDLjtktxhqs5bBuZVujkrgm5eg",
+          "height": 489,
+          "gas_used": "57970455441120",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05797045544112,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131559214724196"
+        },
+        {
+          "block_hash": "5JesVSrZTKa3KBJZF6hTt1ekjLcFWBJE2tk6mzkQ5AXV",
+          "height": 490,
+          "gas_used": "57974957056607",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057974957056607,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131560221816397"
+        },
+        {
+          "block_hash": "FPnzkwJ7Dy1YAEMkD7dmuKLEq3oKSanHRJbCEBfr8XfA",
+          "height": 491,
+          "gas_used": "57975801149492",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057975801149492,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131561227172800"
+        },
+        {
+          "block_hash": "8RYQJHTkANtJjsdH4SXWdaZ6BafLiBNvkh2GZ5VguzZw",
+          "height": 492,
+          "gas_used": "57976834794691",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057976834794691,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131562238268832"
+        },
+        {
+          "block_hash": "EBKnu9iyFgpmtueeHyY6aH1VqtHCT2aSPaz3WrE3K4qj",
+          "height": 493,
+          "gas_used": "57977803317730",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05797780331773,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131563239795673"
+        },
+        {
+          "block_hash": "48XMytHDPmS8wEzf3F4nnkXRjUdHthE24zMBtaQcpuDT",
+          "height": 494,
+          "gas_used": "57974507388423",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057974507388423,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131564250816095"
+        },
+        {
+          "block_hash": "6j478ecXYLj1eGkNJhCvEtyg3oYk79NVfA45Jajcf58F",
+          "height": 495,
+          "gas_used": "57973642722774",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973642722774,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131565255210638"
+        },
+        {
+          "block_hash": "F9BVUyQoxtdGf8SwZ9mnU5pYU2yyX7QAbkb5RUbXjWgP",
+          "height": 496,
+          "gas_used": "57973088799154",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973088799154,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131566257637673"
+        },
+        {
+          "block_hash": "3BQQhRjnMgmSQRppHF9rHN47cXnJ2wW6fb9qkyMhvvo9",
+          "height": 497,
+          "gas_used": "57970659878209",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057970659878209,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131567258852899"
+        },
+        {
+          "block_hash": "55iuVRDK45STip2eNWQoLkCZP2cPbhkL7VymEy6rE3qN",
+          "height": 498,
+          "gas_used": "57970253502486",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057970253502486,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131568262628850"
+        },
+        {
+          "block_hash": "HHcDAY88kFQxZP7ffgJQTRT4ERc2VhgwGvKQTwtdwAGY",
+          "height": 499,
+          "gas_used": "57970543711748",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057970543711748,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131569264229571"
+        },
+        {
+          "block_hash": "E2JLkoqS3Jy146McVtBLD2xH381sTDzKssBaTuzvdb72",
+          "height": 500,
+          "gas_used": "57969633313297",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057969633313297,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131570266792485"
+        },
+        {
+          "block_hash": "2bLNFkU6Kjm4w4D71u1U9op1q42jiMhebr5eWMzx77vQ",
+          "height": 501,
+          "gas_used": "57973091149554",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973091149554,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131571268571507"
+        },
+        {
+          "block_hash": "C97y2pQB4NhTmGb76kCt4RwVMT7G8JkvGmsaHfnySTgv",
+          "height": 502,
+          "gas_used": "57974519611895",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057974519611895,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131572270930229"
+        },
+        {
+          "block_hash": "EjzuKTdgQiAmHv58oK1KxAWtRP2SYgQbp4HJ7rBfn2j3",
+          "height": 503,
+          "gas_used": "57975410560134",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057975410560134,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131573274118324"
+        },
+        {
+          "block_hash": "Ej7RdAy7mycdYfhaRw1zXTxAeUTRJcfaU42g9K3TG8gL",
+          "height": 504,
+          "gas_used": "57974849231710",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05797484923171,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131574274633417"
+        },
+        {
+          "block_hash": "FNGYZXFdRHZ2WT1M6vdBwA4j6iYV5qiwbc4pzoiSK3KG",
+          "height": 505,
+          "gas_used": "57973278665075",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973278665075,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131575275496802"
+        },
+        {
+          "block_hash": "2wA9mXXEbkwi39W42TX5aUN8U5gPpH5mhRCLi8DRHp24",
+          "height": 506,
+          "gas_used": "57973236112475",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973236112475,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131576277313267"
+        },
+        {
+          "block_hash": "GfexMWBfbLhHfunVYkHS5DPoLJLTB44CfKeS3capTVQe",
+          "height": 507,
+          "gas_used": "57972637407587",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057972637407587,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131577281875403"
+        },
+        {
+          "block_hash": "5AEBaMCzLs38S9ejoiVdySePMet2t5hPUDGEPts4ZdEg",
+          "height": 508,
+          "gas_used": "57970139253406",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057970139253406,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131578284594007"
+        },
+        {
+          "block_hash": "F8bE3oxo8sqWHrxXHiWrFE8rmocUMjjeHswK1obbbWv7",
+          "height": 509,
+          "gas_used": "57968995828055",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057968995828055,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131579288711737"
+        },
+        {
+          "block_hash": "HHJSk22PQR4zYuB7e3uvwoJJu2AboSUNgfeqaKZb6eNE",
+          "height": 510,
+          "gas_used": "57971352971407",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057971352971407,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131580294409394"
+        },
+        {
+          "block_hash": "9wvbrSh3waeokqndCrSRNG6kz5AfeYricgunhgpf7aXM",
+          "height": 511,
+          "gas_used": "57973505196926",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057973505196926,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131581298846660"
+        },
+        {
+          "block_hash": "94CuyoWyRhMpKDmFetGNTPVj9sNHwvpT8RVnKbestX27",
+          "height": 512,
+          "gas_used": "57965997266530",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05796599726653,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131582300615625"
+        },
+        {
+          "block_hash": "7NDn7z7FU6CFGgKKh4m9snSXaEcsD4M5asYraAQAu3RD",
+          "height": 513,
+          "gas_used": "57955838481977",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057955838481977,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131583301645174"
+        },
+        {
+          "block_hash": "4oEYeHs1hYHkBASxRHTidKVY3tAq5sLyD61C9SRJgfQB",
+          "height": 514,
+          "gas_used": "57938029811089",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057938029811089,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131584303310720"
+        },
+        {
+          "block_hash": "2Ev7a7zXRA1F4Vm1Vs5FxWWXxFHcTeys3ZdFdobJ1XLC",
+          "height": 515,
+          "gas_used": "57921027788193",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057921027788193,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131585305116013"
+        },
+        {
+          "block_hash": "915XmEjVARBHnLPzWAqPRUiNiNEhB83sSoMeYJ4m5L9A",
+          "height": 516,
+          "gas_used": "57910985290051",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057910985290051,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131586307957644"
+        },
+        {
+          "block_hash": "G1DxreYvWw4eLaY71J5k6P9frkNCY739JuDcMF6KYNBV",
+          "height": 517,
+          "gas_used": "57896952241760",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05789695224176,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131587311624408"
+        },
+        {
+          "block_hash": "39KbREYy9S5pRjjsd7Z1HcB95SzPabotAj1Z9rhsoKGB",
+          "height": 518,
+          "gas_used": "57884163550144",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057884163550144,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131588316689442"
+        },
+        {
+          "block_hash": "Fz6Ctxo29x6YJNnEtanL4z7t3kyKuNxonvWGY6am1MK8",
+          "height": 519,
+          "gas_used": "57873642705226",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057873642705226,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131589319714036"
+        },
+        {
+          "block_hash": "DDMXqsqev7AXNLVZMvN11mdVUEcn1e8ZJun8xbeFCjat",
+          "height": 520,
+          "gas_used": "57861994309625",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057861994309625,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131590335672965"
+        },
+        {
+          "block_hash": "AEq1JKnHJtNd52pmwDdSv1kn7XLZbCjHUMj14sCFsqDp",
+          "height": 521,
+          "gas_used": "57851391656177",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057851391656177,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131591334530250"
+        },
+        {
+          "block_hash": "DV74YjuoiNs5YNHagqcn8ZjBj22cL9EACXNpKEgjrzJP",
+          "height": 522,
+          "gas_used": "57837555880693",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057837555880693,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131592344291290"
+        },
+        {
+          "block_hash": "B9mr1qbLwTSN8rVv5HRSaHYjLhR1sogCVXs1eapSKxqx",
+          "height": 523,
+          "gas_used": "57826392297208",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057826392297208,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131593346108917"
+        },
+        {
+          "block_hash": "ADhbaSfEgkH3bVXun4NscCKt68rkDrfUjrvEjdv8sNbu",
+          "height": 524,
+          "gas_used": "57817173907989",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057817173907989,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131594346188809"
+        },
+        {
+          "block_hash": "7ajwcroRBdFHUhqgKYQrrmxqXoUp8veuhTbgjf8jyDwy",
+          "height": 525,
+          "gas_used": "57805138531525",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057805138531525,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131595354288463"
+        },
+        {
+          "block_hash": "CmJz4xn5co8xcnJKaNgUkrLYM4ckzC6FEeUMXXtb3fGq",
+          "height": 526,
+          "gas_used": "57795028571255",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057795028571255,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131596355580460"
+        },
+        {
+          "block_hash": "2ZeQNkDaUygA13tR1BavYGLcVNQQ4283x3rUcPd9pdYs",
+          "height": 527,
+          "gas_used": "57784934823801",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057784934823801,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131597359153702"
+        },
+        {
+          "block_hash": "2LEwgy3eXiUK6beeBHTB11TLrxFynBTof5dbkLNFKDin",
+          "height": 528,
+          "gas_used": "57772844869708",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057772844869708,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131598365498388"
+        },
+        {
+          "block_hash": "CV1r3352sgd3sADh7qCtWbaX1RDxPoY7a1SZ4DxVHgKv",
+          "height": 529,
+          "gas_used": "57761157360586",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057761157360586,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131599372583184"
+        },
+        {
+          "block_hash": "AahchyAUhVzu2bmy6eAkSoRk8jUdGpQiwFZu9hQW8TFX",
+          "height": 530,
+          "gas_used": "57742334878946",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057742334878946,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131600374984529"
+        },
+        {
+          "block_hash": "Bsf2vtcF1tLPCczxP3SFj6wLB8W3HbjsYoUppUX72ohF",
+          "height": 531,
+          "gas_used": "57726127454156",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057726127454156,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131601376456764"
+        },
+        {
+          "block_hash": "5hRyQCHZm9mZrf4jRrgQXT7uGFbXvL53qBrcYQhFE75Q",
+          "height": 532,
+          "gas_used": "57722610232512",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057722610232512,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131602376495472"
+        },
+        {
+          "block_hash": "65y7c9GtejHH5SmwVxUVWtUGn4oYdBeYanKFziEszTNq",
+          "height": 533,
+          "gas_used": "57723247812481",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057723247812481,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131603387650894"
+        },
+        {
+          "block_hash": "58mYjQvcukveYuXPGWy5KLQZuF1Nxmbq5VvtFSDx87qo",
+          "height": 534,
+          "gas_used": "57736762780026",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057736762780026,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131604391013677"
+        },
+        {
+          "block_hash": "EZ3dePckKR5wvUnhUPUDzwp3iq8Dfwt72UsN2zCuqAws",
+          "height": 535,
+          "gas_used": "57735229161281",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057735229161281,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131605396647177"
+        },
+        {
+          "block_hash": "JB1Y5HCoFqZnuFzLcgMz5vNA8UEZygAgBYqCMDhqt2jc",
+          "height": 536,
+          "gas_used": "57734790467362",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057734790467362,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131606400579953"
+        },
+        {
+          "block_hash": "CoQFp54LFzLLeoUEkKpUMFjRFh63jug3qynnQgAS4X9B",
+          "height": 537,
+          "gas_used": "57736686342211",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057736686342211,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131607410785422"
+        },
+        {
+          "block_hash": "7dmaBHSpAxbUuPiZZF1PSfKEvoGUCmXuWjWx6hDGz1Bk",
+          "height": 538,
+          "gas_used": "57736066241803",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057736066241803,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131608415370811"
+        },
+        {
+          "block_hash": "2CVyjyZhW8hmGbyKPKkrNit8vR2zKcqjcsF9xEFEYYvt",
+          "height": 539,
+          "gas_used": "57737149608670",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05773714960867,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131609418960714"
+        },
+        {
+          "block_hash": "DEKqdaS51MYeEYL4TXxTv2GTGUsW6pcwkgvqF3Aqm8E",
+          "height": 540,
+          "gas_used": "57739417259629",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057739417259629,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131610427724655"
+        },
+        {
+          "block_hash": "Ahq2X1uj54on7nCrRkhVc7iMScsAMvNZcfbw5Z2hX1rp",
+          "height": 541,
+          "gas_used": "57737012282425",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057737012282425,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131611431211012"
+        },
+        {
+          "block_hash": "8CVcFAZMNXzNP5WAyWkX1m3kNeyHn4ZPH1ap4K8s4wYt",
+          "height": 542,
+          "gas_used": "57738405989411",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057738405989411,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131612443685336"
+        },
+        {
+          "block_hash": "A5GGV6wBjXi4YZf8DSLNdvWEDsUKWVaB5xDVkZRHJueb",
+          "height": 543,
+          "gas_used": "57737880623811",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057737880623811,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131613446058932"
+        },
+        {
+          "block_hash": "B7kDYfQUsiD5cEEy8UB7k5pkd1SCyBi7t2v3YSVyBZHk",
+          "height": 544,
+          "gas_used": "57736000655899",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057736000655899,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131614448337766"
+        },
+        {
+          "block_hash": "5btt2M5bLGacjYsLTv5PD6tDqepb1PKt2VtfNkJe9b3k",
+          "height": 545,
+          "gas_used": "57736520964391",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057736520964391,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131615453081228"
+        },
+        {
+          "block_hash": "4C5EwSccQiwjwtg5DsWSLSitm8tLK9tsEmMnxPMtFQmB",
+          "height": 546,
+          "gas_used": "57730359800028",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057730359800028,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131616457129228"
+        },
+        {
+          "block_hash": "GkNjQ6e7bd3csqi48HJWUU9fRfQCH3Vw2WrrYfiuRwzj",
+          "height": 547,
+          "gas_used": "57726247780621",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057726247780621,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131617461113283"
+        },
+        {
+          "block_hash": "8brPAboJcFvxft4r1fM6nLYtsvzh6iwLFhdASwFfkbfS",
+          "height": 548,
+          "gas_used": "57725766335659",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057725766335659,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131618461612855"
+        },
+        {
+          "block_hash": "3uMgQmBW9NCFQFAegMrxBm7Khz2agvPbjfrkD4JVamTq",
+          "height": 549,
+          "gas_used": "57725537764073",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057725537764073,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131619462889851"
+        },
+        {
+          "block_hash": "F4zXVcfr7o6ftnFKYiEUTrea7JqLhhX4pdg752NKYvLY",
+          "height": 550,
+          "gas_used": "57737480988001",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057737480988001,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131620465588160"
+        },
+        {
+          "block_hash": "9a8xvUjHwwXurrTZFRfCgrnymWjyEVHcub6mdvXp2UiU",
+          "height": 551,
+          "gas_used": "57737007698333",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057737007698333,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131621478510951"
+        },
+        {
+          "block_hash": "3rR3x5vr8WHzEPaDCHWF9f4CxQepr8qgFmE4q337x1QC",
+          "height": 552,
+          "gas_used": "57738068259904",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057738068259904,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131622481028505"
+        },
+        {
+          "block_hash": "FvauseMGQuSVBv2JsdHLhgA7fdhfGNdQifiYDUYUTg5L",
+          "height": 553,
+          "gas_used": "57738055562256",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057738055562256,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131623483060340"
+        },
+        {
+          "block_hash": "JD8F8kmHx1heP8nAVAR2pHdqGz5Nyj8VaMVk2SRGsGwk",
+          "height": 554,
+          "gas_used": "57737405610760",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05773740561076,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131624489433559"
+        },
+        {
+          "block_hash": "EE7zGEG8SWtKQP6mjYtnbUWM324S4cQc4BHYgc5EWCxr",
+          "height": 555,
+          "gas_used": "57738541039263",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057738541039263,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131625494078315"
+        },
+        {
+          "block_hash": "JBH1itFqDRmjFt2DUGFM7ti4uYaZoPeVJmCpqmFKkbMM",
+          "height": 556,
+          "gas_used": "57426718729317",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.057426718729317,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131626503563682"
+        },
+        {
+          "block_hash": "CpXx1gBsMtrs5aPLKL88gLS5o3TwQDZGv1g8q3XejVqg",
+          "height": 557,
+          "gas_used": "55290335569971",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.055290335569971,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131627514295317"
+        },
+        {
+          "block_hash": "DzMwMbZns7ooDD2WCWW1BXtPPVCNqdSWSHNtycDCkoqa",
+          "height": 558,
+          "gas_used": "52374629222240",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.05237462922224,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131628509716612"
+        },
+        {
+          "block_hash": "7vPxPwKhPviWDsiUgcktzcSinSKF9zUnorPdEuDCEsx8",
+          "height": 559,
+          "gas_used": "49460694708941",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.049460694708941,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131629515417428"
+        },
+        {
+          "block_hash": "4XLwp91QcqgT5Wu6wvAMQ7LoqVzSwuqauqQa4WzZyLBX",
+          "height": 560,
+          "gas_used": "46545652021662",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.046545652021662,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131630520960228"
+        },
+        {
+          "block_hash": "CFG3dCjD2SiXcVcJ4iajcvh1QUXSq7QBBFv7TcRqR4Yv",
+          "height": 561,
+          "gas_used": "43630228819863",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.043630228819863,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131631525691409"
+        },
+        {
+          "block_hash": "C7bVLCjU19N5mR2mesSKQ9TBwzFsgzYG22rgben46tPm",
+          "height": 562,
+          "gas_used": "40744447685731",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.040744447685731,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131632527944934"
+        },
+        {
+          "block_hash": "4iMBskWDT8y6qiM5txBqMEnF33Nk5Q2Q1WPcwx1TBR9t",
+          "height": 563,
+          "gas_used": "37818473314318",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.037818473314318,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131633533808921"
+        },
+        {
+          "block_hash": "4vV7fx5g2V4PM3fzawnasBE6CZhGB6Y2NuSTRwPRtc15",
+          "height": 564,
+          "gas_used": "34878724368663",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.034878724368663,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131634536298751"
+        },
+        {
+          "block_hash": "9qYPhfmkZp6gPGhrusTnWXuFHmiQUj8F1RL2VkGwAqPU",
+          "height": 565,
+          "gas_used": "31962031901002",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.031962031901002,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131635543779012"
+        },
+        {
+          "block_hash": "8KEERksLZ5KbE5qwrM1J2BxMeWXqV1KxG72RtCrKpEx3",
+          "height": 566,
+          "gas_used": "29056402169122",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.029056402169122,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131636545850299"
+        },
+        {
+          "block_hash": "7X6BqKVtw9dUPrbrpZzZihy78QPgCb7RgNXFVeeU7Jem",
+          "height": 567,
+          "gas_used": "26128362830888",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.026128362830888,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131637556569434"
+        },
+        {
+          "block_hash": "3cLSiDEoEn4dAqG4bqAnUu3BnLfEcRrREBSnrvL67Rqw",
+          "height": 568,
+          "gas_used": "23213816911811",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.023213816911811,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131638559996139"
+        },
+        {
+          "block_hash": "GWpxyYxm92YNai9pKxfccbduBCuW6ciVMpqmhEqGUTRs",
+          "height": 569,
+          "gas_used": "20296241367785",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.020296241367785,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131639567484155"
+        },
+        {
+          "block_hash": "3kb5hXP54Vuob5eEhoRC5WaFyebeqbCw5smYi22GiG8u",
+          "height": 570,
+          "gas_used": "17380462261218",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.017380462261218,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131640571636267"
+        },
+        {
+          "block_hash": "Fq6FnCUu9vBTGY15aTnTk6YQtztPuYpBMvgjzoNLD2U",
+          "height": 571,
+          "gas_used": "14464164842033",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.014464164842033,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131641572527677"
+        },
+        {
+          "block_hash": "FzVrktcHpHNJMoceqWkxXxzLuJzuKvhU5totvL55XLDh",
+          "height": 572,
+          "gas_used": "11548378330662",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.011548378330662,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131642578129079"
+        },
+        {
+          "block_hash": "4h3vpNJYXaJaC1bbbMm9cmsVvhFURpn9xGmN1EG2BrEo",
+          "height": 573,
+          "gas_used": "8605148443120",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.00860514844312,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131643585583482"
+        },
+        {
+          "block_hash": "HVdu7YkDDtZbfxDmEPgvRJc8vtp6KXbqonYmpBxmG1uD",
+          "height": 574,
+          "gas_used": "5688387643472",
+          "gas_limit": "1000000000000000",
+          "utilization": 0.005688387643472,
+          "chunk_count": 1,
+          "timestamp_nanosec": "1793131644594148592"
+        }
+      ]
+    }
+  ]
+}

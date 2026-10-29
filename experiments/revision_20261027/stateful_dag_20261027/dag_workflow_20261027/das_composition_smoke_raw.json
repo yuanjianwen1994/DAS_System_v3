@@ -1,0 +1,187 @@
+{
+  "experiment": "DAS-local parameterized stateful DAG composition",
+  "completed_profile_repeats": [
+    {
+      "repeat": 1,
+      "profile": {
+        "profile_id": "dag-01-chain-d2-w1-theta1-nu1",
+        "shape": "chain",
+        "dependency_depth_d": 2,
+        "parallel_width_w": 1,
+        "cross_execution_domain_edge_fraction_p": 0.0,
+        "cross_contract_edge_fraction_near_multicontract": 1.0,
+        "concurrent_workflows_nu": 1,
+        "workflows_per_session_theta": 1,
+        "sessions_per_profile": 2,
+        "fresh_sandbox_repeats": 3,
+        "operations_per_node": 16,
+        "node_count": 2,
+        "edge_count": 1,
+        "parents": [
+          [],
+          [
+            0
+          ]
+        ],
+        "successors": [
+          [
+            1
+          ],
+          []
+        ],
+        "execution_domain_by_node": [
+          0,
+          0
+        ]
+      },
+      "runtime": {
+        "chain_id": 31337,
+        "block_number_after_profile": 13
+      },
+      "local_type_ii_session_mode": [
+        {
+          "session_id": "101001000000",
+          "workflow_ids": [
+            "101001000001"
+          ],
+          "migration_in": {
+            "tx_hash": "5889c3f74cd5cfccdf63553ea2e488d2ec89295c9d488b26cd46fd93342bbcfe",
+            "status": 1,
+            "gas_used": 69780,
+            "block_number": 2,
+            "transaction_index": 0
+          },
+          "workflow_execution": {
+            "tx_hash": "55f23698fd29c920b243b3c180b09df08af55d1bf1352cae1b76079ae4f6bf2b",
+            "status": 1,
+            "gas_used": 170892,
+            "block_number": 3,
+            "transaction_index": 0
+          },
+          "migration_out": {
+            "tx_hash": "caab7f23523073b7e673dc840ba2d525c143eac98a450389d154c7580a37e095",
+            "status": 1,
+            "gas_used": 53161,
+            "block_number": 4,
+            "transaction_index": 0
+          },
+          "complete_session_gas": 293833,
+          "gas_per_workflow_within_batched_execution": 170892.0,
+          "session_block_window": 2,
+          "session_state": {
+            "active": false,
+            "expected_workflows": 1,
+            "executed_workflows": 1,
+            "aggregate": "17860161848896578510"
+          },
+          "workflow_checksums": [
+            "8930080924448289255"
+          ],
+          "node_checksums": [
+            [
+              "14934695649286377905",
+              "4390866428135253870"
+            ]
+          ],
+          "checksums_match_near_same_receiver": true,
+          "failure_probe": {
+            "workflow_id": "10001999999",
+            "fail_at_node": 1,
+            "separate_probe_session": "101901000000",
+            "probe_migration_in": {
+              "tx_hash": "5a38fdd984e2e171afed7b02cc9bd475577547ddf6817a71dad7ccb4ca6437da",
+              "status": 1,
+              "gas_used": 69780,
+              "block_number": 5,
+              "transaction_index": 0
+            },
+            "tx_hash": "a16dc2f2251747da696f518f327636d398280b2784965d5091460353f0608a4f",
+            "status": 0,
+            "gas_used": 90607,
+            "block_number": 6,
+            "transaction_index": 0,
+            "abort_cleanup": {
+              "tx_hash": "ae50ae95ad445cdf934e18d3bf0368cfc68daddbfe09216b5cd4799689b9eb40",
+              "status": 1,
+              "gas_used": 27456,
+              "block_number": 7,
+              "transaction_index": 0
+            },
+            "unfinished_and_rolled_back": true
+          }
+        },
+        {
+          "session_id": "101002000000",
+          "workflow_ids": [
+            "101002000001"
+          ],
+          "migration_in": {
+            "tx_hash": "3ee7660f3cb89f5f99b11503ce0248bf13e9c8bb105e3ce8991ed2c7e4834d58",
+            "status": 1,
+            "gas_used": 69768,
+            "block_number": 8,
+            "transaction_index": 0
+          },
+          "workflow_execution": {
+            "tx_hash": "536a541686dff4ea668462f1141687b5317d0f706c045cf2bc371531cdec44fe",
+            "status": 1,
+            "gas_used": 170892,
+            "block_number": 9,
+            "transaction_index": 0
+          },
+          "migration_out": {
+            "tx_hash": "2f29078cabde58bbebda9c62a6ddc4ee51859862e6b15bd6453a23d8a1f54cbb",
+            "status": 1,
+            "gas_used": 53161,
+            "block_number": 10,
+            "transaction_index": 0
+          },
+          "complete_session_gas": 293821,
+          "gas_per_workflow_within_batched_execution": 170892.0,
+          "session_block_window": 2,
+          "session_state": {
+            "active": false,
+            "expected_workflows": 1,
+            "executed_workflows": 1,
+            "aggregate": "16237576562611744514"
+          },
+          "workflow_checksums": [
+            "8118788281305872257"
+          ],
+          "node_checksums": [
+            [
+              "15135034403537962937",
+              "17306794020447927014"
+            ]
+          ],
+          "checksums_match_near_same_receiver": true,
+          "failure_probe": {
+            "workflow_id": "10001999999",
+            "fail_at_node": 1,
+            "separate_probe_session": "101902000000",
+            "probe_migration_in": {
+              "tx_hash": "ba3bf583bcb1f94fa74bff0a76cbb6068063009273079ae4c6a18bf84aa27ffa",
+              "status": 1,
+              "gas_used": 69768,
+              "block_number": 11,
+              "transaction_index": 0
+            },
+            "tx_hash": "03bbcd8acccc8f59563f901a58e3af63113651089e202f660fa6443be7934bcc",
+            "status": 0,
+            "gas_used": 90607,
+            "block_number": 12,
+            "transaction_index": 0,
+            "abort_cleanup": {
+              "tx_hash": "1f0dc48665b4e1bd225776eacc55154a633a64d02df155bd53e466674cea14f6",
+              "status": 1,
+              "gas_used": 27456,
+              "block_number": 13,
+              "transaction_index": 0
+            },
+            "unfinished_and_rolled_back": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "captured_at_utc": "2026-10-28T09:17:43.056Z",
+  "seed": [
+    20261032
+  ],
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "scenarios": [
+    "poisson_d8"
+  ],
+  "pipeline_mode": "1",
+  "preheat_sec": 0,
+  "observation_sec": 20,
+  "receipt_timeout_ms": 120000,
+  "read_timeout_ms": 15000,
+  "read_attempts": 3,
+  "rpc_proxy_timeout_ms": 60000,
+  "diagnostic_light": false,
+  "rates_per_sec": [
+    0.5,
+    1
+  ],
+  "schedule_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/seed20261032_near_auditfix_verify2/input/poisson_d8_seed20261032_smoke_prefix.json",
+  "schedule_sha256": "43952f0ae155175c136169cb2fa9867fb7e09308ffa6235010a6039588c0b659",
+  "runner_sha256": "93c51c2152fccabd229bbc7e0fe6ddabe1a319a8f34d11aa7dc9447c50fc68fc",
+  "per_rate_expected_counts": {
+    "1": {
+      "expected_total": 8,
+      "phase_offset_sec": 0.8318420505783274,
+      "offsets_sha256": "b0aaac11eb0cc660e600985631c038295dfbea0bb6818da8c4f800ae14724fe0"
+    },
+    "0.5": {
+      "expected_total": 8,
+      "phase_offset_sec": 0.8318420505783274,
+      "offsets_sha256": "dccaf4468cb216264c63b4d07a2451551d9be6ce2a1a04771c2f126a8974f1db"
+    }
+  },
+  "effective_environment_subset": {
+    "STRESS_PIPELINE_MODE": "1",
+    "STRESS_PIPELINE_PREHEAT_SEC": "0",
+    "STRESS_PIPELINE_OBSERVATION_SEC": "20",
+    "STRESS_PROFILE_ID": "dag-07-chain-d8-w1-theta1-nu1",
+    "STRESS_SCHEDULE_SCENARIO": "poisson_d8",
+    "STRESS_REPEAT": "5",
+    "STRESS_TAG": "d8_seed20261032_auditfix_staged_verify2",
+    "STRESS_WORKERS": "64",
+    "STRESS_RECEIPT_TIMEOUT_MS": "120000",
+    "STRESS_RPC_PROXY_TIMEOUT_MS": "60000",
+    "STRESS_DIAGNOSTIC_LIGHT": "0"
+  },
+  "startup_assertions": {
+    "pipeline_mode_is_1": true,
+    "rate_override_absent": true,
+    "warmup_override_absent": true,
+    "measurement_override_absent": true,
+    "schedule_is_paired_exponential": true,
+    "schedule_seed_present": true
+  },
+  "startup_assertions_passed": true
+}

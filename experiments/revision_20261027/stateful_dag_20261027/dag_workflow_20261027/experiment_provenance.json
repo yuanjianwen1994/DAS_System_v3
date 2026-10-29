@@ -1,0 +1,34 @@
+{
+  "experiment": "Parameterized stateful DAG runtime comparison",
+  "run_date": "2026-10-27",
+  "source_repository": "yuanjianwen1994/DAS_System_v3",
+  "source_branch": "codex/das-independent-stage-run",
+  "source_commit": "1d6b6aa140374f4ce168eb629fe96c235ab61aa7",
+  "execution_environment": {
+    "os": "Linux x86_64 (WSL2)",
+    "python": "3.10.12",
+    "anvil": "1.8.6",
+    "solidity": "0.8.24",
+    "evm_repeats_per_implementation": 3,
+    "profiles": 14,
+    "sessions_per_profile_repeat": 2
+  },
+  "validation": {
+    "fused_evm_sessions": 84,
+    "independent_stage_evm_sessions": 84,
+    "independent_stage_router_execution_transactions": 84,
+    "external_stage_call_frames": 1956,
+    "node_execution_events": 1956,
+    "parent_input_events": 2274,
+    "all_stage_state_rollback_probes_passed": true,
+    "checksum_parity_all_profiles": true
+  },
+  "sha256": {
+    "near_runtime_20261027/near_dag_full_results.json": "673e1c9be5c04ef8facf3bee047310e6e33a6a4bef147aaebfbc2daf5f82f7d4",
+    "dag_workflow_20261027/das_composition_full_raw.json": "feb0b8aaa79c52fc98938fb27c73ae8c15b23bc33b66daf60e72acc83ca338ca",
+    "dag_workflow_20261027/das_composition_full_results.json": "4c6070333d461ddd27a52ae956ca947e1ebfe8a1489f097ba6f7425cf7f9ac6e",
+    "dag_workflow_20261027/das_distributed_composition_raw.json": "864455c78705bbcc25d0cc74ea29b7cadc963d056312cb9399ea37e51cf59d9c",
+    "dag_workflow_20261027/das_distributed_composition_results.json": "906c0e697db72fbf1188e42f4d014080b3225bb939ca9f9f7def42969d68ff86",
+    "dag_workflow_20261027/profile_manifest.json": "c556df76d05944345639cd7226a1e7215a122d701d01fd4427c76a0ce190823f"
+  }
+}

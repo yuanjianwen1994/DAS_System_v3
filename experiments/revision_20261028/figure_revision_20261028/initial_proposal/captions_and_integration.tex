@@ -1,0 +1,24 @@
+% PROPOSALS ONLY. Not included by main_major.tex; not authorized for Overleaf upload.
+% Use the same IEEE caption conventions as the manuscript.
+% Current relative paths assume an include from the repository root.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{DAS_System_v3/experiments/revision_20261028/figure_revision_20261028/candidate_fig4_measured_outcomes.pdf}
+  \caption{Completion latency and observed workflow completion rate for an eight-contract dependency chain. The local EVM route invokes independently deployed stages synchronously; the NEAR route propagates results through cross-contract receipts. (a) Points and endpoints denote the median and P95, respectively, rather than confidence limits. (b) Successful sink completions within each 780-second observation window; dotted marks denote the target arrival rate. Latency percentiles include all audited phase requests, including preheat and drain. R31 is an exclusive paired run; R32 combines the existing EVM baseline with the repaired NEAR replay of the same input schedule. These results exclude migration and do not estimate maximum throughput.}
+  \label{fig:workflow-outcomes-proposal}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{DAS_System_v3/experiments/revision_20261028/figure_revision_20261028/candidate_fig5_distribution_robustness.pdf}
+  \caption{Workflow latency distributions and burst sensitivity. (a) Empirical CDFs for the target rate of one workflow per second, with audited phase samples from each run kept separate. Solid and dashed lines denote R31 and R32. (b) Per-seed medians under fixed-count conditional random arrivals and periodic bursts at the same mean rate; each connected pair belongs to one seed and runtime route. The burst experiment uses a separate 30-second preheat and 60-second observation window, with 54--64 measured workflows per condition, and is an exploratory shared-container experiment. The same-receiver control consolidates node operations into one receiving contract. Neither panel includes native cross-domain migration.}
+  \label{fig:workflow-distributions-proposal}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{DAS_System_v3/experiments/revision_20261028/figure_revision_20261028/candidate_fig6_topology_failure.pdf}
+  \caption{Topology tradeoffs and failure outcomes in the native-runtime control experiment. (a) Complete NEAR receipt-tree time in three fresh runtimes: an eight-node chain versus a root, six independent branches, and a final join. (b) Additional cost relative to the chain, normalized within each runtime. The topologies have seven and twelve dependency edges, respectively. NEAR uses its native sandbox timing (observed workflow-block intervals approximately 125 ms); Anvil uses automine. Cross-runtime wall-clock times and gas units are not divided. (c) After failure at node 4, six NEAR nodes retain state and the sink is absent; the EVM execution transaction rolls back all stage state. No business compensation or recovery-time comparison is implemented.}
+  \label{fig:topology-failure-proposal}
+\end{figure*}

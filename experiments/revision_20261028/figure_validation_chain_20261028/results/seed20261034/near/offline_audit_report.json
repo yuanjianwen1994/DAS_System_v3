@@ -1,0 +1,61 @@
+{
+  "audit": "pass",
+  "platform": "near",
+  "seed": 20261034,
+  "scenario": "poisson_d8_lambda1",
+  "schedule_sha256": "842a0634db106ad1639a255a22dc2ad0fb36fee50ab4e24783990d7dc34953eb",
+  "runner_sha256": "93c51c2152fccabd229bbc7e0fe6ddabe1a319a8f34d11aa7dc9447c50fc68fc",
+  "cleanup_status": "awaiting_offline_audit",
+  "phases": [
+    {
+      "phase": 0,
+      "rate": 1.0,
+      "planned_rows": 365,
+      "actual_rows": 365,
+      "observation_window_planned_arrivals": 325,
+      "observation_window_actual_arrivals": 325,
+      "observation_window_audited_successes": 325,
+      "observation_window_audit_pending": 0,
+      "observation_window_row_classification": {
+        "audited_success": 325
+      },
+      "observation_duration_sec": 360,
+      "row_classification": {
+        "audited_success": 365
+      },
+      "trace_validation": {
+        "passed": true,
+        "exact_offsets_passed_to_scheduler": true,
+        "row_schedule_timestamps_match_offsets": true,
+        "expected_count": 365,
+        "recorded_count": 365,
+        "max_row_offset_deviation_sec": 0.0014846530000021119
+      },
+      "http_send_errors": 18,
+      "send_tx_requests": 383,
+      "send_tx_http_attempts": 383,
+      "send_tx_http_failures": 18,
+      "send_tx_retries": 18,
+      "audit_pending_count": 0,
+      "receipt_count": 5475,
+      "native_gas_used": null,
+      "rpc_http_calls_all_methods": 38378,
+      "rpc_http_errors_all_methods": 18,
+      "receipt_poll_pending_at_phase_end": null,
+      "successful_workflows_per_sec": 0.8944444444444445,
+      "workflow_latency_ms": {
+        "p50": 9600.466413000016,
+        "p95": 10067.086890000035
+      },
+      "observation_workflow_latency_ms": {
+        "p50": 9594.114162000013,
+        "p95": 10067.330851999985
+      },
+      "successful_workflow_count_for_latency": 365
+    }
+  ],
+  "totals": {
+    "audited_success": 365
+  },
+  "problems": []
+}

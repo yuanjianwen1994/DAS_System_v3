@@ -1,0 +1,119 @@
+{
+  "captured_at_utc": "2026-10-28T05:16:54Z",
+  "seed": 20261032,
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "scenario": "poisson_d8",
+  "pipeline_mode": "1",
+  "preheat_sec": "30",
+  "observation_sec": "780",
+  "schedule_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/poisson_d8_seed20261032.json",
+  "schedule_sha256": "9684e531a7523cd2672ef91abd2a951224472550304a8c49833cac0cde823166",
+  "runner_sha256": "64fb2582c2a41d13ea885e4a3d59015bd5d085cb84903595b2442d709934da2c",
+  "python_executable": "/home/starshell/das_independent_stage_evm_20261027/.venv/bin/python",
+  "anvil_bin": "/home/starshell/das_independent_stage_evm_20261027/.local/bin/anvil",
+  "anvil_version": "anvil Version: 1.8.6",
+  "arrival_rule": "paired_exponential",
+  "phase_random_offset_sec": 0.8318420505783274,
+  "per_rate_expected_trace": {
+    "0.5": {
+      "expected_total": 385,
+      "expected_preheat": 16,
+      "expected_measurement": 369,
+      "offsets_sha256": "6040ac3fba2bceb065127b4ea0b54041fd147822e7328c20020baf6432c45203",
+      "first_offsets_sec": [
+        0.831842051,
+        3.118840576,
+        3.290917456,
+        4.961749549,
+        5.286823369
+      ],
+      "last_offsets_sec": [
+        800.072199789,
+        800.633065762,
+        806.756809735,
+        807.252097991,
+        810.019019749
+      ]
+    },
+    "1.0": {
+      "expected_total": 817,
+      "expected_preheat": 40,
+      "expected_measurement": 777,
+      "offsets_sha256": "bc68c38a700536fe41dcc124335ad73fcc13acab4e47191a371755fd595dad88",
+      "first_offsets_sec": [
+        0.831842051,
+        1.975341313,
+        2.061379753,
+        2.8967958,
+        3.05933271
+      ],
+      "last_offsets_sec": [
+        806.373280151,
+        807.204400655,
+        807.931068563,
+        808.5065684,
+        808.801120443
+      ]
+    }
+  },
+  "sampling_method": "per_workflow_transaction_receipt_polling; paired randomized pipeline mode",
+  "effective_environment_subset": {
+    "STRESS_PIPELINE_MODE": "1",
+    "STRESS_PIPELINE_PREHEAT_SEC": "30",
+    "STRESS_PIPELINE_OBSERVATION_SEC": "780",
+    "STRESS_PROFILE_ID": "dag-07-chain-d8-w1-theta1-nu1",
+    "STRESS_SCHEDULE_SCENARIO": "poisson_d8",
+    "STRESS_SCHEDULE_PATH": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/poisson_d8_seed20261032.json",
+    "STRESS_REPEAT": "5",
+    "STRESS_TAG": "d8_poisson_seed20261032_evm",
+    "STRESS_WORKERS": "64",
+    "ANVIL_BIN": "/home/starshell/das_independent_stage_evm_20261027/.local/bin/anvil"
+  },
+  "startup_assertions": {
+    "pipeline_mode_is_1": true,
+    "rate_override_absent": true,
+    "warmup_override_absent": true,
+    "measurement_override_absent": true,
+    "preheat_is_30": true,
+    "observation_is_780": true,
+    "schedule_path_is_seed32": true,
+    "schedule_sha_matches_local_expected": true
+  },
+  "startup_assertions_passed": true,
+  "actual_consumed_offsets_sha256": "6040ac3fba2bceb065127b4ea0b54041fd147822e7328c20020baf6432c45203",
+  "actual_trace_verification": "both EVM phase checkpoints exactly match paired_exponential schedules",
+  "actual_trace_checks": {
+    "rate": true,
+    "paired_exponential": true,
+    "actual_offsets_equal_schedule": true,
+    "actual_trace_sha_matches_startup": true,
+    "planned_and_rows_count_match": true,
+    "measurement_window_780": true,
+    "phase_random_offset_matches": true
+  },
+  "actual_trace_verification_passed": true,
+  "actual_consumed_offsets_sha256_by_rate": {
+    "0.5": "6040ac3fba2bceb065127b4ea0b54041fd147822e7328c20020baf6432c45203",
+    "1.0": "bc68c38a700536fe41dcc124335ad73fcc13acab4e47191a371755fd595dad88"
+  },
+  "actual_trace_checks_by_rate": {
+    "0.5": {
+      "paired_exponential": true,
+      "offsets_equal_schedule": true,
+      "trace_digest_matches_startup": true,
+      "rows_match_offsets": true,
+      "measurement_window_780": true,
+      "seed_matches": true,
+      "phase_offset_matches": true
+    },
+    "1.0": {
+      "paired_exponential": true,
+      "offsets_equal_schedule": true,
+      "trace_digest_matches_startup": true,
+      "rows_match_offsets": true,
+      "measurement_window_780": true,
+      "seed_matches": true,
+      "phase_offset_matches": true
+    }
+  }
+}

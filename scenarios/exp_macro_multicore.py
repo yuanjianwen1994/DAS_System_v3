@@ -1,8 +1,8 @@
 """
-Macro‑benchmark multi‑process matrix experiment for Phase 4+.
-Uses multiprocessing to bypass GIL bottleneck, supporting BASELINE, DAS, and 2PC journey types.
-Each process runs its own ConnectionManager, UserManager, Injector, and TrafficGenerator.
-Logs raw transaction‑level data per process, optionally merges CSVs.
+Phase 4+ 宏基准测试多进程矩阵实验。
+使用多进程绕过GIL瓶颈，支持BASELINE、DAS和2PC旅程类型。
+每个进程运行自己的ConnectionManager、UserManager、Injector和TrafficGenerator。
+记录每个进程的原始交易级数据，可选合并CSV。
 """
 import sys
 import os
@@ -16,7 +16,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
 
-# Add parent directory to sys.path for imports
+# 添加父目录到sys.path用于导入
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from web3 import Web3
@@ -41,14 +41,14 @@ from core.macro_monitor import MacroMonitor
 from tqdm import tqdm
 
 
-# ========== Helper Functions (copied from exp_macro_matrix) ==========
+# ========== 辅助函数（从exp_macro_matrix复制）==========
 def kill_ganache():
-    """Aggressively kill all ganache/node processes."""
+    """积极杀死所有ganache/node进程。"""
     try:
         if os.name == 'nt':
-            # Windows: Force kill node.exe (Ganache)
+            # Windows：强制杀死node.exe（Ganache）
             subprocess.call(["taskkill", "/F", "/IM", "node.exe", "/T"], stderr=subprocess.DEVNULL)
-            subprocess.call(["taskkill", "/F", "/IM", "ganache.cmd", "/T"], stderr=subprocess.DEVNULL) # Just in case
+            subprocess.call(["taskkill", "/F", "/IM", "ganache.cmd", "/T"], stderr=subprocess.DEVNULL) # 以防万一
         else:
             subprocess.call(["pkill", "-f", "ganache"], stderr=subprocess.DEVNULL)
     except Exception:
@@ -56,14 +56,14 @@ def kill_ganache():
 
 
 def wait_for_nodes(network: ConnectionManager, timeout=60):
-    """Block until all RPC nodes are responding."""
-    print("   [System] Waiting for RPC nodes to warm up...")
+    """阻塞直到所有RPC节点响应。"""
+    print("   [系统] 等待RPC节点预热...")
     nodes = ["shard_0", "shard_1", "execution", "baseline"]
     start = time.time()
     for node in nodes:
         while True:
             if time.time() - start > timeout:
-                raise TimeoutError(f"Node {node} did not start within {timeout}s")
+                raise TimeoutError(f"节点{node}在{timeout}秒内未启动")
             try:
                 w3 = network.get_web3(node)
                 if w3.is_connected() and w3.eth.block_number >= 0:
@@ -71,11 +71,11 @@ def wait_for_nodes(network: ConnectionManager, timeout=60):
             except Exception:
                 time.sleep(1)
             time.sleep(1)
-    print("   [System] All nodes online.")
+    print("   [系统] 所有节点已上线。")
 
 
 def dump_csv(data: List[Dict[str, Any]], filename: str, fieldnames: List[str]) -> None:
-    """Write a list of dicts to CSV."""
+    """将字典列表写入CSV。"""
     logs_dir = Path(__file__).parent.parent / "logs"
     logs_dir.mkdir(exist_ok=True)
     path = logs_dir / filename
@@ -83,58 +83,58 @@ def dump_csv(data: List[Dict[str, Any]], filename: str, fieldnames: List[str]) -
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(data)
-    print(f"      [Data] {filename} saved ({len(data)} rows).")
+    print(f"      [数据] {filename}已保存（{len(data)}行）。")
 
 
 def consolidate_logs(journey_type: str, n: int, q: int, timestamp: str):
     """
-    Finds all partial process logs for a specific run, merges them into one,
-    and deletes the partial files.
+    找到特定运行的所有部分进程日志，合并它们，
+    并删除部分文件。
     """
     logs_dir = Path(__file__).parent.parent / "logs"
-    # 1. Pattern match: raw_txs_p*_{journey_type}_N{n}_q{q}_{timestamp}.csv
+    # 1. 模式匹配：raw_txs_p*_{journey_type}_N{n}_q{q}_{timestamp}.csv
     pattern = f"raw_txs_p*_{journey_type}_N{n}_q{q}_{timestamp}.csv"
     files = glob.glob(str(logs_dir / pattern))
     
     if not files:
-        print(f"[System] No log files found to merge for pattern: {pattern}")
+        print(f"[系统] 未找到要合并的日志文件，模式：{pattern}")
         return
 
-    print(f"[System] Merging {len(files)} log files for N={n}, q={q}...")
+    print(f"[系统] 合并{len(files)}个日志文件用于N={n}，q={q}...")
     
     try:
-        # 2. Read and Concat
+        # 2. 读取并连接
         df_list = []
         for f in files:
             try:
                 df = pd.read_csv(f)
                 df_list.append(df)
             except pd.errors.EmptyDataError:
-                pass # Ignore empty files
+                pass # 忽略空文件
         
         if df_list:
             combined_df = pd.concat(df_list, ignore_index=True)
             
-            # 3. Save Combined File
+            # 3. 保存合并文件
             combined_filename = f"combined_raw_txs_{journey_type}_N{n}_q{q}_{timestamp}.csv"
             combined_path = logs_dir / combined_filename
             combined_df.to_csv(combined_path, index=False)
-            print(f"[System] Saved combined log: {combined_filename} ({len(combined_df)} records)")
+            print(f"[系统] 已保存合并日志：{combined_filename}（{len(combined_df)}条记录）")
             
-            # 4. Delete Partial Files (Only if merge succeeded)
+            # 4. 删除部分文件（仅在合并成功时）
             for f in files:
                 try:
                     os.remove(f)
                 except OSError as e:
-                    print(f"Warning: Could not delete {f}: {e}")
+                    print(f"警告：无法删除{f}：{e}")
         else:
-            print("[System] Warning: All log files were empty.")
+            print("[系统] 警告：所有日志文件都是空的。")
             
     except Exception as e:
-        print(f"[System] Error during log consolidation: {e}")
+        print(f"[系统] 日志合并期间出错：{e}")
 
 
-# ========== Worker Process Function ==========
+# ========== Worker进程函数 ==========
 def run_worker_process(
     proc_id: int,
     user_start: int,
@@ -149,30 +149,30 @@ def run_worker_process(
     progress_queue: Any = None,
 ) -> None:
     """
-    Single‑process traffic generation.
-    Creates its own managers, runs traffic, writes logs to a per‑process CSV.
+    单进程流量生成。
+    创建自己的管理器，运行流量，将日志写入每个进程的CSV。
     """
-    print(f"[Worker {proc_id}] Starting with users {user_start}‑{user_end} (total concurrency {concurrency})")
+    print(f"[Worker {proc_id}] 启动，用户范围{user_start}‑{user_end}（总并发{concurrency}）")
     
-    # 1. Create independent managers
+    # 1. 创建独立管理器
     network = ConnectionManager(topology)
     from config_matrix import MNEMONIC
     identity = UserManager(MNEMONIC)
     injector = MacroTransactionInjector(network, identity)
     
-    # 2. Wait for nodes (they should already be up)
+    # 2. 等待节点（它们应该已经启动）
     wait_for_nodes(network)
     
-    # 3. Create traffic generator with process_id and user_offset
+    # 3. 使用process_id和user_offset创建流量生成器
     traffic = MacroTrafficGenerator(
         network, identity, injector, registry,
         process_id=proc_id,
         user_offset=user_start,
     )
     
-    # 4. Run traffic (only for the assigned user range)
+    # 4. 运行流量（仅针对分配的用户范围）
     local_concurrency = user_end - user_start
-    print(f"[Worker {proc_id}] Running {local_concurrency} users, {journeys_per_user} journeys each, type={journey_type}")
+    print(f"[Worker {proc_id}] 运行{local_concurrency}个用户，每个用户{journeys_per_user}个旅程，类型={journey_type}")
     
     raw_logs = traffic.run_task_based(
         concurrency=local_concurrency,
@@ -183,7 +183,7 @@ def run_worker_process(
         progress_queue=progress_queue,
     )
     
-    # 5. Save logs to per‑process CSV
+    # 5. 将日志保存到每个进程的CSV
     if raw_logs:
         dump_csv(
             raw_logs,
@@ -191,60 +191,60 @@ def run_worker_process(
             fieldnames=["timestamp", "journey_id", "worker_id", "tx_type", "latency_s", "gas_used", "block_number", "status"]
         )
     else:
-        print(f"[Worker {proc_id}] WARNING: No raw logs captured.")
+        print(f"[Worker {proc_id}] 警告：未捕获原始日志。")
     
-    print(f"[Worker {proc_id}] Finished.")
+    print(f"[Worker {proc_id}] 完成。")
 
 
-# ========== Main Experiment Loop ==========
+# ========== 主实验循环 ==========
 def main():
-    print("=== DAS System v3 Macro‑Benchmark Multi‑Core Matrix (Phase 4+) ===")
+    print("=== DAS System v3 宏基准测试多核矩阵（Phase 4+）===")
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # Kill previous Ganache instances
-    print("[Preflight] Killing previous Ganache processes...")
+    # 杀死先前的Ganache实例
+    print("[预检] 杀死先前的Ganache进程...")
     kill_ganache()
     
-    # Prepare summary results
+    # 准备摘要结果
     summary_rows = []
     
-    # Outer loop: journey type
+    # 外层循环：旅程类型
     for journey_type in MATRIX_SCENARIOS:
-        print(f"\n=== Journey Type: {journey_type} ===")
+        print(f"\n=== 旅程类型：{journey_type} ===")
         
-        # Loop over amortization factor q
+        # 循环分摊因子q
         for q in MATRIX_AMORTIZATION_FACTORS:
-            print(f"\n--- Amortization Factor q = {q} ---")
+            print(f"\n--- 分摊因子 q = {q} ---")
             
-            # Inner loop: concurrency N
+            # 内层循环：并发N
             for N in MATRIX_CONCURRENCY_LEVELS:
-                print(f"\n   --- Concurrency N = {N} ---")
+                print(f"\n   --- 并发 N = {N} ---")
                 iteration_start = time.time()
                 
-                # 1. Start Anvil network (single network for all processes)
-                print("   1. Starting Anvil network...")
+                # 1. 启动Anvil网络（所有进程的单一网络）
+                print("   1. 启动Anvil网络...")
                 topology = get_topology()
                 ganache = AnvilManager()
                 max_retries = 5
                 started = False
                 for attempt in range(max_retries):
                     try:
-                        print(f"      [System] Attempt {attempt+1}/{max_retries}...")
+                        print(f"      [系统] 尝试{attempt+1}/{max_retries}...")
                         ganache.start_network(topology)
                         started = True
                         break
                     except RuntimeError as e:
                         if "already in use" in str(e):
-                            print(f"      [System] Ports in use. Killing and waiting 10s...")
+                            print(f"      [系统] 端口正在使用。杀死并等待10秒...")
                             kill_ganache()
                             time.sleep(10)
                         else:
                             raise e
                 if not started:
-                    raise RuntimeError("Failed to start Ganache after multiple retries.")
+                    raise RuntimeError("多次重试后启动Ganache失败。")
                 time.sleep(2)
                 
-                # 2. Prepare managers and deploy contracts (once for this iteration)
+                # 2. 准备管理器和部署合约（每次迭代一次）
                 network = ConnectionManager(topology)
                 from config_matrix import MNEMONIC
                 identity = UserManager(MNEMONIC)
@@ -253,23 +253,23 @@ def main():
                 
                 wait_for_nodes(network)
                 
-                print("   2. Deploying contracts...")
+                print("   2. 部署合约...")
                 registry = deployer.deploy_infrastructure(topology)
-                print(f"      Registry keys: {list(registry.keys())}")
-                print("      Waiting for contracts to be fully mined (15 seconds)...")
+                print(f"      注册表键：{list(registry.keys())}")
+                print("      等待合约完全挖出（15秒）...")
                 time.sleep(15)
                 
-                # 3. Start monitor (optional, may interfere with multi‑process)
+                # 3. 启动监控器（可选，可能干扰多进程）
                 monitor = MacroMonitor(network)
                 monitor.start()
                 
-                # 4. Launch worker processes with centralized progress bar
-                print(f"   3. Launching {MATRIX_PROCESSES} worker processes...")
-                # Global Manager for IPC
+                # 4. 使用集中式进度条启动worker进程
+                print(f"   3. 启动{MATRIX_PROCESSES}个worker进程...")
+                # 用于IPC的全局管理器
                 with multiprocessing.Manager() as manager:
                     progress_queue = manager.Queue()
                     
-                    # Calculate total work
+                    # 计算总工作量
                     total_journeys = N * MATRIX_JOURNEYS_PER_USER
                     
                     processes = []
@@ -279,7 +279,7 @@ def main():
                     for proc_id in range(MATRIX_PROCESSES):
                         user_end = user_start + users_per_proc + (1 if proc_id < remainder else 0)
                         if user_start >= user_end:
-                            # No users assigned to this process (should not happen with N >= MATRIX_PROCESSES)
+                            # 此进程未分配用户（N < MATRIX_PROCESSES时不应发生）
                             continue
                         p = multiprocessing.Process(
                             target=run_worker_process,
@@ -287,7 +287,7 @@ def main():
                                 proc_id,
                                 user_start,
                                 user_end,
-                                N,  # total concurrency (for logging)
+                                N,  # 总并发（用于日志）
                                 MATRIX_JOURNEYS_PER_USER,
                                 q,
                                 journey_type,
@@ -301,41 +301,41 @@ def main():
                         p.start()
                         user_start = user_end
                     
-                    # Global Progress Bar Loop
-                    with tqdm(total=total_journeys, unit="journey", desc=f"Total Progress (N={N}, q={q})") as pbar:
+                    # 全局进度条循环
+                    with tqdm(total=total_journeys, unit="旅程", desc=f"总进度（N={N}，q={q}）") as pbar:
                         completed = 0
                         while completed < total_journeys:
-                            # Non-blocking check to allow checking if processes died
+                            # 非阻塞检查以允许检查进程是否死亡
                             while not progress_queue.empty():
                                 progress_queue.get()
                                 pbar.update(1)
                                 completed += 1
                             
-                            # Check if processes are still alive (panic exit if all died)
+                            # 检查进程是否仍然存活（如果全部死亡则紧急退出）
                             if not any(p.is_alive() for p in processes) and completed < total_journeys:
-                                print("All processes died prematurely!")
+                                print("进程过早死亡！")
                                 break
                             
                             time.sleep(0.1)
                     
-                    # Wait for processes to finish (they should already be done)
+                    # 等待进程完成（它们应该已经完成）
                     for p in processes:
                         p.join()
                         if p.exitcode != 0:
-                            print(f"   [Warning] Process {p.name} exited with code {p.exitcode}")
+                            print(f"   [警告] 进程{p.name}退出，代码{p.exitcode}")
                     
-                    # === NEW: Auto-Merge Logs ===
+                    # === 新增：自动合并日志 ===
                     consolidate_logs(journey_type, N, q, timestamp)
                     # ============================
                 
-                # 6. Stop monitor
+                # 6. 停止监控器
                 monitor.stop()
                 
-                # 7. Calculate aggregate metrics (monitor saw all transactions across processes)
+                # 7. 计算聚合指标（监控器跨进程看到所有交易）
                 metrics = monitor.calculate()
-                print(f"   4. Results: TPS = {metrics['tps']:.2f}, Gas/sec = {metrics['gas_per_sec']:.0f}")
+                print(f"   4. 结果：TPS = {metrics['tps']:.2f}，Gas/秒 = {metrics['gas_per_sec']:.0f}")
                 
-                # 8. Dump block‑level logs
+                # 8. 转储区块级日志
                 if monitor.block_logs:
                     dump_csv(
                         monitor.block_logs,
@@ -343,9 +343,9 @@ def main():
                         fieldnames=["node", "block_number", "timestamp", "tx_count", "gas_used", "gas_limit"]
                     )
                 else:
-                    print("      WARNING: No block logs captured.")
+                    print("      警告：未捕获区块日志。")
                 
-                # 9. Record summary row
+                # 9. 记录摘要行
                 iteration_end = time.time()
                 makespan = iteration_end - iteration_start
                 summary_rows.append({
@@ -363,22 +363,22 @@ def main():
                     "processes": MATRIX_PROCESSES,
                 })
                 
-                # 10. Clean up before next iteration
-                print("   [System] Cleaning up Ganache...")
+                # 10. 在下一次迭代前清理
+                print("   [系统] 清理Ganache...")
                 try:
                     ganache.stop_network()
                 except Exception as e:
-                    print(f"   [System] Warning during stop: {e}")
+                    print(f"   [系统] 停止时警告：{e}")
                 
                 kill_ganache()
                 
-                print("   [System] Cooling down for 40s to release TCP ports...")
-                # CRITICAL: Wait for Windows to release TIME_WAIT sockets from previous 5000-user run
-                # If this is too short, the next run will fail with WinError 10061 immediately.
+                print("   [系统] 冷却40秒以释放TCP端口...")
+                # 关键：在先前5000用户运行中等待Windows释放TIME_WAIT套接字
+                # 如果太短，下次运行将立即失败，WinError 10061。
                 time.sleep(40)
     
-    # 11. Save summary CSV
-    print("\n=== Saving experiment summary ===")
+    # 11. 保存摘要CSV
+    print("\n=== 保存实验摘要 ===")
     dump_csv(
         summary_rows,
         f"matrix_multicore_summary_{timestamp}.csv",
@@ -398,7 +398,7 @@ def main():
         ]
     )
     
-    print("\nMulti‑core matrix experiment completed successfully.")
+    print("\n多核矩阵实验成功完成。")
 
 
 if __name__ == "__main__":

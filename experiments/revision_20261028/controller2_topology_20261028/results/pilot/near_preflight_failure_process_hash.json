@@ -1,0 +1,23 @@
+{
+  "experiment": "8-node stateful fan-out/join versus chain pilot",
+  "design": {
+    "profile_count_per_repeat": 2,
+    "fresh_repeats": 1,
+    "session_count_per_profile": 1,
+    "graph_source": "/home/starshell/das_controller2_topology_20261028/profile_manifest.json",
+    "metrics": "raw receipt IDs, edge/node logs, success/failure outcomes, receipt block-height spans; SDK duration diagnostic only"
+  },
+  "runtime": {
+    "near_sandbox": "0.3.4",
+    "near_workspaces": "5.0.0",
+    "node": "v24.22.1",
+    "requested_nearcore": "2.13.4",
+    "expected_protocol_version": 86,
+    "wasm_stage": "/home/starshell/das_controller2_topology_20261028/near_runtime/artifacts/stage_contract.wasm",
+    "wasm_same_receiver": "/home/starshell/das_controller2_topology_20261028/near_runtime/artifacts/same_receiver_contract.wasm"
+  },
+  "started_at": "2026-10-28T08:51:45.068Z",
+  "completed_repeats": [],
+  "error": "Error: could not identify and hash the running NEAR Sandbox binary; refusing unpinned pilot\n    at runtimeIdentity (file:///home/starshell/das_controller2_topology_20261028/near_runtime/run_near_topology_pilot.mjs:53:32)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async runRepeat (file:///home/starshell/das_controller2_topology_20261028/near_runtime/run_near_topology_pilot.mjs:303:15)\n    at async file:///home/starshell/das_controller2_topology_20261028/near_runtime/run_near_topology_pilot.mjs:339:35",
+  "finished_at": "2026-10-28T08:51:47.188Z"
+}

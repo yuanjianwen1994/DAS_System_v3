@@ -1,0 +1,61 @@
+{
+  "experiment": "paired randomized exponential arrivals, d8 pilot",
+  "seed": 20261028,
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "node_count": 8,
+  "operations_per_node": 16,
+  "rates_per_sec": [
+    0.5,
+    1.0
+  ],
+  "warmup_sec": 15.0,
+  "measurement_sec": 60.0,
+  "phase_random_offset_sec": 0.5161305270644726,
+  "workers_per_platform": 64,
+  "arrival_rule": "paired_exponential",
+  "schedule_sha256": "d018b80e49346af61712bf4f9a5b4f31b57daaf0b5ec8303d78739897471ca0c",
+  "trace_sha256_by_rate": {
+    "0.5": "122158240cf551d2c9c98925e3ad96cddda0831ddc9996aac58cdef0a93dedc5",
+    "1.0": "f2acd02582c444402ea56a169235a05be6ce4dcf846c0f85847c585eb3828e86"
+  },
+  "evm": {
+    "runner_sha256": "64fb2582c2a41d13ea885e4a3d59015bd5d085cb84903595b2442d709934da2c",
+    "raw_sha256": "7efeb4fcf7eea3bd163b3b55241aa3f1b0e3e239844f1123f15567cdf4472a0b",
+    "results_sha256": "8e990eafda95ae8b13ebd5de044ba5307b021433b2c31892048009dfb2b181cd",
+    "exit_code": 0,
+    "runtime": {
+      "anvil": "anvil Version: 1.8.6",
+      "block_time_sec": 1.0,
+      "solidity": "0.8.24",
+      "workers": 64,
+      "block_gas_limit": 30000000,
+      "operations_per_node": 16,
+      "diagnostic_light": true,
+      "receipt_poll_interval_sec": 0.05,
+      "receipt_sampling_bound_ms": 50.0,
+      "receipt_polling_strategy": "centralized_json_rpc_batch",
+      "receipt_batch_size": 128,
+      "anvil_max_transactions_per_block": 1000,
+      "actual_block_gas_limit": 30000000,
+      "receipt_batch_poller": {
+        "batch_http_calls": 1149,
+        "pending_receipts": 0,
+        "max_batch_latency_ms": 10.786,
+        "batch_size": 128,
+        "poll_interval_sec": 0.05
+      }
+    }
+  },
+  "near_corrected": {
+    "runner_sha256": "038175cf89cca62f4694bcae219ff5fdb95bbb1f6d01d22ce9dd05c42eef0267",
+    "local_runner_sha256": "038175cf89cca62f4694bcae219ff5fdb95bbb1f6d01d22ce9dd05c42eef0267",
+    "raw_sha256": "faa4d1cb1b750360ba40dc09c6ae6f3a3be5d1080d25a7b095219d5e0b0d864c",
+    "results_sha256": "c24c52eb3fed9ba97851c687b4c9d8ed0c15d302f41848b4a1c82db7cf644461",
+    "exit_code": 0,
+    "runtime": null
+  },
+  "contract_wasm_sha256": "2c1a355b7eae3d59eef2fc66b331d7453c74e2cbcbf560708a30d1a13620b87a",
+  "remote_results_root": "/home/starshell/das_randomized_arrival_20261028/pilot_seed20261028/results",
+  "invalid_near_attempt": "near_invalid_fixed_fallback; excluded because lambda=1 used fixed fallback after string-key mismatch",
+  "sync_policy": "local experiment artifact only; no Overleaf or GitHub push"
+}

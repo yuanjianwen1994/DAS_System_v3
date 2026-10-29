@@ -1,0 +1,393 @@
+{
+  "experiment": "DAS-local parameterized stateful DAG composition",
+  "runtime": {
+    "anvil": "1.8.6",
+    "solidity": "0.8.24",
+    "backend": "local EVM",
+    "node_modules_or_compiler_caches_are_not_in_git": true
+  },
+  "design": {
+    "profile_count_per_repeat": 1,
+    "fresh_anvil_repeats": 1,
+    "entry_workflow_exit_are_separate_transactions": true,
+    "migration_boundary_note": "measured session/storage commitments, no production bridge proof or network migration included"
+  },
+  "started_at": "2026-10-27T07:04:20Z",
+  "completed_repeats": [
+    {
+      "repeat": 1,
+      "profiles": [
+        {
+          "repeat": 1,
+          "profile": {
+            "profile_id": "dag-11-fork_join-d4-w4-theta4-nu1",
+            "shape": "fork_join",
+            "dependency_depth_d": 4,
+            "parallel_width_w": 4,
+            "cross_execution_domain_edge_fraction_p": 0.0,
+            "cross_contract_edge_fraction_near_multicontract": 1.0,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 4,
+            "sessions_per_profile": 2,
+            "fresh_sandbox_repeats": 3,
+            "operations_per_node": 16,
+            "node_count": 10,
+            "edge_count": 24,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                5,
+                6,
+                7,
+                8
+              ]
+            ],
+            "successors": [
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                5,
+                6,
+                7,
+                8
+              ],
+              [
+                5,
+                6,
+                7,
+                8
+              ],
+              [
+                5,
+                6,
+                7,
+                8
+              ],
+              [
+                5,
+                6,
+                7,
+                8
+              ],
+              [
+                9
+              ],
+              [
+                9
+              ],
+              [
+                9
+              ],
+              [
+                9
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "runtime": {
+            "chain_id": 31337,
+            "block_number_after_profile": 13
+          },
+          "local_type_ii_session_mode": [
+            {
+              "session_id": "101001000000",
+              "workflow_ids": [
+                "101001000001",
+                "101001000002",
+                "101001000003",
+                "101001000004"
+              ],
+              "migration_in": {
+                "tx_hash": "0ceba4f32d2d34cb64849e9038c3f7d0a944cbee4491dc00678ea7ed054d505f",
+                "status": 1,
+                "gas_used": 69780,
+                "block_number": 2,
+                "transaction_index": 0
+              },
+              "workflow_execution": {
+                "tx_hash": "32ea7190e9f452b1b2579cdedc96297075d3754af62fdab4bda3d0cb5d35f855",
+                "status": 1,
+                "gas_used": 2284033,
+                "block_number": 3,
+                "transaction_index": 0
+              },
+              "migration_out": {
+                "tx_hash": "0a376ccd04192ca23129e65c7107baa9684a91d58c7287270cc169a58a5448db",
+                "status": 1,
+                "gas_used": 53161,
+                "block_number": 4,
+                "transaction_index": 0
+              },
+              "complete_session_gas": 2406974,
+              "gas_per_workflow_within_batched_execution": 571008.25,
+              "session_block_window": 2,
+              "session_state": {
+                "active": false,
+                "expected_workflows": 4,
+                "executed_workflows": 4,
+                "aggregate": "5433351794681353496"
+              },
+              "workflow_checksums": [
+                "3756485824945085748",
+                "4431966075551906423",
+                "10593025986262347745",
+                "347580227004296090"
+              ],
+              "node_checksums": [
+                [
+                  "14934695649286377905",
+                  "4390866428135253870",
+                  "2625436661567848776",
+                  "6182115392786227443",
+                  "158427665587389121",
+                  "12296282424627882022",
+                  "5112829006719066967",
+                  "3733541152779572947",
+                  "5383232728330749165",
+                  "10373069389078738686"
+                ],
+                [
+                  "2426348235642622622",
+                  "2722807874891593752",
+                  "11679949454565061497",
+                  "1818593276950117497",
+                  "8588508429873736455",
+                  "14550845556595321030",
+                  "14547788967106099446",
+                  "13995096867318133077",
+                  "14941036059361923399",
+                  "4664409039385407541"
+                ],
+                [
+                  "16330122576166158020",
+                  "16852561663341945821",
+                  "17231144337436431824",
+                  "7816015402725665112",
+                  "9607388956765830803",
+                  "16044566351535398755",
+                  "15171319669428463131",
+                  "364244470893758780",
+                  "13042385101258280949",
+                  "6049677886433017760"
+                ],
+                [
+                  "6063055232680156389",
+                  "4336925684039572191",
+                  "10788219695469283257",
+                  "9697394773462820199",
+                  "17228579195768986794",
+                  "18325457751819317385",
+                  "5879968327190862763",
+                  "4151921460931956622",
+                  "11241195792110344437",
+                  "18388563910930881355"
+                ]
+              ],
+              "checksums_match_near_same_receiver": true,
+              "failure_probe": {
+                "workflow_id": "10001999999",
+                "fail_at_node": 5,
+                "separate_probe_session": "101901000000",
+                "probe_migration_in": {
+                  "tx_hash": "f36b5c253460775a0a49028f21236b25329f5f42d9e647b1ffdc5d757544313c",
+                  "status": 1,
+                  "gas_used": 69780,
+                  "block_number": 5,
+                  "transaction_index": 0
+                },
+                "tx_hash": "7eb833e96ca34dadf96b8c160de66a65083e184ac925204f1ad1c76d7394e69b",
+                "status": 0,
+                "gas_used": 223658,
+                "block_number": 6,
+                "transaction_index": 0,
+                "abort_cleanup": {
+                  "tx_hash": "f178c07eed7c67d620bbfd216ef8e916b669aac1df917c6c1c03eaa797f95d39",
+                  "status": 1,
+                  "gas_used": 27456,
+                  "block_number": 7,
+                  "transaction_index": 0
+                },
+                "unfinished_and_rolled_back": true
+              }
+            },
+            {
+              "session_id": "101002000000",
+              "workflow_ids": [
+                "101002000001",
+                "101002000002",
+                "101002000003",
+                "101002000004"
+              ],
+              "migration_in": {
+                "tx_hash": "4fc4b673d9c65680522fcd8547ca01ecdec92b9408b3e3ac659f6abc5c77171b",
+                "status": 1,
+                "gas_used": 69780,
+                "block_number": 8,
+                "transaction_index": 0
+              },
+              "workflow_execution": {
+                "tx_hash": "01bc42ba076411c06779f316db3e8ad0ae5176e1e84aa783c96eaed620ad7e86",
+                "status": 1,
+                "gas_used": 2284033,
+                "block_number": 9,
+                "transaction_index": 0
+              },
+              "migration_out": {
+                "tx_hash": "77138684ea09d87d87a0914580ad7f2bbd792c44132a6e41b8bb23194bd45acd",
+                "status": 1,
+                "gas_used": 53161,
+                "block_number": 10,
+                "transaction_index": 0
+              },
+              "complete_session_gas": 2406974,
+              "gas_per_workflow_within_batched_execution": 571008.25,
+              "session_block_window": 2,
+              "session_state": {
+                "active": false,
+                "expected_workflows": 4,
+                "executed_workflows": 4,
+                "aggregate": "12399089221989888536"
+              },
+              "workflow_checksums": [
+                "12561613614264608923",
+                "18346566855247736891",
+                "16142885120741361463",
+                "17343323507151199655"
+              ],
+              "node_checksums": [
+                [
+                  "15135034403537962937",
+                  "17306794020447927014",
+                  "15612478811014694801",
+                  "103521163641468258",
+                  "6485003022594334158",
+                  "14337058831521491235",
+                  "16064965331789252271",
+                  "1218907555630544483",
+                  "5855196006022472401",
+                  "16464734810247166496"
+                ],
+                [
+                  "7371292601702449141",
+                  "18411236574237890289",
+                  "16314832778669936545",
+                  "7882459686143416635",
+                  "3606178323509286465",
+                  "4457157393376179889",
+                  "15285955704671113463",
+                  "9028778971913685503",
+                  "7953980223869779877",
+                  "4026189511776240427"
+                ],
+                [
+                  "16922761870508487936",
+                  "3472815617666940419",
+                  "3223011992404290100",
+                  "12147015896254619837",
+                  "16990518248117215662",
+                  "17186357484635279438",
+                  "1207501648398366241",
+                  "10970828858298180636",
+                  "6269754138205723547",
+                  "11742934710299451791"
+                ],
+                [
+                  "15456531288624365096",
+                  "3110188712347175411",
+                  "10804617411713911928",
+                  "18148060588228780444",
+                  "17302583479558829620",
+                  "8648407786221020756",
+                  "15036545146005373408",
+                  "14055566889756602312",
+                  "7631739555363376771",
+                  "16757256174546844570"
+                ]
+              ],
+              "checksums_match_near_same_receiver": true,
+              "failure_probe": {
+                "workflow_id": "10001999999",
+                "fail_at_node": 5,
+                "separate_probe_session": "101902000000",
+                "probe_migration_in": {
+                  "tx_hash": "ed56a0e5a6a510c50c50f308946b51e90cfa80ca74ffa1f2e04d334c01ac6447",
+                  "status": 1,
+                  "gas_used": 69768,
+                  "block_number": 11,
+                  "transaction_index": 0
+                },
+                "tx_hash": "2eadb89cc751292b86f83692cc97adaedfea43450fdca6467d1263d5fc599371",
+                "status": 0,
+                "gas_used": 223658,
+                "block_number": 12,
+                "transaction_index": 0,
+                "abort_cleanup": {
+                  "tx_hash": "429ba38f4896bef1b2c3540f821b8f3d61fb83392642e0f787b3fabb9c860dbe",
+                  "status": 1,
+                  "gas_used": 27456,
+                  "block_number": 13,
+                  "transaction_index": 0
+                },
+                "unfinished_and_rolled_back": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "updated_at": "2026-10-27T07:04:22Z",
+  "finished_at": "2026-10-27T07:04:22Z"
+}

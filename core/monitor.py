@@ -1,6 +1,6 @@
 """
-Network monitoring for DAS System v3.
-Background polling of transaction status and metrics collection.
+DAS System v3 网络监控模块。
+交易状态后台轮询和指标收集。
 """
 import threading
 import time
@@ -36,13 +36,13 @@ class TransactionRecord:
 
 class NetworkMonitor:
     """
-    Tracks transaction hashes across shards and polls their status in background.
+    跨分片追踪交易哈希并在后台轮询其状态。
 
-    Usage:
+    用法：
         monitor = NetworkMonitor(network_manager)
         monitor.track(["0xabc..."], shard_id=0)
         monitor.start_polling()
-        # ... do other work ...
+        # ... 做其他工作 ...
         monitor.wait_until_complete(timeout=300)
         results = monitor.get_results()
     """
@@ -59,17 +59,17 @@ class NetworkMonitor:
 
     def _get_node_name(self, shard_id: t.Union[int, str]) -> str:
         """
-        Convert a shard identifier (int or str) to the node name used in the topology.
+        将分片标识符（int或str）转换为拓扑中使用的节点名称。
         """
         if isinstance(shard_id, int):
             return f"shard_{shard_id}"
-        return str(shard_id)  # For "execution" or "baseline"
+        return str(shard_id)  # 用于"execution"或"baseline"
 
     def track(self, tx_hashes: t.List[str], shard_id: int, submission_time: float = None) -> None:
         """
-        Add a list of transaction hashes to be monitored for a specific shard.
+        添加要监控的特定分片的交易哈希列表。
 
-        submission_time: timestamp when the transaction was submitted (defaults to current time).
+        submission_time：交易提交时的时间戳（默认为当前时间）。
         """
         if submission_time is None:
             submission_time = time.time()
@@ -80,10 +80,9 @@ class NetworkMonitor:
 
     def start_polling(self, interval: float = 1.0) -> None:
         """
-        Start a background thread that periodically checks transaction status.
+        启动定期检查交易状态的后台线程。
 
-        The thread runs until `stop_polling()` is called or there are no more
-        pending transactions.
+        线程运行直到调用`stop_polling()`或没有更多待处理交易。
         """
         if self._thread is not None and self._thread.is_alive():
             return
@@ -99,7 +98,7 @@ class NetworkMonitor:
 
     def stop_polling(self) -> None:
         """
-        Signal the polling thread to stop and wait for it.
+        信号轮询线程停止并等待它。
         """
         self._stop_event.set()
         if self._thread is not None:
@@ -108,35 +107,35 @@ class NetworkMonitor:
 
     def _polling_loop(self, interval: float) -> None:
         """
-        Main loop that checks pending transactions every `interval` seconds.
+        每隔`interval`秒检查待处理交易的主循环。
         """
         while not self._stop_event.is_set():
             with self._lock:
-                # Copy pending items to avoid modification during iteration
+                # 复制待处理项以避免在迭代期间修改
                 pending_copy = {
                     shard_id: dict(hashes)
                     for shard_id, hashes in self._pending.items()
                 }
 
             if not pending_copy:
-                # No more pending transactions, exit loop
+                # 没有更多待处理交易，退出循环
                 break
 
-            # Check each shard
+            # 检查每个分片
             for shard_id, hashes in pending_copy.items():
                 node_name = self._get_node_name(shard_id)
                 web3 = self.network.get_web3(node_name)
                 for tx_hash, start_time in list(hashes.items()):
                     status, receipt = self._check_transaction(web3, tx_hash, node_name)
                     if status in (TxStatus.MINED, TxStatus.FAILED):
-                        # Transaction finalized
+                        # 交易已最终确定
                         with self._lock:
-                            # Pop the start time from pending dict
+                            # 从待处理字典中弹出开始时间
                             pending_start = self._pending[shard_id].pop(tx_hash, None)
                             if pending_start is None:
-                                pending_start = start_time  # fallback to copy
-                            if not self._pending[shard_id]:  # If dict is empty
-                                del self._pending[shard_id]  # Remove the key
+                                pending_start = start_time  # 后备到副本
+                            if not self._pending[shard_id]:  # 如果字典为空
+                                del self._pending[shard_id]  # 删除键
                             record = TransactionRecord(
                                 tx_hash=tx_hash,
                                 shard_id=shard_id,
@@ -147,59 +146,59 @@ class NetworkMonitor:
                                 gas_used=receipt.get("gasUsed") if receipt else None,
                             )
                             self._completed.append(record)
-                            # Print confirmation
-                            print(f"[Monitor] CONFIRMED {tx_hash[:10]} on {node_name} (Block {receipt.blockNumber})")
-                            # Clean up debug print tracking
+                            # 打印确认
+                            print(f"[监控] 已确认 {tx_hash[:10]} 在 {node_name}（区块 {receipt.blockNumber}）")
+                            # 清理调试打印追踪
                             self._last_debug_print.pop(tx_hash, None)
-                    # else: keep pending
+                    # else: 保持待处理
 
-            # Sleep for the interval
+            # 休眠间隔
             time.sleep(interval)
 
     def _check_transaction(
         self, web3: Web3, tx_hash: str, node_name: str
     ) -> t.Tuple[TxStatus, t.Optional[TxReceipt]]:
         """
-        Check the current status of a transaction, with debug logging.
+        检查交易的当前状态，并进行调试日志记录。
 
-        Returns:
-            (status, receipt) where receipt is non‑None only for mined/failed txs.
+        返回：
+            (status, receipt)，其中receipt仅对已挖掘/失败的tx为非None。
         """
         now = time.time()
-        # First, try to get the receipt
+        # 首先，尝试获取收据
         try:
             receipt = web3.eth.get_transaction_receipt(tx_hash)
             if receipt is not None:
-                # Check if the transaction succeeded (status == 1)
+                # 检查交易是否成功（status == 1）
                 if receipt.get("status") == 1:
                     return TxStatus.MINED, receipt
                 else:
                     return TxStatus.FAILED, receipt
         except Exception:
-            # TransactionNotFound or other error – treat as not yet mined
+            # TransactionNotFound或其他错误 - 视为尚未挖掘
             pass
 
-        # Not mined yet, decide whether to print debug
+        # 尚未挖掘，决定是否打印调试
         last_print = self._last_debug_print.get(tx_hash, 0)
         if now - last_print >= 5.0:
-            print(f"[Monitor] Checking {tx_hash[:10]} on {node_name}... Status: Not Found")
+            print(f"[监控] 在 {node_name} 上检查 {tx_hash[:10]}... 状态：未找到")
             self._last_debug_print[tx_hash] = now
 
-        # Check if transaction is still in the mempool
+        # 检查交易是否仍在mempool中
         try:
             tx = web3.eth.get_transaction(tx_hash)
             if tx is not None:
                 return TxStatus.PENDING, None
         except Exception:
-            # Not in mempool either – keep pending (might appear later)
+            # 也不在mempool中 - 保持待处理（可能稍后出现）
             pass
 
-        # Not found anywhere – still treat as pending (will be re‑checked later)
+        # 任何地方都找不到 - 仍然视为待处理（稍后将重新检查）
         return TxStatus.PENDING, None
 
     def get_results(self) -> t.List[t.Dict[str, t.Any]]:
         """
-        Return a list of dictionaries with metrics for all completed transactions.
+        返回所有已完成交易的指标字典列表。
         """
         with self._lock:
             return [
@@ -219,11 +218,11 @@ class NetworkMonitor:
 
     def wait_until_complete(self, timeout: float = 300.0) -> bool:
         """
-        Block until there are no pending transactions or timeout is reached.
+        阻塞直到没有待处理交易或达到超时。
 
-        Returns:
-            True if all pending transactions have been mined/finalized,
-            False if timeout occurred.
+        返回：
+            如果所有待处理交易都已挖掘/最终确定，则为True，
+            如果发生超时，则为False。
         """
         start = time.time()
         while time.time() - start < timeout:

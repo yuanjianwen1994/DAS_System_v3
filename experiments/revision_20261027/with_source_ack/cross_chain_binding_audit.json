@@ -1,0 +1,25 @@
+{
+  "kind": "two-chain-full-envelope-binding-audit",
+  "source_chain_id": 31337,
+  "destination_chain_id": 31338,
+  "fields_tested": [
+    "source_chain_id",
+    "source_contract",
+    "source_domain",
+    "destination_domain",
+    "asset",
+    "amount",
+    "sender",
+    "recipient",
+    "payload_hash",
+    "nonce",
+    "signature",
+    "destination_chain_id",
+    "destination_endpoint",
+    "replay"
+  ],
+  "tampered_fields_rejected": 14,
+  "positive_control_imported": true,
+  "destination_invariant": true,
+  "scope": "local EVM contracts and test attestor only; not independent validator finality"
+}

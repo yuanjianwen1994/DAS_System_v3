@@ -1,0 +1,61 @@
+{
+  "audit": "pass",
+  "platform": "near",
+  "seed": 20261033,
+  "scenario": "poisson_d8_lambda1",
+  "schedule_sha256": "f0b6d2faa48074d8c445fecc3a9d0912cacf050c6811a1fe3281bfdecfbf5c8b",
+  "runner_sha256": "93c51c2152fccabd229bbc7e0fe6ddabe1a319a8f34d11aa7dc9447c50fc68fc",
+  "cleanup_status": "forced_after_timeout",
+  "phases": [
+    {
+      "phase": 0,
+      "rate": 1.0,
+      "planned_rows": 388,
+      "actual_rows": 388,
+      "observation_window_planned_arrivals": 363,
+      "observation_window_actual_arrivals": 363,
+      "observation_window_audited_successes": 363,
+      "observation_window_audit_pending": 0,
+      "observation_window_row_classification": {
+        "audited_success": 363
+      },
+      "observation_duration_sec": 360,
+      "row_classification": {
+        "audited_success": 388
+      },
+      "trace_validation": {
+        "passed": true,
+        "exact_offsets_passed_to_scheduler": true,
+        "row_schedule_timestamps_match_offsets": true,
+        "expected_count": 388,
+        "recorded_count": 388,
+        "max_row_offset_deviation_sec": 0.0014967949999800112
+      },
+      "http_send_errors": 15,
+      "send_tx_requests": 403,
+      "send_tx_http_attempts": 403,
+      "send_tx_http_failures": 15,
+      "send_tx_retries": 15,
+      "audit_pending_count": 0,
+      "receipt_count": 5820,
+      "native_gas_used": null,
+      "rpc_http_calls_all_methods": 40881,
+      "rpc_http_errors_all_methods": 15,
+      "receipt_poll_pending_at_phase_end": null,
+      "successful_workflows_per_sec": 1.0194444444444444,
+      "workflow_latency_ms": {
+        "p50": 9657.370539000025,
+        "p95": 10069.587864000001
+      },
+      "observation_workflow_latency_ms": {
+        "p50": 9658.762629000004,
+        "p95": 10065.887527999992
+      },
+      "successful_workflow_count_for_latency": 388
+    }
+  ],
+  "totals": {
+    "audited_success": 388
+  },
+  "problems": []
+}

@@ -20,7 +20,7 @@ import random
 
 from web3 import Web3
 
-from config_micro import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS
+from config_micro import BLOCK_TIME, get_topology, TEST_USER_INDEX, GAS_LIMIT, MICRO_BENCHMARK_ITERATIONS, NETWORK_LATENCY_MU, NETWORK_LATENCY_SIGMA, NETWORK_LATENCY_MIN, NETWORK_LATENCY_MAX
 from datetime import datetime
 from core.identity import UserManager
 from core.injector import TransactionInjector
@@ -102,9 +102,9 @@ def run():
         })
         signed = user_account.sign_transaction(tx)
         
-        # 1. Define the Latency Model (e.g., Gaussian: Mean=0.5s, StdDev=0.2s)
-        # Clamp it so it's never negative, minimum 50ms.
-        network_delay = max(0.05, random.gauss(0.5, 0.2))
+        # 1. Define the Latency Model (Log-normal: mu=-1.0, sigma=0.8, mean≈0.5s)
+        # Clamp to [NETWORK_LATENCY_MIN, NETWORK_LATENCY_MAX] range.
+        network_delay = min(NETWORK_LATENCY_MAX, max(NETWORK_LATENCY_MIN, random.lognormvariate(NETWORK_LATENCY_MU, NETWORK_LATENCY_SIGMA)))
         
         # 2. Capture "User Click Time" (The TRUE start of latency)
         user_click_time = time.time()

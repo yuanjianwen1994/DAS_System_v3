@@ -1,0 +1,2440 @@
+{
+  "experiment": "8-node stateful fan-out/join versus chain pilot",
+  "design": {
+    "profile_count_per_repeat": 2,
+    "fresh_repeats": 1,
+    "session_count_per_profile": 1,
+    "graph_source": "/home/starshell/das_controller2_topology_20261028/profile_manifest.json",
+    "metrics": "raw receipt IDs, edge/node logs, success/failure outcomes, receipt block-height spans; SDK duration diagnostic only"
+  },
+  "runtime": {
+    "near_sandbox": "0.3.4",
+    "near_workspaces": "5.0.0",
+    "node": "v24.22.1",
+    "requested_nearcore": "2.13.4",
+    "expected_protocol_version": 86,
+    "wasm_stage": "/home/starshell/das_controller2_topology_20261028/near_runtime/artifacts/stage_contract.wasm",
+    "wasm_same_receiver": "/home/starshell/das_controller2_topology_20261028/near_runtime/artifacts/same_receiver_contract.wasm"
+  },
+  "started_at": "2026-10-28T08:56:22.669Z",
+  "completed_repeats": [
+    {
+      "repeat": 1,
+      "chain_id": "test-chain-exWo7",
+      "runtime": {
+        "rpc_version": "2.13.4",
+        "protocol_version": 86,
+        "chain_id": "test-chain-exWo7",
+        "node_key": "ed25519:A82RiiE5Pam238a1Fs2RPVfkTHELRSkUWvRv2VoxBuEb",
+        "latest_block_height": 2,
+        "sandbox_launcher_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/near-sandbox-compatible.remote.sh",
+        "sandbox_binary_path": "/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/node_modules/.pnpm/near-sandbox@0.3.4/node_modules/near-sandbox/bin/near-sandbox-2.13.4/near-sandbox",
+        "sandbox_binary_version": "neard (release 2.13.4) (build 2.13.4) (commit 44f7ae6cd7ef08bab604e20a473bf77e35d4c993) (rustc 1.93.0) (min_protocol 83) (protocol 86) (db 49)\nfeatures: [default, dump_test_contract, json_rpc, near_dump_test_contract, rosetta_rpc, sandbox]",
+        "sandbox_binary_sha256": "4e89fbc0f2958634e84af44634f90e87c246288fa11b067d2121ce1394cba2c2"
+      },
+      "profiles": [
+        {
+          "profile": {
+            "profile_id": "topology-chain-d8-8n-pilot",
+            "shape": "chain",
+            "dependency_depth_d": 8,
+            "parallel_width_w": 1,
+            "cross_execution_domain_edge_fraction_p": 0,
+            "cross_contract_edge_fraction_near_multicontract": 1,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 1,
+            "sessions_per_profile": 1,
+            "fresh_sandbox_repeats": 1,
+            "operations_per_node": 16,
+            "node_count": 8,
+            "edge_count": 7,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ],
+              [
+                6
+              ]
+            ],
+            "successors": [
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ],
+              [
+                6
+              ],
+              [
+                7
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "nearcore": {
+            "rpc_version": "2.13.4",
+            "protocol_version": 86,
+            "chain_id": "test-chain-exWo7",
+            "node_key": "ed25519:A82RiiE5Pam238a1Fs2RPVfkTHELRSkUWvRv2VoxBuEb",
+            "latest_block_height": 2,
+            "sandbox_launcher_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/near-sandbox-compatible.remote.sh",
+            "sandbox_binary_path": "/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/node_modules/.pnpm/near-sandbox@0.3.4/node_modules/near-sandbox/bin/near-sandbox-2.13.4/near-sandbox",
+            "sandbox_binary_version": "neard (release 2.13.4) (build 2.13.4) (commit 44f7ae6cd7ef08bab604e20a473bf77e35d4c993) (rustc 1.93.0) (min_protocol 83) (protocol 86) (db 49)\nfeatures: [default, dump_test_contract, json_rpc, near_dump_test_contract, rosetta_rpc, sandbox]",
+            "sandbox_binary_sha256": "4e89fbc0f2958634e84af44634f90e87c246288fa11b067d2121ce1394cba2c2",
+            "requested_version": "2.13.4",
+            "expected_protocol_version": 86,
+            "single_validator_sandbox": true
+          },
+          "stages": [
+            "dev-85205-22304.sandbox",
+            "dev-85845-70080.sandbox",
+            "dev-86468-60416.sandbox",
+            "dev-87094-98592.sandbox",
+            "dev-87718-41472.sandbox",
+            "dev-88339-77248.sandbox",
+            "dev-88963-94592.sandbox",
+            "dev-89590-79168.sandbox"
+          ],
+          "same_receiver_contract": "dev-93200-56032.sandbox",
+          "gas_budget_tgas": {
+            "top_level": 300,
+            "per_stage_node": [
+              56,
+              49,
+              42,
+              35,
+              28,
+              21,
+              14,
+              7
+            ]
+          },
+          "sessions": [
+            {
+              "session_id": "101001000000",
+              "theta_workflows": [
+                {
+                  "session_id": "101001000000",
+                  "workflow_id": "101001000001",
+                  "seed": "6385610238446608361"
+                }
+              ],
+              "multi_contract": {
+                "runs": [
+                  {
+                    "workflow": {
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "seed": "6385610238446608361"
+                    },
+                    "succeeded": true,
+                    "failed": false,
+                    "value": null,
+                    "gas_burnt": "22249611923139",
+                    "receipt_count": 15,
+                    "tx_block_height": 83,
+                    "completion_block_height": 91,
+                    "completion_lag_blocks": 8,
+                    "duration_ms_sdk_diagnostic_only": 1253,
+                    "records": [
+                      {
+                        "kind": "originating_transaction",
+                        "outcome_id": "8YApRsMk25P1rxykNySu7Vo9vFuVe4HiGb2EQvRjh42p",
+                        "block_hash": "44xrGjiFyoS8GHn7VWukA6vCj23FWH3wDvM8oSXS4QgP",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 312446401780,
+                        "status_kind": "SuccessReceiptId",
+                        "logs": [],
+                        "block_height": 83
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 0,
+                        "outcome_id": "79hcGJyEDT8yuy8MNWgCTMrsdDhNYQj7FUBBCKwnMuMy",
+                        "block_hash": "4Wpviggma2eo5M5HwvJv89snUbPPK5L25uYfXBG8zMib",
+                        "executor_id": "dev-85205-22304.sandbox",
+                        "gas_burnt": 2119629779282,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                          "Fnbjk6razHMkW6MYACApFEe4mVEDerEmzPJXeQwQi9mv"
+                        ],
+                        "logs": [
+                          "DAG_NODE|101001000000|101001000001|0|14934695649286377905|16"
+                        ],
+                        "block_height": 84
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 1,
+                        "outcome_id": "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                        "block_hash": "4KrwAYmx55ecYhTZSxdUPzEeBLrgcDRhW8papXd7apXd",
+                        "executor_id": "dev-85845-70080.sandbox",
+                        "gas_burnt": 2667804837633,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                          "B9MrPwcvewj2ufFYindHb9z11yMamirdS6dEoGKdVVg3"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|1|0|14934695649286377905",
+                          "DAG_NODE|101001000000|101001000001|1|4390866428135253870|16"
+                        ],
+                        "block_height": 85
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 2,
+                        "outcome_id": "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                        "block_hash": "9amT5aP7zLGrE3ZceL75MZD3aY2mzYJZjk9UMzfmuBBZ",
+                        "executor_id": "dev-86468-60416.sandbox",
+                        "gas_burnt": 2640429557713,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                          "AmwHRV94T9n2fb2FYPZJ3iJZEvxhRdsU5fg1Riii51Vo"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|2|1|4390866428135253870",
+                          "DAG_NODE|101001000000|101001000001|2|10326593622244436945|16"
+                        ],
+                        "block_height": 86
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 3,
+                        "outcome_id": "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                        "block_hash": "E96yKTA7yJvnbKQStTHAhq9rAjeiekz8yvmccUjd9HZP",
+                        "executor_id": "dev-87094-98592.sandbox",
+                        "gas_burnt": 2667822115509,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                          "77kXc7bi8UwKFTvGNCguBbuC1AxNfSyUgoTKbDyu5vJy"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|3|2|10326593622244436945",
+                          "DAG_NODE|101001000000|101001000001|3|5858172467991942796|16"
+                        ],
+                        "block_height": 87
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 4,
+                        "outcome_id": "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                        "block_hash": "61JWStj4veV6kEneoKm99U1vj4Un3ivX76VnCwFHyFGo",
+                        "executor_id": "dev-87718-41472.sandbox",
+                        "gas_burnt": 2668803840929,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                          "C3HukLRCsWMmCxYZAMq6dHJMWPaFwQdRC4ZWRGuiqVHG"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|4|3|5858172467991942796",
+                          "DAG_NODE|101001000000|101001000001|4|16337722634242468982|16"
+                        ],
+                        "block_height": 88
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 5,
+                        "outcome_id": "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                        "block_hash": "BCgXtkcE6bNXLMwtUfQAFUeUB2nqXhwD83oZvWsVqtMv",
+                        "executor_id": "dev-88339-77248.sandbox",
+                        "gas_burnt": 2667822115509,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                          "7hQD7ZzKr4cAEdLcmLUTmzYJrJcxcV2xLfAJsuWh54VK"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|5|4|16337722634242468982",
+                          "DAG_NODE|101001000000|101001000001|5|4805317273570888095|16"
+                        ],
+                        "block_height": 89
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 6,
+                        "outcome_id": "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                        "block_hash": "Bu1fmuBB5y3jACHRLHpkwLvQxMDShZgoFRWXqNBDJLhx",
+                        "executor_id": "dev-88963-94592.sandbox",
+                        "gas_burnt": 2667789557713,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                          "5k5EWFiieQ2Gg2ciWfHki1xSWk6cYQU4UgAKasUgmEZ9"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|6|5|4805317273570888095",
+                          "DAG_NODE|101001000000|101001000001|6|16477412688930383429|16"
+                        ],
+                        "block_height": 90
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 7,
+                        "outcome_id": "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                        "block_hash": "EewMM1BdF8Myd92F3xoLXm9RmTPFc6CdjRZKCSVX73Nv",
+                        "executor_id": "dev-89590-79168.sandbox",
+                        "gas_burnt": 2274785779571,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "34cmMAKbZQLnHt14pv8ZFTT2xPsqKGxkBR6gcRFf5u2V"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|101001000000|101001000001|7|6|16477412688930383429",
+                          "DAG_NODE|101001000000|101001000001|7|924000672833281194|16"
+                        ],
+                        "block_height": 91
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 8,
+                        "outcome_id": "5k5EWFiieQ2Gg2ciWfHki1xSWk6cYQU4UgAKasUgmEZ9",
+                        "block_hash": "EewMM1BdF8Myd92F3xoLXm9RmTPFc6CdjRZKCSVX73Nv",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 91
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 9,
+                        "outcome_id": "7hQD7ZzKr4cAEdLcmLUTmzYJrJcxcV2xLfAJsuWh54VK",
+                        "block_hash": "Bu1fmuBB5y3jACHRLHpkwLvQxMDShZgoFRWXqNBDJLhx",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 90
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 10,
+                        "outcome_id": "C3HukLRCsWMmCxYZAMq6dHJMWPaFwQdRC4ZWRGuiqVHG",
+                        "block_hash": "BCgXtkcE6bNXLMwtUfQAFUeUB2nqXhwD83oZvWsVqtMv",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 89
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 11,
+                        "outcome_id": "77kXc7bi8UwKFTvGNCguBbuC1AxNfSyUgoTKbDyu5vJy",
+                        "block_hash": "61JWStj4veV6kEneoKm99U1vj4Un3ivX76VnCwFHyFGo",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 88
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 12,
+                        "outcome_id": "AmwHRV94T9n2fb2FYPZJ3iJZEvxhRdsU5fg1Riii51Vo",
+                        "block_hash": "E96yKTA7yJvnbKQStTHAhq9rAjeiekz8yvmccUjd9HZP",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 87
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 13,
+                        "outcome_id": "B9MrPwcvewj2ufFYindHb9z11yMamirdS6dEoGKdVVg3",
+                        "block_hash": "9amT5aP7zLGrE3ZceL75MZD3aY2mzYJZjk9UMzfmuBBZ",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 86
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 14,
+                        "outcome_id": "Fnbjk6razHMkW6MYACApFEe4mVEDerEmzPJXeQwQi9mv",
+                        "block_hash": "4KrwAYmx55ecYhTZSxdUPzEeBLrgcDRhW8papXd7apXd",
+                        "executor_id": "dev-94202-32512.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 85
+                      }
+                    ],
+                    "log_events": [
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 0,
+                        "checksum": "14934695649286377905",
+                        "operations": 16,
+                        "receipt_id": "79hcGJyEDT8yuy8MNWgCTMrsdDhNYQj7FUBBCKwnMuMy",
+                        "executor_id": "dev-85205-22304.sandbox",
+                        "block_height": 84
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 1,
+                        "parent_node_id": 0,
+                        "checksum": "14934695649286377905",
+                        "receipt_id": "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                        "executor_id": "dev-85845-70080.sandbox",
+                        "block_height": 85
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 1,
+                        "checksum": "4390866428135253870",
+                        "operations": 16,
+                        "receipt_id": "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                        "executor_id": "dev-85845-70080.sandbox",
+                        "block_height": 85
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 2,
+                        "parent_node_id": 1,
+                        "checksum": "4390866428135253870",
+                        "receipt_id": "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                        "executor_id": "dev-86468-60416.sandbox",
+                        "block_height": 86
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 2,
+                        "checksum": "10326593622244436945",
+                        "operations": 16,
+                        "receipt_id": "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                        "executor_id": "dev-86468-60416.sandbox",
+                        "block_height": 86
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 3,
+                        "parent_node_id": 2,
+                        "checksum": "10326593622244436945",
+                        "receipt_id": "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                        "executor_id": "dev-87094-98592.sandbox",
+                        "block_height": 87
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 3,
+                        "checksum": "5858172467991942796",
+                        "operations": 16,
+                        "receipt_id": "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                        "executor_id": "dev-87094-98592.sandbox",
+                        "block_height": 87
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 4,
+                        "parent_node_id": 3,
+                        "checksum": "5858172467991942796",
+                        "receipt_id": "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                        "executor_id": "dev-87718-41472.sandbox",
+                        "block_height": 88
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 4,
+                        "checksum": "16337722634242468982",
+                        "operations": 16,
+                        "receipt_id": "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                        "executor_id": "dev-87718-41472.sandbox",
+                        "block_height": 88
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 5,
+                        "parent_node_id": 4,
+                        "checksum": "16337722634242468982",
+                        "receipt_id": "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                        "executor_id": "dev-88339-77248.sandbox",
+                        "block_height": 89
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 5,
+                        "checksum": "4805317273570888095",
+                        "operations": 16,
+                        "receipt_id": "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                        "executor_id": "dev-88339-77248.sandbox",
+                        "block_height": 89
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 6,
+                        "parent_node_id": 5,
+                        "checksum": "4805317273570888095",
+                        "receipt_id": "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                        "executor_id": "dev-88963-94592.sandbox",
+                        "block_height": 90
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 6,
+                        "checksum": "16477412688930383429",
+                        "operations": 16,
+                        "receipt_id": "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                        "executor_id": "dev-88963-94592.sandbox",
+                        "block_height": 90
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 7,
+                        "parent_node_id": 6,
+                        "checksum": "16477412688930383429",
+                        "receipt_id": "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                        "executor_id": "dev-89590-79168.sandbox",
+                        "block_height": 91
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 7,
+                        "checksum": "924000672833281194",
+                        "operations": 16,
+                        "receipt_id": "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                        "executor_id": "dev-89590-79168.sandbox",
+                        "block_height": 91
+                      }
+                    ],
+                    "sink_nodes": [
+                      7
+                    ],
+                    "dag_sink_completion_block_height": 91,
+                    "dag_sink_completion_lag_blocks": 8,
+                    "receipt_tree_drain_lag_blocks": 8,
+                    "client_wall_ms_to_receipt_tree": 1270.2094259999994
+                  }
+                ],
+                "receipt_graph": [
+                  {
+                    "workflow_id": "101001000001",
+                    "edges": [
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 1,
+                        "parent_node_id": 0,
+                        "checksum": "14934695649286377905",
+                        "receipt_id": "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                        "executor_id": "dev-85845-70080.sandbox",
+                        "block_height": 85
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 2,
+                        "parent_node_id": 1,
+                        "checksum": "4390866428135253870",
+                        "receipt_id": "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                        "executor_id": "dev-86468-60416.sandbox",
+                        "block_height": 86
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 3,
+                        "parent_node_id": 2,
+                        "checksum": "10326593622244436945",
+                        "receipt_id": "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                        "executor_id": "dev-87094-98592.sandbox",
+                        "block_height": 87
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 4,
+                        "parent_node_id": 3,
+                        "checksum": "5858172467991942796",
+                        "receipt_id": "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                        "executor_id": "dev-87718-41472.sandbox",
+                        "block_height": 88
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 5,
+                        "parent_node_id": 4,
+                        "checksum": "16337722634242468982",
+                        "receipt_id": "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                        "executor_id": "dev-88339-77248.sandbox",
+                        "block_height": 89
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 6,
+                        "parent_node_id": 5,
+                        "checksum": "4805317273570888095",
+                        "receipt_id": "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                        "executor_id": "dev-88963-94592.sandbox",
+                        "block_height": 90
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 7,
+                        "parent_node_id": 6,
+                        "checksum": "16477412688930383429",
+                        "receipt_id": "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                        "executor_id": "dev-89590-79168.sandbox",
+                        "block_height": 91
+                      }
+                    ],
+                    "node_executions": [
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 0,
+                        "checksum": "14934695649286377905",
+                        "operations": 16,
+                        "receipt_id": "79hcGJyEDT8yuy8MNWgCTMrsdDhNYQj7FUBBCKwnMuMy",
+                        "executor_id": "dev-85205-22304.sandbox",
+                        "block_height": 84
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 1,
+                        "checksum": "4390866428135253870",
+                        "operations": 16,
+                        "receipt_id": "89hQfDGH6LLAcLZgyAZHkofKwNWbKXyGDEn3Xk2uKULM",
+                        "executor_id": "dev-85845-70080.sandbox",
+                        "block_height": 85
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 2,
+                        "checksum": "10326593622244436945",
+                        "operations": 16,
+                        "receipt_id": "7Z1H5KXSYm1rrgWJ1dWnE2pRW1uvU14y8aCfGqUFD6kh",
+                        "executor_id": "dev-86468-60416.sandbox",
+                        "block_height": 86
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 3,
+                        "checksum": "5858172467991942796",
+                        "operations": 16,
+                        "receipt_id": "H9rAiVW1AE6CaenAjuoThVQZhgnV9VJGxYve6Gzh9Tkw",
+                        "executor_id": "dev-87094-98592.sandbox",
+                        "block_height": 87
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 4,
+                        "checksum": "16337722634242468982",
+                        "operations": 16,
+                        "receipt_id": "3ijD8E67Gjjt85XQr91yKBBj1wHDCktbqJUELvjDwDfh",
+                        "executor_id": "dev-87718-41472.sandbox",
+                        "block_height": 88
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 5,
+                        "checksum": "4805317273570888095",
+                        "operations": 16,
+                        "receipt_id": "3ZraP62YgSic5WEA6J5bRknJd31d2WX2h5bbyvzEzCQq",
+                        "executor_id": "dev-88339-77248.sandbox",
+                        "block_height": 89
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 6,
+                        "checksum": "16477412688930383429",
+                        "operations": 16,
+                        "receipt_id": "7PSXn21szULrzfR5Cqd6sx8Vt2av1PG1FYqvNiaLLwNR",
+                        "executor_id": "dev-88963-94592.sandbox",
+                        "block_height": 90
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "101001000000",
+                        "workflow_id": "101001000001",
+                        "node_id": 7,
+                        "checksum": "924000672833281194",
+                        "operations": 16,
+                        "receipt_id": "GaJRmkkgTt1GiqNoQYXSpEZDBJFx7ACYpDBhPWcuJiap",
+                        "executor_id": "dev-89590-79168.sandbox",
+                        "block_height": 91
+                      }
+                    ]
+                  }
+                ],
+                "session_block_window": 8
+              },
+              "same_receiver_best_control": {
+                "run": {
+                  "succeeded": true,
+                  "failed": false,
+                  "value": [
+                    {
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "seed": "6385610238446608361",
+                      "checksum": "6248441629323379098",
+                      "executed_nodes": 8,
+                      "operation_count": 128,
+                      "node_checksums": [
+                        "14934695649286377905",
+                        "4390866428135253870",
+                        "10326593622244436945",
+                        "5858172467991942796",
+                        "16337722634242468982",
+                        "4805317273570888095",
+                        "16477412688930383429",
+                        "924000672833281194"
+                      ],
+                      "block_height": "94"
+                    }
+                  ],
+                  "gas_burnt": "2839363694155",
+                  "receipt_count": 1,
+                  "tx_block_height": 93,
+                  "completion_block_height": 94,
+                  "completion_lag_blocks": 1,
+                  "duration_ms_sdk_diagnostic_only": 355,
+                  "records": [
+                    {
+                      "kind": "originating_transaction",
+                      "outcome_id": "few1NP8obqRwHGApbr8T9CC1e2Q3MfQuqCe51JNuemM",
+                      "block_hash": "BAWKf4yyKPYgGXpSpetLFKuLtU17SCvyccCZLCxmc9EY",
+                      "executor_id": "dev-94202-32512.sandbox",
+                      "gas_burnt": 317357824425,
+                      "status_kind": "SuccessReceiptId",
+                      "logs": [],
+                      "block_height": 93
+                    },
+                    {
+                      "kind": "receipt",
+                      "receipt_index": 0,
+                      "outcome_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "block_hash": "2jkaBu2cVvYYFPY7V5bnojXv7zE8r57wfQWbcrLBDk3m",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "gas_burnt": 2522005869730,
+                      "status_kind": "SuccessValue",
+                      "failure": null,
+                      "receipt_ids": [
+                        "Y6tUxXUfFQsnD64b3svMQuzNqZVsr6ikkgpGLsGTJNH"
+                      ],
+                      "logs": [
+                        "DAG_NODE|101001000000|101001000001|0|14934695649286377905|16",
+                        "DAG_NODE|101001000000|101001000001|1|4390866428135253870|16",
+                        "DAG_NODE|101001000000|101001000001|2|10326593622244436945|16",
+                        "DAG_NODE|101001000000|101001000001|3|5858172467991942796|16",
+                        "DAG_NODE|101001000000|101001000001|4|16337722634242468982|16",
+                        "DAG_NODE|101001000000|101001000001|5|4805317273570888095|16",
+                        "DAG_NODE|101001000000|101001000001|6|16477412688930383429|16",
+                        "DAG_NODE|101001000000|101001000001|7|924000672833281194|16"
+                      ],
+                      "block_height": 94
+                    }
+                  ],
+                  "log_events": [
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 0,
+                      "checksum": "14934695649286377905",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 1,
+                      "checksum": "4390866428135253870",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 2,
+                      "checksum": "10326593622244436945",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 3,
+                      "checksum": "5858172467991942796",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 4,
+                      "checksum": "16337722634242468982",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 5,
+                      "checksum": "4805317273570888095",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 6,
+                      "checksum": "16477412688930383429",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "101001000000",
+                      "workflow_id": "101001000001",
+                      "node_id": 7,
+                      "checksum": "924000672833281194",
+                      "operations": 16,
+                      "receipt_id": "4dV6ao2K6yxD6SAhPKuSbYC7rZcRdwmwTfEd1cJkCNH8",
+                      "executor_id": "dev-93200-56032.sandbox",
+                      "block_height": 94
+                    }
+                  ]
+                },
+                "receipt_count_for_theta_session": 1,
+                "block_window": 1
+              },
+              "same_nodes_and_checksum": [
+                {
+                  "workflow": {
+                    "session_id": "101001000000",
+                    "workflow_id": "101001000001",
+                    "seed": "6385610238446608361"
+                  },
+                  "nodes": [
+                    {
+                      "node_id": 0,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 0,
+                        "checksum": "14934695649286377905",
+                        "input_count": 0,
+                        "operation_count": 16,
+                        "block_height": "84"
+                      }
+                    },
+                    {
+                      "node_id": 1,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 1,
+                        "checksum": "4390866428135253870",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "85"
+                      }
+                    },
+                    {
+                      "node_id": 2,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 2,
+                        "checksum": "10326593622244436945",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "86"
+                      }
+                    },
+                    {
+                      "node_id": 3,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 3,
+                        "checksum": "5858172467991942796",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "87"
+                      }
+                    },
+                    {
+                      "node_id": 4,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 4,
+                        "checksum": "16337722634242468982",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "88"
+                      }
+                    },
+                    {
+                      "node_id": 5,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 5,
+                        "checksum": "4805317273570888095",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "89"
+                      }
+                    },
+                    {
+                      "node_id": 6,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 6,
+                        "checksum": "16477412688930383429",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "90"
+                      }
+                    },
+                    {
+                      "node_id": 7,
+                      "result": {
+                        "session_id": "101001000000",
+                        "node_id": 7,
+                        "checksum": "924000672833281194",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "91"
+                      }
+                    }
+                  ],
+                  "composite_result": {
+                    "session_id": "101001000000",
+                    "workflow_id": "101001000001",
+                    "seed": "6385610238446608361",
+                    "checksum": "6248441629323379098",
+                    "executed_nodes": 8,
+                    "operation_count": 128,
+                    "node_checksums": [
+                      "14934695649286377905",
+                      "4390866428135253870",
+                      "10326593622244436945",
+                      "5858172467991942796",
+                      "16337722634242468982",
+                      "4805317273570888095",
+                      "16477412688930383429",
+                      "924000672833281194"
+                    ],
+                    "block_height": "94"
+                  },
+                  "node_checksums": [
+                    "14934695649286377905",
+                    "4390866428135253870",
+                    "10326593622244436945",
+                    "5858172467991942796",
+                    "16337722634242468982",
+                    "4805317273570888095",
+                    "16477412688930383429",
+                    "924000672833281194"
+                  ],
+                  "all_nodes_present": true,
+                  "nodes_match_same_receiver": true
+                }
+              ],
+              "injected_failure": {
+                "not_run": true,
+                "reason": "separate failure scenario is scheduled after topology pilot"
+              }
+            }
+          ]
+        },
+        {
+          "profile": {
+            "profile_id": "topology-fanout6-join-8n-pilot",
+            "shape": "fanout6_join",
+            "dependency_depth_d": 3,
+            "parallel_width_w": 6,
+            "cross_execution_domain_edge_fraction_p": 0,
+            "cross_contract_edge_fraction_near_multicontract": 1,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 1,
+            "sessions_per_profile": 1,
+            "fresh_sandbox_repeats": 1,
+            "operations_per_node": 16,
+            "node_count": 8,
+            "edge_count": 12,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            ],
+            "successors": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "nearcore": {
+            "rpc_version": "2.13.4",
+            "protocol_version": 86,
+            "chain_id": "test-chain-exWo7",
+            "node_key": "ed25519:A82RiiE5Pam238a1Fs2RPVfkTHELRSkUWvRv2VoxBuEb",
+            "latest_block_height": 2,
+            "sandbox_launcher_path": "/home/starshell/das_randomized_arrival_20261028/formal_seed20261032/input/near-sandbox-compatible.remote.sh",
+            "sandbox_binary_path": "/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/node_modules/.pnpm/near-sandbox@0.3.4/node_modules/near-sandbox/bin/near-sandbox-2.13.4/near-sandbox",
+            "sandbox_binary_version": "neard (release 2.13.4) (build 2.13.4) (commit 44f7ae6cd7ef08bab604e20a473bf77e35d4c993) (rustc 1.93.0) (min_protocol 83) (protocol 86) (db 49)\nfeatures: [default, dump_test_contract, json_rpc, near_dump_test_contract, rosetta_rpc, sandbox]",
+            "sandbox_binary_sha256": "4e89fbc0f2958634e84af44634f90e87c246288fa11b067d2121ce1394cba2c2",
+            "requested_version": "2.13.4",
+            "expected_protocol_version": 86,
+            "single_validator_sandbox": true
+          },
+          "stages": [
+            "dev-96214-47936.sandbox",
+            "dev-96839-26016.sandbox",
+            "dev-97463-28128.sandbox",
+            "dev-98086-87008.sandbox",
+            "dev-98710-75168.sandbox",
+            "dev-99333-31200.sandbox",
+            "dev-99957-33024.sandbox",
+            "dev-575-12672.sandbox"
+          ],
+          "same_receiver_contract": "dev-4165-27712.sandbox",
+          "gas_budget_tgas": {
+            "top_level": 300,
+            "per_stage_node": [
+              93,
+              14,
+              14,
+              14,
+              14,
+              14,
+              14,
+              7
+            ]
+          },
+          "sessions": [
+            {
+              "session_id": "102001000000",
+              "theta_workflows": [
+                {
+                  "session_id": "102001000000",
+                  "workflow_id": "102001000001",
+                  "seed": "1771984233982627305"
+                }
+              ],
+              "multi_contract": {
+                "runs": [
+                  {
+                    "workflow": {
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "seed": "1771984233982627305"
+                    },
+                    "succeeded": true,
+                    "failed": false,
+                    "value": true,
+                    "gas_burnt": "37414027623186",
+                    "receipt_count": 27,
+                    "tx_block_height": 171,
+                    "completion_block_height": 175,
+                    "completion_lag_blocks": 4,
+                    "duration_ms_sdk_diagnostic_only": 754,
+                    "records": [
+                      {
+                        "kind": "originating_transaction",
+                        "outcome_id": "H2TnYmHLreJdpVmoZz6zcGmb3HRwvw6tUuaogaQWQMEf",
+                        "block_hash": "6tD8pcSKLELN6dVePY52sKsPrFLAHRyVZhwgvRXcup3S",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 312446401780,
+                        "status_kind": "SuccessReceiptId",
+                        "logs": [],
+                        "block_height": 171
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 0,
+                        "outcome_id": "5g1H3aVEggZUg9Gkujeiv1VHaHJ4AvoxKQmActVWTjFc",
+                        "block_hash": "8cN49qWvojcKgdsGLW88uBntGK3zqBpVvBvARJkqeEV6",
+                        "executor_id": "dev-96214-47936.sandbox",
+                        "gas_burnt": 4744980730542,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                          "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                          "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                          "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                          "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                          "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                          "28opRF7kTBAXSmJXE1VKQ818TNbkifPKgafaraFv3gZp",
+                          "FmLu3C1wsCMUhjqYXT8Ks2JQceAjvNbpUpNtDdydtewE"
+                        ],
+                        "logs": [
+                          "DAG_NODE|102001000000|102001000001|0|10598106380338825409|16"
+                        ],
+                        "block_height": 172
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 1,
+                        "outcome_id": "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-96839-26016.sandbox",
+                        "gas_burnt": 2667625814718,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "CfjF5bpNryooqwoG5JssuPQZG6fqa7k7HhpL6KEYbeZH",
+                          "GDya9zN2WJwT4iMvogerj5y2PRzh4TE39JcvhqFx1uEX"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|1|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|1|12740145362626317069|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 2,
+                        "outcome_id": "CfjF5bpNryooqwoG5JssuPQZG6fqa7k7HhpL6KEYbeZH",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 2059714810411,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "E2DZTyZHZFxSpYwmjZMcH3QBeHqJctSwkU6kpCoZyneg"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|1|12740145362626317069"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 3,
+                        "outcome_id": "E2DZTyZHZFxSpYwmjZMcH3QBeHqJctSwkU6kpCoZyneg",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 4,
+                        "outcome_id": "GDya9zN2WJwT4iMvogerj5y2PRzh4TE39JcvhqFx1uEX",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 5,
+                        "outcome_id": "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-97463-28128.sandbox",
+                        "gas_burnt": 2639840751343,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "DWZrh4joanojTSKmM2oYjYmCh14jbmhqP6ntKh72JmuN",
+                          "4hrUVCTdundokJzrNZd6T8dxMdAJAiukqFqKipPqzJ8d"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|2|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|2|9455360710590029152|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 6,
+                        "outcome_id": "DWZrh4joanojTSKmM2oYjYmCh14jbmhqP6ntKh72JmuN",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 1903371771370,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "BXMLXgq6oxbjteYknvAQTUfcwvnox1YUQjc2oJafgNWH"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|2|9455360710590029152"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 7,
+                        "outcome_id": "BXMLXgq6oxbjteYknvAQTUfcwvnox1YUQjc2oJafgNWH",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 8,
+                        "outcome_id": "4hrUVCTdundokJzrNZd6T8dxMdAJAiukqFqKipPqzJ8d",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 9,
+                        "outcome_id": "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-98086-87008.sandbox",
+                        "gas_burnt": 2667625814718,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "DgdSB69pUVBCEuVSMFGMxmCuZuxcS5dwJS4hk1ArmpWU",
+                          "H3KhTpiyPLkWjXjPyf4pX7h6hiYtQnvJYq7R1A6WqsJv"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|3|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|3|14830903785602595590|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 10,
+                        "outcome_id": "DgdSB69pUVBCEuVSMFGMxmCuZuxcS5dwJS4hk1ArmpWU",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 1903845024905,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "Ee81zJDV81o2REe4jd8GD65KtuTCxBfyN45s7Jrkuypq"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|3|14830903785602595590"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 11,
+                        "outcome_id": "Ee81zJDV81o2REe4jd8GD65KtuTCxBfyN45s7Jrkuypq",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 12,
+                        "outcome_id": "H3KhTpiyPLkWjXjPyf4pX7h6hiYtQnvJYq7R1A6WqsJv",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 13,
+                        "outcome_id": "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-98710-75168.sandbox",
+                        "gas_burnt": 2668640097934,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "G4oSVywYKvD59izEtZnFNMipGdoA64V21Gr5ZUFoomd3",
+                          "Fe251yrjcURWbGGdRuBnjAiyEV87pVxU5mWegvfxvuY9"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|4|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|4|15339442367326956279|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 14,
+                        "outcome_id": "G4oSVywYKvD59izEtZnFNMipGdoA64V21Gr5ZUFoomd3",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 1903860657269,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "GkeefZLCscU8cDCNGXXwAHztr3iAiQiJonumGHxVVsB5"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|4|15339442367326956279"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 15,
+                        "outcome_id": "GkeefZLCscU8cDCNGXXwAHztr3iAiQiJonumGHxVVsB5",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 16,
+                        "outcome_id": "Fe251yrjcURWbGGdRuBnjAiyEV87pVxU5mWegvfxvuY9",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 17,
+                        "outcome_id": "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-99333-31200.sandbox",
+                        "gas_burnt": 2667625814718,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "7VtJqE4eyDY4mPjecLgE5Gkxb4dnozMxFhuMWVcKpyGd",
+                          "5mpXfaCJE6Jmz8XVdjbUttRqC2fUn4G8xTGX2zRPWMQ7"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|5|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|5|17060773839394710495|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 18,
+                        "outcome_id": "7VtJqE4eyDY4mPjecLgE5Gkxb4dnozMxFhuMWVcKpyGd",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 1903876289633,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "GSJeKdSQXDdjL8m2gvC5R29im3ZjwHMdvKfHfCFmL3S4"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|5|17060773839394710495"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 19,
+                        "outcome_id": "GSJeKdSQXDdjL8m2gvC5R29im3ZjwHMdvKfHfCFmL3S4",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 20,
+                        "outcome_id": "5mpXfaCJE6Jmz8XVdjbUttRqC2fUn4G8xTGX2zRPWMQ7",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 21,
+                        "outcome_id": "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-99957-33024.sandbox",
+                        "gas_burnt": 2667625814718,
+                        "status_kind": "SuccessReceiptId",
+                        "failure": null,
+                        "receipt_ids": [
+                          "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                          "4QuHdZnvzBcBMCxky6hyZVDvptcbpDjinXJm282hBGyM"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|6|0|10598106380338825409",
+                          "DAG_NODE|102001000000|102001000001|6|12666977390403878060|16"
+                        ],
+                        "block_height": 173
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 22,
+                        "outcome_id": "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "gas_burnt": 2456317458629,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "AgVLDrGWbaBtzEPJJmCmymA55oftJyHnHi5VzrTK8b6Q"
+                        ],
+                        "logs": [
+                          "DAG_EDGE|102001000000|102001000001|7|6|12666977390403878060",
+                          "DAG_NODE|102001000000|102001000001|7|4163630448111498478|16"
+                        ],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 23,
+                        "outcome_id": "AgVLDrGWbaBtzEPJJmCmymA55oftJyHnHi5VzrTK8b6Q",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 24,
+                        "outcome_id": "4QuHdZnvzBcBMCxky6hyZVDvptcbpDjinXJm282hBGyM",
+                        "block_hash": "CKUNZ7yK1aYtzp6usoHQj8y3Gxw9CvsYxga7yufVB8Hs",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 174
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 25,
+                        "outcome_id": "28opRF7kTBAXSmJXE1VKQ818TNbkifPKgafaraFv3gZp",
+                        "block_hash": "CrQbZENCubmavb51cseSXVGAByN6ks2MDUcGCXUQSQHi",
+                        "executor_id": "dev-96214-47936.sandbox",
+                        "gas_burnt": 1345257057998,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [
+                          "AaTGRWLKJwQ37dbXMURruLd9UFvF9WQZhXUquAS6LSEn"
+                        ],
+                        "logs": [
+                          "DAG_JOIN|102001000000|102001000001|0"
+                        ],
+                        "block_height": 175
+                      },
+                      {
+                        "kind": "receipt",
+                        "receipt_index": 26,
+                        "outcome_id": "FmLu3C1wsCMUhjqYXT8Ks2JQceAjvNbpUpNtDdydtewE",
+                        "block_hash": "4wcxizoEB2mKEnsvuPpZnkUXQE7RLhrfypWYmTQL121P",
+                        "executor_id": "dev-5165-35104.sandbox",
+                        "gas_burnt": 223182562500,
+                        "status_kind": "SuccessValue",
+                        "failure": null,
+                        "receipt_ids": [],
+                        "logs": [],
+                        "block_height": 173
+                      }
+                    ],
+                    "log_events": [
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "operations": 16,
+                        "receipt_id": "5g1H3aVEggZUg9Gkujeiv1VHaHJ4AvoxKQmActVWTjFc",
+                        "executor_id": "dev-96214-47936.sandbox",
+                        "block_height": 172
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 1,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                        "executor_id": "dev-96839-26016.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 1,
+                        "checksum": "12740145362626317069",
+                        "operations": 16,
+                        "receipt_id": "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                        "executor_id": "dev-96839-26016.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 1,
+                        "checksum": "12740145362626317069",
+                        "receipt_id": "CfjF5bpNryooqwoG5JssuPQZG6fqa7k7HhpL6KEYbeZH",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 2,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                        "executor_id": "dev-97463-28128.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 2,
+                        "checksum": "9455360710590029152",
+                        "operations": 16,
+                        "receipt_id": "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                        "executor_id": "dev-97463-28128.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 2,
+                        "checksum": "9455360710590029152",
+                        "receipt_id": "DWZrh4joanojTSKmM2oYjYmCh14jbmhqP6ntKh72JmuN",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 3,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                        "executor_id": "dev-98086-87008.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 3,
+                        "checksum": "14830903785602595590",
+                        "operations": 16,
+                        "receipt_id": "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                        "executor_id": "dev-98086-87008.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 3,
+                        "checksum": "14830903785602595590",
+                        "receipt_id": "DgdSB69pUVBCEuVSMFGMxmCuZuxcS5dwJS4hk1ArmpWU",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 4,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                        "executor_id": "dev-98710-75168.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 4,
+                        "checksum": "15339442367326956279",
+                        "operations": 16,
+                        "receipt_id": "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                        "executor_id": "dev-98710-75168.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 4,
+                        "checksum": "15339442367326956279",
+                        "receipt_id": "G4oSVywYKvD59izEtZnFNMipGdoA64V21Gr5ZUFoomd3",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 5,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                        "executor_id": "dev-99333-31200.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 5,
+                        "checksum": "17060773839394710495",
+                        "operations": 16,
+                        "receipt_id": "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                        "executor_id": "dev-99333-31200.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 5,
+                        "checksum": "17060773839394710495",
+                        "receipt_id": "7VtJqE4eyDY4mPjecLgE5Gkxb4dnozMxFhuMWVcKpyGd",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 6,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                        "executor_id": "dev-99957-33024.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 6,
+                        "checksum": "12666977390403878060",
+                        "operations": 16,
+                        "receipt_id": "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                        "executor_id": "dev-99957-33024.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 6,
+                        "checksum": "12666977390403878060",
+                        "receipt_id": "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "checksum": "4163630448111498478",
+                        "operations": 16,
+                        "receipt_id": "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "fanout_barrier_callback",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 0,
+                        "receipt_id": "28opRF7kTBAXSmJXE1VKQ818TNbkifPKgafaraFv3gZp",
+                        "executor_id": "dev-96214-47936.sandbox",
+                        "block_height": 175
+                      }
+                    ],
+                    "sink_nodes": [
+                      7
+                    ],
+                    "dag_sink_completion_block_height": 174,
+                    "dag_sink_completion_lag_blocks": 3,
+                    "receipt_tree_drain_lag_blocks": 4,
+                    "client_wall_ms_to_receipt_tree": 778.670516000002
+                  }
+                ],
+                "receipt_graph": [
+                  {
+                    "workflow_id": "102001000001",
+                    "edges": [
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 1,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                        "executor_id": "dev-96839-26016.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 1,
+                        "checksum": "12740145362626317069",
+                        "receipt_id": "CfjF5bpNryooqwoG5JssuPQZG6fqa7k7HhpL6KEYbeZH",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 2,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                        "executor_id": "dev-97463-28128.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 2,
+                        "checksum": "9455360710590029152",
+                        "receipt_id": "DWZrh4joanojTSKmM2oYjYmCh14jbmhqP6ntKh72JmuN",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 3,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                        "executor_id": "dev-98086-87008.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 3,
+                        "checksum": "14830903785602595590",
+                        "receipt_id": "DgdSB69pUVBCEuVSMFGMxmCuZuxcS5dwJS4hk1ArmpWU",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 4,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                        "executor_id": "dev-98710-75168.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 4,
+                        "checksum": "15339442367326956279",
+                        "receipt_id": "G4oSVywYKvD59izEtZnFNMipGdoA64V21Gr5ZUFoomd3",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 5,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                        "executor_id": "dev-99333-31200.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 5,
+                        "checksum": "17060773839394710495",
+                        "receipt_id": "7VtJqE4eyDY4mPjecLgE5Gkxb4dnozMxFhuMWVcKpyGd",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 6,
+                        "parent_node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "receipt_id": "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                        "executor_id": "dev-99957-33024.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "edge_receipt",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "parent_node_id": 6,
+                        "checksum": "12666977390403878060",
+                        "receipt_id": "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      }
+                    ],
+                    "node_executions": [
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "operations": 16,
+                        "receipt_id": "5g1H3aVEggZUg9Gkujeiv1VHaHJ4AvoxKQmActVWTjFc",
+                        "executor_id": "dev-96214-47936.sandbox",
+                        "block_height": 172
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 1,
+                        "checksum": "12740145362626317069",
+                        "operations": 16,
+                        "receipt_id": "9z7Kv9SyrpPbGZ4n8yqbDNnZijhFF4GhAMVWYDaVUz4z",
+                        "executor_id": "dev-96839-26016.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 2,
+                        "checksum": "9455360710590029152",
+                        "operations": 16,
+                        "receipt_id": "Ebnnb2U8dkWSbM95Nf8GVCfEW6XFNJCwo66Lo7R8ZsnS",
+                        "executor_id": "dev-97463-28128.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 3,
+                        "checksum": "14830903785602595590",
+                        "operations": 16,
+                        "receipt_id": "9y92gLprWZi836eJcBEFbZ3NWCiJDpWukQvPmoreYpmr",
+                        "executor_id": "dev-98086-87008.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 4,
+                        "checksum": "15339442367326956279",
+                        "operations": 16,
+                        "receipt_id": "Cr8BQ8K8iiXFAGiuXoRKrFECMX4WdEHHZjRCHK1fCavm",
+                        "executor_id": "dev-98710-75168.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 5,
+                        "checksum": "17060773839394710495",
+                        "operations": 16,
+                        "receipt_id": "Atx4jQCh6HMwg774b1Xq2Yi84cKMBzM1XCzpDMf9jdMf",
+                        "executor_id": "dev-99333-31200.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 6,
+                        "checksum": "12666977390403878060",
+                        "operations": 16,
+                        "receipt_id": "8y6EEmGayMp9csNrpkVZXcWUxdky15nDHK8fRs4VpvaN",
+                        "executor_id": "dev-99957-33024.sandbox",
+                        "block_height": 173
+                      },
+                      {
+                        "type": "node_execution",
+                        "session_id": "102001000000",
+                        "workflow_id": "102001000001",
+                        "node_id": 7,
+                        "checksum": "4163630448111498478",
+                        "operations": 16,
+                        "receipt_id": "7v6McFt2o4WTqm8hhjCntRN1LgJ1E513D15DRTC5gNQ7",
+                        "executor_id": "dev-575-12672.sandbox",
+                        "block_height": 174
+                      }
+                    ]
+                  }
+                ],
+                "session_block_window": 4
+              },
+              "same_receiver_best_control": {
+                "run": {
+                  "succeeded": true,
+                  "failed": false,
+                  "value": [
+                    {
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "seed": "1771984233982627305",
+                      "checksum": "430838640434595641",
+                      "executed_nodes": 8,
+                      "operation_count": 128,
+                      "node_checksums": [
+                        "10598106380338825409",
+                        "12740145362626317069",
+                        "9455360710590029152",
+                        "14830903785602595590",
+                        "15339442367326956279",
+                        "17060773839394710495",
+                        "12666977390403878060",
+                        "4163630448111498478"
+                      ],
+                      "block_height": "178"
+                    }
+                  ],
+                  "gas_burnt": "2849519854177",
+                  "receipt_count": 1,
+                  "tx_block_height": 177,
+                  "completion_block_height": 178,
+                  "completion_lag_blocks": 1,
+                  "duration_ms_sdk_diagnostic_only": 350,
+                  "records": [
+                    {
+                      "kind": "originating_transaction",
+                      "outcome_id": "Fwha3JgDqivTqjitAMMoUhoUTmuHMKAWmrJvtGCq2qHi",
+                      "block_hash": "HstUBFKgwAJ2NpBcaSAXUke2X6fCbKeiPLUbiSZaNXQh",
+                      "executor_id": "dev-5165-35104.sandbox",
+                      "gas_burnt": 317834661575,
+                      "status_kind": "SuccessReceiptId",
+                      "logs": [],
+                      "block_height": 177
+                    },
+                    {
+                      "kind": "receipt",
+                      "receipt_index": 0,
+                      "outcome_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "block_hash": "BC8PRKHuEaZ7KVmPieDzuci4MiNLEXKdGg8MwtKn2byy",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "gas_burnt": 2531685192602,
+                      "status_kind": "SuccessValue",
+                      "failure": null,
+                      "receipt_ids": [
+                        "HionKGtzbBmsvTAkKDAsukX436gDHkwJGS8RkpM76vZd"
+                      ],
+                      "logs": [
+                        "DAG_NODE|102001000000|102001000001|0|10598106380338825409|16",
+                        "DAG_NODE|102001000000|102001000001|1|12740145362626317069|16",
+                        "DAG_NODE|102001000000|102001000001|2|9455360710590029152|16",
+                        "DAG_NODE|102001000000|102001000001|3|14830903785602595590|16",
+                        "DAG_NODE|102001000000|102001000001|4|15339442367326956279|16",
+                        "DAG_NODE|102001000000|102001000001|5|17060773839394710495|16",
+                        "DAG_NODE|102001000000|102001000001|6|12666977390403878060|16",
+                        "DAG_NODE|102001000000|102001000001|7|4163630448111498478|16"
+                      ],
+                      "block_height": 178
+                    }
+                  ],
+                  "log_events": [
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 0,
+                      "checksum": "10598106380338825409",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 1,
+                      "checksum": "12740145362626317069",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 2,
+                      "checksum": "9455360710590029152",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 3,
+                      "checksum": "14830903785602595590",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 4,
+                      "checksum": "15339442367326956279",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 5,
+                      "checksum": "17060773839394710495",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 6,
+                      "checksum": "12666977390403878060",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    },
+                    {
+                      "type": "node_execution",
+                      "session_id": "102001000000",
+                      "workflow_id": "102001000001",
+                      "node_id": 7,
+                      "checksum": "4163630448111498478",
+                      "operations": 16,
+                      "receipt_id": "78CSfKsGTRccyapW1NVdGTEvrtrxQPHaACYz4EA3JiAb",
+                      "executor_id": "dev-4165-27712.sandbox",
+                      "block_height": 178
+                    }
+                  ]
+                },
+                "receipt_count_for_theta_session": 1,
+                "block_window": 1
+              },
+              "same_nodes_and_checksum": [
+                {
+                  "workflow": {
+                    "session_id": "102001000000",
+                    "workflow_id": "102001000001",
+                    "seed": "1771984233982627305"
+                  },
+                  "nodes": [
+                    {
+                      "node_id": 0,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 0,
+                        "checksum": "10598106380338825409",
+                        "input_count": 0,
+                        "operation_count": 16,
+                        "block_height": "172"
+                      }
+                    },
+                    {
+                      "node_id": 1,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 1,
+                        "checksum": "12740145362626317069",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 2,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 2,
+                        "checksum": "9455360710590029152",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 3,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 3,
+                        "checksum": "14830903785602595590",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 4,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 4,
+                        "checksum": "15339442367326956279",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 5,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 5,
+                        "checksum": "17060773839394710495",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 6,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 6,
+                        "checksum": "12666977390403878060",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "block_height": "173"
+                      }
+                    },
+                    {
+                      "node_id": 7,
+                      "result": {
+                        "session_id": "102001000000",
+                        "node_id": 7,
+                        "checksum": "4163630448111498478",
+                        "input_count": 6,
+                        "operation_count": 16,
+                        "block_height": "174"
+                      }
+                    }
+                  ],
+                  "composite_result": {
+                    "session_id": "102001000000",
+                    "workflow_id": "102001000001",
+                    "seed": "1771984233982627305",
+                    "checksum": "430838640434595641",
+                    "executed_nodes": 8,
+                    "operation_count": 128,
+                    "node_checksums": [
+                      "10598106380338825409",
+                      "12740145362626317069",
+                      "9455360710590029152",
+                      "14830903785602595590",
+                      "15339442367326956279",
+                      "17060773839394710495",
+                      "12666977390403878060",
+                      "4163630448111498478"
+                    ],
+                    "block_height": "178"
+                  },
+                  "node_checksums": [
+                    "10598106380338825409",
+                    "12740145362626317069",
+                    "9455360710590029152",
+                    "14830903785602595590",
+                    "15339442367326956279",
+                    "17060773839394710495",
+                    "12666977390403878060",
+                    "4163630448111498478"
+                  ],
+                  "all_nodes_present": true,
+                  "nodes_match_same_receiver": true
+                }
+              ],
+              "injected_failure": {
+                "not_run": true,
+                "reason": "separate failure scenario is scheduled after topology pilot"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "updated_at": "2026-10-28T08:56:46.728Z",
+  "finished_at": "2026-10-28T08:56:46.729Z"
+}
