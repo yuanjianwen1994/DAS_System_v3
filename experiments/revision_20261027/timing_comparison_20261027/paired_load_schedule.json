@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "experiment": "paired-open-loop-independent-stage-dag",
+  "profile_id": "dag-04-chain-d4-w1-theta1-nu1",
+  "node_count": 4,
+  "operations_per_node": 16,
+  "block_period_sec": 1,
+  "arrival_rule": "job i is offered at phase_start + i / offered_rate; count = floor(offered_rate * measurement_seconds), with at least one job",
+  "identity_rule": "session_id = 500000000000 + repeat*10000000000 + phase_index*100000000 + (warmup ? 0 : 50000000); workflow_id = 800000000000 + repeat*10000000000 + phase_index*100000000 + (warmup ? 0 : 50000000) + i + 1",
+  "seed_rule": "0x123456789ABC XOR ((workflow_id * 0x9E3779B97F4A7C15) mod 2^64)",
+  "scenarios": {
+    "matched_low": {
+      "scenario_index": 0,
+      "rates_per_sec": [0.25, 0.5, 1, 2],
+      "warmup_sec": 5,
+      "measurement_sec": 20
+    },
+    "high_pilot": {
+      "scenario_index": 1,
+      "rates_per_sec": [4, 8, 16],
+      "warmup_sec": 2,
+      "measurement_sec": 10
+    },
+    "high_steady": {
+      "scenario_index": 2,
+      "rates_per_sec": [8, 16],
+      "warmup_sec": 5,
+      "measurement_sec": 30
+    }
+  },
+  "resource_policy": {
+    "sender_accounts_per_platform": 256,
+    "per_sender_submission_serialization": true,
+    "stop_when": "finish each requested phase and drain all submitted workflows; record timeouts and failures, do not discard them"
+  }
+}
