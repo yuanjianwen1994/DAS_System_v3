@@ -1,0 +1,74 @@
+{
+  "status": "paper_figure_proposals_from_existing_data",
+  "cohort": "chain percentiles/ECDF: all audited phase rows including preheat/drain; rate: observation window",
+  "run_boundary": "R31 paired exclusive; R32 old complete EVM + repaired NEAR replay; not two new simultaneous pairs",
+  "burst_boundary": "different experiment, fixed-count conditional Poisson, three seeds, parallel exploratory",
+  "topology_boundary": "NEAR native approx125ms blocks; EVM automine; within-runtime comparisons only",
+  "raw_data_modified": false,
+  "source_sha256": {
+    "randomized_arrival_20261028/formal_seed20261031/evm/d8_poisson_seed20261031_evm_evm_raw.json": "0a47217ab6d384a56749ad76d7b6cc1810610f6a5be4eb8656b0ffe51318670b",
+    "randomized_arrival_20261028/formal_seed20261031/near_corrected/d8_poisson_seed20261031_near_near_raw.json": "ffbd199b90a00a0c8d20a423b2ea635adfb8a1b952a4ce4973fc88914f9f2e17",
+    "randomized_arrival_20261028/formal_seed20261032/results/evm/d8_poisson_seed20261032_evm_evm_raw.json": "02d3dd994f84c4fa00007bd6da5bdbe00b7cfabab86e5376a58941e3f5a983c6",
+    "randomized_arrival_20261028/formal_seed20261032/auditfix_replay/full_replay_results/verified_archive_contents/results/near/d8_poisson_seed20261032_near_auditfix_full_near_raw.json": "f29682cc217c8fdb603c253feab78821f49e268f8c32dae834dc0f5ef09b406e",
+    "controller2_burst_20261028/formal_seed_summary.csv": "aa6a359de50d8820677865ddf2b6f3a2e133e87ab4868a9be69a2c7a0b61238b",
+    "controller2_topology_20261028/results/pilot/routeC_summary.json": "8e93c9eef37c3ca0b21b9eae0f5e400ad29285cbaa40408495bcc68213060420"
+  },
+  "chain_statistics": {
+    "R31|EVM|0.5": {
+      "p50": 0.8216388628352433,
+      "p95": 1.2242771009914577,
+      "goodput": 0.5102564102564102,
+      "n": 415,
+      "window_n": 398
+    },
+    "R31|EVM|1.0": {
+      "p50": 0.82328225299716,
+      "p95": 1.6256771490443498,
+      "goodput": 0.9948717948717949,
+      "n": 816,
+      "window_n": 776
+    },
+    "R31|NEAR|0.5": {
+      "p50": 9.594772652999964,
+      "p95": 10.020024474999984,
+      "goodput": 0.514102564102564,
+      "n": 415,
+      "window_n": 401
+    },
+    "R31|NEAR|1.0": {
+      "p50": 9.600694143000059,
+      "p95": 10.055530003999825,
+      "goodput": 1.0,
+      "n": 816,
+      "window_n": 780
+    },
+    "R32|EVM|0.5": {
+      "p50": 0.5719269050750881,
+      "p95": 1.1062666978687048,
+      "goodput": 0.4717948717948718,
+      "n": 385,
+      "window_n": 368
+    },
+    "R32|EVM|1.0": {
+      "p50": 0.687033399939537,
+      "p95": 1.6258053448982537,
+      "goodput": 1.0012820512820513,
+      "n": 817,
+      "window_n": 781
+    },
+    "R32|NEAR|0.5": {
+      "p50": 9.614246960999967,
+      "p95": 10.074965357000009,
+      "goodput": 0.47307692307692306,
+      "n": 385,
+      "window_n": 369
+    },
+    "R32|NEAR|1.0": {
+      "p50": 9.655137402999914,
+      "p95": 10.089463804000058,
+      "goodput": 1.0115384615384615,
+      "n": 817,
+      "window_n": 789
+    }
+  }
+}

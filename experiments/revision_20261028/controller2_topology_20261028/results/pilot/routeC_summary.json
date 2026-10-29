@@ -1,0 +1,842 @@
+{
+  "experiment_id": "routeC_topology_failure_20261028",
+  "topology_design": {
+    "chain": {
+      "nodes": 8,
+      "edges": 7,
+      "operations_per_node": 16
+    },
+    "fanout6_join": {
+      "nodes": 8,
+      "edges": 12,
+      "operations_per_node": 16
+    },
+    "causal_scope": "node count and operations matched; edge count differs, so this is not a pure depth-only comparison"
+  },
+  "latency_per_repeat": [
+    {
+      "platform": "NEAR",
+      "repeat": 1,
+      "topology": "chain",
+      "near_sink_poll_ms": 1256.747389,
+      "near_receipt_tree_ms": 1248.5754820000002,
+      "sink_poll_before_tree": false
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 1,
+      "topology": "fanout6_join",
+      "near_sink_poll_ms": 628.5469760000015,
+      "near_receipt_tree_ms": 752.6543620000011,
+      "sink_poll_before_tree": true
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 2,
+      "topology": "chain",
+      "near_sink_poll_ms": 1253.363099000002,
+      "near_receipt_tree_ms": 1249.279601000002,
+      "sink_poll_before_tree": false
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 2,
+      "topology": "fanout6_join",
+      "near_sink_poll_ms": 677.882534000004,
+      "near_receipt_tree_ms": 754.1111579999997,
+      "sink_poll_before_tree": true
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 3,
+      "topology": "chain",
+      "near_sink_poll_ms": 1256.2868550000057,
+      "near_receipt_tree_ms": 1248.0429189999995,
+      "sink_poll_before_tree": false
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 3,
+      "topology": "fanout6_join",
+      "near_sink_poll_ms": 627.2457020000002,
+      "near_receipt_tree_ms": 751.8587130000087,
+      "sink_poll_before_tree": true
+    },
+    {
+      "platform": "EVM",
+      "repeat": 1,
+      "topology": "chain",
+      "evm_receipt_ms": 112.36525094136596,
+      "evm_sink_post_receipt_ms": 120.97291415557265
+    },
+    {
+      "platform": "EVM",
+      "repeat": 1,
+      "topology": "fanout6_join",
+      "evm_receipt_ms": 112.81977500766516,
+      "evm_sink_post_receipt_ms": 120.47866289503872
+    },
+    {
+      "platform": "EVM",
+      "repeat": 2,
+      "topology": "chain",
+      "evm_receipt_ms": 112.71673906594515,
+      "evm_sink_post_receipt_ms": 121.1648820899427
+    },
+    {
+      "platform": "EVM",
+      "repeat": 2,
+      "topology": "fanout6_join",
+      "evm_receipt_ms": 112.88529192097485,
+      "evm_sink_post_receipt_ms": 120.76076096855104
+    },
+    {
+      "platform": "EVM",
+      "repeat": 3,
+      "topology": "chain",
+      "evm_receipt_ms": 112.17526393011212,
+      "evm_sink_post_receipt_ms": 120.6767049152404
+    },
+    {
+      "platform": "EVM",
+      "repeat": 3,
+      "topology": "fanout6_join",
+      "evm_receipt_ms": 112.67196107655764,
+      "evm_sink_post_receipt_ms": 120.51484500989318
+    }
+  ],
+  "latency_summaries_median_min_max": {
+    "NEAR_chain_near_sink_poll_ms": {
+      "n": 3,
+      "median": 1256.2868550000057,
+      "min": 1253.363099000002,
+      "max": 1256.747389,
+      "values": [
+        1256.747389,
+        1253.363099000002,
+        1256.2868550000057
+      ]
+    },
+    "NEAR_fanout6_join_near_sink_poll_ms": {
+      "n": 3,
+      "median": 628.5469760000015,
+      "min": 627.2457020000002,
+      "max": 677.882534000004,
+      "values": [
+        628.5469760000015,
+        677.882534000004,
+        627.2457020000002
+      ]
+    },
+    "NEAR_chain_near_receipt_tree_ms": {
+      "n": 3,
+      "median": 1248.5754820000002,
+      "min": 1248.0429189999995,
+      "max": 1249.279601000002,
+      "values": [
+        1248.5754820000002,
+        1249.279601000002,
+        1248.0429189999995
+      ]
+    },
+    "NEAR_fanout6_join_near_receipt_tree_ms": {
+      "n": 3,
+      "median": 752.6543620000011,
+      "min": 751.8587130000087,
+      "max": 754.1111579999997,
+      "values": [
+        752.6543620000011,
+        754.1111579999997,
+        751.8587130000087
+      ]
+    },
+    "EVM_chain_evm_receipt_ms": {
+      "n": 3,
+      "median": 112.36525094136596,
+      "min": 112.17526393011212,
+      "max": 112.71673906594515,
+      "values": [
+        112.36525094136596,
+        112.71673906594515,
+        112.17526393011212
+      ]
+    },
+    "EVM_fanout6_join_evm_receipt_ms": {
+      "n": 3,
+      "median": 112.81977500766516,
+      "min": 112.67196107655764,
+      "max": 112.88529192097485,
+      "values": [
+        112.81977500766516,
+        112.88529192097485,
+        112.67196107655764
+      ]
+    }
+  },
+  "native_cost_per_repeat": [
+    {
+      "platform": "NEAR",
+      "repeat": 1,
+      "topology": "chain",
+      "workflow_native_gas_tgas": 22.258300088542,
+      "workflow_receipts": 15,
+      "workflow_completion_lag_blocks": 8,
+      "same_receiver_native_gas_tgas": 2.839363694155,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 328.30599900000016,
+      "same_receiver_view_after_tree_ms": 329.7324690000005
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 1,
+      "topology": "fanout6_join",
+      "workflow_native_gas_tgas": 37.500793735223,
+      "workflow_receipts": 27,
+      "workflow_completion_lag_blocks": 4,
+      "same_receiver_native_gas_tgas": 2.895119854177,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 327.78782599999977,
+      "same_receiver_view_after_tree_ms": 329.0681919999988
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 2,
+      "topology": "chain",
+      "workflow_native_gas_tgas": 22.242011515035,
+      "workflow_receipts": 15,
+      "workflow_completion_lag_blocks": 8,
+      "same_receiver_native_gas_tgas": 2.886039375418,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 344.45366900000226,
+      "same_receiver_view_after_tree_ms": 347.02417100000457
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 2,
+      "topology": "fanout6_join",
+      "workflow_native_gas_tgas": 37.49587124527,
+      "workflow_receipts": 27,
+      "workflow_completion_lag_blocks": 4,
+      "same_receiver_native_gas_tgas": 2.893289413594,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 326.7282599999962,
+      "same_receiver_view_after_tree_ms": 327.89081499999884
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 3,
+      "topology": "chain",
+      "workflow_native_gas_tgas": 22.260251515035,
+      "workflow_receipts": 15,
+      "workflow_completion_lag_blocks": 8,
+      "same_receiver_native_gas_tgas": 2.840565454948,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 337.36187800000334,
+      "same_receiver_view_after_tree_ms": 338.56092799999897
+    },
+    {
+      "platform": "NEAR",
+      "repeat": 3,
+      "topology": "fanout6_join",
+      "workflow_native_gas_tgas": 37.499524269258,
+      "workflow_receipts": 27,
+      "workflow_completion_lag_blocks": 4,
+      "same_receiver_native_gas_tgas": 2.848829780134,
+      "same_receiver_receipts": 1,
+      "same_receiver_tree_ms": 327.13116399999126,
+      "same_receiver_view_after_tree_ms": 328.3285329999926
+    },
+    {
+      "platform": "EVM",
+      "repeat": 1,
+      "topology": "chain",
+      "workflow_native_gas": 1124775,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1249892,
+      "setup_gas_per_profile": 15677506,
+      "external_stage_calls": 8,
+      "edge_input_events": 7
+    },
+    {
+      "platform": "EVM",
+      "repeat": 1,
+      "topology": "fanout6_join",
+      "workflow_native_gas": 1430761,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1555878,
+      "setup_gas_per_profile": 15496788,
+      "external_stage_calls": 8,
+      "edge_input_events": 12
+    },
+    {
+      "platform": "EVM",
+      "repeat": 2,
+      "topology": "chain",
+      "workflow_native_gas": 1124775,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1249892,
+      "setup_gas_per_profile": 15677506,
+      "external_stage_calls": 8,
+      "edge_input_events": 7
+    },
+    {
+      "platform": "EVM",
+      "repeat": 2,
+      "topology": "fanout6_join",
+      "workflow_native_gas": 1430761,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1555878,
+      "setup_gas_per_profile": 15496788,
+      "external_stage_calls": 8,
+      "edge_input_events": 12
+    },
+    {
+      "platform": "EVM",
+      "repeat": 3,
+      "topology": "chain",
+      "workflow_native_gas": 1124775,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1249892,
+      "setup_gas_per_profile": 15677506,
+      "external_stage_calls": 8,
+      "edge_input_events": 7
+    },
+    {
+      "platform": "EVM",
+      "repeat": 3,
+      "topology": "fanout6_join",
+      "workflow_native_gas": 1430761,
+      "workflow_count": 1,
+      "complete_session_gas_excluding_setup": 1555854,
+      "setup_gas_per_profile": 15496788,
+      "external_stage_calls": 8,
+      "edge_input_events": 12
+    }
+  ],
+  "native_cost_summaries_median_min_max": {
+    "NEAR_chain_workflow_native_gas_tgas": {
+      "n": 3,
+      "median": 22.258300088542,
+      "min": 22.242011515035,
+      "max": 22.260251515035,
+      "values": [
+        22.258300088542,
+        22.242011515035,
+        22.260251515035
+      ]
+    },
+    "NEAR_chain_workflow_receipts": {
+      "n": 3,
+      "median": 15,
+      "min": 15,
+      "max": 15,
+      "values": [
+        15,
+        15,
+        15
+      ]
+    },
+    "NEAR_chain_same_receiver_native_gas_tgas": {
+      "n": 3,
+      "median": 2.840565454948,
+      "min": 2.839363694155,
+      "max": 2.886039375418,
+      "values": [
+        2.839363694155,
+        2.886039375418,
+        2.840565454948
+      ]
+    },
+    "NEAR_chain_same_receiver_receipts": {
+      "n": 3,
+      "median": 1,
+      "min": 1,
+      "max": 1,
+      "values": [
+        1,
+        1,
+        1
+      ]
+    },
+    "NEAR_fanout6_join_workflow_native_gas_tgas": {
+      "n": 3,
+      "median": 37.499524269258,
+      "min": 37.49587124527,
+      "max": 37.500793735223,
+      "values": [
+        37.500793735223,
+        37.49587124527,
+        37.499524269258
+      ]
+    },
+    "NEAR_fanout6_join_workflow_receipts": {
+      "n": 3,
+      "median": 27,
+      "min": 27,
+      "max": 27,
+      "values": [
+        27,
+        27,
+        27
+      ]
+    },
+    "NEAR_fanout6_join_same_receiver_native_gas_tgas": {
+      "n": 3,
+      "median": 2.893289413594,
+      "min": 2.848829780134,
+      "max": 2.895119854177,
+      "values": [
+        2.895119854177,
+        2.893289413594,
+        2.848829780134
+      ]
+    },
+    "NEAR_fanout6_join_same_receiver_receipts": {
+      "n": 3,
+      "median": 1,
+      "min": 1,
+      "max": 1,
+      "values": [
+        1,
+        1,
+        1
+      ]
+    },
+    "EVM_chain_workflow_native_gas": {
+      "n": 3,
+      "median": 1124775,
+      "min": 1124775,
+      "max": 1124775,
+      "values": [
+        1124775,
+        1124775,
+        1124775
+      ]
+    },
+    "EVM_chain_complete_session_gas_excluding_setup": {
+      "n": 3,
+      "median": 1249892,
+      "min": 1249892,
+      "max": 1249892,
+      "values": [
+        1249892,
+        1249892,
+        1249892
+      ]
+    },
+    "EVM_chain_setup_gas_per_profile": {
+      "n": 3,
+      "median": 15677506,
+      "min": 15677506,
+      "max": 15677506,
+      "values": [
+        15677506,
+        15677506,
+        15677506
+      ]
+    },
+    "EVM_chain_external_stage_calls": {
+      "n": 3,
+      "median": 8,
+      "min": 8,
+      "max": 8,
+      "values": [
+        8,
+        8,
+        8
+      ]
+    },
+    "EVM_chain_edge_input_events": {
+      "n": 3,
+      "median": 7,
+      "min": 7,
+      "max": 7,
+      "values": [
+        7,
+        7,
+        7
+      ]
+    },
+    "EVM_fanout6_join_workflow_native_gas": {
+      "n": 3,
+      "median": 1430761,
+      "min": 1430761,
+      "max": 1430761,
+      "values": [
+        1430761,
+        1430761,
+        1430761
+      ]
+    },
+    "EVM_fanout6_join_complete_session_gas_excluding_setup": {
+      "n": 3,
+      "median": 1555878,
+      "min": 1555854,
+      "max": 1555878,
+      "values": [
+        1555878,
+        1555878,
+        1555854
+      ]
+    },
+    "EVM_fanout6_join_setup_gas_per_profile": {
+      "n": 3,
+      "median": 15496788,
+      "min": 15496788,
+      "max": 15496788,
+      "values": [
+        15496788,
+        15496788,
+        15496788
+      ]
+    },
+    "EVM_fanout6_join_external_stage_calls": {
+      "n": 3,
+      "median": 8,
+      "min": 8,
+      "max": 8,
+      "values": [
+        8,
+        8,
+        8
+      ]
+    },
+    "EVM_fanout6_join_edge_input_events": {
+      "n": 3,
+      "median": 12,
+      "min": 12,
+      "max": 12,
+      "values": [
+        12,
+        12,
+        12
+      ]
+    }
+  },
+  "near_receipt_class_counts_by_topology": {
+    "chain": {
+      "function_call:start": 3,
+      "function_call:receive_input": 21,
+      "transfer_or_refund": 21
+    },
+    "fanout6_join": {
+      "function_call:start": 3,
+      "function_call:receive_input": 36,
+      "transfer_or_refund": 39,
+      "function_call:on_fanout_complete": 3
+    }
+  },
+  "near_observed_workflow_block_intervals": {
+    "chain": {
+      "n": 24,
+      "median": 124.495991,
+      "min": 123.083872,
+      "max": 126.158173,
+      "values": [
+        123.340855,
+        123.71614,
+        124.354699,
+        125.406187,
+        125.814031,
+        125.379059,
+        124.055807,
+        124.545467,
+        126.158173,
+        124.228549,
+        124.446515,
+        123.083872,
+        123.138776,
+        125.043469,
+        126.012114,
+        125.056729,
+        125.469106,
+        123.29706,
+        123.891358,
+        124.318038,
+        124.801154,
+        123.575046,
+        125.284683,
+        125.306353
+      ]
+    },
+    "fanout6_join": {
+      "n": 12,
+      "median": 125.018013,
+      "min": 124.081025,
+      "max": 126.123267,
+      "values": [
+        125.214619,
+        125.902979,
+        124.149422,
+        124.081025,
+        125.643302,
+        124.821407,
+        125.516285,
+        126.01052,
+        124.820749,
+        124.187341,
+        124.425202,
+        126.123267
+      ]
+    }
+  },
+  "near_sandbox_runtime_windows": [
+    {
+      "repeat": 1,
+      "sandbox_start_requested_at": "2026-10-28T09:30:23.048Z",
+      "sandbox_ready_at": "2026-10-28T09:30:25.137Z",
+      "sandbox_tear_down_requested_at": "2026-10-28T09:30:47.109Z",
+      "sandbox_tear_down_completed_at": "2026-10-28T09:30:47.153Z",
+      "near_version": "2.13.4",
+      "protocol_version": 86
+    },
+    {
+      "repeat": 2,
+      "sandbox_start_requested_at": "2026-10-28T09:30:47.156Z",
+      "sandbox_ready_at": "2026-10-28T09:30:49.215Z",
+      "sandbox_tear_down_requested_at": "2026-10-28T09:31:11.084Z",
+      "sandbox_tear_down_completed_at": "2026-10-28T09:31:11.126Z",
+      "near_version": "2.13.4",
+      "protocol_version": 86
+    },
+    {
+      "repeat": 3,
+      "sandbox_start_requested_at": "2026-10-28T09:31:11.131Z",
+      "sandbox_ready_at": "2026-10-28T09:31:13.192Z",
+      "sandbox_tear_down_requested_at": "2026-10-28T09:31:35.082Z",
+      "sandbox_tear_down_completed_at": "2026-10-28T09:31:35.129Z",
+      "near_version": "2.13.4",
+      "protocol_version": 86
+    }
+  ],
+  "evm_anvil_runtime_windows": [
+    {
+      "repeat": 1,
+      "start_requested_at": "2026-10-28T09:31:36Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "36933",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T09:31:36Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T09:31:39Z",
+      "stopped_at": "2026-10-28T09:31:39Z"
+    },
+    {
+      "repeat": 2,
+      "start_requested_at": "2026-10-28T09:31:39Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "33799",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T09:31:39Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T09:31:43Z",
+      "stopped_at": "2026-10-28T09:31:43Z"
+    },
+    {
+      "repeat": 3,
+      "start_requested_at": "2026-10-28T09:31:43Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "50939",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T09:31:43Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T09:31:46Z",
+      "stopped_at": "2026-10-28T09:31:46Z"
+    }
+  ],
+  "near_block_configuration": {
+    "block_producer_kickout_threshold": 90,
+    "chain_id": "test-chain-zBxAG",
+    "chunk_producer_assignment_changes_limit": 5,
+    "chunk_producer_kickout_threshold": 90,
+    "chunk_validator_only_kickout_threshold": 80,
+    "dynamic_resharding": false,
+    "epoch_length": 60,
+    "fishermen_threshold": "10000000000000000000000000",
+    "gas_limit": 1000000000000000,
+    "gas_price_adjustment_rate": [
+      1,
+      100
+    ],
+    "genesis_height": 0,
+    "genesis_time": "2026-10-28T09:30:23.071602916Z",
+    "max_gas_price": "10000000000000000000000",
+    "max_inflation_rate": [
+      1,
+      20
+    ],
+    "max_kickout_stake_perc": 100,
+    "min_gas_price": "100000000",
+    "minimum_stake_divisor": 10,
+    "minimum_stake_ratio": [
+      1,
+      6250
+    ],
+    "minimum_validators_per_shard": 1,
+    "num_block_producer_seats": 50,
+    "num_blocks_per_year": 31536000,
+    "num_chunk_producer_seats": 100,
+    "num_chunk_validator_seats": 300,
+    "online_max_threshold": [
+      99,
+      100
+    ],
+    "online_min_threshold": [
+      9,
+      10
+    ],
+    "protocol_reward_rate": [
+      1,
+      10
+    ],
+    "protocol_treasury_account": "test.near",
+    "protocol_upgrade_stake_threshold": [
+      4,
+      5
+    ],
+    "protocol_version": 86,
+    "shard_layout": {
+      "V2": {
+        "boundary_accounts": [],
+        "id_to_index_map": {
+          "0": 0
+        },
+        "index_to_id_map": {
+          "0": 0
+        },
+        "shard_ids": [
+          0
+        ],
+        "shards_parent_map": null,
+        "shards_split_map": null,
+        "version": 0
+      }
+    },
+    "shuffle_shard_assignment_for_chunk_producers": false,
+    "target_validator_mandates_per_shard": 68,
+    "total_supply": "2050010000000000000000000000000000",
+    "transaction_validity_period": 100,
+    "use_production_config": false,
+    "validators": [
+      {
+        "account_id": "test.near",
+        "amount": "50000000000000000000000000000000",
+        "public_key": "ed25519:Ga8TUdQJc4CcDPubf7uMA7AV1hqbsroX3EyXS97HT7nk"
+      }
+    ]
+  },
+  "evm_mining_configuration": {
+    "automine": "Anvil default (enabled)",
+    "block_time_override_sec": null,
+    "command_line_flags": [
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "<dynamic>",
+      "--chain-id",
+      "31337",
+      "--silent"
+    ]
+  },
+  "failure_control": {
+    "near": {
+      "verified": true,
+      "failed_node": 4,
+      "persisted_nodes": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "missing_nodes": [
+        4,
+        7
+      ],
+      "persisted_node_count": 6,
+      "total_node_count": 8,
+      "missing_node_count": 2,
+      "failed_receipt_observed": true,
+      "multi_contract_receipt_count": 25,
+      "multi_contract_gas_burnt_tgas": 34.493765175984,
+      "full_receipt_tree_wall_ms": null,
+      "same_receiver_failed": true,
+      "business_compensation_transactions": 0,
+      "compensation_status": "no compensator implemented or invoked; recovery time not measured"
+    },
+    "evm": {
+      "failed_node": 4,
+      "tx_status": 0,
+      "failure_tx_gas_used": 558052,
+      "client_wall_ms_to_failure_receipt": 111.2600069027394,
+      "stage_call_frames_before_revert": 5,
+      "all_contract_state_rolled_back": true,
+      "cleanup_tx_status": 1,
+      "cleanup_tx_gas_used": 27479,
+      "business_compensation_transactions": 0,
+      "compensation_status": "abortSession is session cleanup, not business compensation; recovery time not measured"
+    }
+  },
+  "state_audit_all_passed": true,
+  "derived_data_self_check_passed": true,
+  "independent_audit_status": "not completed",
+  "formal_exit_codes": {
+    "near": 0,
+    "evm": 0
+  },
+  "resource_monitor": {
+    "formal": {
+      "started_at": "2026-10-28T09:30:21.220590+00:00",
+      "finished_at": "2026-10-28T09:31:46.580462+00:00",
+      "sample_interval_sec": 1,
+      "samples": 85,
+      "task_tree_peak_sampled_rss_kb": 438392,
+      "task_tree_peak_sampled_cpu_pct_of_one_core": 97.5190089492315,
+      "task_tree_peak_sampled_process_count": 3,
+      "limitation": "sampled process-tree RSS sums can double-count shared mappings; container MemAvailable and cgroup memory are shared context, not exclusive task totals"
+    },
+    "failure": {
+      "started_at": "2026-10-28T09:34:11.306248+00:00",
+      "finished_at": "2026-10-28T09:34:30.393007+00:00",
+      "sample_interval_sec": 1,
+      "samples": 19,
+      "task_tree_peak_sampled_rss_kb": 379560,
+      "task_tree_peak_sampled_cpu_pct_of_one_core": 89.4868096988038,
+      "task_tree_peak_sampled_process_count": 3,
+      "limitation": "sampled process-tree RSS sums can double-count shared mappings; container MemAvailable and cgroup memory are shared context, not exclusive task totals"
+    }
+  },
+  "remote_archive_sha256": "981160465ccdc3327bdeea9bbbf4985aaf3b38d6f0bc496bd9944a80302ae365",
+  "limitations": [
+    "n=3 fresh runtime repetitions per platform and topology; descriptive only, no inferential test",
+    "NEAR sink timing is the first successful view poll at 50 ms intervals, not the exact instant state became queryable",
+    "NEAR vs EVM wall times are not architecture-only; NEAR Sandbox block cadence and Anvil automine differ",
+    "the shared remote container had no hard CPU or memory quota; CPU affinity is soft binding, not isolation",
+    "the chain and fanout-join workloads differ by five dependency edges"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "status": "paper_figure_proposals_from_existing_data",
+  "cohort": "chain percentiles/ECDF: observation-window offers followed through drain; rate: successful completions within 360s observation window",
+  "percentile_rule": "nearest rank ceil(q*n), applied consistently to all plotted chain values",
+  "run_boundary": "R33 and R34 each fresh EVM+NEAR paired runs, lambda1/s, 30s preheat+360s observation, fixed1s blocks; historical R31/R32 figures retained under initial_proposal",
+  "independent_audit": "../figure_validation_topology_20261028/chain_fresh_independent_audit.md",
+  "provenance_limitations": [
+    "Formal seed33/34 original launch manifests recovered under figure_validation_topology_20261028/chain_fresh_supplement; record NEAR2.13.4/protocol86/binaryhash and EVMrunnerhash, independently of original81-file archive.",
+    "Anvil executable binary hash was not captured for these formal chain runs; do not replace with a later measurement.",
+    "Both NEAR teardowns forced_after_timeout; no historical post-finish child-process probe archived.",
+    "Separate current-time PID probe found all8knownPIDs absent; cannot establish their finish-time exit.",
+    "Finalization includes audit gate wait and must not be called teardown time."
+  ],
+  "burst_boundary": "different experiment, fixed-count conditional Poisson, three seeds, parallel exploratory",
+  "topology_boundary": "new five topology repeats and three failure probes only, old3+1 separate; NEAR native approx125ms blocks; EVM automine; within-runtime comparisons only",
+  "raw_data_modified": false,
+  "source_sha256": {
+    "figure_validation_chain_20261028/results/seed20261033/evm/d8_lambda1_seed20261033_evm_evm_raw.json": "3734f04438a406073e940f1deddc0fb3e33f002f550368ee61815773bf6d9077",
+    "figure_validation_chain_20261028/results/seed20261033/near/d8_lambda1_seed20261033_near_near_raw.json": "36d9710cb4ab50bb5d09775d262b3db7e68c29c337365910d24bcc0d8ad0c39c",
+    "figure_validation_chain_20261028/results/seed20261034/evm/d8_lambda1_seed20261034_evm_evm_raw.json": "18bae7e22117f8e55e89115a552a261eb988c9c5c722dd1517d2eec80f4ebb89",
+    "figure_validation_chain_20261028/results/seed20261034/near/d8_lambda1_seed20261034_near_near_raw.json": "6155289cc745aea63724ef5e268f86355604bc8e169a340373cff8fd166d09dd",
+    "controller2_burst_20261028/formal_seed_summary.csv": "aa6a359de50d8820677865ddf2b6f3a2e133e87ab4868a9be69a2c7a0b61238b",
+    "figure_validation_topology_20261028/topology5/results/pilot/near_figure_validation_topology5_raw.json": "ce80150eb901959c075aa7a3309407a02ffe34a136cef3c17ffd6cbd8126ff34",
+    "figure_validation_topology_20261028/topology5/results/pilot/evm_figure_validation_topology5_raw.json": "7cdcf8b1f95a5f823f08f81c6d5b079bdf31ba809d87ca5eaed1de0f9a9f627c",
+    "figure_validation_topology_20261028/failure3/results/pilot/near_figure_validation_failure3_raw.json": "56ecdb6a6b8f621126071c5f3eac00e2bb30c36124de3dbae5f90e4760c18f3c",
+    "figure_validation_topology_20261028/failure3/results/pilot/evm_figure_validation_failure3_raw.json": "48f6d255f371d45b9624d71ba09c3413a5d1a35ccd370c815fc285b55b4cf288",
+    "figure_validation_topology_20261028/chain_fresh_supplement/seed20261033/launch_manifest.txt": "0c44f753f3ae0fd04bab57608da2b4b66af2edc74802fc3f48e909fe91778376",
+    "figure_validation_topology_20261028/chain_fresh_supplement/seed20261034/launch_manifest.txt": "916d944743d9e50af493a3282d365da8bf8991708f87991016c8df1d546819a0"
+  },
+  "chain_statistics": {
+    "R33|EVM|1.0": {
+      "p50": 0.6933198301121593,
+      "p95": 1.4350864081643522,
+      "goodput": 1.0138888888888888,
+      "n": 363,
+      "n_allphase": 388,
+      "window_n": 365,
+      "realized_offer_rate": 1.0083333333333333
+    },
+    "R33|NEAR|1.0": {
+      "p50": 9.658762629000005,
+      "p95": 10.065887527999992,
+      "goodput": 1.0194444444444444,
+      "n": 363,
+      "n_allphase": 388,
+      "window_n": 367,
+      "realized_offer_rate": 1.0083333333333333
+    },
+    "R34|EVM|1.0": {
+      "p50": 0.7020347299985588,
+      "p95": 1.437311592977494,
+      "goodput": 0.8972222222222223,
+      "n": 325,
+      "n_allphase": 365,
+      "window_n": 323,
+      "realized_offer_rate": 0.9027777777777778
+    },
+    "R34|NEAR|1.0": {
+      "p50": 9.594114162000013,
+      "p95": 10.067330851999985,
+      "goodput": 0.8944444444444445,
+      "n": 325,
+      "n_allphase": 365,
+      "window_n": 322,
+      "realized_offer_rate": 0.9027777777777778
+    }
+  }
+}

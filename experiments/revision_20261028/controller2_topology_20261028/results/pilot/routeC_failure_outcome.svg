@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420">
+<rect width="100%" height="100%" fill="#fff"/>
+<style>text{font-family:Arial,"Noto Sans CJK SC",sans-serif;fill:#16212b}.title{font-size:19px;font-weight:700}.panel{font-size:15px;font-weight:700}.node{stroke:#334155;stroke-width:1.5}.label{font-size:12px}.small{font-size:11px;fill:#475569}.edge{stroke:#64748b;stroke-width:1.4;fill:none;marker-end:url(#arrow)}</style>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#64748b"/></marker></defs>
+<text x="520.0" y="28" text-anchor="middle" class="title">中间分支 node 4 失败：异步部分提交与同步交易回滚</text>
+<text x="270" y="62" text-anchor="middle" class="panel">NEAR Promise：失败分支不撤销已完成的独立调用</text>
+<line x1="270" y1="137" x2="97" y2="197" class="edge"/>
+<line x1="97" y1="235" x2="270" y2="301" class="edge"/>
+<line x1="270" y1="137" x2="167" y2="197" class="edge"/>
+<line x1="167" y1="235" x2="270" y2="301" class="edge"/>
+<line x1="270" y1="137" x2="237" y2="197" class="edge"/>
+<line x1="237" y1="235" x2="270" y2="301" class="edge"/>
+<line x1="270" y1="137" x2="307" y2="197" class="edge"/>
+<line x1="307" y1="235" x2="270" y2="301" class="edge"/>
+<line x1="270" y1="137" x2="377" y2="197" class="edge"/>
+<line x1="377" y1="235" x2="270" y2="301" class="edge"/>
+<line x1="270" y1="137" x2="447" y2="197" class="edge"/>
+<line x1="447" y1="235" x2="270" y2="301" class="edge"/>
+<circle cx="270" cy="118" r="19" fill="#d9f2e6" class="node"/>
+<text x="270" y="122" text-anchor="middle" class="label">0</text>
+<text x="270" y="152" text-anchor="middle" class="small">部分状态</text>
+<circle cx="97" cy="216" r="19" fill="#d9f2e6" class="node"/>
+<text x="97" y="220" text-anchor="middle" class="label">1</text>
+<text x="97" y="250" text-anchor="middle" class="small">部分状态</text>
+<circle cx="167" cy="216" r="19" fill="#d9f2e6" class="node"/>
+<text x="167" y="220" text-anchor="middle" class="label">2</text>
+<text x="167" y="250" text-anchor="middle" class="small">部分状态</text>
+<circle cx="237" cy="216" r="19" fill="#d9f2e6" class="node"/>
+<text x="237" y="220" text-anchor="middle" class="label">3</text>
+<text x="237" y="250" text-anchor="middle" class="small">部分状态</text>
+<circle cx="307" cy="216" r="19" fill="#ffd6d6" class="node"/>
+<text x="307" y="220" text-anchor="middle" class="label">4</text>
+<text x="307" y="250" text-anchor="middle" class="small">失败</text>
+<circle cx="377" cy="216" r="19" fill="#d9f2e6" class="node"/>
+<text x="377" y="220" text-anchor="middle" class="label">5</text>
+<text x="377" y="250" text-anchor="middle" class="small">部分状态</text>
+<circle cx="447" cy="216" r="19" fill="#d9f2e6" class="node"/>
+<text x="447" y="220" text-anchor="middle" class="label">6</text>
+<text x="447" y="250" text-anchor="middle" class="small">部分状态</text>
+<circle cx="270" cy="320" r="19" fill="#e5e7eb" class="node"/>
+<text x="270" y="324" text-anchor="middle" class="label">7</text>
+<text x="270" y="354" text-anchor="middle" class="small">无 sink</text>
+<text x="770" y="62" text-anchor="middle" class="panel">EVM CALL：失败使整个执行交易回滚</text>
+<line x1="770" y1="137" x2="597" y2="197" class="edge"/>
+<line x1="597" y1="235" x2="770" y2="301" class="edge"/>
+<line x1="770" y1="137" x2="667" y2="197" class="edge"/>
+<line x1="667" y1="235" x2="770" y2="301" class="edge"/>
+<line x1="770" y1="137" x2="737" y2="197" class="edge"/>
+<line x1="737" y1="235" x2="770" y2="301" class="edge"/>
+<line x1="770" y1="137" x2="807" y2="197" class="edge"/>
+<line x1="807" y1="235" x2="770" y2="301" class="edge"/>
+<line x1="770" y1="137" x2="877" y2="197" class="edge"/>
+<line x1="877" y1="235" x2="770" y2="301" class="edge"/>
+<line x1="770" y1="137" x2="947" y2="197" class="edge"/>
+<line x1="947" y1="235" x2="770" y2="301" class="edge"/>
+<circle cx="770" cy="118" r="19" fill="#e5e7eb" class="node"/>
+<text x="770" y="122" text-anchor="middle" class="label">0</text>
+<text x="770" y="152" text-anchor="middle" class="small">回滚</text>
+<circle cx="597" cy="216" r="19" fill="#e5e7eb" class="node"/>
+<text x="597" y="220" text-anchor="middle" class="label">1</text>
+<text x="597" y="250" text-anchor="middle" class="small">回滚</text>
+<circle cx="667" cy="216" r="19" fill="#e5e7eb" class="node"/>
+<text x="667" y="220" text-anchor="middle" class="label">2</text>
+<text x="667" y="250" text-anchor="middle" class="small">回滚</text>
+<circle cx="737" cy="216" r="19" fill="#e5e7eb" class="node"/>
+<text x="737" y="220" text-anchor="middle" class="label">3</text>
+<text x="737" y="250" text-anchor="middle" class="small">回滚</text>
+<circle cx="807" cy="216" r="19" fill="#ffd6d6" class="node"/>
+<text x="807" y="220" text-anchor="middle" class="label">4</text>
+<text x="807" y="250" text-anchor="middle" class="small">失败</text>
+<circle cx="877" cy="216" r="19" fill="#e5e7eb" class="node"/>
+<text x="877" y="220" text-anchor="middle" class="label">5</text>
+<text x="877" y="250" text-anchor="middle" class="small">未调用</text>
+<circle cx="947" cy="216" r="19" fill="#e5e7eb" class="node"/>
+<text x="947" y="220" text-anchor="middle" class="label">6</text>
+<text x="947" y="250" text-anchor="middle" class="small">未调用</text>
+<circle cx="770" cy="320" r="19" fill="#e5e7eb" class="node"/>
+<text x="770" y="324" text-anchor="middle" class="label">7</text>
+<text x="770" y="354" text-anchor="middle" class="small">无状态</text>
+<text x="520.0" y="386" text-anchor="middle" class="small">NEAR：6/8 节点有持久结果，sink 未生成；EVM：失败交易 status=0、5 个 Stage CALL frame，所有合约结果回滚。未实现或执行任何业务补偿。</text>
+</svg>

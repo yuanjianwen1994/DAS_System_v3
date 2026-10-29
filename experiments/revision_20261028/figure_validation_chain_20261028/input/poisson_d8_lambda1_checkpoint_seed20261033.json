@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "experiment": "figure-validation-checkpoint-only-not-formal-repeat",
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "node_count": 8,
+  "operations_per_node": 16,
+  "seed": 20261033,
+  "block_period_sec": 1.0,
+  "arrival_rule": "first offer after a uniform random phase in [0,1) s; subsequent interarrival gaps are exponential with mean 1/lambda; exact offsets shared across both platforms",
+  "phase_random_offset_sec": 0.17237807856072074,
+  "rates_per_sec": [
+    1.0
+  ],
+  "warmup_sec": 30.0,
+  "measurement_sec": 15.0,
+  "scenarios": {
+    "poisson_d8_checkpoint": {
+      "scenario_index": 0,
+      "rates_per_sec": [
+        1.0
+      ],
+      "warmup_sec": 30.0,
+      "measurement_sec": 15.0,
+      "phase_random_offset_sec": 0.17237807856072074,
+      "arrival_offsets_sec_by_rate": {
+        "1.0": [
+          0.172378079,
+          1.502717455,
+          2.33275124,
+          2.71190643,
+          5.865773468,
+          9.039424112,
+          11.115848086,
+          11.699343766,
+          15.863420036,
+          16.206969888,
+          18.126044274,
+          19.697718836,
+          20.603235424,
+          22.458239797,
+          22.621454766,
+          23.965434838,
+          24.545521334,
+          25.2503872,
+          25.893440552,
+          26.330964742,
+          27.958572643,
+          28.809229176,
+          29.273265595,
+          30.03810512,
+          30.14850922,
+          31.932502286,
+          35.235664497,
+          35.513811253,
+          35.541610847,
+          36.719259487,
+          37.894000954,
+          38.120707384,
+          38.83061705,
+          39.136313491,
+          39.567365957,
+          39.94921748,
+          41.324082134,
+          41.37448003,
+          41.861173675,
+          43.281513993
+        ]
+      },
+      "arrival_seed": 20261033,
+      "arrival_rule": "paired_exponential"
+    }
+  },
+  "resource_policy": {
+    "sender_accounts_per_platform": 64,
+    "per_sender_submission_serialization": true,
+    "stop_when": "continuous generation ends; drain and audit all offered workflows; preserve failures, pending rows, HTTP attempts, long tails and block-level spans"
+  },
+  "schedule_content_sha256": "6d657781d91f3f911f40357087b12833a32b9f83610f0911a226f0fdb1a3afb7"
+}

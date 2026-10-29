@@ -1,0 +1,53 @@
+{
+  "captured_at_utc": "2026-10-28T12:17:02.417Z",
+  "seed": [
+    20261033
+  ],
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "scenarios": [
+    "poisson_d8_checkpoint"
+  ],
+  "pipeline_mode": "1",
+  "preheat_sec": 30,
+  "observation_sec": 15,
+  "receipt_timeout_ms": 120000,
+  "read_timeout_ms": 15000,
+  "read_attempts": 3,
+  "rpc_proxy_timeout_ms": 60000,
+  "diagnostic_light": false,
+  "rates_per_sec": [
+    1
+  ],
+  "schedule_path": "/home/starshell/figure_validation_chain_20261028/input/poisson_d8_lambda1_checkpoint_seed20261033.json",
+  "schedule_sha256": "787bbd66ac645cbde3adaf4a408df3873236888f8b00048e91a0babeced53e8c",
+  "runner_sha256": "93c51c2152fccabd229bbc7e0fe6ddabe1a319a8f34d11aa7dc9447c50fc68fc",
+  "per_rate_expected_counts": {
+    "1": {
+      "expected_total": 40,
+      "phase_offset_sec": 0.17237807856072074,
+      "offsets_sha256": "0f2bfaadfaa25994e17005ea5596d53c40dd6d6f85685289c6d49cddea4f8686"
+    }
+  },
+  "effective_environment_subset": {
+    "STRESS_PIPELINE_MODE": "1",
+    "STRESS_PIPELINE_PREHEAT_SEC": "30",
+    "STRESS_PIPELINE_OBSERVATION_SEC": "15",
+    "STRESS_PROFILE_ID": "dag-07-chain-d8-w1-theta1-nu1",
+    "STRESS_SCHEDULE_SCENARIO": "poisson_d8_checkpoint",
+    "STRESS_REPEAT": "6",
+    "STRESS_TAG": "d8_lambda1_checkpoint_seed20261033_near",
+    "STRESS_WORKERS": "64",
+    "STRESS_RECEIPT_TIMEOUT_MS": "120000",
+    "STRESS_RPC_PROXY_TIMEOUT_MS": "60000",
+    "STRESS_DIAGNOSTIC_LIGHT": "0"
+  },
+  "startup_assertions": {
+    "pipeline_mode_is_1": true,
+    "rate_override_absent": true,
+    "warmup_override_absent": true,
+    "measurement_override_absent": true,
+    "schedule_is_paired_exponential": true,
+    "schedule_seed_present": true
+  },
+  "startup_assertions_passed": true
+}
