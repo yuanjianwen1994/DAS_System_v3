@@ -1,0 +1,15 @@
+node:internal/fs/promises:637
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open '/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/dag_workflow_20261027/profile_manifest.json'
+    at async open (node:internal/fs/promises:637:25)
+    at async readFile (node:internal/fs/promises:1249:14)
+    at async file:///home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/randomized_arrival_20261028/run_randomized_near.mjs:12:29 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/starshell/das_independent_stage_evm_20261027/experiments/revision_20261027/near_runtime_20261027/dag_workflow_20261027/profile_manifest.json'
+}
+
+Node.js v20.20.2

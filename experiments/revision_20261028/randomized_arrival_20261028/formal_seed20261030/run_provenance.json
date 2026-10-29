@@ -1,0 +1,59 @@
+{
+  "seed": 20261030,
+  "run_condition": "concurrent_exploratory",
+  "condition_note": "The paired EVM and NEAR phases ran sequentially. Unrelated NEAR jobs were active on the remote host during this seed, so it is not an exclusive replication.",
+  "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+  "workload": {
+    "shape": "serial_state_dependent_chain",
+    "contracts": 8,
+    "dependency_edges": 7,
+    "operations_per_stage": 16
+  },
+  "arrival_schedule": {
+    "rule": "paired_exponential",
+    "rates_workflows_per_second": [0.5, 1.0],
+    "warmup_seconds": 30,
+    "measurement_seconds_per_rate": 780,
+    "schedule_sha256": "7cf41e6e8be27b182a7cf6268c06982aba9357a3324bf0cd15405358c981fe9a",
+    "offsets_and_workflow_ids_match_across_platforms": true
+  },
+  "source_sha256": {
+    "run_randomized_evm.py": "64fb2582c2a41d13ea885e4a3d59015bd5d085cb84903595b2442d709934da2c",
+    "run_randomized_near.mjs": "05666ba84718ef479e311f45211456b3c896c10f0575dc7eec796260dc303aa0",
+    "profile_manifest.json": "c556df76d05944345639cd7226a1e7215a122d701d01fd4427c76a0ce190823f"
+  },
+  "runtime": {
+    "evm": "Anvil, block time 1.0 s",
+    "near": "NEAR Sandbox 2.13.4, Node.js 20.20.2",
+    "near_binary_compatibility": "Used the existing remote GLIBC 2.39 loader because the host GLIBC 2.35 cannot run the upstream binary directly. The exact host-only wrapper is preserved as near-sandbox-compatible.remote.sh."
+  },
+  "resource_observation": {
+    "same_remote_host": true,
+    "paired_platform_phases_sequential": true,
+    "seed_20261030_affinity": "CPUs 0-19",
+    "seed_20261030_cgroup_cpu_max": "max 100000",
+    "seed_20261030_cgroup_memory_max": "max",
+    "seed_20261029_affinity_archived": false
+  },
+  "run_times_utc": {
+    "evm_started": "2026-10-28T01:28:58.108Z",
+    "evm_finished": "2026-10-28T01:57:51.079Z",
+    "near_started": "2026-10-28T02:07:35.736Z",
+    "near_finished": "2026-10-28T02:39:49.259Z"
+  },
+  "audit": {
+    "evm_exit_code": 0,
+    "near_exit_code": 0,
+    "workflow_failures": 0,
+    "workflow_audit_pending": 0,
+    "near_block_usage_audit": "complete; zero pending block hashes",
+    "near_cleanup_status": "forced_after_timeout after 15 seconds; experiment and audits had completed"
+  },
+  "sha256_remote_equals_local": {
+    "evm_raw": "ad6b25af42242773ff10817737a8f9946b3d81b12de3848cf7b07d4d215d98ed",
+    "evm_results": "5f2e0e25bbd7bb34f5a48e1c4d015a39460f3b40787a029c42405cbba8a74a73",
+    "near_raw": "015a3e535e11853a5d6a15d5ae90769f3dd468e3ee5ee3399955d4dabe6d7b3c",
+    "near_results": "65a9324b178ccd10762c60400cd9423f2cbe2431488e25fc8352cd2773e45a0b",
+    "near_audit_checkpoint": "aaf0f11bd0c696f24452fa4cc95c7ec81599cc1ea0e171504cc5a6a12290028b"
+  }
+}
