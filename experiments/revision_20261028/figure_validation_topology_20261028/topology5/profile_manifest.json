@@ -1,0 +1,180 @@
+{
+  "experiment": "8-node stateful fan-out/join versus chain pilot",
+  "schema_version": 1,
+  "runtime_scope": "single-validator NEAR Sandbox and local Anvil EVM; not production-chain measurements",
+  "repeat_unit": "5 independent fresh runtimes per platform in this added validation batch",
+  "timing_unit": "observed client wall time plus receipt/block evidence",
+  "business_domain_terms": [],
+  "comparison_note": "Both graphs have 8 independently stateful nodes and 16 operations per node. The fan-out/join graph has 12 edges; the chain has 7. This is a topology comparison, not a pure depth-only causal test.",
+  "profiles": [
+    {
+      "profile_id": "topology-chain-d8-8n-pilot",
+      "shape": "chain",
+      "dependency_depth_d": 8,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 1,
+      "fresh_sandbox_repeats": 5,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 7,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "topology-fanout6-join-8n-pilot",
+      "shape": "fanout6_join",
+      "dependency_depth_d": 3,
+      "parallel_width_w": 6,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 1,
+      "fresh_sandbox_repeats": 5,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 12,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          7
+        ],
+        [
+          7
+        ],
+        [
+          7
+        ],
+        [
+          7
+        ],
+        [
+          7
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "validation_batch": {
+    "batch": "additional_5_fresh_runtime_repeats",
+    "run_directory": "topology5",
+    "fresh_sandbox_repeats": 5,
+    "fresh_anvil_repeats": 5,
+    "base_formal_repeats": 3,
+    "base_failure_repeats": 1,
+    "operation_count_per_node": 16,
+    "expected_near_version": "2.13.4",
+    "expected_near_protocol": 86,
+    "expected_near_binary_sha256": "4e89fbc0f2958634e84af44634f90e87c246288fa11b067d2121ce1394cba2c2",
+    "failure_node_id": null
+  }
+}

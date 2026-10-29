@@ -1,0 +1,3479 @@
+{
+  "experiment": "independent-stage same-domain EVM DAG composition",
+  "runtime": {
+    "anvil": "anvil Version: 1.8.6",
+    "anvil_executable": "/home/starshell/das_independent_stage_evm_20261027/.local/bin/anvil",
+    "anvil_sha256": "3c28263c7989c78b70b56090a97832263b118201dd038a8662b77bd49a252cd5",
+    "solidity": "0.8.24",
+    "backend": "local EVM",
+    "contract_model": "one independently deployed DAGStage per graph node; router invokes each by external CALL",
+    "rpc_client_version": "anvil/v1.8.6",
+    "rpc_chain_id": 31337
+  },
+  "mining_configuration": {
+    "automine": "Anvil default (enabled)",
+    "block_time_override_sec": null,
+    "command_line_flags": [
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "<dynamic>",
+      "--chain-id",
+      "31337",
+      "--silent"
+    ]
+  },
+  "design": {
+    "profile_count_per_repeat": 1,
+    "fresh_anvil_repeats": 3,
+    "entry_execution_exit_are_separate_transactions": true,
+    "theta_workflows_per_execution_transaction": true,
+    "setup_deployment_gas_separate": true,
+    "migration_boundary_note": "entry/exit are local session-storage proxies, not bridge proof or production migration"
+  },
+  "started_at": "2026-10-28T12:13:23Z",
+  "completed_repeats": [
+    {
+      "repeat": 1,
+      "profiles": [
+        {
+          "repeat": 1,
+          "profile": {
+            "profile_id": "topology-fanout6-join-8n-pilot",
+            "shape": "fanout6_join",
+            "dependency_depth_d": 3,
+            "parallel_width_w": 6,
+            "cross_execution_domain_edge_fraction_p": 0.0,
+            "cross_contract_edge_fraction_near_multicontract": 1.0,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 1,
+            "sessions_per_profile": 1,
+            "fresh_sandbox_repeats": 3,
+            "operations_per_node": 16,
+            "node_count": 8,
+            "edge_count": 12,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            ],
+            "successors": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "runtime": {
+            "chain_id": 31337,
+            "block_number_after_profile": 16,
+            "anvil_rpc_ready_at": "2026-10-28T12:13:23Z",
+            "anvil_version": "anvil Version: 1.8.6",
+            "anvil_sha256": "3c28263c7989c78b70b56090a97832263b118201dd038a8662b77bd49a252cd5",
+            "automine": "Anvil default (enabled)",
+            "block_time_override_sec": null
+          },
+          "per_node_stage_contracts": [
+            {
+              "node_id": 0,
+              "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+              "deployment": {
+                "tx_hash": "0c3a311e8cd946044ba54177d0985dd5e7ccee47639ce439382e0bdf19f2982b",
+                "status": 1,
+                "gas_used": 1423127,
+                "block_number": 2,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189603,
+                "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+              }
+            },
+            {
+              "node_id": 1,
+              "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+              "deployment": {
+                "tx_hash": "818185fd95ba66e30e914b90f01bd9fa0a5f9a626d41991f721d8ad8cbcb0a51",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 3,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189603,
+                "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+              }
+            },
+            {
+              "node_id": 2,
+              "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+              "deployment": {
+                "tx_hash": "4744a7bf969099b6f3a56003120ca174bf1c8e4bcbc0ab3341137ecd23ce0661",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 4,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189603,
+                "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+              }
+            },
+            {
+              "node_id": 3,
+              "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+              "deployment": {
+                "tx_hash": "95a7b1897b600c3c93095ac246ba275a4b60c6bc5c736a8eeb299c6808a55dcc",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 5,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+              }
+            },
+            {
+              "node_id": 4,
+              "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+              "deployment": {
+                "tx_hash": "16cb471e29fcf580d87b3ce9c9bc836a7a7042d44518683e3e655e265dcdac7b",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 6,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+              }
+            },
+            {
+              "node_id": 5,
+              "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+              "deployment": {
+                "tx_hash": "1fb94dc35206112ca546a7b1b8ce2e19687db053cecd6070d6c5d1fbb2596f25",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 7,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+              }
+            },
+            {
+              "node_id": 6,
+              "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "deployment": {
+                "tx_hash": "ed6540e7df87368c2fe62c75ed55af1167cf68be4f6b95fe662a50b679bca9e7",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 8,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+              }
+            },
+            {
+              "node_id": 7,
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "deployment": {
+                "tx_hash": "c1c9ec5d592646036a337ee97f62e85c4867869b26e45229d4acc35fe6bb6163",
+                "status": 1,
+                "gas_used": 1475151,
+                "block_number": 9,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+              }
+            }
+          ],
+          "deployment_and_registration_gas_per_profile": 15496776,
+          "independent_stage_sessions": [
+            {
+              "session_id": "102001000000",
+              "theta_workflows": [
+                "102001000001"
+              ],
+              "entry_proxy": {
+                "tx_hash": "32ba40e9ab417f0feaaf6af52965f7f481d34d077cafb616156b9692350f1b84",
+                "status": 1,
+                "gas_used": 71933,
+                "block_number": 11,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "client_wall_ms_to_receipt": 110.40713801048696,
+                "receipt_observed_at_utc": "2026-10-28T12:13:24"
+              },
+              "router_execution": {
+                "tx_hash": "858549bebb04f2d5c3fb2d93a356525dc2aba5de2f42e4ba6db0d7415c6fdd0b",
+                "status": 1,
+                "gas_used": 1430761,
+                "block_number": 12,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "client_wall_ms_to_receipt": 112.75418708100915,
+                "receipt_observed_at_utc": "2026-10-28T12:13:24",
+                "sink_view_query_after_receipt": {
+                  "result_exists": true,
+                  "node_id": 7,
+                  "observed_after_receipt_elapsed_ms": 121.35514407418668,
+                  "timing_note": "state was queried after the mined receipt; EVM does not expose a pre-receipt intermediate state for this transaction"
+                },
+                "transaction_count": 1,
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38579,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "gas_used": 352137,
+                    "error": null
+                  }
+                ],
+                "external_stage_call_frame_count": 8,
+                "external_stage_call_gas_used_sum": 945248,
+                "node_events": [
+                  {
+                    "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000000"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000009314099a0be588c100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 0,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 0,
+                    "checksum": 10598106380338825409,
+                    "input_count": 0,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000b0ce16b5062e8b0d00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 1,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 1,
+                    "checksum": 12740145362626317069,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000008338307839e75d6000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 2,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 2,
+                    "checksum": 9455360710590029152,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000cdd1f46a5ed6bb0600000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 3,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 3,
+                    "checksum": 14830903785602595590,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000d4e0a58fad19aaf700000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 4,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 4,
+                    "checksum": 15339442367326956279,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000ecc40b6a426623df00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 5,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 5,
+                    "checksum": 17060773839394710495,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000afca24d2f4ed7cac00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 6,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 6,
+                    "checksum": 12666977390403878060,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000039c82fd52bafb4ee00000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "checksum": 4163630448111498478,
+                    "input_count": 6,
+                    "operation_count": 16
+                  }
+                ],
+                "edge_input_events": [
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 1,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 1,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 2,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 2,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 3,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 3,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 4,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 4,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 5,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 5,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009314099a0be588c1",
+                    "stage_node_id": 6,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 6,
+                    "parent_node_id": 0,
+                    "value": 10598106380338825409
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000b0ce16b5062e8b0d",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 1,
+                    "value": 12740145362626317069
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000008338307839e75d60",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 2,
+                    "value": 9455360710590029152
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000cdd1f46a5ed6bb06",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 3,
+                    "value": 14830903785602595590
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000d4e0a58fad19aaf7",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 4,
+                    "value": 15339442367326956279
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000ecc40b6a426623df",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 5,
+                    "value": 17060773839394710495
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe40",
+                      "00000000000000000000000000000000000000000000000000000017bfbbbe41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000afca24d2f4ed7cac",
+                    "stage_node_id": 7,
+                    "session_id": 102001000000,
+                    "workflow_id": 102001000001,
+                    "node_id": 7,
+                    "parent_node_id": 6,
+                    "value": 12666977390403878060
+                  }
+                ],
+                "node_event_count": 8,
+                "edge_input_event_count": 12,
+                "workflows": [
+                  {
+                    "workflow_id": "102001000001",
+                    "node_checksums": [
+                      "10598106380338825409",
+                      "12740145362626317069",
+                      "9455360710590029152",
+                      "14830903785602595590",
+                      "15339442367326956279",
+                      "17060773839394710495",
+                      "12666977390403878060",
+                      "4163630448111498478"
+                    ],
+                    "near_node_checksums": [
+                      "10598106380338825409",
+                      "12740145362626317069",
+                      "9455360710590029152",
+                      "14830903785602595590",
+                      "15339442367326956279",
+                      "17060773839394710495",
+                      "12666977390403878060",
+                      "4163630448111498478"
+                    ],
+                    "checksums_match_near_same_receiver": true,
+                    "all_stage_storage_and_input_values_verified": true,
+                    "stage_nodes": [
+                      {
+                        "node_id": 0,
+                        "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "10598106380338825409",
+                        "input_count": 0,
+                        "operation_count": 16,
+                        "inputs": []
+                      },
+                      {
+                        "node_id": 1,
+                        "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "12740145362626317069",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 2,
+                        "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "9455360710590029152",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 3,
+                        "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "14830903785602595590",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 4,
+                        "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "15339442367326956279",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 5,
+                        "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "17060773839394710495",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 6,
+                        "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "12666977390403878060",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "10598106380338825409",
+                            "expected_value": "10598106380338825409"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 7,
+                        "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                        "result_exists": true,
+                        "session_id": 102001000000,
+                        "checksum": "4163630448111498478",
+                        "input_count": 6,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 1,
+                            "present": true,
+                            "value": "12740145362626317069",
+                            "expected_value": "12740145362626317069"
+                          },
+                          {
+                            "parent_node_id": 2,
+                            "present": true,
+                            "value": "9455360710590029152",
+                            "expected_value": "9455360710590029152"
+                          },
+                          {
+                            "parent_node_id": 3,
+                            "present": true,
+                            "value": "14830903785602595590",
+                            "expected_value": "14830903785602595590"
+                          },
+                          {
+                            "parent_node_id": 4,
+                            "present": true,
+                            "value": "15339442367326956279",
+                            "expected_value": "15339442367326956279"
+                          },
+                          {
+                            "parent_node_id": 5,
+                            "present": true,
+                            "value": "17060773839394710495",
+                            "expected_value": "17060773839394710495"
+                          },
+                          {
+                            "parent_node_id": 6,
+                            "present": true,
+                            "value": "12666977390403878060",
+                            "expected_value": "12666977390403878060"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "exit_proxy": {
+                "tx_hash": "8ea6a4a4587961f793c790e879c7fb6b1a063d908590651bf3ca988f8bcaab68",
+                "status": 1,
+                "gas_used": 53184,
+                "block_number": 13,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189604,
+                "client_wall_ms_to_receipt": 110.24470906704664,
+                "receipt_observed_at_utc": "2026-10-28T12:13:25"
+              },
+              "stage_setup": {
+                "router_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "stage_addresses": [
+                  {
+                    "node_id": 0,
+                    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "deployment": {
+                      "tx_hash": "0c3a311e8cd946044ba54177d0985dd5e7ccee47639ce439382e0bdf19f2982b",
+                      "status": 1,
+                      "gas_used": 1423127,
+                      "block_number": 2,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189603,
+                      "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+                    }
+                  },
+                  {
+                    "node_id": 1,
+                    "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "deployment": {
+                      "tx_hash": "818185fd95ba66e30e914b90f01bd9fa0a5f9a626d41991f721d8ad8cbcb0a51",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 3,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189603,
+                      "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+                    }
+                  },
+                  {
+                    "node_id": 2,
+                    "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "deployment": {
+                      "tx_hash": "4744a7bf969099b6f3a56003120ca174bf1c8e4bcbc0ab3341137ecd23ce0661",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 4,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189603,
+                      "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+                    }
+                  },
+                  {
+                    "node_id": 3,
+                    "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "deployment": {
+                      "tx_hash": "95a7b1897b600c3c93095ac246ba275a4b60c6bc5c736a8eeb299c6808a55dcc",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 5,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189604,
+                      "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+                    }
+                  },
+                  {
+                    "node_id": 4,
+                    "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "deployment": {
+                      "tx_hash": "16cb471e29fcf580d87b3ce9c9bc836a7a7042d44518683e3e655e265dcdac7b",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 6,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189604,
+                      "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+                    }
+                  },
+                  {
+                    "node_id": 5,
+                    "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "deployment": {
+                      "tx_hash": "1fb94dc35206112ca546a7b1b8ce2e19687db053cecd6070d6c5d1fbb2596f25",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 7,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189604,
+                      "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+                    }
+                  },
+                  {
+                    "node_id": 6,
+                    "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "deployment": {
+                      "tx_hash": "ed6540e7df87368c2fe62c75ed55af1167cf68be4f6b95fe662a50b679bca9e7",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 8,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189604,
+                      "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+                    }
+                  },
+                  {
+                    "node_id": 7,
+                    "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "deployment": {
+                      "tx_hash": "c1c9ec5d592646036a337ee97f62e85c4867869b26e45229d4acc35fe6bb6163",
+                      "status": 1,
+                      "gas_used": 1475151,
+                      "block_number": 9,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189604,
+                      "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+                    }
+                  }
+                ],
+                "deployment_and_registration_gas": 15496776
+              },
+              "complete_session_gas_excluding_setup": 1555878,
+              "local_execution_gas": 1430761,
+              "session_state_valid": true,
+              "checksums_match_near_and_stage_inputs_valid": true,
+              "failure_probe": {
+                "entry": {
+                  "tx_hash": "4f27832e2f3a0d259e47b3f9ed56bd694aeb3fa8039dc76a610c919a2387c989",
+                  "status": 1,
+                  "gas_used": 71933,
+                  "block_number": 14,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189605,
+                  "client_wall_ms_to_receipt": 110.07873388007283,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:25"
+                },
+                "workflow_id": "10002999999",
+                "fail_node": 4,
+                "tx_hash": "0ad9e600931ce84b5136cfc9e51c2e35285acd0bd2db4443cb5631a5807bd839",
+                "status": 0,
+                "gas_used": 558052,
+                "block_number": 15,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189605,
+                "client_wall_ms_to_receipt": 111.88017600215971,
+                "receipt_observed_at_utc": "2026-10-28T12:13:25",
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38605,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 59268,
+                    "error": "execution reverted"
+                  }
+                ],
+                "stage_state_after_revert": [
+                  {
+                    "node_id": 0,
+                    "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "result_exists": false,
+                    "parent_inputs_present": []
+                  },
+                  {
+                    "node_id": 1,
+                    "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 2,
+                    "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 3,
+                    "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 4,
+                    "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 5,
+                    "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 6,
+                    "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 7,
+                    "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  }
+                ],
+                "router_state_after_revert": {
+                  "active": true,
+                  "expected_workflows": 1,
+                  "executed_workflows": 0,
+                  "workflow_checksum": 0,
+                  "operation_count": 0
+                },
+                "cleanup": {
+                  "tx_hash": "d5d51f848c170deaf560cb49a65a36a183d4c4824cde4cbfb71ca6478aa3db73",
+                  "status": 1,
+                  "gas_used": 27479,
+                  "block_number": 16,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189605,
+                  "client_wall_ms_to_receipt": 109.42117217928171,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:25"
+                },
+                "all_contract_state_rolled_back": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repeat": 2,
+      "profiles": [
+        {
+          "repeat": 2,
+          "profile": {
+            "profile_id": "topology-fanout6-join-8n-pilot",
+            "shape": "fanout6_join",
+            "dependency_depth_d": 3,
+            "parallel_width_w": 6,
+            "cross_execution_domain_edge_fraction_p": 0.0,
+            "cross_contract_edge_fraction_near_multicontract": 1.0,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 1,
+            "sessions_per_profile": 1,
+            "fresh_sandbox_repeats": 3,
+            "operations_per_node": 16,
+            "node_count": 8,
+            "edge_count": 12,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            ],
+            "successors": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "runtime": {
+            "chain_id": 31337,
+            "block_number_after_profile": 16,
+            "anvil_rpc_ready_at": "2026-10-28T12:13:25Z",
+            "anvil_version": "anvil Version: 1.8.6",
+            "anvil_sha256": "3c28263c7989c78b70b56090a97832263b118201dd038a8662b77bd49a252cd5",
+            "automine": "Anvil default (enabled)",
+            "block_time_override_sec": null
+          },
+          "per_node_stage_contracts": [
+            {
+              "node_id": 0,
+              "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+              "deployment": {
+                "tx_hash": "34f26a9aca92ce2730e4755fde77facd3372a6a30454cf94782bd928495d7c20",
+                "status": 1,
+                "gas_used": 1423127,
+                "block_number": 2,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189605,
+                "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+              }
+            },
+            {
+              "node_id": 1,
+              "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+              "deployment": {
+                "tx_hash": "a78707bc6cc3d9ab9ff61f6ecdeb87366e0a1293e116fcb45b1b415f69d25de4",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 3,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+              }
+            },
+            {
+              "node_id": 2,
+              "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+              "deployment": {
+                "tx_hash": "4224126835b465b54c4df3649d266a480c6b5d4bc8f7f7d78cba9eae7dd0cab3",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 4,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+              }
+            },
+            {
+              "node_id": 3,
+              "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+              "deployment": {
+                "tx_hash": "c8185c5dd34d56081311362e3541908b81a8af42273ae2701521cd45cac63cbb",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 5,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+              }
+            },
+            {
+              "node_id": 4,
+              "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+              "deployment": {
+                "tx_hash": "3f6ebf0ab61a6cb4906760865121bb6d89212619599715bdc3adb7e05ef87344",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 6,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+              }
+            },
+            {
+              "node_id": 5,
+              "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+              "deployment": {
+                "tx_hash": "bd47379172356937103cf21c9f8d0dc64a4a0f62e772d4ba6b04831f1095d327",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 7,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+              }
+            },
+            {
+              "node_id": 6,
+              "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "deployment": {
+                "tx_hash": "255979c1c3e3fe5888eacd92608c63303a7a3df1f5bad1f2deda4d1707a0af2a",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 8,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+              }
+            },
+            {
+              "node_id": 7,
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "deployment": {
+                "tx_hash": "2865cd673ce8190a6e3a93661be5003a7bf8ad684ca067328d793aa38fe75f72",
+                "status": 1,
+                "gas_used": 1475151,
+                "block_number": 9,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+              }
+            }
+          ],
+          "deployment_and_registration_gas_per_profile": 15496776,
+          "independent_stage_sessions": [
+            {
+              "session_id": "202001000000",
+              "theta_workflows": [
+                "202001000001"
+              ],
+              "entry_proxy": {
+                "tx_hash": "f8eac3fae7f2afc168f82189b802b09aaa56eec995d0eec221e83df2e961b533",
+                "status": 1,
+                "gas_used": 71933,
+                "block_number": 11,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189606,
+                "client_wall_ms_to_receipt": 110.35754904150963,
+                "receipt_observed_at_utc": "2026-10-28T12:13:27"
+              },
+              "router_execution": {
+                "tx_hash": "dda413418033063c73d39173d188fb1b5fc99547771f298a13172d5b45c850f5",
+                "status": 1,
+                "gas_used": 1430761,
+                "block_number": 12,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189607,
+                "client_wall_ms_to_receipt": 113.12344507314265,
+                "receipt_observed_at_utc": "2026-10-28T12:13:27",
+                "sink_view_query_after_receipt": {
+                  "result_exists": true,
+                  "node_id": 7,
+                  "observed_after_receipt_elapsed_ms": 121.84795108623803,
+                  "timing_note": "state was queried after the mined receipt; EVM does not expose a pre-receipt intermediate state for this transaction"
+                },
+                "transaction_count": 1,
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38579,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "gas_used": 352137,
+                    "error": null
+                  }
+                ],
+                "external_stage_call_frame_count": 8,
+                "external_stage_call_gas_used_sum": 945248,
+                "node_events": [
+                  {
+                    "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000000"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000d5b1275a102286a600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 0,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 0,
+                    "checksum": 15398131868727674534,
+                    "input_count": 0,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000319d39142475e99200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 1,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 1,
+                    "checksum": 3575076437875878290,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000055dc6fd8de20766c00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 2,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 2,
+                    "checksum": 6186942965330507372,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000003429e5a822b06ef00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 3,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 3,
+                    "checksum": 234924242144790255,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000002ef5a0eb1277e9ea00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 4,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 4,
+                    "checksum": 3383787626526403050,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000001024658081353c3800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 5,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 5,
+                    "checksum": 1163166206366399544,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000ef982ce347c4617800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 6,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 6,
+                    "checksum": 17264598526198047096,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000007482db08d373d6f300000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "checksum": 8395513486325831411,
+                    "input_count": 6,
+                    "operation_count": 16
+                  }
+                ],
+                "edge_input_events": [
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 1,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 1,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 2,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 2,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 3,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 3,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 4,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 4,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 5,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 5,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d5b1275a102286a6",
+                    "stage_node_id": 6,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 6,
+                    "parent_node_id": 0,
+                    "value": 15398131868727674534
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000319d39142475e992",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 1,
+                    "value": 3575076437875878290
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000055dc6fd8de20766c",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 2,
+                    "value": 6186942965330507372
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000003429e5a822b06ef",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 3,
+                    "value": 234924242144790255
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000002ef5a0eb1277e9ea",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 4,
+                    "value": 3383787626526403050
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000001024658081353c38",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 5,
+                    "value": 1163166206366399544
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000002f0832a640",
+                      "0000000000000000000000000000000000000000000000000000002f0832a641",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000ef982ce347c46178",
+                    "stage_node_id": 7,
+                    "session_id": 202001000000,
+                    "workflow_id": 202001000001,
+                    "node_id": 7,
+                    "parent_node_id": 6,
+                    "value": 17264598526198047096
+                  }
+                ],
+                "node_event_count": 8,
+                "edge_input_event_count": 12,
+                "workflows": [
+                  {
+                    "workflow_id": "202001000001",
+                    "node_checksums": [
+                      "15398131868727674534",
+                      "3575076437875878290",
+                      "6186942965330507372",
+                      "234924242144790255",
+                      "3383787626526403050",
+                      "1163166206366399544",
+                      "17264598526198047096",
+                      "8395513486325831411"
+                    ],
+                    "near_node_checksums": [
+                      "15398131868727674534",
+                      "3575076437875878290",
+                      "6186942965330507372",
+                      "234924242144790255",
+                      "3383787626526403050",
+                      "1163166206366399544",
+                      "17264598526198047096",
+                      "8395513486325831411"
+                    ],
+                    "checksums_match_near_same_receiver": true,
+                    "all_stage_storage_and_input_values_verified": true,
+                    "stage_nodes": [
+                      {
+                        "node_id": 0,
+                        "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "15398131868727674534",
+                        "input_count": 0,
+                        "operation_count": 16,
+                        "inputs": []
+                      },
+                      {
+                        "node_id": 1,
+                        "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "3575076437875878290",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 2,
+                        "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "6186942965330507372",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 3,
+                        "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "234924242144790255",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 4,
+                        "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "3383787626526403050",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 5,
+                        "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "1163166206366399544",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 6,
+                        "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "17264598526198047096",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "15398131868727674534",
+                            "expected_value": "15398131868727674534"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 7,
+                        "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                        "result_exists": true,
+                        "session_id": 202001000000,
+                        "checksum": "8395513486325831411",
+                        "input_count": 6,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 1,
+                            "present": true,
+                            "value": "3575076437875878290",
+                            "expected_value": "3575076437875878290"
+                          },
+                          {
+                            "parent_node_id": 2,
+                            "present": true,
+                            "value": "6186942965330507372",
+                            "expected_value": "6186942965330507372"
+                          },
+                          {
+                            "parent_node_id": 3,
+                            "present": true,
+                            "value": "234924242144790255",
+                            "expected_value": "234924242144790255"
+                          },
+                          {
+                            "parent_node_id": 4,
+                            "present": true,
+                            "value": "3383787626526403050",
+                            "expected_value": "3383787626526403050"
+                          },
+                          {
+                            "parent_node_id": 5,
+                            "present": true,
+                            "value": "1163166206366399544",
+                            "expected_value": "1163166206366399544"
+                          },
+                          {
+                            "parent_node_id": 6,
+                            "present": true,
+                            "value": "17264598526198047096",
+                            "expected_value": "17264598526198047096"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "exit_proxy": {
+                "tx_hash": "9e6b184be2cab6b8e561394f5fd59129a95ba1bcc634ea7a56aefc0f785c6392",
+                "status": 1,
+                "gas_used": 53184,
+                "block_number": 13,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189607,
+                "client_wall_ms_to_receipt": 110.39986391551793,
+                "receipt_observed_at_utc": "2026-10-28T12:13:27"
+              },
+              "stage_setup": {
+                "router_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "stage_addresses": [
+                  {
+                    "node_id": 0,
+                    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "deployment": {
+                      "tx_hash": "34f26a9aca92ce2730e4755fde77facd3372a6a30454cf94782bd928495d7c20",
+                      "status": 1,
+                      "gas_used": 1423127,
+                      "block_number": 2,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189605,
+                      "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+                    }
+                  },
+                  {
+                    "node_id": 1,
+                    "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "deployment": {
+                      "tx_hash": "a78707bc6cc3d9ab9ff61f6ecdeb87366e0a1293e116fcb45b1b415f69d25de4",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 3,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+                    }
+                  },
+                  {
+                    "node_id": 2,
+                    "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "deployment": {
+                      "tx_hash": "4224126835b465b54c4df3649d266a480c6b5d4bc8f7f7d78cba9eae7dd0cab3",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 4,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+                    }
+                  },
+                  {
+                    "node_id": 3,
+                    "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "deployment": {
+                      "tx_hash": "c8185c5dd34d56081311362e3541908b81a8af42273ae2701521cd45cac63cbb",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 5,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+                    }
+                  },
+                  {
+                    "node_id": 4,
+                    "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "deployment": {
+                      "tx_hash": "3f6ebf0ab61a6cb4906760865121bb6d89212619599715bdc3adb7e05ef87344",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 6,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+                    }
+                  },
+                  {
+                    "node_id": 5,
+                    "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "deployment": {
+                      "tx_hash": "bd47379172356937103cf21c9f8d0dc64a4a0f62e772d4ba6b04831f1095d327",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 7,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+                    }
+                  },
+                  {
+                    "node_id": 6,
+                    "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "deployment": {
+                      "tx_hash": "255979c1c3e3fe5888eacd92608c63303a7a3df1f5bad1f2deda4d1707a0af2a",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 8,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+                    }
+                  },
+                  {
+                    "node_id": 7,
+                    "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "deployment": {
+                      "tx_hash": "2865cd673ce8190a6e3a93661be5003a7bf8ad684ca067328d793aa38fe75f72",
+                      "status": 1,
+                      "gas_used": 1475151,
+                      "block_number": 9,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189606,
+                      "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+                    }
+                  }
+                ],
+                "deployment_and_registration_gas": 15496776
+              },
+              "complete_session_gas_excluding_setup": 1555878,
+              "local_execution_gas": 1430761,
+              "session_state_valid": true,
+              "checksums_match_near_and_stage_inputs_valid": true,
+              "failure_probe": {
+                "entry": {
+                  "tx_hash": "f0a7949638a61b87b2d0021864fc29291e84a15f507ff8392527aeeb9094c751",
+                  "status": 1,
+                  "gas_used": 71921,
+                  "block_number": 14,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189607,
+                  "client_wall_ms_to_receipt": 110.20538792945445,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:27"
+                },
+                "workflow_id": "20002999999",
+                "fail_node": 4,
+                "tx_hash": "c7d38bf25502d60e11a882846173c1f80ad94c0c6147e6c35d325db26777fd54",
+                "status": 0,
+                "gas_used": 558052,
+                "block_number": 15,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189607,
+                "client_wall_ms_to_receipt": 109.66154607012868,
+                "receipt_observed_at_utc": "2026-10-28T12:13:27",
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38605,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 59268,
+                    "error": "execution reverted"
+                  }
+                ],
+                "stage_state_after_revert": [
+                  {
+                    "node_id": 0,
+                    "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "result_exists": false,
+                    "parent_inputs_present": []
+                  },
+                  {
+                    "node_id": 1,
+                    "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 2,
+                    "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 3,
+                    "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 4,
+                    "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 5,
+                    "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 6,
+                    "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 7,
+                    "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  }
+                ],
+                "router_state_after_revert": {
+                  "active": true,
+                  "expected_workflows": 1,
+                  "executed_workflows": 0,
+                  "workflow_checksum": 0,
+                  "operation_count": 0
+                },
+                "cleanup": {
+                  "tx_hash": "801a2c2467be976bfb2ddba20df8e0e004342295e4ff0f23ef35fc588fb7da56",
+                  "status": 1,
+                  "gas_used": 27479,
+                  "block_number": 16,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189607,
+                  "client_wall_ms_to_receipt": 109.02040498331189,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:27"
+                },
+                "all_contract_state_rolled_back": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repeat": 3,
+      "profiles": [
+        {
+          "repeat": 3,
+          "profile": {
+            "profile_id": "topology-fanout6-join-8n-pilot",
+            "shape": "fanout6_join",
+            "dependency_depth_d": 3,
+            "parallel_width_w": 6,
+            "cross_execution_domain_edge_fraction_p": 0.0,
+            "cross_contract_edge_fraction_near_multicontract": 1.0,
+            "concurrent_workflows_nu": 1,
+            "workflows_per_session_theta": 1,
+            "sessions_per_profile": 1,
+            "fresh_sandbox_repeats": 3,
+            "operations_per_node": 16,
+            "node_count": 8,
+            "edge_count": 12,
+            "parents": [
+              [],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                0
+              ],
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            ],
+            "successors": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              [
+                7
+              ],
+              []
+            ],
+            "execution_domain_by_node": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "runtime": {
+            "chain_id": 31337,
+            "block_number_after_profile": 16,
+            "anvil_rpc_ready_at": "2026-10-28T12:13:28Z",
+            "anvil_version": "anvil Version: 1.8.6",
+            "anvil_sha256": "3c28263c7989c78b70b56090a97832263b118201dd038a8662b77bd49a252cd5",
+            "automine": "Anvil default (enabled)",
+            "block_time_override_sec": null
+          },
+          "per_node_stage_contracts": [
+            {
+              "node_id": 0,
+              "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+              "deployment": {
+                "tx_hash": "09260e5df0c816121acc1bc523877ef49a24b664b54a2368324fef9d24ce1fd9",
+                "status": 1,
+                "gas_used": 1423127,
+                "block_number": 2,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+              }
+            },
+            {
+              "node_id": 1,
+              "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+              "deployment": {
+                "tx_hash": "7d2c2c0ae6cee5cae289d18d215eebf5ba843e78627b3c8b92debfa6bf019f8f",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 3,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+              }
+            },
+            {
+              "node_id": 2,
+              "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+              "deployment": {
+                "tx_hash": "feef884f0376bab9c207252d6537cecd1f15228869f5a35358f8e45fe89273a3",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 4,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+              }
+            },
+            {
+              "node_id": 3,
+              "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+              "deployment": {
+                "tx_hash": "51f3b25ba323b280ad2370623833cc7ac71d1cec908a55f7cf029b74f6d561b4",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 5,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+              }
+            },
+            {
+              "node_id": 4,
+              "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+              "deployment": {
+                "tx_hash": "1dcf8d273174a728b5f41396970c18ce6b30424550ac567c5827500381e313e7",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 6,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+              }
+            },
+            {
+              "node_id": 5,
+              "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+              "deployment": {
+                "tx_hash": "294c7caa9136bc4b8b7b38466f988b147b6f1062b6b22e05dd9efc0394dbaf35",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 7,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+              }
+            },
+            {
+              "node_id": 6,
+              "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "deployment": {
+                "tx_hash": "8a5f7dd008d7140a4ee492e14372e23186c2e2ac599918891dee156c2fb2247f",
+                "status": 1,
+                "gas_used": 1448294,
+                "block_number": 8,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+              }
+            },
+            {
+              "node_id": 7,
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "deployment": {
+                "tx_hash": "995d8558b22bf25fd3495b59c5a1fea98099e4795c4db791192049fdaf8b1ab7",
+                "status": 1,
+                "gas_used": 1475151,
+                "block_number": 9,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189608,
+                "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+              }
+            }
+          ],
+          "deployment_and_registration_gas_per_profile": 15496776,
+          "independent_stage_sessions": [
+            {
+              "session_id": "302001000000",
+              "theta_workflows": [
+                "302001000001"
+              ],
+              "entry_proxy": {
+                "tx_hash": "ddeea9b458169ce547c3373e042c12128945f93bc5822b26577d564785960afd",
+                "status": 1,
+                "gas_used": 71909,
+                "block_number": 11,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189609,
+                "client_wall_ms_to_receipt": 110.25690915994346,
+                "receipt_observed_at_utc": "2026-10-28T12:13:29"
+              },
+              "router_execution": {
+                "tx_hash": "de6e2bcc80854b471931bcc97506bac5acf96fd7b8262b5907d7fe0642b69702",
+                "status": 1,
+                "gas_used": 1430761,
+                "block_number": 12,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189609,
+                "client_wall_ms_to_receipt": 112.78786393813789,
+                "receipt_observed_at_utc": "2026-10-28T12:13:29",
+                "sink_view_query_after_receipt": {
+                  "result_exists": true,
+                  "node_id": 7,
+                  "observed_after_receipt_elapsed_ms": 121.36666104197502,
+                  "timing_note": "state was queried after the mined receipt; EVM does not expose a pre-receipt intermediate state for this transaction"
+                },
+                "transaction_count": 1,
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38579,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "gas_used": 92422,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "gas_used": 352137,
+                    "error": null
+                  }
+                ],
+                "external_stage_call_frame_count": 8,
+                "external_stage_call_gas_used_sum": 945248,
+                "node_events": [
+                  {
+                    "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000000"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000e9c65261c520361d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 0,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 0,
+                    "checksum": 16845242036098446877,
+                    "input_count": 0,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000012c5b69a255ea4be00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 1,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 1,
+                    "checksum": 1352688036262880446,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000d0fec8bdb05a60c600000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 2,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 2,
+                    "checksum": 15059694921006604486,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000fbf8011444fe2e5e00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 3,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 3,
+                    "checksum": 18156263084312637022,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000006bc6493923f323c900000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 4,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 4,
+                    "checksum": 7765975117212099529,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000006b2746be9507d62b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 5,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 5,
+                    "checksum": 7721217870508054059,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000ef457ba2d4b08ea700000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 6,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 6,
+                    "checksum": 17241322687741071015,
+                    "input_count": 1,
+                    "operation_count": 16
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                    "topics": [
+                      "b91a8aadf10efa26cdf54ba07985133126ce8a4e2d643515cd8b9a5c77a3b68f",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000050b9d6710340615400000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000010",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "checksum": 5816916174599905620,
+                    "input_count": 6,
+                    "operation_count": 16
+                  }
+                ],
+                "edge_input_events": [
+                  {
+                    "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000001"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 1,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 1,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000002"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 2,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 2,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000003"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 3,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 3,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000004"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 4,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 4,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000005"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 5,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 5,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000006"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e9c65261c520361d",
+                    "stage_node_id": 6,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 6,
+                    "parent_node_id": 0,
+                    "value": 16845242036098446877
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000012c5b69a255ea4be",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 1,
+                    "value": 1352688036262880446
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000d0fec8bdb05a60c6",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 2,
+                    "value": 15059694921006604486
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000fbf8011444fe2e5e",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 3,
+                    "value": 18156263084312637022
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000006bc6493923f323c9",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 4,
+                    "value": 7765975117212099529
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "00000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000006b2746be9507d62b",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 5,
+                    "value": 7721217870508054059
+                  },
+                  {
+                    "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "topic0": "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                    "topics": [
+                      "8af9e995174debe6ffe571585feea2a673cc5f13bba8413016ebfc07e7bbbd6d",
+                      "0000000000000000000000000000000000000000000000000000004650a98e40",
+                      "0000000000000000000000000000000000000000000000000000004650a98e41",
+                      "0000000000000000000000000000000000000000000000000000000000000007"
+                    ],
+                    "data": "0000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000ef457ba2d4b08ea7",
+                    "stage_node_id": 7,
+                    "session_id": 302001000000,
+                    "workflow_id": 302001000001,
+                    "node_id": 7,
+                    "parent_node_id": 6,
+                    "value": 17241322687741071015
+                  }
+                ],
+                "node_event_count": 8,
+                "edge_input_event_count": 12,
+                "workflows": [
+                  {
+                    "workflow_id": "302001000001",
+                    "node_checksums": [
+                      "16845242036098446877",
+                      "1352688036262880446",
+                      "15059694921006604486",
+                      "18156263084312637022",
+                      "7765975117212099529",
+                      "7721217870508054059",
+                      "17241322687741071015",
+                      "5816916174599905620"
+                    ],
+                    "near_node_checksums": [
+                      "16845242036098446877",
+                      "1352688036262880446",
+                      "15059694921006604486",
+                      "18156263084312637022",
+                      "7765975117212099529",
+                      "7721217870508054059",
+                      "17241322687741071015",
+                      "5816916174599905620"
+                    ],
+                    "checksums_match_near_same_receiver": true,
+                    "all_stage_storage_and_input_values_verified": true,
+                    "stage_nodes": [
+                      {
+                        "node_id": 0,
+                        "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "16845242036098446877",
+                        "input_count": 0,
+                        "operation_count": 16,
+                        "inputs": []
+                      },
+                      {
+                        "node_id": 1,
+                        "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "1352688036262880446",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 2,
+                        "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "15059694921006604486",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 3,
+                        "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "18156263084312637022",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 4,
+                        "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "7765975117212099529",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 5,
+                        "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "7721217870508054059",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 6,
+                        "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "17241322687741071015",
+                        "input_count": 1,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 0,
+                            "present": true,
+                            "value": "16845242036098446877",
+                            "expected_value": "16845242036098446877"
+                          }
+                        ]
+                      },
+                      {
+                        "node_id": 7,
+                        "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                        "result_exists": true,
+                        "session_id": 302001000000,
+                        "checksum": "5816916174599905620",
+                        "input_count": 6,
+                        "operation_count": 16,
+                        "inputs": [
+                          {
+                            "parent_node_id": 1,
+                            "present": true,
+                            "value": "1352688036262880446",
+                            "expected_value": "1352688036262880446"
+                          },
+                          {
+                            "parent_node_id": 2,
+                            "present": true,
+                            "value": "15059694921006604486",
+                            "expected_value": "15059694921006604486"
+                          },
+                          {
+                            "parent_node_id": 3,
+                            "present": true,
+                            "value": "18156263084312637022",
+                            "expected_value": "18156263084312637022"
+                          },
+                          {
+                            "parent_node_id": 4,
+                            "present": true,
+                            "value": "7765975117212099529",
+                            "expected_value": "7765975117212099529"
+                          },
+                          {
+                            "parent_node_id": 5,
+                            "present": true,
+                            "value": "7721217870508054059",
+                            "expected_value": "7721217870508054059"
+                          },
+                          {
+                            "parent_node_id": 6,
+                            "present": true,
+                            "value": "17241322687741071015",
+                            "expected_value": "17241322687741071015"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "exit_proxy": {
+                "tx_hash": "d8ebd1eb8fbfe69d85b6cd718524ec5bedef3466de0f89dc3fad7ef95eb30dde",
+                "status": 1,
+                "gas_used": 53184,
+                "block_number": 13,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189609,
+                "client_wall_ms_to_receipt": 110.21096003241837,
+                "receipt_observed_at_utc": "2026-10-28T12:13:29"
+              },
+              "stage_setup": {
+                "router_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "stage_addresses": [
+                  {
+                    "node_id": 0,
+                    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "deployment": {
+                      "tx_hash": "09260e5df0c816121acc1bc523877ef49a24b664b54a2368324fef9d24ce1fd9",
+                      "status": 1,
+                      "gas_used": 1423127,
+                      "block_number": 2,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+                    }
+                  },
+                  {
+                    "node_id": 1,
+                    "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "deployment": {
+                      "tx_hash": "7d2c2c0ae6cee5cae289d18d215eebf5ba843e78627b3c8b92debfa6bf019f8f",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 3,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+                    }
+                  },
+                  {
+                    "node_id": 2,
+                    "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "deployment": {
+                      "tx_hash": "feef884f0376bab9c207252d6537cecd1f15228869f5a35358f8e45fe89273a3",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 4,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+                    }
+                  },
+                  {
+                    "node_id": 3,
+                    "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "deployment": {
+                      "tx_hash": "51f3b25ba323b280ad2370623833cc7ac71d1cec908a55f7cf029b74f6d561b4",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 5,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+                    }
+                  },
+                  {
+                    "node_id": 4,
+                    "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "deployment": {
+                      "tx_hash": "1dcf8d273174a728b5f41396970c18ce6b30424550ac567c5827500381e313e7",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 6,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+                    }
+                  },
+                  {
+                    "node_id": 5,
+                    "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "deployment": {
+                      "tx_hash": "294c7caa9136bc4b8b7b38466f988b147b6f1062b6b22e05dd9efc0394dbaf35",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 7,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F"
+                    }
+                  },
+                  {
+                    "node_id": 6,
+                    "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "deployment": {
+                      "tx_hash": "8a5f7dd008d7140a4ee492e14372e23186c2e2ac599918891dee156c2fb2247f",
+                      "status": 1,
+                      "gas_used": 1448294,
+                      "block_number": 8,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+                    }
+                  },
+                  {
+                    "node_id": 7,
+                    "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "deployment": {
+                      "tx_hash": "995d8558b22bf25fd3495b59c5a1fea98099e4795c4db791192049fdaf8b1ab7",
+                      "status": 1,
+                      "gas_used": 1475151,
+                      "block_number": 9,
+                      "transaction_index": 0,
+                      "block_timestamp_unix_sec": 1793189608,
+                      "contract_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+                    }
+                  }
+                ],
+                "deployment_and_registration_gas": 15496776
+              },
+              "complete_session_gas_excluding_setup": 1555854,
+              "local_execution_gas": 1430761,
+              "session_state_valid": true,
+              "checksums_match_near_and_stage_inputs_valid": true,
+              "failure_probe": {
+                "entry": {
+                  "tx_hash": "ebe1084a4bfed8177a35dd1e06d604beabf8436369b6fe4ba7332f245f693fa3",
+                  "status": 1,
+                  "gas_used": 71933,
+                  "block_number": 14,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189609,
+                  "client_wall_ms_to_receipt": 110.06988305598497,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:29"
+                },
+                "workflow_id": "30002999999",
+                "fail_node": 4,
+                "tx_hash": "720053ab8e518f1862886688c5c3cd5aaf991676d68b7bcb2192d4dcd1d698f8",
+                "status": 0,
+                "gas_used": 558052,
+                "block_number": 15,
+                "transaction_index": 0,
+                "block_timestamp_unix_sec": 1793189609,
+                "client_wall_ms_to_receipt": 109.7720458637923,
+                "receipt_observed_at_utc": "2026-10-28T12:13:29",
+                "external_stage_call_frames": [
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "gas_used": 38605,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "gas_used": 92448,
+                    "error": null
+                  },
+                  {
+                    "depth": 1,
+                    "type": "CALL",
+                    "from": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+                    "to": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "gas_used": 59268,
+                    "error": "execution reverted"
+                  }
+                ],
+                "stage_state_after_revert": [
+                  {
+                    "node_id": 0,
+                    "stage_address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                    "result_exists": false,
+                    "parent_inputs_present": []
+                  },
+                  {
+                    "node_id": 1,
+                    "stage_address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 2,
+                    "stage_address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 3,
+                    "stage_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 4,
+                    "stage_address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 5,
+                    "stage_address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 6,
+                    "stage_address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false
+                    ]
+                  },
+                  {
+                    "node_id": 7,
+                    "stage_address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                    "result_exists": false,
+                    "parent_inputs_present": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ]
+                  }
+                ],
+                "router_state_after_revert": {
+                  "active": true,
+                  "expected_workflows": 1,
+                  "executed_workflows": 0,
+                  "workflow_checksum": 0,
+                  "operation_count": 0
+                },
+                "cleanup": {
+                  "tx_hash": "5dfa856d1e20b1782b5449b11a885fe0744a4773fe8f23d480ba6cde0059e234",
+                  "status": 1,
+                  "gas_used": 27479,
+                  "block_number": 16,
+                  "transaction_index": 0,
+                  "block_timestamp_unix_sec": 1793189610,
+                  "client_wall_ms_to_receipt": 109.72542781382799,
+                  "receipt_observed_at_utc": "2026-10-28T12:13:30"
+                },
+                "all_contract_state_rolled_back": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "anvil_runs": [
+    {
+      "repeat": 1,
+      "start_requested_at": "2026-10-28T12:13:23Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "54321",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T12:13:23Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T12:13:25Z",
+      "stopped_at": "2026-10-28T12:13:25Z"
+    },
+    {
+      "repeat": 2,
+      "start_requested_at": "2026-10-28T12:13:25Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "35707",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T12:13:25Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T12:13:27Z",
+      "stopped_at": "2026-10-28T12:13:27Z"
+    },
+    {
+      "repeat": 3,
+      "start_requested_at": "2026-10-28T12:13:27Z",
+      "automine": "Anvil default (enabled)",
+      "block_time_override_sec": null,
+      "command_line_flags": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "33265",
+        "--chain-id",
+        "31337",
+        "--silent"
+      ],
+      "rpc_ready_at": "2026-10-28T12:13:28Z",
+      "rpc_client_version": "anvil/v1.8.6",
+      "stop_requested_at": "2026-10-28T12:13:30Z",
+      "stopped_at": "2026-10-28T12:13:30Z"
+    }
+  ],
+  "updated_at": "2026-10-28T12:13:30Z",
+  "finished_at": "2026-10-28T12:13:30Z"
+}
