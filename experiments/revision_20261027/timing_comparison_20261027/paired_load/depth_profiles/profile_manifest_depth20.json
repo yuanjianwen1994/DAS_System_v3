@@ -1,0 +1,316 @@
+{
+  "experiment": "parameterized stateful multi-contract DAG workflows depth-20 extension; one workflow completion is the unit of goodput",
+  "schema_version": 1,
+  "runtime_scope": "nearcore Sandbox; single shard; cross-contract edges are not cross-execution-domain edges",
+  "repeat_unit": "each replicate starts a fresh nearcore Sandbox process and chain",
+  "timing_unit": "receipt dependency and finalized block-height spans; wall time is diagnostic only",
+  "business_domain_terms": [],
+  "profiles": [
+    {
+      "profile_id": "dag-01-chain-d2-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 2,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 2,
+      "edge_count": 1,
+      "parents": [
+        [],
+        [
+          0
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-04-chain-d4-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 4,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 4,
+      "edge_count": 3,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-07-chain-d8-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 8,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 8,
+      "edge_count": 7,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "profile_id": "dag-20-chain-d20-w1-theta1-nu1",
+      "shape": "chain",
+      "dependency_depth_d": 20,
+      "parallel_width_w": 1,
+      "cross_execution_domain_edge_fraction_p": 0.0,
+      "cross_contract_edge_fraction_near_multicontract": 1.0,
+      "concurrent_workflows_nu": 1,
+      "workflows_per_session_theta": 1,
+      "sessions_per_profile": 2,
+      "fresh_sandbox_repeats": 3,
+      "operations_per_node": 16,
+      "node_count": 20,
+      "edge_count": 19,
+      "parents": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ],
+        [
+          11
+        ],
+        [
+          12
+        ],
+        [
+          13
+        ],
+        [
+          14
+        ],
+        [
+          15
+        ],
+        [
+          16
+        ],
+        [
+          17
+        ],
+        [
+          18
+        ]
+      ],
+      "successors": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ],
+        [
+          11
+        ],
+        [
+          12
+        ],
+        [
+          13
+        ],
+        [
+          14
+        ],
+        [
+          15
+        ],
+        [
+          16
+        ],
+        [
+          17
+        ],
+        [
+          18
+        ],
+        [
+          19
+        ],
+        []
+      ],
+      "execution_domain_by_node": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
