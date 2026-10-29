@@ -1,0 +1,2621 @@
+{
+  "experiment": "paired-open-loop-independent-stage-dag",
+  "started_at": "2026-10-27T17:04:31.319Z",
+  "error": null,
+  "setup_gas": 34405631,
+  "completed": true,
+  "finished_at": "2026-10-27T17:07:07.772Z",
+  "phases": [
+    {
+      "phase": 0,
+      "rate_index": 0,
+      "warmup": true,
+      "session_id": "860000000000",
+      "offered_rate_per_sec": 1.0,
+      "offered": 5,
+      "phase_started_at": "2026-10-27T17:04:54.504Z",
+      "measurement_window_end_at": "2026-10-27T17:04:59.504Z",
+      "generation_ended_at": "2026-10-27T17:04:58.508Z",
+      "drained": true,
+      "completed": 5,
+      "successful_sink_completions": 5,
+      "failures": 0,
+      "unfinished_at_drain": 0,
+      "successful_completions_in_measurement_window": 5,
+      "measured_window_goodput_per_sec": 1.0,
+      "transaction_accepts_in_measurement_window": 5,
+      "measured_window_accept_rate_per_sec": 1.0,
+      "in_flight_at_measurement_window_end": 0,
+      "drain_time_after_window_ms": 0.0,
+      "offered_generator_rate_per_sec": 0.999262232863852,
+      "drained_successes_per_measurement_second": 1.0,
+      "client_task_queue_depth_high_water": 1,
+      "client_inflight_high_water": 2,
+      "mean_client_queue_delay_ms": 11.13233920186758,
+      "mean_generator_schedule_lag_ms": 1.7909669317305088,
+      "receipt_poll_interval_sec": 0.2,
+      "receipt_polling_strategy": "centralized_json_rpc_batch",
+      "receipt_batch_size": 128,
+      "receipt_batch_http_calls_in_phase": 25,
+      "receipt_poll_pending_at_phase_end": 0,
+      "receipt_poll_max_batch_latency_ms": 2.618,
+      "receipt_sampling_error_bound_ms": 202.618,
+      "rpc_load_path_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 1,
+          "errors": 1,
+          "total_ms": 5.963,
+          "mean_ms": 5.963,
+          "p95_ms": 5.963
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 10,
+          "errors": 0,
+          "total_ms": 14.083,
+          "mean_ms": 1.408,
+          "p95_ms": 1.528
+        },
+        "eth_chainId": {
+          "calls": 32,
+          "errors": 0,
+          "total_ms": 39.233,
+          "mean_ms": 1.226,
+          "p95_ms": 1.881
+        },
+        "eth_getBlockByNumber": {
+          "calls": 6,
+          "errors": 0,
+          "total_ms": 6.563,
+          "mean_ms": 1.094,
+          "p95_ms": 1.045
+        },
+        "eth_getTransactionCount": {
+          "calls": 5,
+          "errors": 0,
+          "total_ms": 5.41,
+          "mean_ms": 1.082,
+          "p95_ms": 0.997
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 34,
+          "errors": 0,
+          "total_ms": 61.872,
+          "mean_ms": 1.82,
+          "p95_ms": 2.17
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 25,
+          "errors": 0,
+          "total_ms": 47.571,
+          "mean_ms": 1.903,
+          "p95_ms": 2.17
+        },
+        "eth_pendingTransactions": {
+          "calls": 4,
+          "errors": 0,
+          "total_ms": 6.771,
+          "mean_ms": 1.693,
+          "p95_ms": 1.682
+        },
+        "eth_sendTransaction": {
+          "calls": 6,
+          "errors": 0,
+          "total_ms": 6.948,
+          "mean_ms": 1.158,
+          "p95_ms": 1.185
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 100,
+          "errors": 0,
+          "total_ms": 576.192,
+          "mean_ms": 5.762,
+          "p95_ms": 9.653
+        },
+        "eth_chainId": {
+          "calls": 200,
+          "errors": 0,
+          "total_ms": 1119.023,
+          "mean_ms": 5.595,
+          "p95_ms": 10.048
+        },
+        "eth_getBlockByNumber": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionByHash": {
+          "calls": 5,
+          "errors": 0,
+          "total_ms": 41.146,
+          "mean_ms": 8.229,
+          "p95_ms": 9.288
+        },
+        "eth_getTransactionCount": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_pendingTransactions": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_sendTransaction": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "mempool_samples": [
+        {
+          "sampled_at": "2026-10-27T17:04:55.514Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 7.304122904315591
+        },
+        {
+          "sampled_at": "2026-10-27T17:04:56.515Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 1.184350112453103
+        },
+        {
+          "sampled_at": "2026-10-27T17:04:57.517Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 1.7106658779084682
+        },
+        {
+          "sampled_at": "2026-10-27T17:04:58.521Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 2.6737588923424482
+        }
+      ],
+      "phase_start_block": 23,
+      "phase_end_block": 30,
+      "session_entry_tx_hash": "13792f2e1efbd66af7618bbec9217867182a46aa6eefedcb86c1e4e77adfd75a",
+      "session_close_status": 1,
+      "session_close_tx_hash": "37b6b194fd1417d7f89f4155d558565d6b736a810d2bcf84baf56d547e56323b",
+      "block_usage_samples": [
+        {
+          "block_number": 24,
+          "timestamp": 1793120695,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 25,
+          "timestamp": 1793120696,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 26,
+          "timestamp": 1793120697,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 27,
+          "timestamp": 1793120698,
+          "gas_used": 2910721,
+          "gas_limit": 30000000,
+          "utilization": 0.09702403333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 28,
+          "timestamp": 1793120699,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 29,
+          "timestamp": 1793120700,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 30,
+          "timestamp": 1793120701,
+          "gas_used": 53172,
+          "gas_limit": 30000000,
+          "utilization": 0.0017724,
+          "transaction_count": 1
+        }
+      ]
+    },
+    {
+      "phase": 0,
+      "rate_index": 0,
+      "warmup": false,
+      "session_id": "860050000000",
+      "offered_rate_per_sec": 1.0,
+      "offered": 30,
+      "phase_started_at": "2026-10-27T17:05:02.530Z",
+      "measurement_window_end_at": "2026-10-27T17:05:32.530Z",
+      "generation_ended_at": "2026-10-27T17:05:31.532Z",
+      "drained": true,
+      "completed": 30,
+      "successful_sink_completions": 30,
+      "failures": 0,
+      "unfinished_at_drain": 0,
+      "successful_completions_in_measurement_window": 30,
+      "measured_window_goodput_per_sec": 1.0,
+      "transaction_accepts_in_measurement_window": 30,
+      "measured_window_accept_rate_per_sec": 1.0,
+      "in_flight_at_measurement_window_end": 0,
+      "drain_time_after_window_ms": 0.0,
+      "offered_generator_rate_per_sec": 0.9998611510143806,
+      "drained_successes_per_measurement_second": 1.0,
+      "client_task_queue_depth_high_water": 1,
+      "client_inflight_high_water": 2,
+      "mean_client_queue_delay_ms": 13.417692303967973,
+      "mean_generator_schedule_lag_ms": 2.767403741988043,
+      "receipt_poll_interval_sec": 0.2,
+      "receipt_polling_strategy": "centralized_json_rpc_batch",
+      "receipt_batch_size": 128,
+      "receipt_batch_http_calls_in_phase": 150,
+      "receipt_poll_pending_at_phase_end": 0,
+      "receipt_poll_max_batch_latency_ms": 2.698,
+      "receipt_sampling_error_bound_ms": 202.698,
+      "rpc_load_path_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 1,
+          "errors": 1,
+          "total_ms": 1.847,
+          "mean_ms": 1.847,
+          "p95_ms": 1.847
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 60,
+          "errors": 0,
+          "total_ms": 86.435,
+          "mean_ms": 1.441,
+          "p95_ms": 1.699
+        },
+        "eth_chainId": {
+          "calls": 182,
+          "errors": 0,
+          "total_ms": 232.638,
+          "mean_ms": 1.278,
+          "p95_ms": 1.918
+        },
+        "eth_getBlockByNumber": {
+          "calls": 31,
+          "errors": 0,
+          "total_ms": 34.379,
+          "mean_ms": 1.109,
+          "p95_ms": 1.384
+        },
+        "eth_getTransactionByHash": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionCount": {
+          "calls": 30,
+          "errors": 0,
+          "total_ms": 31.313,
+          "mean_ms": 1.044,
+          "p95_ms": 1.193
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 161,
+          "errors": 0,
+          "total_ms": 304.681,
+          "mean_ms": 1.892,
+          "p95_ms": 2.336
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 150,
+          "errors": 0,
+          "total_ms": 286.75,
+          "mean_ms": 1.912,
+          "p95_ms": 2.336
+        },
+        "eth_pendingTransactions": {
+          "calls": 29,
+          "errors": 0,
+          "total_ms": 53.217,
+          "mean_ms": 1.835,
+          "p95_ms": 2.293
+        },
+        "eth_sendTransaction": {
+          "calls": 31,
+          "errors": 0,
+          "total_ms": 37.156,
+          "mean_ms": 1.199,
+          "p95_ms": 1.34
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 600,
+          "errors": 0,
+          "total_ms": 14255.121,
+          "mean_ms": 23.759,
+          "p95_ms": 42.668
+        },
+        "eth_chainId": {
+          "calls": 1200,
+          "errors": 0,
+          "total_ms": 28879.15,
+          "mean_ms": 24.066,
+          "p95_ms": 41.834
+        },
+        "eth_getBlockByNumber": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionByHash": {
+          "calls": 30,
+          "errors": 0,
+          "total_ms": 880.586,
+          "mean_ms": 29.353,
+          "p95_ms": 48.381
+        },
+        "eth_getTransactionCount": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_pendingTransactions": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_sendTransaction": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "mempool_samples": [
+        {
+          "sampled_at": "2026-10-27T17:05:03.534Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 3.900317009538412
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:04.538Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 3.381648100912571
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:05.540Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 2.2895080037415028
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:06.543Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 2.3199368733912706
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:07.546Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 1.8609159160405397
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:08.547Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.094284001737833
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:09.549Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.1779139749705791
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:10.557Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 5.57234394364059
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:11.559Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.704336842522025
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:12.561Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.7316609155386686
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:13.563Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.8577929586172104
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:14.565Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.8131190445274115
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:15.567Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.8451160285621881
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:16.569Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.62518210709095
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:17.571Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.5578840393573046
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:18.572Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.6407850198447704
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:19.574Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.6433349810540676
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:20.576Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.7780240159481764
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:21.578Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.625946955755353
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:22.580Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.4936570078134537
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:23.581Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.525564817711711
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:24.583Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.8062100280076265
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:25.585Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.5724198892712593
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:26.587Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.520839985460043
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:27.588Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.341755036264658
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:28.590Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.23443896882236
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:29.592Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 2.062808955088258
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:30.594Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.5893371310085058
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:31.595Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.6595448832958937
+        }
+      ],
+      "phase_start_block": 31,
+      "phase_end_block": 68,
+      "session_entry_tx_hash": "3f1b87fc4212ca72f57171df0b2ae73d585b7ba3f67396aa50d0bb27df6cab96",
+      "session_close_status": 1,
+      "session_close_tx_hash": "8a3c9d68903c361a831b501ef220f978687d53978a069057c9c873b5fa998b95",
+      "block_usage_samples": [
+        {
+          "block_number": 32,
+          "timestamp": 1793120703,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 33,
+          "timestamp": 1793120704,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 34,
+          "timestamp": 1793120705,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 35,
+          "timestamp": 1793120706,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 36,
+          "timestamp": 1793120707,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 37,
+          "timestamp": 1793120708,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 38,
+          "timestamp": 1793120709,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 39,
+          "timestamp": 1793120710,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 40,
+          "timestamp": 1793120711,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 41,
+          "timestamp": 1793120712,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 42,
+          "timestamp": 1793120713,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 43,
+          "timestamp": 1793120714,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 44,
+          "timestamp": 1793120715,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 45,
+          "timestamp": 1793120716,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 46,
+          "timestamp": 1793120717,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 47,
+          "timestamp": 1793120718,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 48,
+          "timestamp": 1793120719,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 49,
+          "timestamp": 1793120720,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 50,
+          "timestamp": 1793120721,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 51,
+          "timestamp": 1793120722,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 52,
+          "timestamp": 1793120723,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 53,
+          "timestamp": 1793120724,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 54,
+          "timestamp": 1793120725,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 55,
+          "timestamp": 1793120726,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 56,
+          "timestamp": 1793120727,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 57,
+          "timestamp": 1793120728,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 58,
+          "timestamp": 1793120729,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 59,
+          "timestamp": 1793120730,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 60,
+          "timestamp": 1793120731,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 61,
+          "timestamp": 1793120732,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 62,
+          "timestamp": 1793120733,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 63,
+          "timestamp": 1793120734,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 64,
+          "timestamp": 1793120735,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 65,
+          "timestamp": 1793120736,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 66,
+          "timestamp": 1793120737,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 67,
+          "timestamp": 1793120738,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 68,
+          "timestamp": 1793120739,
+          "gas_used": 53184,
+          "gas_limit": 30000000,
+          "utilization": 0.0017728,
+          "transaction_count": 1
+        }
+      ]
+    },
+    {
+      "phase": 1,
+      "rate_index": 1,
+      "warmup": true,
+      "session_id": "860100000000",
+      "offered_rate_per_sec": 2.0,
+      "offered": 10,
+      "phase_started_at": "2026-10-27T17:05:40.551Z",
+      "measurement_window_end_at": "2026-10-27T17:05:45.551Z",
+      "generation_ended_at": "2026-10-27T17:05:45.052Z",
+      "drained": true,
+      "completed": 10,
+      "successful_sink_completions": 10,
+      "failures": 0,
+      "unfinished_at_drain": 0,
+      "successful_completions_in_measurement_window": 5,
+      "measured_window_goodput_per_sec": 1.0,
+      "transaction_accepts_in_measurement_window": 10,
+      "measured_window_accept_rate_per_sec": 2.0,
+      "in_flight_at_measurement_window_end": 5,
+      "drain_time_after_window_ms": 5130.999803543091,
+      "offered_generator_rate_per_sec": 1.9994946749196194,
+      "drained_successes_per_measurement_second": 2.0,
+      "client_task_queue_depth_high_water": 1,
+      "client_inflight_high_water": 6,
+      "mean_client_queue_delay_ms": 7.895642286166549,
+      "mean_generator_schedule_lag_ms": 0.6580505985766649,
+      "receipt_poll_interval_sec": 0.2,
+      "receipt_polling_strategy": "centralized_json_rpc_batch",
+      "receipt_batch_size": 128,
+      "receipt_batch_http_calls_in_phase": 50,
+      "receipt_poll_pending_at_phase_end": 0,
+      "receipt_poll_max_batch_latency_ms": 4.131,
+      "receipt_sampling_error_bound_ms": 204.131,
+      "rpc_load_path_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 1,
+          "errors": 1,
+          "total_ms": 3.245,
+          "mean_ms": 3.245,
+          "p95_ms": 3.245
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 20,
+          "errors": 0,
+          "total_ms": 28.853,
+          "mean_ms": 1.443,
+          "p95_ms": 1.683
+        },
+        "eth_chainId": {
+          "calls": 62,
+          "errors": 0,
+          "total_ms": 72.687,
+          "mean_ms": 1.172,
+          "p95_ms": 1.823
+        },
+        "eth_getBlockByNumber": {
+          "calls": 11,
+          "errors": 0,
+          "total_ms": 12.426,
+          "mean_ms": 1.13,
+          "p95_ms": 1.208
+        },
+        "eth_getTransactionByHash": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionCount": {
+          "calls": 10,
+          "errors": 0,
+          "total_ms": 10.09,
+          "mean_ms": 1.009,
+          "p95_ms": 1.186
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 175,
+          "errors": 0,
+          "total_ms": 340.124,
+          "mean_ms": 1.944,
+          "p95_ms": 2.303
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 50,
+          "errors": 0,
+          "total_ms": 97.917,
+          "mean_ms": 1.958,
+          "p95_ms": 2.303
+        },
+        "eth_pendingTransactions": {
+          "calls": 10,
+          "errors": 0,
+          "total_ms": 24.316,
+          "mean_ms": 2.432,
+          "p95_ms": 3.52
+        },
+        "eth_sendTransaction": {
+          "calls": 11,
+          "errors": 0,
+          "total_ms": 13.37,
+          "mean_ms": 1.215,
+          "p95_ms": 1.347
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 200,
+          "errors": 0,
+          "total_ms": 1820.932,
+          "mean_ms": 9.105,
+          "p95_ms": 17.155
+        },
+        "eth_chainId": {
+          "calls": 400,
+          "errors": 0,
+          "total_ms": 3571.542,
+          "mean_ms": 8.929,
+          "p95_ms": 16.889
+        },
+        "eth_getBlockByNumber": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionByHash": {
+          "calls": 10,
+          "errors": 0,
+          "total_ms": 127.585,
+          "mean_ms": 12.759,
+          "p95_ms": 16.68
+        },
+        "eth_getTransactionCount": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_pendingTransactions": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_sendTransaction": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "mempool_samples": [
+        {
+          "sampled_at": "2026-10-27T17:05:41.556Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 4.795955028384924
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:42.560Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 2,
+          "error": null,
+          "elapsed_ms": 2.5747858453541994
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:43.563Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 3,
+          "error": null,
+          "elapsed_ms": 1.575019909068942
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:44.566Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 4,
+          "error": null,
+          "elapsed_ms": 3.554614959284663
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:45.569Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 5,
+          "error": null,
+          "elapsed_ms": 2.3946911096572876
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:46.571Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 4,
+          "error": null,
+          "elapsed_ms": 2.0762840285897255
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:47.574Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 3,
+          "error": null,
+          "elapsed_ms": 2.0438749343156815
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:48.579Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 2,
+          "error": null,
+          "elapsed_ms": 5.460103042423725
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:49.581Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.8017902038991451
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:50.583Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 0,
+          "error": null,
+          "elapsed_ms": 1.7917610239237547
+        }
+      ],
+      "phase_start_block": 69,
+      "phase_end_block": 82,
+      "session_entry_tx_hash": "c344ec8e8c70aed6fa775415f2a2c7c8f73caee15b5f986cd3ea7b6e21f8fd85",
+      "session_close_status": 1,
+      "session_close_tx_hash": "2c4c1cab13e5ee6c5fc12915b309791791d3d48d1d757bfa4ccb95eed5c7fe37",
+      "block_usage_samples": [
+        {
+          "block_number": 70,
+          "timestamp": 1793120741,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 71,
+          "timestamp": 1793120742,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 72,
+          "timestamp": 1793120743,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 73,
+          "timestamp": 1793120744,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 74,
+          "timestamp": 1793120745,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 75,
+          "timestamp": 1793120746,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 76,
+          "timestamp": 1793120747,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 77,
+          "timestamp": 1793120748,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 78,
+          "timestamp": 1793120749,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 79,
+          "timestamp": 1793120750,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 80,
+          "timestamp": 1793120751,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 81,
+          "timestamp": 1793120752,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 82,
+          "timestamp": 1793120753,
+          "gas_used": 53172,
+          "gas_limit": 30000000,
+          "utilization": 0.0017724,
+          "transaction_count": 1
+        }
+      ]
+    },
+    {
+      "phase": 1,
+      "rate_index": 1,
+      "warmup": false,
+      "session_id": "860150000000",
+      "offered_rate_per_sec": 2.0,
+      "offered": 60,
+      "phase_started_at": "2026-10-27T17:05:54.554Z",
+      "measurement_window_end_at": "2026-10-27T17:06:24.554Z",
+      "generation_ended_at": "2026-10-27T17:06:24.053Z",
+      "drained": true,
+      "completed": 60,
+      "successful_sink_completions": 60,
+      "failures": 0,
+      "unfinished_at_drain": 0,
+      "successful_completions_in_measurement_window": 29,
+      "measured_window_goodput_per_sec": 0.9666666666666667,
+      "transaction_accepts_in_measurement_window": 60,
+      "measured_window_accept_rate_per_sec": 2.0,
+      "in_flight_at_measurement_window_end": 31,
+      "drain_time_after_window_ms": 30038.000106811523,
+      "offered_generator_rate_per_sec": 1.9999467810186853,
+      "drained_successes_per_measurement_second": 2.0,
+      "client_task_queue_depth_high_water": 1,
+      "client_inflight_high_water": 31,
+      "mean_client_queue_delay_ms": 11.736795861118784,
+      "mean_generator_schedule_lag_ms": 0.9561306796967983,
+      "receipt_poll_interval_sec": 0.2,
+      "receipt_polling_strategy": "centralized_json_rpc_batch",
+      "receipt_batch_size": 128,
+      "receipt_batch_http_calls_in_phase": 300,
+      "receipt_poll_pending_at_phase_end": 0,
+      "receipt_poll_max_batch_latency_ms": 4.131,
+      "receipt_sampling_error_bound_ms": 204.131,
+      "rpc_load_path_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 1,
+          "errors": 1,
+          "total_ms": 2.792,
+          "mean_ms": 2.792,
+          "p95_ms": 2.792
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 120,
+          "errors": 0,
+          "total_ms": 194.812,
+          "mean_ms": 1.623,
+          "p95_ms": 2.15
+        },
+        "eth_chainId": {
+          "calls": 362,
+          "errors": 0,
+          "total_ms": 540.301,
+          "mean_ms": 1.493,
+          "p95_ms": 2.088
+        },
+        "eth_getBlockByNumber": {
+          "calls": 61,
+          "errors": 0,
+          "total_ms": 71.593,
+          "mean_ms": 1.174,
+          "p95_ms": 1.564
+        },
+        "eth_getTransactionByHash": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionCount": {
+          "calls": 60,
+          "errors": 0,
+          "total_ms": 76.151,
+          "mean_ms": 1.269,
+          "p95_ms": 2.602
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 4750,
+          "errors": 0,
+          "total_ms": 10285.636,
+          "mean_ms": 2.165,
+          "p95_ms": 2.562
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 300,
+          "errors": 0,
+          "total_ms": 630.438,
+          "mean_ms": 2.101,
+          "p95_ms": 2.512
+        },
+        "eth_pendingTransactions": {
+          "calls": 59,
+          "errors": 0,
+          "total_ms": 180.174,
+          "mean_ms": 3.054,
+          "p95_ms": 5.142
+        },
+        "eth_sendTransaction": {
+          "calls": 61,
+          "errors": 0,
+          "total_ms": 68.258,
+          "mean_ms": 1.119,
+          "p95_ms": 1.404
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "rpc_post_drain_audit_by_method": {
+        "anvil_getTransactionPool": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_accounts": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_call": {
+          "calls": 1200,
+          "errors": 0,
+          "total_ms": 58374.806,
+          "mean_ms": 48.646,
+          "p95_ms": 87.239
+        },
+        "eth_chainId": {
+          "calls": 2400,
+          "errors": 0,
+          "total_ms": 112604.732,
+          "mean_ms": 46.919,
+          "p95_ms": 85.334
+        },
+        "eth_getBlockByNumber": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionByHash": {
+          "calls": 60,
+          "errors": 0,
+          "total_ms": 2619.821,
+          "mean_ms": 43.664,
+          "p95_ms": 104.482
+        },
+        "eth_getTransactionCount": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_getTransactionReceipt_batch": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_pendingTransactions": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "eth_sendTransaction": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        },
+        "web3_clientVersion": {
+          "calls": 0,
+          "errors": 0,
+          "total_ms": 0,
+          "mean_ms": null,
+          "p95_ms": null
+        }
+      },
+      "mempool_samples": [
+        {
+          "sampled_at": "2026-10-27T17:05:55.559Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 5.034910049289465
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:56.562Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 2,
+          "error": null,
+          "elapsed_ms": 2.4859400000423193
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:57.564Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 3,
+          "error": null,
+          "elapsed_ms": 1.5600949991494417
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:58.567Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 4,
+          "error": null,
+          "elapsed_ms": 1.7694009002298117
+        },
+        {
+          "sampled_at": "2026-10-27T17:05:59.571Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 5,
+          "error": null,
+          "elapsed_ms": 4.288030089810491
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:00.573Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 7,
+          "error": null,
+          "elapsed_ms": 1.7232350073754787
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:01.575Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 8,
+          "error": null,
+          "elapsed_ms": 1.6640890389680862
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:02.578Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 9,
+          "error": null,
+          "elapsed_ms": 2.678715158253908
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:03.581Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 10,
+          "error": null,
+          "elapsed_ms": 2.52793007530272
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:04.583Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 11,
+          "error": null,
+          "elapsed_ms": 2.065525157377124
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:05.586Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 12,
+          "error": null,
+          "elapsed_ms": 2.2180990781635046
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:06.588Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 13,
+          "error": null,
+          "elapsed_ms": 1.9796749111264944
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:07.590Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 14,
+          "error": null,
+          "elapsed_ms": 1.8833870999515057
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:08.593Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 15,
+          "error": null,
+          "elapsed_ms": 2.2512110881507397
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:09.599Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 16,
+          "error": null,
+          "elapsed_ms": 5.18571212887764
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:10.599Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 17,
+          "error": null,
+          "elapsed_ms": 2.245834795758128
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:11.602Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 18,
+          "error": null,
+          "elapsed_ms": 2.3548800963908434
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:12.605Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 19,
+          "error": null,
+          "elapsed_ms": 3.132869955152273
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:13.614Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 20,
+          "error": null,
+          "elapsed_ms": 8.076027035713196
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:14.617Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 21,
+          "error": null,
+          "elapsed_ms": 2.860564971342683
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:15.620Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 22,
+          "error": null,
+          "elapsed_ms": 2.652945928275585
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:16.623Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 23,
+          "error": null,
+          "elapsed_ms": 2.8583770617842674
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:17.626Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 24,
+          "error": null,
+          "elapsed_ms": 2.8141741640865803
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:18.629Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 25,
+          "error": null,
+          "elapsed_ms": 2.75197415612638
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:19.632Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 26,
+          "error": null,
+          "elapsed_ms": 2.975469920784235
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:20.635Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 27,
+          "error": null,
+          "elapsed_ms": 3.5563791170716286
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:21.638Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 28,
+          "error": null,
+          "elapsed_ms": 2.8537679463624954
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:22.642Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 29,
+          "error": null,
+          "elapsed_ms": 3.072727005928755
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:23.646Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 30,
+          "error": null,
+          "elapsed_ms": 3.855027025565505
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:24.650Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 30,
+          "error": null,
+          "elapsed_ms": 3.7613839376717806
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:25.672Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 29,
+          "error": null,
+          "elapsed_ms": 11.44733396358788
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:26.676Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 28,
+          "error": null,
+          "elapsed_ms": 3.9949389174580574
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:27.680Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 27,
+          "error": null,
+          "elapsed_ms": 3.7466709036380053
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:28.684Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 26,
+          "error": null,
+          "elapsed_ms": 3.3538639545440674
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:29.689Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 25,
+          "error": null,
+          "elapsed_ms": 4.351647105067968
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:30.692Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 24,
+          "error": null,
+          "elapsed_ms": 3.4342920407652855
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:31.696Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 23,
+          "error": null,
+          "elapsed_ms": 3.3216611482203007
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:32.701Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 22,
+          "error": null,
+          "elapsed_ms": 3.837181953713298
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:33.704Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 21,
+          "error": null,
+          "elapsed_ms": 3.085438860580325
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:34.707Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 20,
+          "error": null,
+          "elapsed_ms": 3.1047139782458544
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:35.711Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 19,
+          "error": null,
+          "elapsed_ms": 3.016748931258917
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:36.725Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 18,
+          "error": null,
+          "elapsed_ms": 9.254969889298081
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:37.728Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 17,
+          "error": null,
+          "elapsed_ms": 2.908080816268921
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:38.731Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 16,
+          "error": null,
+          "elapsed_ms": 2.7840458787977695
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:39.734Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 15,
+          "error": null,
+          "elapsed_ms": 2.706605941057205
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:40.735Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 14,
+          "error": null,
+          "elapsed_ms": 2.6733060367405415
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:41.738Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 13,
+          "error": null,
+          "elapsed_ms": 2.610221039503813
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:42.741Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 12,
+          "error": null,
+          "elapsed_ms": 2.651836024597287
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:43.744Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 11,
+          "error": null,
+          "elapsed_ms": 2.7471811044961214
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:44.747Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 10,
+          "error": null,
+          "elapsed_ms": 2.4875609669834375
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:45.749Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 9,
+          "error": null,
+          "elapsed_ms": 2.5300318375229836
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:46.752Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 8,
+          "error": null,
+          "elapsed_ms": 2.4963319301605225
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:47.755Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 7,
+          "error": null,
+          "elapsed_ms": 2.6157000102102757
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:48.757Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 6,
+          "error": null,
+          "elapsed_ms": 2.355388831347227
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:49.760Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 5,
+          "error": null,
+          "elapsed_ms": 2.0998320542275906
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:50.762Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 4,
+          "error": null,
+          "elapsed_ms": 2.0028811413794756
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:51.764Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 3,
+          "error": null,
+          "elapsed_ms": 2.0998320542275906
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:52.766Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 2,
+          "error": null,
+          "elapsed_ms": 2.0186910405755043
+        },
+        {
+          "sampled_at": "2026-10-27T17:06:53.768Z",
+          "method": "eth_pendingTransactions",
+          "pending_count": 1,
+          "error": null,
+          "elapsed_ms": 1.869157887995243
+        }
+      ],
+      "phase_start_block": 83,
+      "phase_end_block": 156,
+      "session_entry_tx_hash": "d8606d724dc6acc040207d367d381a9d0361ef57a8a9c83195f7063a8bbf0432",
+      "session_close_status": 1,
+      "session_close_tx_hash": "8b2dd9d46a341985aa0baf269452c9a01dff2df9c369f7e1a8ed4684d5252f11",
+      "block_usage_samples": [
+        {
+          "block_number": 84,
+          "timestamp": 1793120755,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 85,
+          "timestamp": 1793120756,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 86,
+          "timestamp": 1793120757,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 87,
+          "timestamp": 1793120758,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 88,
+          "timestamp": 1793120759,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 89,
+          "timestamp": 1793120760,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 90,
+          "timestamp": 1793120761,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 91,
+          "timestamp": 1793120762,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 92,
+          "timestamp": 1793120763,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 93,
+          "timestamp": 1793120764,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 94,
+          "timestamp": 1793120765,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 95,
+          "timestamp": 1793120766,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 96,
+          "timestamp": 1793120767,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 97,
+          "timestamp": 1793120768,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 98,
+          "timestamp": 1793120769,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 99,
+          "timestamp": 1793120770,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 100,
+          "timestamp": 1793120771,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 101,
+          "timestamp": 1793120772,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 102,
+          "timestamp": 1793120773,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 103,
+          "timestamp": 1793120774,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 104,
+          "timestamp": 1793120775,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 105,
+          "timestamp": 1793120776,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 106,
+          "timestamp": 1793120777,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 107,
+          "timestamp": 1793120778,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 108,
+          "timestamp": 1793120779,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 109,
+          "timestamp": 1793120780,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 110,
+          "timestamp": 1793120781,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 111,
+          "timestamp": 1793120782,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 112,
+          "timestamp": 1793120783,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 113,
+          "timestamp": 1793120784,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 114,
+          "timestamp": 1793120785,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 115,
+          "timestamp": 1793120786,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 116,
+          "timestamp": 1793120787,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 117,
+          "timestamp": 1793120788,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 118,
+          "timestamp": 1793120789,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 119,
+          "timestamp": 1793120790,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 120,
+          "timestamp": 1793120791,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 121,
+          "timestamp": 1793120792,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 122,
+          "timestamp": 1793120793,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 123,
+          "timestamp": 1793120794,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 124,
+          "timestamp": 1793120795,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 125,
+          "timestamp": 1793120796,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 126,
+          "timestamp": 1793120797,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 127,
+          "timestamp": 1793120798,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 128,
+          "timestamp": 1793120799,
+          "gas_used": 2910733,
+          "gas_limit": 30000000,
+          "utilization": 0.09702443333333333,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 129,
+          "timestamp": 1793120800,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 130,
+          "timestamp": 1793120801,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 131,
+          "timestamp": 1793120802,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 132,
+          "timestamp": 1793120803,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 133,
+          "timestamp": 1793120804,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 134,
+          "timestamp": 1793120805,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 135,
+          "timestamp": 1793120806,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 136,
+          "timestamp": 1793120807,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 137,
+          "timestamp": 1793120808,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 138,
+          "timestamp": 1793120809,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 139,
+          "timestamp": 1793120810,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 140,
+          "timestamp": 1793120811,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 141,
+          "timestamp": 1793120812,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 142,
+          "timestamp": 1793120813,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 143,
+          "timestamp": 1793120814,
+          "gas_used": 2910745,
+          "gas_limit": 30000000,
+          "utilization": 0.09702483333333334,
+          "transaction_count": 1
+        },
+        {
+          "block_number": 144,
+          "timestamp": 1793120815,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 145,
+          "timestamp": 1793120816,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 146,
+          "timestamp": 1793120817,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 147,
+          "timestamp": 1793120818,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 148,
+          "timestamp": 1793120819,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 149,
+          "timestamp": 1793120820,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 150,
+          "timestamp": 1793120821,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 151,
+          "timestamp": 1793120822,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 152,
+          "timestamp": 1793120823,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 153,
+          "timestamp": 1793120824,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 154,
+          "timestamp": 1793120825,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 155,
+          "timestamp": 1793120826,
+          "gas_used": 0,
+          "gas_limit": 30000000,
+          "utilization": 0.0,
+          "transaction_count": 0
+        },
+        {
+          "block_number": 156,
+          "timestamp": 1793120827,
+          "gas_used": 53184,
+          "gas_limit": 30000000,
+          "utilization": 0.0017728,
+          "transaction_count": 1
+        }
+      ]
+    }
+  ]
+}
